@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
@@ -18,6 +17,9 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
 #map{width:100%;height:78vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
 .tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:#6272a4;flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
 </style>
 </head>
 <body>
@@ -32,79 +34,115 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
     <a href="index.html">← 返回工具站</a>
   </div>
   <div id="map"></div>
+  <div class="legend" id="legend"></div>
   <div class="tip">拖拽平移 · 滚轮缩放 · 点击国家看详情</div>
 </div>
 <script>
 var chart=echarts.init(document.getElementById('map'));
 
-/* HOI4 风格配色：按国家名排序分配色相，饱和偏深 */
-var colorList={};
-(function(){
-  var geo=echarts.getMap('world').geoJson;
-  var names=geo.features.map(function(f){return f.properties.name});
-  names.sort();
-  names.forEach(function(n,i){
-    var hue=Math.round((i/names.length)*360);
-    colorList[n]='hsl('+hue+',65%,38%)';
+var nameCN={
+'China':'中国','United States':'美国','Russia':'俄罗斯','Germany':'德国','France':'法国','United Kingdom':'英国',
+'Japan':'日本','Italy':'意大利','Spain':'西班牙','Canada':'加拿大','Australia':'澳大利亚','India':'印度',
+'Brazil':'巴西','Mexico':'墨西哥','Argentina':'阿根廷','Egypt':'埃及','South Africa':'南非','Nigeria':'尼日利亚',
+'South Korea':'韩国','North Korea':'朝鲜','Vietnam':'越南','Thailand':'泰国','Indonesia':'印度尼西亚',
+'Philippines':'菲律宾','Malaysia':'马来西亚','Singapore':'新加坡','Pakistan':'巴基斯坦','Bangladesh':'孟加拉国',
+'Turkey':'土耳其','Iran':'伊朗','Iraq':'伊拉克','Saudi Arabia':'沙特阿拉伯','Israel':'以色列','Syria':'叙利亚',
+'Ukraine':'乌克兰','Poland':'波兰','Sweden':'瑞典','Norway':'挪威','Finland':'芬兰','Denmark':'丹麦',
+'Netherlands':'荷兰','Belgium':'比利时','Switzerland':'瑞士','Austria':'奥地利','Hungary':'匈牙利',
+'Czech Rep.':'捷克','Slovakia':'斯洛伐克','Romania':'罗马尼亚','Bulgaria':'保加利亚','Greece':'希腊',
+'Portugal':'葡萄牙','Ireland':'爱尔兰','Iceland':'冰岛','Croatia':'克罗地亚','Serbia':'塞尔维亚',
+'Belarus':'白俄罗斯','Kazakhstan':'哈萨克斯坦','Mongolia':'蒙古','New Zealand':'新西兰','Chile':'智利',
+'Colombia':'哥伦比亚','Peru':'秘鲁','Venezuela':'委内瑞拉','Algeria':'阿尔及利亚','Morocco':'摩洛哥',
+'Sudan':'苏丹','Ethiopia':'埃塞俄比亚','Kenya':'肯尼亚','Tanzania':'坦桑尼亚','Libya':'利比亚',
+'Yemen':'也门','Oman':'阿曼','Qatar':'卡塔尔','Kuwait':'科威特','UAE':'阿联酋','Jordan':'约旦',
+'Lebanon':'黎巴嫩','Afghanistan':'阿富汗','Nepal':'尼泊尔','Cuba':'古巴','Jamaica':'牙买加',
+'Luxembourg':'卢森堡','Latvia':'拉脱维亚','Estonia':'爱沙尼亚','Lithuania':'立陶宛','Slovenia':'斯洛文尼亚',
+'Bosnia and Herz.':'波黑','Macedonia':'北马其顿','Albania':'阿尔巴尼亚','Moldova':'摩尔多瓦','Georgia':'格鲁吉亚',
+'Armenia':'亚美尼亚','Azerbaijan':'阿塞拜疆','Uzbekistan':'乌兹别克斯坦','Turkmenistan':'土库曼斯坦',
+'Kyrgyzstan':'吉尔吉斯斯坦','Tajikistan':'塔吉克斯坦','Cambodia':'柬埔寨','Laos':'老挝','Myanmar':'缅甸',
+'W. Sahara':'西撒哈拉','Dem. Rep. Congo':'刚果(金)','Congo':'刚果(布)','Somalia':'索马里',
+'Central African Rep.':'中非','Chad':'乍得','Niger':'尼日尔','Mali':'马里','Burkina Faso':'布基纳法索',
+'Mauritania':'毛里塔尼亚','Senegal':'塞内加尔','Guinea':'几内亚','Sierra Leone':'塞拉利昂','Liberia':'利比里亚',
+'Ivory Coast':'科特迪瓦','Ghana':'加纳','Togo':'多哥','Benin':'贝宁','South Sudan':'南苏丹',
+'Uganda':'乌干达','Rwanda':'卢旺达','Burundi':'布隆迪','Malawi':'马拉维','Zambia':'赞比亚',
+'Mozambique':'莫桑比克','Madagascar':'马达加斯加','Botswana':'博茨瓦纳','Namibia':'纳米比亚',
+'Lesotho':'莱索托','eSwatini':'斯威士兰','Angola':'安哥拉','Zimbabwe':'津巴布韦','Greenland':'格陵兰',
+'Puerto Rico':'波多黎各','Bahamas':'巴哈马','Dominican Rep.':'多米尼加','Haiti':'海地',
+'Guatemala':'危地马拉','Honduras':'洪都拉斯','Nicaragua':'尼加拉瓜','Costa Rica':'哥斯达黎加',
+'Panama':'巴拿马','Bolivia':'玻利维亚','Paraguay':'巴拉圭','Uruguay':'乌拉圭','Ecuador':'厄瓜多尔',
+'Guyana':'圭亚那','Suriname':'苏里南','Timor-Leste':'东帝汶','Solomon Is.':'所罗门群岛',
+'Fiji':'斐济','Vanuatu':'瓦努阿图','Papua New Guinea':'巴布亚新几内亚','Bhutan':'不丹',
+'Sri Lanka':'斯里兰卡','Maldives':'马尔代夫','Seychelles':'塞舌尔','Mauritius':'毛里求斯',
+'Comoros':'科摩罗','Cape Verde':'佛得角','Gambia':'冈比亚','Guinea-Bissau':'几内亚比绍',
+'West Bank':'巴勒斯坦','Taiwan':'台湾','Hong Kong':'香港','Macao':'澳门','Falkland Is.':'福克兰群岛',
+'New Caledonia':'新喀里多尼亚','Fr. S. Antarctic Lands':'法属南方领地','Eq. Guinea':'赤道几内亚',
+'Gabon':'加蓬','Cameroon':'喀麦隆','Swaziland':'斯威士兰','Gaza':'加沙'
+};
+
+function cnName(en){return nameCN[en]||en;}
+
+var modernColors={};
+var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
+
+fetch('data/world.json')
+  .then(function(r){return r.json()})
+  .then(function(geo){
+    echarts.registerMap('world',geo);
+    var names=geo.features.map(function(f){return f.properties.name});
+    names.sort();
+    names.forEach(function(n,i){
+      var hue=Math.round((i/names.length)*360);
+      modernColors[n]='hsl('+hue+',55%,38%)';
+    });
+    ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
+    ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
+    ['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
+    ['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
+    switchMap('modern',document.querySelector('.btns button'));
   });
-})();
 
-function buildData(){
-  return Object.keys(colorList).map(function(name){
-    return {name:name,value:colorList[name]};
-  });
+function buildData(mode){
+  var data=[];
+  for(var en in modernColors){
+    var color=modernColors[en];
+    if(mode==='ww1'&&ww1Set[en])color=ww1Set[en];
+    if(mode==='ww2'){
+      if(ww2Axis[en])color=ww2Axis[en];
+      else if(ww2Soviet[en])color=ww2Soviet[en];
+      else if(ww2Allies[en])color=ww2Allies[en];
+    }
+    data.push({
+      name:en,
+      itemStyle:{areaColor:color,borderColor:'#000',borderWidth:.5},
+      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1,formatter:function(){return cnName(en);}}
+    });
+  }
+  return data;
 }
 
-/* 一战/二战标注 */
-var ww1Markers=[
-  {name:'德意志帝国',value:[10,51]},{name:'奥匈帝国',value:[15,48]},
-  {name:'俄罗斯帝国',value:[40,58]},{name:'大英帝国',value:[-2,54]},
-  {name:'法兰西第三共和国',value:[2,47]},{name:'奥斯曼帝国',value:[35,39]},
-  {name:'意大利王国',value:[12,42]},{name:'塞尔维亚',value:[21,44]},
-  {name:'比利时',value:[4,50]}
-];
-var ww2Markers=[
-  {name:'纳粹德国',value:[12,52]},{name:'苏联',value:[45,58]},
-  {name:'大日本帝国',value:[138,36]},{name:'意大利王国',value:[12,42]},
-  {name:'英国',value:[-2,54]},{name:'美国',value:[-98,39]},
-  {name:'维希法国',value:[2,46]},{name:'中华民国',value:[105,30]},
-  {name:'芬兰',value:[25,62]}
-];
-
-function markerSeries(markers){
-  return {
-    type:'effectScatter',coordinateSystem:'geo',symbolSize:9,
-    rippleEffect:{brushType:'stroke',scale:3},
-    label:{show:true,formatter:'{b}',position:'right',color:'#ffd700',fontSize:12,fontWeight:'bold',textBorderColor:'#000',textBorderWidth:2},
-    itemStyle:{color:'#ffd700'},
-    data:markers.map(function(m){return{name:m.name,value:m.value}})
-  };
-}
-
-function baseOption(){
-  return {
-    backgroundColor:'#0a0a12',
-    tooltip:{trigger:'item',backgroundColor:'rgba(26,26,46,.95)',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0',fontSize:13}},
-    geo:{
-      map:'world',roam:true,zoom:1.2,
-      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1},
-      itemStyle:{areaColor:'#2a2a4a',borderColor:'#000',borderWidth:.5},
-      emphasis:{label:{color:'#fff',fontSize:10},itemStyle:{areaColor:'#4a4a6a',borderColor:'#000'}}
-    },
-    series:[{type:'map',map:'world',geoIndex:0,data:buildData()}]
-  };
-}
-
-function switchMap(type,btn){
+function switchMap(mode,btn){
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
-  var opt=baseOption();
-  if(type==='ww1')opt.series.push(markerSeries(ww1Markers));
-  else if(type==='ww2')opt.series.push(markerSeries(ww2Markers));
+  var opt={
+    backgroundColor:'#0a0a12',
+    tooltip:{trigger:'item',backgroundColor:'rgba(26,26,46,.95)',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0',fontSize:13},
+      formatter:function(p){return cnName(p.name);}},
+    series:[{
+      type:'map',map:'world',roam:true,zoom:1.2,
+      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1},
+      itemStyle:{borderColor:'#000',borderWidth:.5},
+      emphasis:{label:{color:'#fff',fontSize:10},itemStyle:{borderColor:'#000'}},
+      data:buildData(mode)
+    }]
+  };
   chart.setOption(opt,true);
+  var lg=document.getElementById('legend');
+  if(mode==='ww1'){
+    lg.innerHTML='<span><i style="background:#c9a84c"></i>一战帝国疆域</span><span><i style="background:#4a4a6a"></i>其他国家</span>';
+  }else if(mode==='ww2'){
+    lg.innerHTML='<span><i style="background:#d94444"></i>轴心国</span><span><i style="background:#aa2222"></i>苏联势力</span><span><i style="background:#4477dd"></i>同盟国</span>';
+  }else{lg.innerHTML='';}
 }
-
-switchMap('modern',document.querySelector('.btns button'));
 window.addEventListener('resize',function(){chart.resize()});
 </script>
 </body>
