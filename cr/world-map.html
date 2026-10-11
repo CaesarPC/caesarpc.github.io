@@ -41,7 +41,7 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
   <div class="tip">拖拽平移 · 滚轮缩放 · 左右无限滚动 · 点击国家看详情</div>
 </div>
 <script>
-var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true,zoomControl:true,attributionControl:false}).setView([30,0],2);
+var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true,zoomControl:true,attributionControl:false,maxBounds:[[-60,-180],[85,180]],maxBoundsViscosity:1.0}).setView([30,0],2);
 map.getContainer().style.background='#0a1628';
 
 var nameCN={
@@ -134,15 +134,35 @@ function getFeatureCenter(feature){
   return [lat/coords.length,lng/coords.length];
 }
 
+/* 估算国家面积（用经纬度范围近似） */
+function getFeatureSize(feature){
+  var minLng=180,maxLng=-180,minLat=90,maxLat=-90;
+  function walk(coords){
+    if(typeof coords[0]==='number'){
+      if(coords[0]<minLng)minLng=coords[0];
+      if(coords[0]>maxLng)maxLng=coords[0];
+      if(coords[1]<minLat)minLat=coords[1];
+      if(coords[1]>maxLat)maxLat=coords[1];
+    }else{coords.forEach(walk)}
+  }
+  walk(feature.geometry.coordinates);
+  return (maxLng-minLng)*(maxLat-minLat);
+}
+
 function addLabels(geoJson){
   labelLayer.clearLayers();
   var z=map.getZoom();
-  var showSmall=z>=3;
+  /* 根据缩放级别决定显示哪些国家 */
+  var sizeThreshold=z<=2?500:(z<=3?100:(z<=4?20:5));
   geoJson.features.forEach(function(f){
     var n=f.properties.name;
-    if(!bigCountries[n]&&!showSmall)return;
+    var size=getFeatureSize(f);
+    /* 大国始终显示，小国根据缩放级别显示 */
+    if(size<sizeThreshold&&!bigCountries[n])return;
     var c=getFeatureCenter(f);
     if(!c)return;
+    /* 字号根据国家大小和缩放级别动态调整 */
+    var fs=bigCountries[n]?Math.max(9,Math.round(11*z/2.5)):Math.max(7,Math.round(8*z/2.5));
     L.marker(c,{
       icon:L.divIcon({className:'country-label'+(bigCountries[n]?'':' country-label-small'),html:cnName(n),iconSize:null}),
       interactive:false
