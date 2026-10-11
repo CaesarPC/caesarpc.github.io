@@ -41,10 +41,9 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
   <div class="tip">拖拽平移 · 滚轮缩放 · 左右无限滚动 · 点击国家看详情</div>
 </div>
 <script>
-var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true}).setView([30,0],2);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19
-}).addTo(map);
+var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true,zoomControl:true,attributionControl:false}).setView([30,0],2);
+/* 纯深蓝背景，不加载底图瓦片 */
+map.getContainer().style.background='#0a1628';
 
 var nameCN={
 'China':'中国','United States':'美国','Russia':'俄罗斯','Germany':'德国','France':'法国','United Kingdom':'英国',
