@@ -4,23 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .wrap{max-width:1400px;margin:0 auto;padding:16px}
-.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px}
 .header h1{font-size:22px;color:#50fa7b}
 .header a{color:#6272a4;text-decoration:none;font-size:13px}
 .btns{display:flex;gap:8px;flex-wrap:wrap}
 .btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:.2s}
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
-#map{width:100%;height:80vh;background:#0a1628;border-radius:12px;border:1px solid #2a4a6a}
-.tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
-.legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:#6272a4;flex-wrap:wrap}
+#map{width:100%;height:78vh;border-radius:12px;border:1px solid #2a4a6a;background:#0a1628}
+.tip{margin-top:8px;font-size:12px;color:#6272a4;text-align:center}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:6px;font-size:12px;color:#6272a4;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:4px}
 .legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+.country-label{background:transparent;border:none;box-shadow:none;color:rgba(255,255,255,.85);font-size:11px;font-weight:bold;text-shadow:0 0 3px #000,0 0 3px #000;pointer-events:none;white-space:nowrap}
+.country-label-small{font-size:8px}
 </style>
 </head>
 <body>
@@ -28,18 +30,21 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
   <div class="header">
     <h1>🌍 世界地图</h1>
     <div class="btns">
-      <button class="active" onclick="switchMap('modern',this)">现代</button>
-      <button onclick="switchMap('ww1',this)">一战 1914</button>
-      <button onclick="switchMap('ww2',this)">二战 1942</button>
+      <button class="active" onclick="setMode('modern',this)">现代</button>
+      <button onclick="setMode('ww1',this)">一战 1914</button>
+      <button onclick="setMode('ww2',this)">二战 1942</button>
     </div>
     <a href="index.html">← 返回工具站</a>
   </div>
   <div id="map"></div>
   <div class="legend" id="legend"></div>
-  <div class="tip">拖拽平移 · 滚轮缩放 · 字随缩放自动大小</div>
+  <div class="tip">拖拽平移 · 滚轮缩放 · 左右无限滚动 · 点击国家看详情</div>
 </div>
 <script>
-var chart=echarts.init(document.getElementById('map'));
+var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true}).setView([30,0],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+  attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19
+}).addTo(map);
 
 var nameCN={
 'China':'中国','United States':'美国','Russia':'俄罗斯','Germany':'德国','France':'法国','United Kingdom':'英国',
@@ -82,11 +87,6 @@ var nameCN={
 
 function cnName(en){return nameCN[en]||en;}
 
-var modernColors={};
-var countrySizes={}; /* 大国=1 小国=0 */
-var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
-
-/* 大国列表（面积/人口大），小国家字号更小 */
 var bigCountries={'China':1,'United States':1,'Russia':1,'Canada':1,'Brazil':1,'Australia':1,'India':1,
 'Argentina':1,'Kazakhstan':1,'Algeria':1,'Dem. Rep. Congo':1,'Greenland':1,'Saudi Arabia':1,
 'Mexico':1,'Indonesia':1,'Libya':1,'Iran':1,'Mongolia':1,'Peru':1,'Chad':1,'Niger':1,'Angola':1,
@@ -96,57 +96,93 @@ var bigCountries={'China':1,'United States':1,'Russia':1,'Canada':1,'Brazil':1,'
 'Madagascar':1,'Mozambique':1,'Zambia':1,'Namibia':1,'Botswana':1,'Afghanistan':1,'Iraq':1,
 'Yemen':1,'Oman':1,'Pakistan':1,'Bangladesh':1,'Uzbekistan':1,'Bolivia':1,'Mauritania':1};
 
-(function(){
-  var geo=echarts.getMap('world').geoJson;
-  var names=geo.features.map(function(f){return f.properties.name});
-  names.sort();
-  names.forEach(function(n,i){
-    var hue=Math.round((i/names.length)*360);
-    modernColors[n]='hsl('+hue+',50%,42%)';
-    countrySizes[n]=bigCountries[n]?1:0;
-  });
-  ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
-  ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
-  ['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
-  ['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
-})();
+var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
+['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
+['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
+['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
+['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
 
-function buildData(mode){
-  var data=[];
-  for(var en in modernColors){
-    var color=modernColors[en];
-    if(mode==='ww1'&&ww1Set[en])color=ww1Set[en];
-    if(mode==='ww2'){
-      if(ww2Axis[en])color=ww2Axis[en];
-      else if(ww2Soviet[en])color=ww2Soviet[en];
-      else if(ww2Allies[en])color=ww2Allies[en];
-    }
-    data.push({
-      name:en,
-      itemStyle:{areaColor:color,borderColor:'rgba(255,255,255,.3)',borderWidth:.5},
-      label:{show:true,fontSize:countrySizes[en]?11:8}
-    });
+var geoLayer=null;
+var labelLayer=L.layerGroup().addTo(map);
+
+function getColor(name,mode){
+  if(mode==='ww1'&&ww1Set[name])return ww1Set[name];
+  if(mode==='ww2'){
+    if(ww2Axis[name])return ww2Axis[name];
+    if(ww2Soviet[name])return ww2Soviet[name];
+    if(ww2Allies[name])return ww2Allies[name];
   }
-  return data;
+  /* 现代模式：按国家名哈希分配颜色 */
+  var hash=0;
+  for(var i=0;i<name.length;i++)hash=(hash*31+name.charCodeAt(i))>>>0;
+  var hue=hash%360;
+  return 'hsl('+hue+',50%,38%)';
 }
 
+function styleCountry(feature,mode){
+  return {
+    fillColor:getColor(feature.properties.name,mode),
+    weight:1,
+    opacity:1,
+    color:'rgba(255,255,255,.4)',
+    fillOpacity:.85
+  };
+}
+
+function addLabels(geoJson,mode){
+  labelLayer.clearLayers();
+  var z=map.getZoom();
+  var showSmall=z>=3;
+  geoJson.features.forEach(function(f){
+    var n=f.properties.name;
+    if(!bigCountries[n]&&!showSmall)return;
+    var center=L.latLngBounds(f.geometry.coordinates[0][0]?
+      f.geometry.coordinates[0][0]:[0,0]).getCenter();
+    /* 用 Turf 风格简化：直接取第一个坐标点 */
+    var coords=f.geometry.type==='Polygon'?f.geometry.coordinates[0]:
+      (f.geometry.type==='MultiPolygon'?f.geometry.coordinates[0][0]:[]);
+    if(!coords.length)return;
+    var lng=0,lat=0;
+    coords.forEach(function(c){lng+=c[0];lat+=c[1]});
+    lng/=coords.length;lat/=coords.length;
+    L.marker([lat,lng],{
+      icon:L.divIcon({className:'country-label'+(bigCountries[n]?'':' country-label-small'),html:cnName(n),iconSize:null}),
+      interactive:false
+    }).addTo(labelLayer);
+  });
+}
+
+var currentGeo=null;
+fetch('data/world.json')
+  .then(function(r){return r.json()})
+  .then(function(geo){
+    currentGeo=geo;
+    drawMap('modern');
+  });
+
+function drawMap(mode){
+  if(geoLayer){map.removeLayer(geoLayer)}
+  geoLayer=L.geoJSON(currentGeo,{
+    style:function(f){return styleCountry(f,mode)},
+    onEachFeature:function(f,layer){
+      layer.bindPopup('<b>'+cnName(f.properties.name)+'</b>');
+      layer.on({
+        mouseover:function(e){e.target.setStyle({weight:2,color:'#fff',fillOpacity:.95})},
+        mouseout:function(e){geoLayer.resetStyle(e.target)}
+      });
+    }
+  }).addTo(map);
+  addLabels(currentGeo,mode);
+}
+
+map.on('zoomend',function(){if(currentGeo)addLabels(currentGeo,currentMode)});
+
 var currentMode='modern';
-function switchMap(mode,btn){
+function setMode(mode,btn){
   currentMode=mode;
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
-  chart.setOption({
-    backgroundColor:'#0a1628',
-    tooltip:{trigger:'item',backgroundColor:'rgba(10,22,40,.95)',borderColor:'#2a4a6a',textStyle:{color:'#e6f0ff',fontSize:13},
-      formatter:function(p){return cnName(p.name);}},
-    series:[{
-      type:'map',map:'world',roam:true,zoom:1.2,
-      label:{show:true,color:'rgba(255,255,255,.9)',formatter:function(p){return cnName(p.name);}},
-      itemStyle:{borderColor:'rgba(255,255,255,.3)',borderWidth:.5},
-      emphasis:{label:{color:'#fff'},itemStyle:{borderColor:'#fff'}},
-      data:buildData(mode)
-    }]
-  },true);
+  drawMap(mode);
   var lg=document.getElementById('legend');
   if(mode==='ww1'){
     lg.innerHTML='<span><i style="background:#c9a84c"></i>一战帝国疆域</span><span><i style="background:#3a3a5a"></i>其他国家</span>';
@@ -154,22 +190,6 @@ function switchMap(mode,btn){
     lg.innerHTML='<span><i style="background:#d94444"></i>轴心国</span><span><i style="background:#aa2222"></i>苏联势力</span><span><i style="background:#4477dd"></i>同盟国</span>';
   }else{lg.innerHTML='';}
 }
-
-/* 监听缩放，动态调整字号 */
-chart.on('georoam',function(){
-  var opt=chart.getOption();
-  var zoom=opt.series[0].zoom||1.2;
-  var newFs=Math.round(11*zoom*0.8);
-  if(newFs<6)newFs=6;
-  chart.setOption({
-    series:[{
-      label:{fontSize:newFs}
-    }]
-  });
-});
-
-switchMap('modern',document.querySelector('.btns button'));
-window.addEventListener('resize',function(){chart.resize()});
 </script>
 </body>
 </html>
