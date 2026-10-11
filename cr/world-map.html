@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
@@ -17,7 +18,6 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
 #map{width:100%;height:78vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
 .tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
-.loading{text-align:center;padding:40px;color:#6272a4}
 </style>
 </head>
 <body>
@@ -31,77 +31,49 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <a href="index.html">← 返回工具站</a>
   </div>
-  <div id="map"><div class="loading">正在加载地图数据...</div></div>
+  <div id="map"></div>
   <div class="tip">拖拽平移 · 滚轮缩放 · 点击国家看详情</div>
 </div>
 <script>
-var chart=null;
-var geoJson=null;
+var chart=echarts.init(document.getElementById('map'));
 
-/* HOI4 风格配色：饱和但偏深，每个国家一个独特色 */
-function colorByIndex(i,total){
-  var hue=Math.round((i/total)*360);
-  return 'hsl('+hue+',65%,38%)';
-}
-
-function loadMap(){
-  fetch('https://geo.datav.aliyun.com/areas_v3/bound/world.json')
-    .then(function(r){return r.json()})
-    .then(function(geo){
-      geoJson=geo;
-      echarts.registerMap('world',geo);
-      initChart();
-      switchMap('modern',document.querySelector('.btns button'));
-    })
-    .catch(function(e){
-      document.getElementById('map').innerHTML='<div class="loading">地图数据加载失败，请检查网络</div>';
-    });
-}
+/* HOI4 风格配色：按国家名排序分配色相，饱和偏深 */
+var colorList={};
+(function(){
+  var geo=echarts.getMap('world').geoJson;
+  var names=geo.features.map(function(f){return f.properties.name});
+  names.sort();
+  names.forEach(function(n,i){
+    var hue=Math.round((i/names.length)*360);
+    colorList[n]='hsl('+hue+',65%,38%)';
+  });
+})();
 
 function buildData(){
-  if(!geoJson)return [];
-  var features=geoJson.features;
-  return features.map(function(f,i){
-    return {
-      name:f.properties.name||f.properties.NAME||'未知',
-      value:colorByIndex(i,features.length)
-    };
+  return Object.keys(colorList).map(function(name){
+    return {name:name,value:colorList[name]};
   });
-}
-
-function initChart(){
-  chart=echarts.init(document.getElementById('map'));
 }
 
 /* 一战/二战标注 */
 var ww1Markers=[
-  {name:'德意志帝国',value:[10,51]},
-  {name:'奥匈帝国',value:[15,48]},
-  {name:'俄罗斯帝国',value:[40,58]},
-  {name:'大英帝国',value:[-2,54]},
-  {name:'法兰西第三共和国',value:[2,47]},
-  {name:'奥斯曼帝国',value:[35,39]},
-  {name:'意大利王国',value:[12,42]},
-  {name:'塞尔维亚',value:[21,44]},
+  {name:'德意志帝国',value:[10,51]},{name:'奥匈帝国',value:[15,48]},
+  {name:'俄罗斯帝国',value:[40,58]},{name:'大英帝国',value:[-2,54]},
+  {name:'法兰西第三共和国',value:[2,47]},{name:'奥斯曼帝国',value:[35,39]},
+  {name:'意大利王国',value:[12,42]},{name:'塞尔维亚',value:[21,44]},
   {name:'比利时',value:[4,50]}
 ];
 var ww2Markers=[
-  {name:'纳粹德国',value:[12,52]},
-  {name:'苏联',value:[45,58]},
-  {name:'大日本帝国',value:[138,36]},
-  {name:'意大利王国',value:[12,42]},
-  {name:'英国',value:[-2,54]},
-  {name:'美国',value:[-98,39]},
-  {name:'维希法国',value:[2,46]},
-  {name:'中华民国',value:[105,30]},
+  {name:'纳粹德国',value:[12,52]},{name:'苏联',value:[45,58]},
+  {name:'大日本帝国',value:[138,36]},{name:'意大利王国',value:[12,42]},
+  {name:'英国',value:[-2,54]},{name:'美国',value:[-98,39]},
+  {name:'维希法国',value:[2,46]},{name:'中华民国',value:[105,30]},
   {name:'芬兰',value:[25,62]}
 ];
 
 function markerSeries(markers){
   return {
-    type:'effectScatter',
-    coordinateSystem:'geo',
-    symbolSize:9,
+    type:'effectScatter',coordinateSystem:'geo',symbolSize:9,
     rippleEffect:{brushType:'stroke',scale:3},
     label:{show:true,formatter:'{b}',position:'right',color:'#ffd700',fontSize:12,fontWeight:'bold',textBorderColor:'#000',textBorderWidth:2},
     itemStyle:{color:'#ffd700'},
@@ -114,26 +86,12 @@ function baseOption(){
     backgroundColor:'#0a0a12',
     tooltip:{trigger:'item',backgroundColor:'rgba(26,26,46,.95)',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0',fontSize:13}},
     geo:{
-      map:'world',
-      roam:true,
-      zoom:1.2,
+      map:'world',roam:true,zoom:1.2,
       label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1},
-      itemStyle:{
-        areaColor:'#2a2a4a',
-        borderColor:'#000',
-        borderWidth:.5
-      },
-      emphasis:{
-        label:{color:'#fff',fontSize:10},
-        itemStyle:{areaColor:'#4a4a6a',borderColor:'#000'}
-      }
+      itemStyle:{areaColor:'#2a2a4a',borderColor:'#000',borderWidth:.5},
+      emphasis:{label:{color:'#fff',fontSize:10},itemStyle:{areaColor:'#4a4a6a',borderColor:'#000'}}
     },
-    series:[{
-      type:'map',
-      map:'world',
-      geoIndex:0,
-      data:buildData()
-    }]
+    series:[{type:'map',map:'world',geoIndex:0,data:buildData()}]
   };
 }
 
@@ -141,16 +99,13 @@ function switchMap(type,btn){
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
   var opt=baseOption();
-  if(type==='ww1'){
-    opt.series.push(markerSeries(ww1Markers));
-  }else if(type==='ww2'){
-    opt.series.push(markerSeries(ww2Markers));
-  }
+  if(type==='ww1')opt.series.push(markerSeries(ww1Markers));
+  else if(type==='ww2')opt.series.push(markerSeries(ww2Markers));
   chart.setOption(opt,true);
 }
 
-loadMap();
-window.addEventListener('resize',function(){if(chart)chart.resize()});
+switchMap('modern',document.querySelector('.btns button'));
+window.addEventListener('resize',function(){chart.resize()});
 </script>
 </body>
 </html>
