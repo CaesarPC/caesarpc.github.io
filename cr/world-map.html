@@ -92,7 +92,7 @@ fetch('data/world.json')
     names.sort();
     names.forEach(function(n,i){
       var hue=Math.round((i/names.length)*360);
-      modernColors[n]='hsl('+hue+',55%,38%)';
+      modernColors[n]='hsl('+hue+',35%,32%)';
     });
     ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
     ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
@@ -111,7 +111,7 @@ function buildData(mode){
       else if(ww2Soviet[en])color=ww2Soviet[en];
       else if(ww2Allies[en])color=ww2Allies[en];
     }
-    data.push({name:en,itemStyle:{areaColor:color,borderColor:'#000',borderWidth:.5}});
+    data.push({name:en,itemStyle:{areaColor:color,borderColor:'rgba(255,255,255,.3)',borderWidth:.5}});
   }
   return data;
 }
@@ -120,14 +120,14 @@ function switchMap(mode,btn){
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
   var opt={
-    backgroundColor:'#0a0a12',
-    tooltip:{trigger:'item',backgroundColor:'rgba(26,26,46,.95)',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0',fontSize:13},
+    backgroundColor:'#0a1628',
+    tooltip:{trigger:'item',backgroundColor:'rgba(10,22,40,.95)',borderColor:'#2a4a6a',textStyle:{color:'#e6f0ff',fontSize:13},
       formatter:function(p){return cnName(p.name);}},
     series:[{
       type:'map',map:'world',roam:true,zoom:1.2,
-      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1,formatter:function(p){return cnName(p.name);}},
-      itemStyle:{borderColor:'#000',borderWidth:.5},
-      emphasis:{label:{color:'#fff',fontSize:10},itemStyle:{borderColor:'#000'}},
+      label:{show:true,color:'rgba(255,255,255,.85)',fontSize:11,formatter:function(p){return cnName(p.name);}},
+      itemStyle:{borderColor:'rgba(255,255,255,.3)',borderWidth:.5},
+      emphasis:{label:{color:'#fff',fontSize:12},itemStyle:{borderColor:'#fff'}},
       data:buildData(mode)
     }]
   };
