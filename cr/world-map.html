@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
@@ -76,12 +77,11 @@ var nameCN={
 'Comoros':'科摩罗','Cape Verde':'佛得角','Gambia':'冈比亚','Guinea-Bissau':'几内亚比绍',
 'West Bank':'巴勒斯坦','Taiwan':'台湾','Hong Kong':'香港','Macao':'澳门','Falkland Is.':'福克兰群岛',
 'New Caledonia':'新喀里多尼亚','Fr. S. Antarctic Lands':'法属南方领地','Eq. Guinea':'赤道几内亚',
-'Gabon':'加蓬','Cameroon':'喀麦隆','Swaziland':'斯威士兰','Gaza':'加沙','Bhutan ':'不丹'
+'Gabon':'加蓬','Cameroon':'喀麦隆','Swaziland':'斯威士兰','Gaza':'加沙'
 };
 
 function cnName(en){return nameCN[en]||en;}
 
-/* 只显示这些大国的标签，小国家不显示避免重叠 */
 var labelShow={
 'China':1,'United States':1,'Russia':1,'Germany':1,'France':1,'United Kingdom':1,'Japan':1,'Italy':1,
 'Spain':1,'Canada':1,'Australia':1,'India':1,'Brazil':1,'Mexico':1,'Argentina':1,'Egypt':1,
@@ -93,29 +93,27 @@ var labelShow={
 'New Zealand':1,'Philippines':1,'Malaysia':1,'Afghanistan':1,'Iraq':1,'Syria':1,'Yemen':1,'Oman':1,
 'UAE':1,'Israel':1,'Jordan':1,'Lebanon':1,'Belarus':1,'Romania':1,'Bulgaria':1,'Greece':1,
 'Portugal':1,'Netherlands':1,'Belgium':1,'Switzerland':1,'Austria':1,'Hungary':1,'Czech Rep.':1,
-'Ireland':1,'Iceland':1,'Croatia':1,'Serbia':1,'Norway':1,'Denmark':1,'Zambia':1,'Zimbabwe':1,
+'Ireland':1,'Iceland':1,'Croatia':1,'Serbia':1,'Denmark':1,'Zambia':1,'Zimbabwe':1,
 'Namibia':1,'Botswana':1,'Mali':1,'Niger':1,'Chad':1,'Somalia':1,'Cuba':1,'Cambodia':1,'Laos':1
 };
 
 var modernColors={};
 var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
 
-fetch('data/world.json')
-  .then(function(r){return r.json()})
-  .then(function(geo){
-    echarts.registerMap('world',geo);
-    var names=geo.features.map(function(f){return f.properties.name});
-    names.sort();
-    names.forEach(function(n,i){
-      var hue=Math.round((i/names.length)*360);
-      modernColors[n]='hsl('+hue+',50%,42%)';
-    });
-    ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
-    ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
-    ['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
-    ['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
-    switchMap('modern',document.querySelector('.btns button'));
+/* 从注册好的 world 地图获取国家列表 */
+(function(){
+  var geo=echarts.getMap('world').geoJson;
+  var names=geo.features.map(function(f){return f.properties.name});
+  names.sort();
+  names.forEach(function(n,i){
+    var hue=Math.round((i/names.length)*360);
+    modernColors[n]='hsl('+hue+',50%,42%)';
   });
+  ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
+  ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
+  ['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
+  ['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
+})();
 
 function buildData(mode){
   var data=[];
@@ -159,6 +157,8 @@ function switchMap(mode,btn){
     lg.innerHTML='<span><i style="background:#d94444"></i>轴心国</span><span><i style="background:#aa2222"></i>苏联势力</span><span><i style="background:#4477dd"></i>同盟国</span>';
   }else{lg.innerHTML='';}
 }
+
+switchMap('modern',document.querySelector('.btns button'));
 window.addEventListener('resize',function(){chart.resize()});
 </script>
 </body>
