@@ -111,11 +111,7 @@ function buildData(mode){
       else if(ww2Soviet[en])color=ww2Soviet[en];
       else if(ww2Allies[en])color=ww2Allies[en];
     }
-    data.push({
-      name:en,
-      itemStyle:{areaColor:color,borderColor:'#000',borderWidth:.5},
-      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1,formatter:function(){return cnName(en);}}
-    });
+    data.push({name:en,itemStyle:{areaColor:color,borderColor:'#000',borderWidth:.5}});
   }
   return data;
 }
@@ -129,7 +125,7 @@ function switchMap(mode,btn){
       formatter:function(p){return cnName(p.name);}},
     series:[{
       type:'map',map:'world',roam:true,zoom:1.2,
-      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1},
+      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1,formatter:function(p){return cnName(p.name);}},
       itemStyle:{borderColor:'#000',borderWidth:.5},
       emphasis:{label:{color:'#fff',fontSize:10},itemStyle:{borderColor:'#000'}},
       data:buildData(mode)
