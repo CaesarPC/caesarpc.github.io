@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>世界地图 - Cr工具站</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+.wrap{max-width:1400px;margin:0 auto;padding:16px}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.header h1{font-size:22px;color:#50fa7b}
+.header a{color:#6272a4;text-decoration:none;font-size:13px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:.2s}
+.btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
+.btns button:hover{border-color:#50fa7b}
+#map{width:100%;height:75vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
+.tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
+.note{margin-top:8px;padding:10px;background:#1a1a2e;border-radius:8px;font-size:12px;color:#6272a4;display:none}
+.note.show{display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>🌍 世界地图</h1>
+    <div class="btns">
+      <button class="active" onclick="switchMap('modern',this)">现代</button>
+      <button onclick="switchMap('ww1',this)">一战 1914</button>
+      <button onclick="switchMap('ww2',this)">二战 1942</button>
+    </div>
+    <a href="index.html">← 返回工具站</a>
+  </div>
+  <div id="map"></div>
+  <div class="tip">拖拽平移 · 滚轮缩放 · 点击国家看名字</div>
+  <div class="note" id="note"></div>
+</div>
+<script>
+var chart=echarts.init(document.getElementById('map'));
+
+/* 纯线条风格：不填充淡化，只有边框线 */
+function baseOption(extra){
+  return Object.assign({
+    backgroundColor:'#0a0a12',
+    tooltip:{trigger:'item',backgroundColor:'#1a1a2e',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0'}},
+    series:[{
+      type:'map',
+      map:'world',
+      roam:true,
+      zoom:1.2,
+      label:{show:true,color:'#8be9fd',fontSize:9},
+      itemStyle:{
+        areaColor:'#1a1a2e',
+        borderColor:'#50fa7b',
+        borderWidth:.6
+      },
+      emphasis:{
+        label:{color:'#ffffff',fontSize:10},
+        itemStyle:{areaColor:'#2a2a4a',borderColor:'#50fa7b'}
+      },
+      data:[]
+    }]
+  },extra||{});
+}
+
+/* 一战标注（大致位置） */
+var ww1Markers=[
+  {name:'德意志帝国',value:[10,51]},
+  {name:'奥匈帝国',value:[15,48]},
+  {name:'俄罗斯帝国',value:[40,58]},
+  {name:'大英帝国',value:[-2,54]},
+  {name:'法兰西第三共和国',value:[2,47]},
+  {name:'奥斯曼帝国',value:[35,39]},
+  {name:'意大利王国',value:[12,42]},
+  {name:'塞尔维亚',value:[21,44]},
+  {name:'比利时',value:[4,50]}
+];
+
+/* 二战标注（1942大致） */
+var ww2Markers=[
+  {name:'纳粹德国',value:[12,52]},
+  {name:'苏联',value:[45,58]},
+  {name:'大日本帝国',value:[138,36]},
+  {name:'意大利王国',value:[12,42]},
+  {name:'英国',value:[-2,54]},
+  {name:'美国',value:[-98,39]},
+  {name:'维希法国',value:[2,46]},
+  {name:'中华民国',value:[105,30]},
+  {name:'芬兰',value:[25,62]}
+];
+
+function markerSeries(markers){
+  return {
+    type:'effectScatter',
+    coordinateSystem:'geo',
+    symbolSize:8,
+    rippleEffect:{brushType:'stroke',scale:2.5},
+    label:{show:true,formatter:'{b}',position:'right',color:'#ffd700',fontSize:11,fontWeight:'bold'},
+    itemStyle:{color:'#ffd700'},
+    data:markers.map(function(m){return{name:m.name,value:m.value}})
+  };
+}
+
+function switchMap(type,btn){
+  document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  var opt;
+  if(type==='modern'){
+    opt=baseOption();
+    document.getElementById('note').classList.remove('show');
+  }else if(type==='ww1'){
+    opt=baseOption({series:[baseOption().series[0],markerSeries(ww1Markers)]});
+    var n1=document.getElementById('note');
+    n1.innerHTML='📌 一战1914年版图示意：金色标注为当时主要帝国。边界为现代底图叠加，不代表精确历史国界。';
+    n1.classList.add('show');
+  }else if(type==='ww2'){
+    opt=baseOption({series:[baseOption().series[0],markerSeries(ww2Markers)]});
+    var n2=document.getElementById('note');
+    n2.innerHTML='📌 二战1942年版图示意：金色标注为主要参战国。边界为现代底图叠加，不代表精确历史国界。';
+    n2.classList.add('show');
+  }
+  chart.setOption(opt,true);
+}
+
+chart.setOption(baseOption());
+window.addEventListener('resize',function(){chart.resize()});
+</script>
+</body>
+</html>
