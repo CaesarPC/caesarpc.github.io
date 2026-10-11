@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
@@ -16,11 +15,9 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
 .btns{display:flex;gap:8px;flex-wrap:wrap}
 .btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:.2s}
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
-.btns button:hover{border-color:#50fa7b}
-#map{width:100%;height:75vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
+#map{width:100%;height:78vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
 .tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
-.note{margin-top:8px;padding:10px;background:#1a1a2e;border-radius:8px;font-size:12px;color:#6272a4;display:none}
-.note.show{display:block}
+.loading{text-align:center;padding:40px;color:#6272a4}
 </style>
 </head>
 <body>
@@ -34,39 +31,49 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <a href="index.html">← 返回工具站</a>
   </div>
-  <div id="map"></div>
-  <div class="tip">拖拽平移 · 滚轮缩放 · 点击国家看名字</div>
-  <div class="note" id="note"></div>
+  <div id="map"><div class="loading">正在加载地图数据...</div></div>
+  <div class="tip">拖拽平移 · 滚轮缩放 · 点击国家看详情</div>
 </div>
 <script>
-var chart=echarts.init(document.getElementById('map'));
+var chart=null;
+var geoJson=null;
 
-/* 纯线条风格：不填充淡化，只有边框线 */
-function baseOption(extra){
-  return Object.assign({
-    backgroundColor:'#0a0a12',
-    tooltip:{trigger:'item',backgroundColor:'#1a1a2e',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0'}},
-    series:[{
-      type:'map',
-      map:'world',
-      roam:true,
-      zoom:1.2,
-      label:{show:true,color:'#8be9fd',fontSize:9},
-      itemStyle:{
-        areaColor:'#1a1a2e',
-        borderColor:'#50fa7b',
-        borderWidth:.6
-      },
-      emphasis:{
-        label:{color:'#ffffff',fontSize:10},
-        itemStyle:{areaColor:'#2a2a4a',borderColor:'#50fa7b'}
-      },
-      data:[]
-    }]
-  },extra||{});
+/* HOI4 风格配色：饱和但偏深，每个国家一个独特色 */
+function colorByIndex(i,total){
+  var hue=Math.round((i/total)*360);
+  return 'hsl('+hue+',65%,38%)';
 }
 
-/* 一战标注（大致位置） */
+function loadMap(){
+  fetch('https://geo.datav.aliyun.com/areas_v3/bound/world.json')
+    .then(function(r){return r.json()})
+    .then(function(geo){
+      geoJson=geo;
+      echarts.registerMap('world',geo);
+      initChart();
+      switchMap('modern',document.querySelector('.btns button'));
+    })
+    .catch(function(e){
+      document.getElementById('map').innerHTML='<div class="loading">地图数据加载失败，请检查网络</div>';
+    });
+}
+
+function buildData(){
+  if(!geoJson)return [];
+  var features=geoJson.features;
+  return features.map(function(f,i){
+    return {
+      name:f.properties.name||f.properties.NAME||'未知',
+      value:colorByIndex(i,features.length)
+    };
+  });
+}
+
+function initChart(){
+  chart=echarts.init(document.getElementById('map'));
+}
+
+/* 一战/二战标注 */
 var ww1Markers=[
   {name:'德意志帝国',value:[10,51]},
   {name:'奥匈帝国',value:[15,48]},
@@ -78,8 +85,6 @@ var ww1Markers=[
   {name:'塞尔维亚',value:[21,44]},
   {name:'比利时',value:[4,50]}
 ];
-
-/* 二战标注（1942大致） */
 var ww2Markers=[
   {name:'纳粹德国',value:[12,52]},
   {name:'苏联',value:[45,58]},
@@ -96,37 +101,56 @@ function markerSeries(markers){
   return {
     type:'effectScatter',
     coordinateSystem:'geo',
-    symbolSize:8,
-    rippleEffect:{brushType:'stroke',scale:2.5},
-    label:{show:true,formatter:'{b}',position:'right',color:'#ffd700',fontSize:11,fontWeight:'bold'},
+    symbolSize:9,
+    rippleEffect:{brushType:'stroke',scale:3},
+    label:{show:true,formatter:'{b}',position:'right',color:'#ffd700',fontSize:12,fontWeight:'bold',textBorderColor:'#000',textBorderWidth:2},
     itemStyle:{color:'#ffd700'},
     data:markers.map(function(m){return{name:m.name,value:m.value}})
+  };
+}
+
+function baseOption(){
+  return {
+    backgroundColor:'#0a0a12',
+    tooltip:{trigger:'item',backgroundColor:'rgba(26,26,46,.95)',borderColor:'#2a2a4a',textStyle:{color:'#e6e6f0',fontSize:13}},
+    geo:{
+      map:'world',
+      roam:true,
+      zoom:1.2,
+      label:{show:true,color:'#fff',fontSize:8,textBorderColor:'#000',textBorderWidth:1},
+      itemStyle:{
+        areaColor:'#2a2a4a',
+        borderColor:'#000',
+        borderWidth:.5
+      },
+      emphasis:{
+        label:{color:'#fff',fontSize:10},
+        itemStyle:{areaColor:'#4a4a6a',borderColor:'#000'}
+      }
+    },
+    series:[{
+      type:'map',
+      map:'world',
+      geoIndex:0,
+      data:buildData()
+    }]
   };
 }
 
 function switchMap(type,btn){
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
-  var opt;
-  if(type==='modern'){
-    opt=baseOption();
-    document.getElementById('note').classList.remove('show');
-  }else if(type==='ww1'){
-    opt=baseOption({series:[baseOption().series[0],markerSeries(ww1Markers)]});
-    var n1=document.getElementById('note');
-    n1.innerHTML='📌 一战1914年版图示意：金色标注为当时主要帝国。边界为现代底图叠加，不代表精确历史国界。';
-    n1.classList.add('show');
+  var opt=baseOption();
+  if(type==='ww1'){
+    opt.series.push(markerSeries(ww1Markers));
   }else if(type==='ww2'){
-    opt=baseOption({series:[baseOption().series[0],markerSeries(ww2Markers)]});
-    var n2=document.getElementById('note');
-    n2.innerHTML='📌 二战1942年版图示意：金色标注为主要参战国。边界为现代底图叠加，不代表精确历史国界。';
-    n2.classList.add('show');
+    opt.series.push(markerSeries(ww2Markers));
   }
   chart.setOption(opt,true);
 }
 
-chart.setOption(baseOption());
-window.addEventListener('resize',function(){chart.resize()});
+loadMap();
+window.addEventListener('resize',function(){if(chart)chart.resize()});
 </script>
 </body>
 </html>
