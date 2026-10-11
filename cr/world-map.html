@@ -15,7 +15,7 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
 .btns{display:flex;gap:8px;flex-wrap:wrap}
 .btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:.2s}
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
-#map{width:100%;height:78vh;background:#0a0a12;border-radius:12px;border:1px solid #2a2a4a}
+#map{width:100%;height:80vh;background:#0a1628;border-radius:12px;border:1px solid #2a4a6a}
 .tip{margin-top:10px;font-size:12px;color:#6272a4;text-align:center}
 .legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:#6272a4;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:4px}
@@ -76,10 +76,26 @@ var nameCN={
 'Comoros':'科摩罗','Cape Verde':'佛得角','Gambia':'冈比亚','Guinea-Bissau':'几内亚比绍',
 'West Bank':'巴勒斯坦','Taiwan':'台湾','Hong Kong':'香港','Macao':'澳门','Falkland Is.':'福克兰群岛',
 'New Caledonia':'新喀里多尼亚','Fr. S. Antarctic Lands':'法属南方领地','Eq. Guinea':'赤道几内亚',
-'Gabon':'加蓬','Cameroon':'喀麦隆','Swaziland':'斯威士兰','Gaza':'加沙'
+'Gabon':'加蓬','Cameroon':'喀麦隆','Swaziland':'斯威士兰','Gaza':'加沙','Bhutan ':'不丹'
 };
 
 function cnName(en){return nameCN[en]||en;}
+
+/* 只显示这些大国的标签，小国家不显示避免重叠 */
+var labelShow={
+'China':1,'United States':1,'Russia':1,'Germany':1,'France':1,'United Kingdom':1,'Japan':1,'Italy':1,
+'Spain':1,'Canada':1,'Australia':1,'India':1,'Brazil':1,'Mexico':1,'Argentina':1,'Egypt':1,
+'South Africa':1,'Nigeria':1,'South Korea':1,'North Korea':1,'Vietnam':1,'Thailand':1,'Indonesia':1,
+'Saudi Arabia':1,'Turkey':1,'Iran':1,'Ukraine':1,'Poland':1,'Sweden':1,'Norway':1,'Finland':1,
+'Morocco':1,'Algeria':1,'Libya':1,'Sudan':1,'Ethiopia':1,'Kenya':1,'Tanzania':1,'Angola':1,
+'Mozambique':1,'Madagascar':1,'Kazakhstan':1,'Mongolia':1,'Pakistan':1,'Bangladesh':1,'Myanmar':1,
+'Colombia':1,'Peru':1,'Venezuela':1,'Chile':1,'Bolivia':1,'Uruguay':1,'Paraguay':1,'Greenland':1,
+'New Zealand':1,'Philippines':1,'Malaysia':1,'Afghanistan':1,'Iraq':1,'Syria':1,'Yemen':1,'Oman':1,
+'UAE':1,'Israel':1,'Jordan':1,'Lebanon':1,'Belarus':1,'Romania':1,'Bulgaria':1,'Greece':1,
+'Portugal':1,'Netherlands':1,'Belgium':1,'Switzerland':1,'Austria':1,'Hungary':1,'Czech Rep.':1,
+'Ireland':1,'Iceland':1,'Croatia':1,'Serbia':1,'Norway':1,'Denmark':1,'Zambia':1,'Zimbabwe':1,
+'Namibia':1,'Botswana':1,'Mali':1,'Niger':1,'Chad':1,'Somalia':1,'Cuba':1,'Cambodia':1,'Laos':1
+};
 
 var modernColors={};
 var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
@@ -92,7 +108,7 @@ fetch('data/world.json')
     names.sort();
     names.forEach(function(n,i){
       var hue=Math.round((i/names.length)*360);
-      modernColors[n]='hsl('+hue+',35%,32%)';
+      modernColors[n]='hsl('+hue+',50%,42%)';
     });
     ['Austria','Hungary','Czech Rep.','Slovakia','Croatia','Bosnia and Herz.','Slovenia','Serbia','Romania','Bulgaria','Turkey','Syria','Iraq','Lebanon','Israel','Jordan','Saudi Arabia','Russia','Ukraine','Belarus','Finland','Poland','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Germany','France'].forEach(function(n){ww1Set[n]='#c9a84c'});
     ['Germany','Italy','Japan','Hungary','Romania','Bulgaria','Finland','Croatia'].forEach(function(n){ww2Axis[n]='#d94444'});
@@ -111,7 +127,11 @@ function buildData(mode){
       else if(ww2Soviet[en])color=ww2Soviet[en];
       else if(ww2Allies[en])color=ww2Allies[en];
     }
-    data.push({name:en,itemStyle:{areaColor:color,borderColor:'rgba(255,255,255,.3)',borderWidth:.5}});
+    data.push({
+      name:en,
+      itemStyle:{areaColor:color,borderColor:'rgba(255,255,255,.35)',borderWidth:.5},
+      label:{show:!!labelShow[en]}
+    });
   }
   return data;
 }
@@ -125,8 +145,8 @@ function switchMap(mode,btn){
       formatter:function(p){return cnName(p.name);}},
     series:[{
       type:'map',map:'world',roam:true,zoom:1.2,
-      label:{show:true,color:'rgba(255,255,255,.85)',fontSize:11,formatter:function(p){return cnName(p.name);}},
-      itemStyle:{borderColor:'rgba(255,255,255,.3)',borderWidth:.5},
+      label:{show:true,color:'rgba(255,255,255,.9)',fontSize:11,formatter:function(p){return cnName(p.name);}},
+      itemStyle:{borderColor:'rgba(255,255,255,.35)',borderWidth:.5},
       emphasis:{label:{color:'#fff',fontSize:12},itemStyle:{borderColor:'#fff'}},
       data:buildData(mode)
     }]
@@ -134,7 +154,7 @@ function switchMap(mode,btn){
   chart.setOption(opt,true);
   var lg=document.getElementById('legend');
   if(mode==='ww1'){
-    lg.innerHTML='<span><i style="background:#c9a84c"></i>一战帝国疆域</span><span><i style="background:#4a4a6a"></i>其他国家</span>';
+    lg.innerHTML='<span><i style="background:#c9a84c"></i>一战帝国疆域</span><span><i style="background:#3a3a5a"></i>其他国家</span>';
   }else if(mode==='ww2'){
     lg.innerHTML='<span><i style="background:#d94444"></i>轴心国</span><span><i style="background:#aa2222"></i>苏联势力</span><span><i style="background:#4477dd"></i>同盟国</span>';
   }else{lg.innerHTML='';}
