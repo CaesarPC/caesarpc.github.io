@@ -126,7 +126,7 @@ function initMap(){
   svg=d3.select('#map-container').append('svg')
     .attr('width',width).attr('height',height);
   
-  projection=d3.geoRobinson()
+  projection=d3.geoNaturalEarth1()
     .scale(width/6.5)
     .translate([width/2,height/2]);
   
