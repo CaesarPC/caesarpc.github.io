@@ -127,8 +127,8 @@ function initMap(){
     .attr('width',width).attr('height',height);
   
   projection=d3.geoNaturalEarth1()
-    .scale(width/6.5)
-    .translate([width/2,height/2]);
+    .scale(width/5.2)
+    .translate([width/2,height/2+10]);
   
   path=d3.geoPath().projection(projection);
   
@@ -232,7 +232,7 @@ window.addEventListener('resize',function(){
     var container=document.getElementById('map-container');
     width=container.clientWidth;height=container.clientHeight;
     svg.attr('width',width).attr('height',height);
-    projection.scale(width/6.5).translate([width/2,height/2]);
+    projection.scale(width/5.2).translate([width/2,height/2+10]);
     drawCountries();
   }
 });
