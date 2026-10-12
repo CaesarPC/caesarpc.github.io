@@ -4,25 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>世界地图 - Cr工具站</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-.wrap{max-width:1400px;margin:0 auto;padding:16px}
-.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.header h1{font-size:22px;color:#50fa7b}
+body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow:hidden}
+.wrap{max-width:100%;margin:0 auto;padding:12px}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px}
+.header h1{font-size:20px;color:#50fa7b}
 .header a{color:#6272a4;text-decoration:none;font-size:13px}
 .btns{display:flex;gap:8px;flex-wrap:wrap}
-.btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:.2s}
+.btns button{background:#1a1a2e;border:1px solid #2a2a4a;color:#e6e6f0;padding:7px 18px;border-radius:8px;cursor:pointer;font-size:13px;transition:.2s}
 .btns button.active{background:#50fa7b;color:#0f0f1a;border-color:#50fa7b;font-weight:bold}
-#map{width:100%;height:78vh;border-radius:12px;border:1px solid #2a4a6a;background:#0a1628}
-.tip{margin-top:8px;font-size:12px;color:#6272a4;text-align:center}
-.legend{display:flex;gap:16px;justify-content:center;margin-top:6px;font-size:12px;color:#6272a4;flex-wrap:wrap}
+#map-container{width:100%;height:calc(100vh - 80px);border-radius:12px;border:1px solid #2a4a6a;background:#0a1628;position:relative;overflow:hidden}
+#map-container svg{width:100%;height:100%;cursor:grab}
+#map-container svg:active{cursor:grabbing}
+.country{stroke:rgba(0,0,0,.6);stroke-width:.5;cursor:pointer;transition:fill-opacity .15s}
+.country:hover{fill-opacity:1;stroke:#fff;stroke-width:1}
+.country-label{fill:rgba(255,255,255,.8);font-family:Georgia,serif;font-style:italic;font-weight:bold;text-anchor:middle;pointer-events:none;paint-order:stroke;stroke:rgba(0,0,0,.7);stroke-width:2px;stroke-linejoin:round}
+.tip{margin-top:6px;font-size:11px;color:#6272a4;text-align:center}
+.legend{display:flex;gap:16px;justify-content:center;margin-top:4px;font-size:11px;color:#6272a4;flex-wrap:wrap}
 .legend span{display:flex;align-items:center;gap:4px}
 .legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
-.country-label{background:transparent;border:none;box-shadow:none;color:rgba(255,255,255,.85);font-size:11px;font-weight:bold;text-shadow:0 0 3px #000,0 0 3px #000;pointer-events:none;white-space:nowrap}
-.country-label-small{font-size:8px}
+.tooltip{position:absolute;background:rgba(15,15,26,.95);border:1px solid #50fa7b;color:#fff;padding:6px 12px;border-radius:6px;font-size:13px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:100}
 </style>
 </head>
 <body>
@@ -36,16 +39,14 @@ body{background:#0f0f1a;color:#e6e6f0;font-family:-apple-system,BlinkMacSystemFo
     </div>
     <a href="index.html">← 返回工具站</a>
   </div>
-  <div id="map"></div>
+  <div id="map-container"></div>
   <div class="legend" id="legend"></div>
-  <div class="tip">拖拽平移 · 滚轮缩放 · 左右无限滚动 · 点击国家看详情</div>
+  <div class="tip">拖拽平移 · 滚轮缩放 · 左右无缝循环 · 点击国家看详情</div>
 </div>
+<div class="tooltip" id="tooltip"></div>
 <script>
-var map=L.map('map',{minZoom:2,maxZoom:8,worldCopyJump:true,zoomControl:true,attributionControl:false,maxBounds:[[-60,-180],[85,180]],maxBoundsViscosity:1.0}).setView([30,0],2);
-map.getContainer().style.background='#0a1628';
-
 var nameCN={
-'Afghanistan':'阿富汗','Albania':'阿尔巴尼亚','Algeria':'阿尔及利亚','Angola':'安哥拉','Antarctica':'南极洲',
+'Afghanistan':'阿富汗','Albania':'阿尔巴尼亚','Algeria':'阿尔及利亚','Angola':'安哥拉',
 'Argentina':'阿根廷','Armenia':'亚美尼亚','Australia':'澳大利亚','Austria':'奥地利','Azerbaijan':'阿塞拜疆',
 'Bahamas':'巴哈马','Bangladesh':'孟加拉国','Belarus':'白俄罗斯','Belgium':'比利时','Belize':'伯利兹',
 'Benin':'贝宁','Bhutan':'不丹','Bolivia':'玻利维亚','Bosnia and Herz.':'波黑','Botswana':'博茨瓦纳',
@@ -56,7 +57,7 @@ var nameCN={
 'Dem. Rep. Congo':'刚果(金)','Denmark':'丹麦','Djibouti':'吉布提','Dominican Rep.':'多米尼加',
 'Ecuador':'厄瓜多尔','Egypt':'埃及','El Salvador':'萨尔瓦多','Eq. Guinea':'赤道几内亚','Eritrea':'厄立特里亚',
 'Estonia':'爱沙尼亚','Ethiopia':'埃塞俄比亚','Falkland Is.':'福克兰群岛','Fiji':'斐济','Finland':'芬兰',
-'Fr. S. Antarctic Lands':'法属南方领地','France':'法国','Gabon':'加蓬','Gambia':'冈比亚','Georgia':'格鲁吉亚',
+'France':'法国','Gabon':'加蓬','Gambia':'冈比亚','Georgia':'格鲁吉亚',
 'Germany':'德国','Ghana':'加纳','Greece':'希腊','Greenland':'格陵兰','Guatemala':'危地马拉','Guinea':'几内亚',
 'Guinea-Bissau':'几内亚比绍','Guyana':'圭亚那','Haiti':'海地','Honduras':'洪都拉斯','Hungary':'匈牙利',
 'Iceland':'冰岛','India':'印度','Indonesia':'印度尼西亚','Iran':'伊朗','Iraq':'伊拉克','Ireland':'爱尔兰',
@@ -79,10 +80,9 @@ var nameCN={
 'Timor-Leste':'东帝汶','Togo':'多哥','Trinidad and Tobago':'特立尼达和多巴哥','Tunisia':'突尼斯',
 'Turkey':'土耳其','Turkmenistan':'土库曼斯坦','Uganda':'乌干达','Ukraine':'乌克兰',
 'United Arab Emirates':'阿联酋','United Kingdom':'英国','United States':'美国','Uruguay':'乌拉圭',
-'Uzbekistan':'乌兹别克斯坦','Vanuatu':'瓦努阿图','Venezuela':'委内瑞拉','Vietnam':'越南','W. Sahara':'西撒哈拉',
+'Uzbekistan':'乌兹别克斯坦','Vanuatu':'瓦努阿图','Venezuela':'委内瑞拉','Vietnam':'越南',
 'Yemen':'也门','Zambia':'赞比亚','Zimbabwe':'津巴布韦','eSwatini':'斯威士兰'
 };
-
 function cnName(en){return nameCN[en]||en;}
 
 var bigCountries={'China':1,'United States':1,'Russia':1,'Canada':1,'Brazil':1,'Australia':1,'India':1,
@@ -101,9 +101,6 @@ var ww1Set={},ww2Axis={},ww2Soviet={},ww2Allies={};
 ['Russia','Ukraine','Belarus','Estonia','Latvia','Lithuania','Moldova','Georgia','Armenia','Azerbaijan','Kazakhstan','Uzbekistan','Turkmenistan','Kyrgyzstan','Tajikistan'].forEach(function(n){ww2Soviet[n]='#aa2222'});
 ['United Kingdom','France','United States','Canada','Australia','New Zealand','China','Netherlands','Belgium','Norway','Greece'].forEach(function(n){ww2Allies[n]='#4477dd'});
 
-var geoLayer=null;
-var labelLayer=L.layerGroup().addTo(map);
-
 function getColor(name,mode){
   if(mode==='ww1'&&ww1Set[name])return ww1Set[name];
   if(mode==='ww2'){
@@ -114,93 +111,114 @@ function getColor(name,mode){
   var hash=0;
   for(var i=0;i<name.length;i++)hash=(hash*31+name.charCodeAt(i))>>>0;
   var hue=hash%360;
-  return 'hsl('+hue+',50%,38%)';
+  return 'hsl('+hue+',45%,40%)';
 }
 
-function styleCountry(feature,mode){
-  return {fillColor:getColor(feature.properties.name,mode),weight:1,opacity:1,color:'rgba(255,255,255,.4)',fillOpacity:.85};
+var currentMode='modern';
+var width,height,svg,g,projection,path,zoom;
+var geoData=null;
+
+function initMap(){
+  var container=document.getElementById('map-container');
+  width=container.clientWidth;
+  height=container.clientHeight;
+  
+  svg=d3.select('#map-container').append('svg')
+    .attr('width',width).attr('height',height);
+  
+  projection=d3.geoRobinson()
+    .scale(width/6.5)
+    .translate([width/2,height/2]);
+  
+  path=d3.geoPath().projection(projection);
+  
+  zoom=d3.zoom()
+    .scaleExtent([1,8])
+    .on('zoom',function(event){
+      g.attr('transform',event.transform);
+      updateLabels(event.transform.k);
+    });
+  
+  svg.call(zoom);
+  g=svg.append('g');
+  drawCountries();
 }
 
-function getFeatureCenter(feature){
-  var coords=[];
-  if(feature.geometry.type==='Polygon'){
-    coords=feature.geometry.coordinates[0];
-  }else if(feature.geometry.type==='MultiPolygon'){
-    coords=feature.geometry.coordinates[0][0];
-  }
-  if(!coords.length)return null;
-  var lng=0,lat=0;
-  coords.forEach(function(c){lng+=c[0];lat+=c[1]});
-  return [lat/coords.length,lng/coords.length];
-}
-
-/* 估算国家面积（用经纬度范围近似） */
-function getFeatureSize(feature){
-  var minLng=180,maxLng=-180,minLat=90,maxLat=-90;
-  function walk(coords){
-    if(typeof coords[0]==='number'){
-      if(coords[0]<minLng)minLng=coords[0];
-      if(coords[0]>maxLng)maxLng=coords[0];
-      if(coords[1]<minLat)minLat=coords[1];
-      if(coords[1]>maxLat)maxLat=coords[1];
-    }else{coords.forEach(walk)}
-  }
-  walk(feature.geometry.coordinates);
-  return (maxLng-minLng)*(maxLat-minLat);
-}
-
-function addLabels(geoJson){
-  labelLayer.clearLayers();
-  var z=map.getZoom();
-  /* 根据缩放级别决定显示哪些国家 */
-  var sizeThreshold=z<=2?500:(z<=3?100:(z<=4?20:5));
-  geoJson.features.forEach(function(f){
+function drawCountries(){
+  if(!geoData)return;
+  g.selectAll('*').remove();
+  
+  [-360,0,360].forEach(function(offset){
+    var gOffset=g.append('g').attr('class','map-copy');
+    gOffset.selectAll('path')
+      .data(geoData.features)
+      .enter().append('path')
+      .attr('class','country')
+      .attr('d',function(d){
+        var clone=JSON.parse(JSON.stringify(d));
+        function shiftCoords(coords){
+          if(typeof coords[0]==='number'){coords[0]+=offset;return}
+          coords.forEach(shiftCoords);
+        }
+        shiftCoords(clone.geometry.coordinates);
+        return path(clone);
+      })
+      .attr('fill',function(d){return getColor(d.properties.name,currentMode)})
+      .attr('fill-opacity',.88)
+      .on('mouseover',function(event,d){
+        var tt=document.getElementById('tooltip');
+        tt.textContent=cnName(d.properties.name);
+        tt.style.opacity=1;
+        tt.style.left=(event.offsetX+10)+'px';
+        tt.style.top=(event.offsetY-30)+'px';
+      })
+      .on('mousemove',function(event){
+        var tt=document.getElementById('tooltip');
+        tt.style.left=(event.offsetX+10)+'px';
+        tt.style.top=(event.offsetY-30)+'px';
+      })
+      .on('mouseout',function(){document.getElementById('tooltip').style.opacity=0});
+  });
+  
+  var labelG=g.append('g').attr('class','labels');
+  geoData.features.forEach(function(f){
     var n=f.properties.name;
-    var size=getFeatureSize(f);
-    /* 大国始终显示，小国根据缩放级别显示 */
-    if(size<sizeThreshold&&!bigCountries[n])return;
-    var c=getFeatureCenter(f);
-    if(!c)return;
-    /* 字号根据国家大小和缩放级别动态调整 */
-    var fs=bigCountries[n]?Math.max(9,Math.round(11*z/2.5)):Math.max(7,Math.round(8*z/2.5));
-    L.marker(c,{
-      icon:L.divIcon({className:'country-label'+(bigCountries[n]?'':' country-label-small'),html:cnName(n),iconSize:null}),
-      interactive:false
-    }).addTo(labelLayer);
+    if(!bigCountries[n])return;
+    var centroid=path.centroid(f);
+    if(isNaN(centroid[0])||isNaN(centroid[1]))return;
+    labelG.append('text')
+      .attr('class','country-label')
+      .attr('x',centroid[0])
+      .attr('y',centroid[1])
+      .attr('data-size',bigCountries[n]?'big':'small')
+      .style('font-size',function(){return bigCountries[n]?'16px':'10px'})
+      .text(cnName(n));
   });
 }
 
-var currentGeo=null;
+function updateLabels(scale){
+  g.selectAll('.country-label')
+    .style('font-size',function(){
+      var base=d3.select(this).attr('data-size')==='big'?16:10;
+      return Math.max(8,base/scale)+'px';
+    })
+    .style('opacity',function(){return scale<1.5?.7:1});
+}
+
 fetch('data/world.json')
   .then(function(r){return r.json()})
   .then(function(geo){
-    currentGeo=geo;
-    drawMap('modern');
+    geoData=geo;
+    initMap();
   });
 
-function drawMap(mode){
-  if(geoLayer){map.removeLayer(geoLayer)}
-  geoLayer=L.geoJSON(currentGeo,{
-    style:function(f){return styleCountry(f,mode)},
-    onEachFeature:function(f,layer){
-      layer.bindPopup('<b>'+cnName(f.properties.name)+'</b>');
-      layer.on({
-        mouseover:function(e){e.target.setStyle({weight:2,color:'#fff',fillOpacity:.95})},
-        mouseout:function(e){geoLayer.resetStyle(e.target)}
-      });
-    }
-  }).addTo(map);
-  addLabels(currentGeo);
-}
-
-map.on('zoomend',function(){if(currentGeo)addLabels(currentGeo)});
-
-var currentMode='modern';
 function setMode(mode,btn){
   currentMode=mode;
   document.querySelectorAll('.btns button').forEach(function(b){b.classList.remove('active')});
   btn.classList.add('active');
-  drawMap(mode);
+  if(g){
+    g.selectAll('.country').attr('fill',function(d){return getColor(d.properties.name,currentMode)});
+  }
   var lg=document.getElementById('legend');
   if(mode==='ww1'){
     lg.innerHTML='<span><i style="background:#c9a84c"></i>一战帝国疆域</span><span><i style="background:#3a3a5a"></i>其他国家</span>';
@@ -208,6 +226,16 @@ function setMode(mode,btn){
     lg.innerHTML='<span><i style="background:#d94444"></i>轴心国</span><span><i style="background:#aa2222"></i>苏联势力</span><span><i style="background:#4477dd"></i>同盟国</span>';
   }else{lg.innerHTML='';}
 }
+
+window.addEventListener('resize',function(){
+  if(svg){
+    var container=document.getElementById('map-container');
+    width=container.clientWidth;height=container.clientHeight;
+    svg.attr('width',width).attr('height',height);
+    projection.scale(width/6.5).translate([width/2,height/2]);
+    drawCountries();
+  }
+});
 </script>
 </body>
 </html>
