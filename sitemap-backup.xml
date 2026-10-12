@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://caesarpc.github.io/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/welcome.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/sponsor.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/rangefield.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/install.html</loc><changefreq>weekly</changefreq></url>
@@ -41,7 +40,6 @@
   <url><loc>https://caesarpc.github.io/cr/article-base64.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-cloud-deploy.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-container-cloud.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-container-cloudnative.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-dev-architecture.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-domain.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-json.html</loc><changefreq>weekly</changefreq></url>
@@ -76,64 +74,7 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-105.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-106.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-107.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-108.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-109.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-110.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-111.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-112.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-113.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-114.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-115.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-116.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-117.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-118.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-119.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-120.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-121.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-122.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-123.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-124.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-125.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-126.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-127.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-128.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-129.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-130.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-131.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-132.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-133.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-134.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-135.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-136.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-137.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-138.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-139.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-140.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-141.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-142.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-143.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-144.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-145.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-146.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-147.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-148.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-149.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-150.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-151.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-152.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-153.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-154.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-155.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-156.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-157.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-158.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-159.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-160.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-161.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-162.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-164.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-165.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-166.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-167.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-168.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-169.html</loc><changefreq>weekly</changefreq></url>
@@ -158,15 +99,7 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-189.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-190.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-191.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-192.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-193.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-194.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-195.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-196.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-197.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-198.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-199.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-200.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-201.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-202.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-203.html</loc><changefreq>weekly</changefreq></url>
@@ -209,7 +142,6 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-240.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-241.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-242.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-243.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-244.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-245.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-246.html</loc><changefreq>weekly</changefreq></url>
@@ -244,7 +176,6 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-275.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-276.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-278.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-286.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-287.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-288.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-289.html</loc><changefreq>weekly</changefreq></url>
@@ -255,7 +186,6 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-297.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-299.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-300.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-301.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-302.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-303.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-304.html</loc><changefreq>weekly</changefreq></url>
@@ -292,11 +222,9 @@
   <url><loc>https://caesarpc.github.io/cr/article-tech-338.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-340.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-341.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-342.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-343.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-344.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-347.html</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://caesarpc.github.io/cr/article-tech-351.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-352.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-353.html</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://caesarpc.github.io/cr/article-tech-362.html</loc><changefreq>weekly</changefreq></url>
