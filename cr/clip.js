@@ -226,33 +226,13 @@
   /* 用户设置 */
   var settingsBtn = document.getElementById('cr-settings');
   settingsBtn.onclick = function () {
-    var curTheme = localStorage.getItem('cr_theme') || 'dark';
     showBox(
       '<h3>⚙️ 设置</h3>' +
-      '<div style="margin:12px 0">' +
-      '<label style="font-size:13px;color:var(--dim)">主题模式</label>' +
-      '<div style="display:flex;gap:8px;margin-top:8px">' +
-      '<button class="cr-cancel" id="th-dark" style="flex:1;'+(curTheme==='dark'?'border-color:#50fa7b;color:#50fa7b':'')+'">🌙 深色</button>' +
-      '<button class="cr-cancel" id="th-light" style="flex:1;'+(curTheme==='light'?'border-color:#50fa7b;color:#50fa7b':'')+'">☀️ 浅色</button>' +
-      '</div></div>' +
+      '<p style="color:var(--dim);font-size:13px;line-height:1.8;padding:10px 0">当前为深色模式。浅色模式正在开发中，敬请期待。</p>' +
       '<div class="cr-row"><button class="cr-cancel" id="s-close">关闭</button></div>'
     );
-    document.getElementById('th-dark').onclick = function(){ localStorage.setItem('cr_theme','dark'); applyTheme(); location.reload(); };
-    document.getElementById('th-light').onclick = function(){ localStorage.setItem('cr_theme','light'); applyTheme(); location.reload(); };
     document.getElementById('s-close').onclick = hideBox;
   };
-
-  /* 主题切换 */
-  function applyTheme(){
-    var t = localStorage.getItem('cr_theme') || 'dark';
-    if(t === 'light'){
-      var st = document.createElement('style');
-      st.textContent = 'body{background:#f5f5f0 !important;color:#222 !important}';
-      st.id = 'cr-light-theme';
-      document.head.appendChild(st);
-    }
-  }
-  applyTheme();
 
   /* 备忘录 */
   noteBtn.onclick = function () {
