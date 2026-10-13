@@ -153,24 +153,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="admin.html"><span class="mic">👑</span><span class="mtext"><span class="mname">后台管理</span><span class="mdesc">留言/用户/访问监控</span></span></a>
     </div>
   </div>
-  <div class="foot">CaesarTools · 免费在线工具 · 免责声明：所有工具仅供参考，不对使用后果负责</div>
-</div>
-<div class="modal" id="modal">
-  <div class="mbox">
-    <h3>⚠️ 使用条款与免责声明</h3>
-    <div class="terms">
-      <p><b>1.</b> 本工具站提供域名探测、网络测试类工具，仅用于个人学习、技术研究与测试。</p>
-      <p><b>2.</b> 部分工具为测试项目，可能不稳定或功能不完整。</p>
-      <p><b>3.</b> 探测结果可能指向病毒、钓鱼或非法网站，点击访问风险自担。</p>
-      <p><b>4.</b> 请确保设备装有杀毒软件，不下载陌生可执行文件。</p>
-      <p><b>5.</b> 本站免费提供，不对任何损失负责，使用者须遵守法律法规。</p>
-    </div>
-    <label class="remember"><input type="checkbox" id="remember"> 记住我的同意</label>
-    <div class="mbtns">
-      <button class="btn" onclick="agree()">✅ 同意</button>
-      <button class="btn btn-red" onclick="disagree()">❌ 不同意</button>
-    </div>
-  </div>
+  <div class="foot">CaesarTools · 免费在线工具</div>
 </div>
 <div class="modal" id="loginModal">
   <div class="mbox" style="border-color:#50fa7b;max-width:380px">
@@ -186,17 +169,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
   </div>
 </div>
 <script>
-function showModal(){document.getElementById('modal').style.display='flex'}
-function closeModal(){document.getElementById('modal').style.display='none'}
-function agree(){
-  if(document.getElementById('remember').checked){localStorage.setItem('CaesarTools_已同意条款','1');}
-  closeModal();document.getElementById('msg').textContent='已同意条款 · 欢迎使用 CaesarTools';
-}
-function disagree(){
-  closeModal();
-  document.getElementById('msg').textContent='已拒绝条款，工具不可用';
-  document.querySelectorAll('.mini').forEach(a=>{a.style.pointerEvents='none';a.style.opacity=.4});
-}
 function refreshUserBar(){
   var u = localStorage.getItem('cr_user');
   var bar = document.getElementById('userBar');
@@ -246,7 +218,6 @@ document.getElementById('lgGo').onclick = function(){
   });
 };
 window.addEventListener('load',function(){
-  if(localStorage.getItem('CaesarTools_已同意条款')!=='1'){showModal();}
   if(window.CrGH && window.CrGH.visitLog){
     try{ window.CrGH.visitLog({page:location.pathname.split('/').pop()||'index.html', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
   }
