@@ -530,7 +530,7 @@ function loadVisits() {
     if (!j.list.length) { el.innerHTML = '<div class="empty">暂无访问记录</div>'; return; }
     var h = '';
     j.list.slice().reverse().slice(0, 100).forEach(function (x) {
-      var siteTag = (x.page === 'CaesarBase主站') ? '<span class="vtag cb">CaesarBase</span>' : '<span class="vtag cr">CR工具站</span>';
+      var siteTag = (x.page === 'CaesarBase主站') ? '<span class="vtag cb">CaesarBase</span>' : '<span class="vtag cr">CaesarTools</span>';
       h += '<div class="visit-row">' +
         siteTag +
         '<span class="vt">' + esc(x.time) + '</span>' +

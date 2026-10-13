@@ -186,7 +186,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 function showModal(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 function agree(){
-  if(document.getElementById('remember').checked){localStorage.setItem('Cr工具站_已同意条款','1');}
+  if(document.getElementById('remember').checked){localStorage.setItem('CaesarTools_已同意条款','1');}
   closeModal();document.getElementById('msg').textContent='Terms accepted · Welcome to Cr Toolbox';
 }
 function disagree(){
@@ -243,7 +243,7 @@ document.getElementById('lgGo').onclick = function(){
   });
 };
 window.addEventListener('load',function(){
-  if(localStorage.getItem('Cr工具站_已同意条款')!=='1'){showModal();}
+  if(localStorage.getItem('CaesarTools_已同意条款')!=='1'){showModal();}
   if(window.CrGH && window.CrGH.visitLog){
     try{ window.CrGH.visitLog({page:location.pathname.split('/').pop()||'index.html', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
   }

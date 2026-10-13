@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>网络协议HTTP与HTTPS完全指南 - Cr工具箱</title>
+<title>网络协议HTTP与HTTPS完全指南 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>网络协议HTTP与HTTPS完全指南</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>网络协议HTTP与HTTPS完全指南：从TCP三次握手到接口安全防护全链路解析</p>
 <p>网站的一切交互，本质上都是HTTP请求。浏览器加载页面、前端调用后端接口、APP和服务器通信，都基于HTTP协议。但很多开发者天天写接口，对HTTP协议的理解却停留在"GET和POST的区别"这个层面。深入理解HTTP协议的工作原理，尤其是HTTPS的加密机制和常见的接口安全问题，才能写出真正安全可靠的Web应用。</p>
 <p>HTTP协议是一种无状态的应用层协议。所谓无状态，就是服务器不会记录两次请求之间的任何关联。这在早期Web（主要是静态页面）时代不是问题，但当Web应用需要登录状态、购物车等功能时，无状态就成了障碍。Cookie机制的引入解决了这个问题：服务器在响应头里Set-Cookie，浏览器后续请求自动带上Cookie，服务器就能识别用户身份了。后来的Session、JWT等身份认证方案，本质上都是在无状态的HTTP协议之上，构建有状态的会话管理。</p>

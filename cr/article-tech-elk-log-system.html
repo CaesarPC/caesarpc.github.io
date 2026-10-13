@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日志收集体系ELK - Cr工具站</title>
+<title>日志收集体系ELK - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -20,7 +20,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>日志收集体系ELK</h1>
-<div class="meta">Cr工具站 · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>日志收集体系ELK：从分散日志到集中检索的工程实践</h2>
 <p>一台服务器的日志看 tail 就行，但几十台上百台服务器，日志分散在各个机器上，出问题要登录每台机器翻日志，效率极低。日志集中收集体系就是把所有服务的日志汇聚到一个地方，统一存储、统一检索、统一分析。</p>
 <p>ELK是经典方案的缩写：Elasticsearch（存储和检索日志）、Logstash（日志收集和处理）、Kibana（日志可视化查询界面）。后来Beats（轻量级日志采集器）替代了重的Logstash做采集，演进为EFLK栈。</p>

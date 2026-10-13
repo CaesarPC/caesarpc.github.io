@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>网络爬虫基础与反爬对抗技术解析 - Cr工具箱</title>
+<title>网络爬虫基础与反爬对抗技术解析 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>网络爬虫基础与反爬对抗技术解析</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>互联网上的数据是巨大的金矿。价格监控、竞品分析、舆情监测、学术研究，都需要从网站上采集数据。网络爬虫就是自动获取网页数据的程序。但网站方不想被随便爬（消耗服务器资源、数据被竞争对手拿走），于是就有了反爬。爬虫和反爬的攻防，是一场持续的技术博弈。</p>
 <p>爬虫的基本原理很简单：发送HTTP请求获取HTML，解析提取需要的数据。Python的requests库发请求，BeautifulSoup或lxml解析HTML，这是最基础的爬虫三件套。静态页面（服务端直接渲染好HTML）用这个方法就够了。</p>
 <p>但现代网站大量使用前端渲染（SPA），初始HTML里没有数据，数据是JavaScript异步加载的。这时候直接请求HTML拿不到内容，需要用浏览器自动化工具：Selenium或Playwright启动真实浏览器，等页面渲染完再提取数据。Playwright是现在更推荐的选择，速度快、API现代、自动等待元素出现。</p>

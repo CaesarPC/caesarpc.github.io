@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数据库索引与查询优化 - Cr工具站</title>
+<title>数据库索引与查询优化 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>数据库索引与查询优化</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 数据库索引与查询优化：从原理到实战的完整指南</p>
 <p>数据库是绝大多数软件系统的核心底座，无论是用户登录验证、电商订单查询，还是AI模型训练数据检索，最终都要落到数据库的读写操作上。很多开发者在使用数据库时，只停留在基础的增删改查层面，写出的SQL语句看似正确，却在数据量增长后暴露出严重的性能问题。一个没有经过优化的查询语句，在数据量从几百条增长到几百万条时，执行时间可能从毫秒级飙升到几十秒，直接拖垮整个系统。理解数据库索引的工作原理，掌握查询优化的核心方法，是后端开发者从"会用数据库"到"用好数据库"的关键跨越。</p>
 <p>## 一、索引到底是什么：从书架查找理解B+树结构</p>

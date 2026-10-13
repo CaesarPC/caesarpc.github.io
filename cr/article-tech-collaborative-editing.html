@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>实时协同编辑技术解析 - Cr工具站</title>
+<title>实时协同编辑技术解析 - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -20,7 +20,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>实时协同编辑技术解析</h1>
-<div class="meta">Cr工具站 · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>实时协同编辑技术解析：多人同时编辑一个文档的实现原理</h2>
 <p>Google Docs最让人惊叹的功能是：多人同时编辑同一个文档，你能看到别人的光标在动，别人也能实时看到你的修改。这种实时协同编辑技术，背后是一套复杂的算法和工程体系。理解它的原理，对理解现代Web应用的实时协作能力很有帮助。</p>
 <p>协同编辑的核心问题是：两个人同时修改同一段文字，怎么合并？如果用户A输入"你好"，用户B同时输入"Hello"，最终文档应该是什么？顺序怎么定？冲突怎么解决？这就是协同算法要解决的问题。</p>

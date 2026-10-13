@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>大模型提示工程实战 - Cr工具箱</title>
+<title>大模型提示工程实战 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>大模型提示工程实战</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>同样一个大模型，有人用它写出优秀文案，有人用它只得到干巴巴的废话。差别不在模型，在提示词。提示工程（Prompt Engineering）是一门新兴技能：通过精心设计的输入提示，引导大模型输出高质量、符合预期的结果。好的提示词能让通用大模型变成专家级助手，差的提示词只能得到平庸的回答。</p>
 <p>提示词的基本结构包含几个要素：角色设定、任务描述、上下文信息、输出格式、示例。角色设定告诉模型"你是谁"：你是一个资深前端工程师、你是一个专业的文案编辑、你是一个严格的代码审查者。不同的角色设定会显著影响回答的风格和深度。任务描述要具体：不是"帮我写文章"，而是"写一篇800字的文章，主题是XX，面向初学者，语言通俗，分三个小节"。越具体，输出越符合预期。</p>
 <p>Few-shot Learning（少样本示例）是提升输出质量最有效的技巧之一。在提示词里给出几个输入输出示例，模型就会模仿示例的格式和风格。比如你想要特定格式的JSON输出，给它两个示例，它就知道该输出什么格式。示例的数量一般3到5个就够了，太多会占用上下文窗口。示例要多样化，覆盖不同情况，不能全是相似的。</p>

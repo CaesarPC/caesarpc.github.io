@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分库分表实战 - Cr工具站</title>
+<title>分库分表实战 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>分库分表实战</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>分库分表实战：当单表数据量突破千万后的架构升级</p>
 <p>数据库单表数据量到了千万级，查询性能开始下降；到了亿级，即使索引建得再好，也明显变慢。分库分表是解决这个问题的终极方案：把数据分散到多个数据库、多张表里，每个分片只存一部分数据。</p>
 <p>垂直拆分是第一步：按业务把不同的表放到不同数据库。用户相关的表放用户库、订单相关的放订单库、商品相关的放商品库。这和微服务的拆分对应，每个服务有自己的数据库。垂直拆分后单库压力减小，但单表数据量还是可能很大。</p>

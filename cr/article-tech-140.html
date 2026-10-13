@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整洁架构与六边形架构 - Cr工具站</title>
+<title>整洁架构与六边形架构 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>整洁架构与六边形架构</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>整洁架构与六边形架构：如何组织代码层次</p>
 <p>很多项目的代码层次混乱：Controller里写业务逻辑、Service里直接操作数据库、工具类到处调。改代码不知道该改哪，测试不知道怎么写。整洁架构（Clean Architecture）和六边形架构（Ports & Adapters）提供了一套分层原则，让代码结构清晰、依赖方向明确。</p>
 <p>核心原则是依赖方向：内层不依赖外层，外层依赖内层。最内层是领域实体和业务规则（纯Java/JS对象，不依赖任何框架）；往外一层是用例（应用业务逻辑）；再往外是接口适配器（Controller、Repository实现）；最外层是框架和驱动（数据库、Web框架、外部API）。</p>

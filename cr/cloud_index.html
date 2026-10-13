@@ -113,7 +113,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 function showModal(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 function agree(){
-  if(document.getElementById('remember').checked){localStorage.setItem('Cr工具箱_已同意条款','1');}
+  if(document.getElementById('remember').checked){localStorage.setItem('CaesarTools_已同意条款','1');}
   closeModal();document.getElementById('msg').textContent='已同意条款 · 欢迎使用';
 }
 function disagree(){
@@ -123,7 +123,7 @@ function disagree(){
 }
 function comingSoon(){alert('该工具尚未上线，敬请期待！');}
 window.addEventListener('load',function(){
-  if(localStorage.getItem('Cr工具箱_已同意条款')!=='1'){showModal();}
+  if(localStorage.getItem('CaesarTools_已同意条款')!=='1'){showModal();}
 });
 </script>
 

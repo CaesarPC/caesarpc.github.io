@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器扩展开发入门：写一个自己的插件 - Cr工具箱</title>
+<title>浏览器扩展开发入门：写一个自己的插件 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器扩展开发入门：写一个自己的插件</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>浏览器插件听起来很厉害，其实入门不难。现在主流用Chrome的Manifest V3规范，核心就是一个manifest.json配置文件加几个HTML页面。</p>
 <p>最简单的插件只需要三步：建一个文件夹，写manifest.json描述插件信息，再写一个popup.html做弹窗界面。打开Chrome扩展管理页面，开启开发者模式，加载解压后的文件夹，插件就装好了。</p>
 <p>常见功能包括：修改网页样式、拦截请求、添加右键菜单、存储本地数据。比如做一个广告拦截插件，核心就是监听请求然后屏蔽掉广告域名。做一个划词翻译插件，就是监听选中文字然后弹出翻译结果。</p>

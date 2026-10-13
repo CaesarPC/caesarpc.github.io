@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebSocket实时通信实战 - Cr工具箱</title>
+<title>WebSocket实时通信实战 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>WebSocket实时通信实战</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>HTTP协议是请求-响应模式：客户端发请求，服务器回响应，然后连接就结束了。服务器不能主动给客户端推数据。但很多场景需要实时通信：聊天消息、股票价格实时更新、协作文档同步、在线状态显示。这些场景用HTTP轮询（每隔几秒问一次服务器）效率低、延迟高。WebSocket就是为解决实时双向通信而生的协议。</p>
 <p>WebSocket的握手过程很巧妙：客户端用HTTP发起一个Upgrade请求，告诉服务器"我想把这个HTTP连接升级成WebSocket连接"。服务器同意后，连接就从HTTP升级为全双工的WebSocket连接——双方可以随时互相发消息，不用再建立新连接。这个连接一旦建立，会一直保持，直到任意一方主动断开。</p>
 <p>WebSocket和HTTP的本质区别是：HTTP是短连接、单向请求；WebSocket是长连接、双向通信。一个WebSocket连接可以持续几个小时，期间双方随时发消息。这在聊天、实时推送场景下效率极高，不需要反复建立TCP连接。</p>

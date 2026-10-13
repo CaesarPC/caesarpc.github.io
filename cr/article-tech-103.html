@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Git版本控制与团队协作工作流 - Cr工具站</title>
+<title>Git版本控制与团队协作工作流 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Git版本控制与团队协作工作流</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>Git版本控制与团队协作工作流：从单人提交到多分支协作</p>
 <p>Git是现代软件开发的标配工具。每个开发者每天都在用git add、git commit、git push，但很多人对Git的理解停留在表面，遇到冲突、回滚、变基时就慌。深入理解Git的原理和工作流，能大幅提升团队协作效率，避免代码丢失和混乱。</p>
 <p>Git的核心是一张快照链。每次commit不是存文件差异，而是存整个项目的快照（未变化的文件只存指针）。HEAD指向当前分支最新提交。分支本质上是一个指向某次commit的可移动指针。创建分支非常轻量，只是新建一个指针，不复制文件。这就是为什么Git鼓励频繁建分支——代价极低。</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>熔断降级与容错设计 - Cr工具站</title>
+<title>熔断降级与容错设计 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>熔断降级与容错设计</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>熔断降级与容错设计：分布式系统的故障隔离哲学</p>
 <p>微服务架构下，服务A调用服务B，服务B又调用服务C。如果服务C挂了，B的调用一直阻塞等待，B的线程被占满，B也挂了，接着A也被拖垮——这就是级联故障。像多米诺骨牌，一个组件故障导致整个系统崩溃。熔断降级就是防止这种雪崩的容错机制。</p>
 <p>熔断器模式（Circuit Breaker）是核心思想。调用一个下游服务时，熔断器监控失败率。失败率低于阈值，正常放行；失败率超过阈值，熔断器"打开"，后续请求不再调用下游，直接返回降级结果。过一段时间（比如5秒），熔断器"半开"，放少量请求试探，如果成功就关闭熔断器恢复正常，失败就继续打开。</p>

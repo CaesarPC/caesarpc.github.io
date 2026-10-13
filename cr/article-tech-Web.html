@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web安全攻防实战指南 - Cr工具箱</title>
+<title>Web安全攻防实战指南 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -25,7 +25,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Web安全攻防实战指南</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>安全是网站的底线。一次严重的安全事件，可能导致用户数据泄露、服务器被入侵、业务停摆，对企业的打击是毁灭性的。但很多开发者对安全的理解停留在"用了框架就安全了"这个层面。框架确实帮你挡掉了一些常见问题，但业务层面的逻辑漏洞、配置错误、第三方依赖漏洞，都需要自己警惕。系统性理解Web安全的攻击面和防御手段，是每个Web开发者的必修课。</p>
 <p>首先要建立一个核心认知：永远不要信任用户输入。浏览器发来的任何东西——URL参数、表单字段、Cookie、Header——都可能被篡改。攻击者可以构造任意输入来探测漏洞。所有输入都必须经过校验：类型校验（是不是数字）、范围校验（是不是在合法范围内）、格式校验（邮箱是不是合法格式）。白名单校验比黑名单校验安全得多：明确允许什么，而不是禁止什么。</p>
 <p>注入攻击是最古老也最危险的攻击类型。SQL注入前面已经讲过，核心防御是参数化查询。命令注入是另一种：如果后端把用户输入拼接到系统命令里执行（比如调用ffmpeg处理用户上传的视频文件名），攻击者可以通过文件名注入恶意命令，在服务器上执行任意操作。防御方法是永远不要拼接用户输入到系统命令，使用参数数组的方式调用。模板注入（SSTI）则发生在使用模板引擎时，用户输入被当作模板代码执行。</p>

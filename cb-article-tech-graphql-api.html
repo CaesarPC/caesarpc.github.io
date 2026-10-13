@@ -20,7 +20,7 @@ p{margin-bottom:12px;color:#c8c8e0;font-size:15px}
 <div class="article">
 <a class="back" href="index.html">← 返回 CaesarBase</a>
 <h1>GraphQL API设计</h1>
-<div class="meta">Cr工具站 · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>GraphQL API设计：让前端按需取数的新范式</h2>
 <p>RESTful API有个经典痛点：后端返回的数据要么太多（列表接口带了一堆前端不用的字段），要么太少（还要再发一个请求获取详情）。前端要反复找后端加字段、改接口。GraphQL是Facebook提出的API查询语言，解决这个问题：前端精确声明需要哪些数据，后端按声明返回。</p>
 <p>GraphQL的核心是类型系统。后端定义一张Schema：有哪些类型、每个类型有哪些字段、字段之间什么关系。前端写一个查询（Query），描述自己需要哪些字段，后端执行查询，返回的JSON结构和查询结构完全一致。</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>配置中心与服务发现 - Cr工具站</title>
+<title>配置中心与服务发现 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>配置中心与服务发现</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>配置中心与服务发现：微服务基础设施的核心组件</p>
 <p>微服务有几十上百个实例，配置分散在各个服务里，改一个配置要重新部署所有实例？服务实例地址变了，调用方怎么知道对方在哪？配置中心和服务发现就是解决这两个基础设施问题的。</p>
 <p>配置中心集中管理所有服务的配置。数据库地址、API密钥、功能开关、限流参数，都存在配置中心。服务启动时从配置中心拉取配置，运行中配置变更时动态推送，不需要重启服务。Nacos、Apollo、Spring Cloud Config是主流方案。</p>

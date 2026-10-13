@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分布式事务方案对比 - Cr工具站</title>
+<title>分布式事务方案对比 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>分布式事务方案对比</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>分布式事务方案对比：跨服务数据一致性的解决之路</p>
 <p>本地事务很简单：数据库的ACID，一个事务里多个操作要么都成功要么都回滚。但微服务架构下，一个业务操作涉及多个服务、多个数据库：下单要扣库存服务、扣余额服务、创建订单服务，这三个操作在三个数据库里，本地事务管不了。分布式事务就是解决跨服务的数据一致性问题。</p>
 <p>2PC（两阶段提交）是经典的强一致性方案。协调者先问所有参与者"能提交吗"（Prepare阶段），全部回答能再通知大家提交（Commit阶段）；任何一个回答不能就全部回滚。理论完美，但实际很少用：同步阻塞（所有参与者锁定资源等协调者）、协调者单点故障、性能差。</p>

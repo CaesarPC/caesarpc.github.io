@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS容器查询 - Cr工具站</title>
+<title>CSS容器查询 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CSS容器查询</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>CSS容器查询：组件真正可复用的响应式方案</p>
 <p>媒体查询（@media）是根据屏幕宽度调整样式，但它有个根本缺陷：它看的是整个视口宽度，不是组件所在容器的宽度。一个侧边栏组件放在宽屏幕的主内容区里，和放在窄屏幕的弹出层里，视口宽度一样，但容器宽度完全不同。媒体查询无法区分这两种情况。容器查询（Container Queries）解决了这个问题。</p>
 <p>容器查询的思路是：先定义一个"容器"元素，然后根据这个容器的宽度调整内部组件的样式。不是看屏幕多宽，而是看组件的父容器多宽。这样组件真正做到了"放在哪里都能自适应"——在宽容器里横排布局，在窄容器里竖排堆叠。</p>

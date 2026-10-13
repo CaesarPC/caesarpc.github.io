@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>暗色模式实现 - Cr工具站</title>
+<title>暗色模式实现 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>暗色模式实现</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>暗色模式实现：让网站支持白天黑夜两种主题</p>
 <p>暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。</p>
 <p>核心思路：所有颜色定义为CSS变量。:root里定义亮色主题的变量值，[data-theme="dark"]里定义暗色变量值。组件里用var(--color-bg)而不是写死颜色。切换主题就是切换data-theme属性，所有变量值自动切换。</p>

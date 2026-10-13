@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebAssembly与前端性能新边界 - Cr工具站</title>
+<title>WebAssembly与前端性能新边界 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>WebAssembly与前端性能新边界</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>WebAssembly与前端性能新边界：让浏览器跑接近原生的速度</p>
 <p>JavaScript的执行速度这几年通过V8引擎的JIT优化已经快了很多，但对于计算密集型任务（视频处理、3D游戏、数据压缩、AI推理），JS还是不够快。WebAssembly（Wasm）是一种新的二进制指令格式，让其他语言（C、C++、Rust）编译成Wasm在浏览器里运行，性能接近原生代码，比JavaScript快几倍到几十倍。</p>
 <p>WebAssembly不是要替代JavaScript，而是和JS配合。擅长计算的部分用C/Rust写成Wasm，擅长UI和业务逻辑的部分继续用JS。两者之间可以互相调用。这种分工让浏览器应用既能保持开发效率，又能获得原生级的计算性能。</p>

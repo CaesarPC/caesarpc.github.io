@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>缓存策略与Redis实战 - Cr工具站</title>
+<title>缓存策略与Redis实战 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>缓存策略与Redis实战</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 缓存策略与Redis：从内存加速到分布式一致性的实战指南</p>
 <p>在所有后端性能优化手段中，缓存的投入产出比永远排第一。一次数据库查询可能需要几十毫秒，而一次内存读取只需要零点几毫秒——差了上百倍。Redis作为最流行的内存数据库，已经成为中大型后端项目的标配。但缓存不是简单地把数据塞进Redis就完事了。缓存穿透、缓存击穿、缓存雪崩、数据一致性，这些经典问题处理不好，缓存不仅不能加速系统，反而会成为线上事故的导火索。理解缓存的底层原理和常见坑，是后端开发者进阶的必修课。</p>
 <p>## 一、为什么缓存这么快</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript异步编程深入 - Cr工具站</title>
+<title>JavaScript异步编程深入 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript异步编程深入</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>JavaScript异步编程深入：从回调地狱到Async/Await的进化之路</p>
 <p>JavaScript是单线程语言，同一时间只能做一件事。如果做了一个耗时操作（发网络请求、读文件、定时器），后面的代码就得等着，页面就卡死了。异步编程就是解决这个问题的机制：遇到耗时操作先挂起，继续执行后面的代码，等耗时操作完成后再回来处理结果。理解异步编程的演变过程，是掌握JavaScript核心的关键。</p>
 <p>最早的异步方式是回调函数。比如setTimeout(fn, 1000)，1秒后执行fn；发请求时传一个回调，服务器返回后自动调用。这种方式简单直接，但嵌套多层之后就变成了"回调地狱"：回调里面套回调，缩进四五层，代码横着走，根本没法维护。比如要依次请求三个接口，就得写成callback1(() => { callback2(() => { callback3(() => { ... }) }) })，可读性极差。</p>

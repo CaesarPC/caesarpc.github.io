@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript事件冒泡与捕获 - Cr工具站</title>
+<title>JavaScript事件冒泡与捕获 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript事件冒泡与捕获</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>JavaScript事件冒泡与捕获</p>
 <p>事件传播有三个阶段：捕获阶段（从window向下到目标元素）、目标阶段（到达目标）、冒泡阶段（从目标向上到window）。addEventListener的第三个参数useCapture设为true时在捕获阶段触发，false（默认）在冒泡阶段触发。</p>
 <p>事件委托利用冒泡：在父元素上监听事件，通过event.target判断实际点击的子元素。这样只需要一个监听器，而不是给每个子元素都绑事件。新增的子元素自动享受委托，不需要重新绑定。</p>

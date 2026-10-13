@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>虚拟列表与长列表性能优化 - Cr工具站</title>
+<title>虚拟列表与长列表性能优化 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>虚拟列表与长列表性能优化</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>虚拟列表与长列表性能优化：万条数据不卡顿的渲染方案</p>
 <p>一个订单列表有十万条数据，直接全部渲染到DOM里会怎样？浏览器可能直接卡死。DOM节点太多是前端性能的头号杀手：每增加一个DOM节点，渲染、样式计算、内存都有开销。虚拟列表（Virtual List）是解决长列表性能问题的标准方案。</p>
 <p>虚拟列表的核心思想很简单：只渲染可视区域内的列表项。屏幕只能显示10条数据，就只渲染10个DOM节点，上下滚动时动态替换内容。哪怕总共有十万条数据，DOM节点始终只有十几个，性能完全不卡。</p>

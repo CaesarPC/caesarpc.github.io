@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cr工具站 - 免费在线工具集</title>
+<title>CaesarTools - 免费在线工具集</title>
 <link rel="icon" href="/icon-192.png">
 <link rel="manifest" href="/cr/manifest.json">
-<meta name="description" content="Cr工具站：免费在线工具集合，包含域名查找器、编码解码、文件转换、小游戏、留言墙、开源分享等实用工具。">
+<meta name="description" content="CaesarTools：免费在线工具集合，包含域名查找器、编码解码、文件转换、小游戏、留言墙、开源分享等实用工具。">
 <meta name="keywords" content="在线工具,域名查找,编码解码,文件转换,小游戏,免费工具">
 <meta name="robots" content="index,follow">
 <style>
@@ -60,7 +60,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 </div>
 <canvas id="meteorCanvas"></canvas>
 <div class="hd">
-  <div><h1>🛠️ Cr工具站 <span id="verTag" style="font-size:12px;color:#6272a4;font-weight:normal;background:#44475a;padding:2px 8px;border-radius:8px;vertical-align:middle">valpha-1.0</span></h1><div class="st" id="msg">免费在线工具站 · 工具 / 休闲 / 社区</div></div>
+  <div><h1>🛠️ CaesarTools <span id="verTag" style="font-size:12px;color:#6272a4;font-weight:normal;background:#44475a;padding:2px 8px;border-radius:8px;vertical-align:middle">valpha-1.0</span></h1><div class="st" id="msg">免费在线工具站 · 工具 / 休闲 / 社区</div></div>
   <div style="display:flex;align-items:center;gap:12px;">
     <a href="https://caesarpc.github.io/" class="back-to-cb">← 返回CaesarBase</a>
     <div id="userBar" style="font-size:13px;color:#bdc3c7"></div>
@@ -68,7 +68,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 </div>
 <div class="wrap">
   <div class="intro">
-    <h2>欢迎使用 Cr工具站</h2>
+    <h2>欢迎使用 CaesarTools</h2>
     <p>一个免费的在线工具集合站，包含实用工具、休闲小游戏、社区交流三大板块。所有工具纯本地处理或云端存储，无需注册即可使用大部分功能。</p>
   </div>
   <div class="bigcard">
@@ -153,7 +153,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="admin.html"><span class="mic">👑</span><span class="mtext"><span class="mname">后台管理</span><span class="mdesc">留言/用户/访问监控</span></span></a>
     </div>
   </div>
-  <div class="foot">Cr工具站 · 免费在线工具 · 免责声明：所有工具仅供参考，不对使用后果负责</div>
+  <div class="foot">CaesarTools · 免费在线工具 · 免责声明：所有工具仅供参考，不对使用后果负责</div>
 </div>
 <div class="modal" id="modal">
   <div class="mbox">
@@ -189,8 +189,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 function showModal(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
 function agree(){
-  if(document.getElementById('remember').checked){localStorage.setItem('Cr工具站_已同意条款','1');}
-  closeModal();document.getElementById('msg').textContent='已同意条款 · 欢迎使用 Cr工具站';
+  if(document.getElementById('remember').checked){localStorage.setItem('CaesarTools_已同意条款','1');}
+  closeModal();document.getElementById('msg').textContent='已同意条款 · 欢迎使用 CaesarTools';
 }
 function disagree(){
   closeModal();
@@ -246,7 +246,7 @@ document.getElementById('lgGo').onclick = function(){
   });
 };
 window.addEventListener('load',function(){
-  if(localStorage.getItem('Cr工具站_已同意条款')!=='1'){showModal();}
+  if(localStorage.getItem('CaesarTools_已同意条款')!=='1'){showModal();}
   if(window.CrGH && window.CrGH.visitLog){
     try{ window.CrGH.visitLog({page:location.pathname.split('/').pop()||'index.html', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
   }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端监控体系搭建 - Cr工具站</title>
+<title>前端监控体系搭建 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端监控体系搭建</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>前端监控体系搭建：让线上问题在你发现之前先报警</p>
 <p>用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个"看不见"的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。</p>
 <p>错误监控是前端监控最基本的能力。JavaScript运行时错误通过window.onerror和unhandledrejection事件捕获。资源加载错误（图片404、脚本加载失败）通过捕获阶段监听error事件收集。框架层面（React的ErrorBoundary、Vue的errorHandler）捕获组件渲染错误。所有错误信息带上：错误消息、堆栈、用户UA、浏览器版本、URL、发生时间，上报到监控服务。</p>

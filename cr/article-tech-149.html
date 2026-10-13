@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器跨标签页通信 - Cr工具站</title>
+<title>浏览器跨标签页通信 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器跨标签页通信</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>浏览器跨标签页通信：多个标签页之间怎么传数据</p>
 <p>用户开了两个标签页，一个在购物车页，一个在商品页。商品页加了商品，购物车标签页要实时更新数量——这就是跨标签页通信。不同标签页是独立的浏览器进程，怎么通信？</p>
 <p>BroadcastChannel是最简单的方式。同一个域名下的标签页，创建同一个Channel，一个标签页发消息，其他所有标签页都能收到。API简单，兼容性好。</p>

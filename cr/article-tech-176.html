@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器渲染管线 - Cr工具站</title>
+<title>浏览器渲染管线 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -21,7 +21,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器渲染管线</h1>
-<div class="meta">Cr工具站 · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>浏览器渲染管线：从HTML到像素的完整过程</p>
 <p>浏览器拿到HTML后，要经过一系列步骤才能把页面画到屏幕上。理解渲染管线，才能做性能优化。步骤是：解析HTML构建DOM树、解析CSS构建CSSOM树、合成渲染树、布局（Layout）、绘制（Paint）、合成（Composite）。</p>
 <p>第一步解析：HTML解析器把字节流转成DOM树；CSS解析器把样式转成CSSOM树。两者合并成渲染树——只包含需要显示的节点（display:none的不渲染）。</p>
