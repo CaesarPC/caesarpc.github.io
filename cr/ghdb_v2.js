@@ -344,7 +344,6 @@
     if (!username || !password) return cb(fail('请输入用户名和密码'));
     var SERVER_HASH = '7a72b4016d8706c42bf5cbfcc1a0dd1b3194b4c9a500f4b36458f057140e9dc0';
     ghRead('api_data/users.json', function (err, users) {
-      if (err) return cb(fail(err.error));
       users = users || {};
       var finish = function (okLogin) {
         if (!okLogin) return cb(fail('密码错误'));
