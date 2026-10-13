@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cr工具站 - 免费在线工具集</title>
+<link rel="icon" href="/icon-192.png">
 <link rel="manifest" href="/cr/manifest.json">
 <meta name="description" content="Cr工具站：免费在线工具集合，包含域名查找器、编码解码、文件转换、小游戏、留言墙、开源分享等实用工具。">
 <meta name="keywords" content="在线工具,域名查找,编码解码,文件转换,小游戏,免费工具">
@@ -20,7 +21,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 .intro{background:#282a36;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #50fa7b}
 .intro h2{margin:0 0 6px;font-size:16px;color:#50fa7b}
 .intro p{margin:0;font-size:13px;color:#bdc3c7;line-height:1.6}
-/* 大模块卡片 */
 .bigcard{background:#282a36;border-radius:14px;border:1px solid #44475a;margin-bottom:18px;overflow:hidden;transition:.15s}
 .bigcard:hover{border-color:#50fa7b;box-shadow:0 6px 24px rgba(80,250,123,.1)}
 .bigcard-hd{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #44475a;background:#1e1e2e}
@@ -28,7 +28,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 .bigcard-hd .info h2{margin:0;font-size:18px;color:#50fa7b}
 .bigcard-hd .info p{margin:2px 0 0;font-size:12px;color:#6272a4}
 .bigcard-hd .cnt{margin-left:auto;font-size:11px;color:#6272a4;background:#44475a;padding:3px 10px;border-radius:10px}
-/* 大卡片里的小功能入口 */
 .bigcard-body{padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px}
 .mini{display:flex;align-items:center;gap:8px;background:#1e1e2e;border:1px solid #44475a;border-radius:10px;padding:10px 14px;cursor:pointer;transition:.12s;text-decoration:none;color:inherit;min-width:140px}
 .mini:hover{border-color:#50fa7b;background:#282a36;transform:translateY(-2px)}
@@ -36,11 +35,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 .mini .mname{font-size:13px;font-weight:600;color:#e6e6e6}
 .mini .mdesc{font-size:10.5px;color:#6272a4;margin-top:1px}
 .mini .mtext{display:flex;flex-direction:column}
-/* 管理中心特殊样式 */
 .bigcard.admin{border-color:#ffd700}
 .bigcard.admin .bigcard-hd .info h2{color:#ffd700}
 .foot{color:#6272a4;font-size:12px;margin-top:30px;text-align:center;padding-bottom:20px}
-/* 免责弹窗 */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:center;justify-content:center;z-index:99}
 .mbox{background:#282a36;border:2px solid #ff5555;border-radius:12px;padding:26px 30px;max-width:520px;width:94%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.5);max-height:92vh;overflow-y:auto}
 .mbox h3{color:#ff5555;margin:0 0 14px;font-size:18px}
@@ -58,7 +55,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
 </style>
 </head>
 <body>
-<!-- 离线提示顶栏 -->
 <div id="offlineBar" style="display:none;position:fixed;top:0;left:0;right:0;background:#2d2d3f;color:#888;padding:4px 16px;font-size:12px;text-align:center;z-index:9999;">
   📡 当前未联网 · 部分功能不可用
 </div>
@@ -75,8 +71,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
     <h2>欢迎使用 Cr工具站</h2>
     <p>一个免费的在线工具集合站，包含实用工具、休闲小游戏、社区交流三大板块。所有工具纯本地处理或云端存储，无需注册即可使用大部分功能。</p>
   </div>
-
-  <!-- 实用工具 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">🔧</span>
@@ -91,8 +85,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="file-convert.html"><span class="mic">📦</span><span class="mtext"><span class="mname">文件转换</span><span class="mdesc">图片/CSV/哈希</span></span></a>
     </div>
   </div>
-
-  <!-- 休闲娱乐 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">🎮</span>
@@ -106,8 +98,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="world-map.html"><span class="mic">🌍</span><span class="mtext"><span class="mname">世界地图</span><span class="mdesc">现代/一战/二战版图</span></span></a>
     </div>
   </div>
-
-  <!-- 社区交流 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">💬</span>
@@ -120,8 +110,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="paste.html"><span class="mic">📋</span><span class="mtext"><span class="mname">文本分享</span><span class="mdesc">代码/链接分享</span></span></a>
     </div>
   </div>
-
-  <!-- 技术专题合集 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">🗂️</span>
@@ -134,10 +122,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="topic-backend.html"><span class="mic">⚙️</span><span class="mtext"><span class="mname">后端架构</span><span class="mdesc">分布式/数据库/微服务</span></span></a>
     </div>
   </div>
-
-  
-
-  <!-- 文章教程 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">📖</span>
@@ -149,8 +133,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="articles.html"><span class="mic">⭐</span><span class="mtext"><span class="mname">精选文章</span><span class="mdesc">重点教程推荐</span></span></a>
     </div>
   </div>
-
-  <!-- 软件下载 大模块 -->
   <div class="bigcard">
     <div class="bigcard-hd">
       <span class="ic">📥</span>
@@ -161,8 +143,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="software.html"><span class="mic">📥</span><span class="mtext"><span class="mname">本地软件</span><span class="mdesc">钢4工具箱/鼠标宏等</span></span></a>
     </div>
   </div>
-
-  <!-- 管理中心 大模块（Server专属） -->
   <div class="bigcard admin" id="adminCard" style="display:none">
     <div class="bigcard-hd">
       <span class="ic">👑</span>
@@ -173,11 +153,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
       <a class="mini" href="admin.html"><span class="mic">👑</span><span class="mtext"><span class="mname">后台管理</span><span class="mdesc">留言/用户/访问监控</span></span></a>
     </div>
   </div>
-
   <div class="foot">Cr工具站 · 免费在线工具 · 免责声明：所有工具仅供参考，不对使用后果负责</div>
 </div>
-
-<!-- 免责弹窗 -->
 <div class="modal" id="modal">
   <div class="mbox">
     <h3>⚠️ 使用条款与免责声明</h3>
@@ -195,8 +172,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
     </div>
   </div>
 </div>
-
-<!-- 登录/注册弹窗 -->
 <div class="modal" id="loginModal">
   <div class="mbox" style="border-color:#50fa7b;max-width:380px">
     <h3 id="loginTitle" style="color:#50fa7b">🔑 登录</h3>
@@ -210,7 +185,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
     </div>
   </div>
 </div>
-
 <script>
 function showModal(){document.getElementById('modal').style.display='flex'}
 function closeModal(){document.getElementById('modal').style.display='none'}
@@ -258,7 +232,7 @@ document.getElementById('lgToReg').onclick = function(){
 document.getElementById('lgGo').onclick = function(){
   var u = document.getElementById('lg-user').value.trim();
   var p = document.getElementById('lg-pass').value;
-  var isLogin = document.getElementById('loginTitle').textContent.indexOf('登录') >= 0;
+  var isLogin = document.getElementById('lg-msg').textContent.indexOf('登录') >= 0;
   if(!u || !p){document.getElementById('lg-msg').textContent='请输入用户名和密码';return;}
   window.CrGH && CrGH.route('POST', '/api/' + (isLogin ? 'login' : 'register'), {username:u,password:p}, function(j){
     if(j.ok){
@@ -277,7 +251,6 @@ window.addEventListener('load',function(){
     try{ window.CrGH.visitLog({page:location.pathname.split('/').pop()||'index.html', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
   }
   refreshUserBar();
-  /* 显示版本号 */
   if(window.CrGH && window.CrGH.route){
     window.CrGH.route('GET','/api/version',null,function(j){
       if(j&&j.ok){
@@ -292,7 +265,6 @@ setInterval(refreshUserBar, 2000);
 </script>
 <script src="ghdb_v2.js?v=20261006c"></script>
 <script>
-/* 流星背景 */
 (function(){
   var c=document.getElementById('meteorCanvas'),x=c.getContext('2d'),W,H,ms=[];
   function rz(){W=c.width=innerWidth;H=c.height=innerHeight;}rz();onresize=rz;
@@ -310,7 +282,6 @@ setInterval(refreshUserBar, 2000);
 </script>
 <script src="clip.js?v=20261006c"></script>
 <script>
-// PWA注册
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
@@ -318,7 +289,6 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.log('SW failed:', err));
   });
 }
-// 离线检测
 function updateOnlineStatus() {
   const bar = document.getElementById('offlineBar');
   if (bar) bar.style.display = navigator.onLine ? 'none' : 'block';
