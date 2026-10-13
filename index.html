@@ -123,10 +123,15 @@ footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:r
 
 <div class="login-modal" id="loginModal">
   <div class="login-box">
-    <h3>登录 CaesarBase</h3>
-    <input type="text" id="loginUser" placeholder="用户名">
-    <input type="password" id="loginPwd" placeholder="密码">
-    <button onclick="doLogin()">登录</button>
+    <h3 id="loginTitle">登录 CaesarBase</h3>
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      <button id="tabLogin" style="flex:1;padding:8px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a;font-weight:600;cursor:pointer" onclick="switchMode('login')">登录</button>
+      <button id="tabRegister" style="flex:1;padding:8px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--dim);cursor:pointer" onclick="switchMode('register')">注册</button>
+    </div>
+    <input type="text" id="loginUser" placeholder="用户名（2-20字符）">
+    <input type="password" id="loginPwd" placeholder="密码（至少6位）">
+    <input type="password" id="loginPwd2" placeholder="确认密码" style="display:none">
+    <button onclick="doLogin()" id="loginBtn">登录</button>
     <button style="background:transparent;border:1px solid var(--border);color:var(--dim)" onclick="closeLogin()">取消</button>
   </div>
 </div>
@@ -183,23 +188,58 @@ function loadArticles(){
 }
 loadArticles();
 
-// 登录
+// 登录/注册
+const API='https://src-scanner.cr-tools.workers.dev';
+let mode='login';
 function showLogin(){document.getElementById('loginModal').classList.add('show')}
 function closeLogin(){document.getElementById('loginModal').classList.remove('show')}
-function doLogin(){
-  const u=document.getElementById('loginUser').value;
+function switchMode(m){
+  mode=m;
+  const isReg=m==='register';
+  document.getElementById('loginTitle').textContent=isReg?'注册 CaesarBase':'登录 CaesarBase';
+  document.getElementById('loginBtn').textContent=isReg?'注册':'登录';
+  document.getElementById('loginPwd2').style.display=isReg?'block':'none';
+  document.getElementById('tabLogin').style.background=isReg?'transparent':'linear-gradient(135deg,var(--green),var(--blue))';
+  document.getElementById('tabLogin').style.color=isReg?'var(--dim)':'#0f0f1a';
+  document.getElementById('tabLogin').style.border=isReg?'1px solid var(--border)':'none';
+  document.getElementById('tabRegister').style.background=isReg?'linear-gradient(135deg,var(--green),var(--blue))':'transparent';
+  document.getElementById('tabRegister').style.color=isReg?'#0f0f1a':'var(--dim)';
+  document.getElementById('tabRegister').style.border=isReg?'none':'1px solid var(--border)';
+}
+async function doLogin(){
+  const u=document.getElementById('loginUser').value.trim();
   const p=document.getElementById('loginPwd').value;
+  if(!u||!p){alert('请输入用户名和密码');return}
+  // 内置管理员和版主（本地硬编码，不走API）
   if(u==='Server'&&p==='314314314'){
     sessionStorage.setItem('cb_user','Server');
     sessionStorage.setItem('cb_admin','true');
-    location.reload();
-  }else if(u==='67'&&p==='67'){
+    location.reload();return;
+  }
+  if(u==='67'&&p==='67'){
     sessionStorage.setItem('cb_user','67');
     sessionStorage.setItem('cb_mod','true');
-    location.reload();
-  }else{
-    alert('用户名或密码错误');
+    location.reload();return;
   }
+  // 普通用户走 Worker API
+  try{
+    if(mode==='register'){
+      const p2=document.getElementById('loginPwd2').value;
+      if(p!==p2){alert('两次密码不一致');return}
+      if(p.length<6){alert('密码至少6位');return}
+      const r=await fetch(API+'/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+      const d=await r.json();
+      if(!r.ok){alert(d.error||'注册失败');return}
+      alert('注册成功！请登录');switchMode('login');return;
+    }else{
+      const r=await fetch(API+'/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+      const d=await r.json();
+      if(!r.ok){alert(d.error||'登录失败');return}
+      sessionStorage.setItem('cb_user',u);
+      if(d.role==='admin')sessionStorage.setItem('cb_admin','true');
+      location.reload();return;
+    }
+  }catch(e){alert('网络错误：'+e.message)}
 }
 const cu=sessionStorage.getItem('cb_user');
 if(cu){
