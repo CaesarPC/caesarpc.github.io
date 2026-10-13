@@ -15,7 +15,7 @@
  * 接口语义与 cloud-server/worker.js 完全一致。
  * ========================================================= */
 (function () {
-  var REPO = 'CaesarPC/website-finder';
+  var REPO = 'CaesarPC/caesarpc.github.io';
   var BRANCH = 'main';
   var API = 'https://api.github.com/repos/' + REPO + '/contents/';
 
