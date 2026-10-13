@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>文章教程 - Cr工具站</title>
+<link rel="icon" href="/icon-192.png">
+<meta name="description" content="Cr工具站技术文章教程合集，覆盖前端、后端、架构、DevOps、AI等方向，共40+篇深度技术文章。">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;min-height:100vh}
@@ -11,31 +13,32 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;mi
 .hd h1{margin:0;font-size:22px;color:#50fa7b}
 .hd .links{display:flex;gap:16px;align-items:center}
 .hd a{color:#8be9fd;font-size:13px;text-decoration:none}
-.hd a.cb{opacity:.7}
 .wrap{max-width:800px;margin:26px auto;padding:0 16px}
-.intro{background:#282a36;border-radius:10px;padding:16px 20px;margin-bottom:20px;border-left:4px solid #50fa7b}
+.intro{background:#282a36;border-radius:10px;padding:16px 20px;margin-bottom:16px;border-left:4px solid #50fa7b}
 .intro p{margin:0;font-size:13px;color:#bdc3c7;line-height:1.6}
+.search-box{margin-bottom:20px}
+.search-box input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid #44475a;background:#282a36;color:#e6e6e6;font-size:15px;outline:none}
+.search-box input:focus{border-color:#50fa7b}
+.search-box input::placeholder{color:#6272a4}
 .article-list{display:grid;gap:12px}
 .article-item{background:#282a36;border:1px solid #44475a;border-radius:12px;padding:18px 20px;cursor:pointer;transition:.15s}
 .article-item:hover{border-color:#50fa7b;box-shadow:0 4px 16px rgba(80,250,123,.08);transform:translateY(-2px)}
 .article-item h3{font-size:15px;color:#e6e6e6;margin-bottom:4px;font-weight:600}
-.article-item p{font-size:12px;color:#6272a4;margin:0;line-height:1.5}
+.article-item p{font-size:12px;color:#6272a4;margin:0}
 .article-item .date{font-size:11px;color:#6272a4;margin-top:10px}
+.no-result{display:none;text-align:center;color:#6272a4;padding:40px 0;font-size:14px}
 .foot{color:#6272a4;font-size:12px;margin-top:30px;text-align:center;padding-bottom:20px}
 </style>
 </head>
 <body>
 <div class="hd">
   <h1>📚 文章教程</h1>
-  <div class="links">
-    <a href="index.html">← 返回工具箱</a>
-  </div>
+  <div class="links"><a href="index.html">← 返回工具箱</a></div>
 </div>
 <div class="wrap">
-  <div class="intro">
-    <p>技术深度文章，覆盖前端、后端、架构、DevOps等方向（共39篇）</p>
-  </div>
-  <div class="article-list">
+  <div class="intro"><p>技术深度文章，覆盖前端、后端、架构、DevOps等方向（共40篇）</p></div>
+  <div class="search-box"><input type="text" id="searchInput" placeholder="🔍 搜索文章标题..." oninput="filterArticles()"></div>
+  <div class="article-list" id="articleList">
     <div class="article-item" onclick="location.href='article-tech-ai-agent-dev-intro.html'"><h3>AI Agent智能体开发入门</h3><p>技术深度文章</p><div class="date">2026-10-06</div></div>
     <div class="article-item" onclick="location.href='article-tech-graphql-api.html'"><h3>GraphQL API设计</h3><p>技术深度文章</p><div class="date">2026-10-06</div></div>
     <div class="article-item" onclick="location.href='article-tech-distributed-lock.html'"><h3>分布式锁实现方案</h3><p>技术深度文章</p><div class="date">2026-10-06</div></div>
@@ -84,7 +87,21 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;mi
     <div class="article-item" onclick="location.href='article-tech-ssr-isomorphic.html'"><h3>服务端渲染SSR与同构应用</h3><p>技术深度文章</p><div class="date">2026-10-06</div></div>
     <div class="article-item" onclick="location.href='article-tech-bff-layer.html'"><h3>BFF层设计与实践</h3><p>技术深度文章</p><div class="date">2026-10-06</div></div>
   </div>
+  <div class="no-result" id="noResult">没有找到匹配的文章</div>
   <div class="foot">Cr工具站 · 免费在线工具</div>
 </div>
+<script>
+function filterArticles(){
+  var kw=document.getElementById('searchInput').value.toLowerCase().trim();
+  var items=document.querySelectorAll('#articleList .article-item');
+  var visible=0;
+  items.forEach(function(item){
+    var title=item.querySelector('h3').textContent.toLowerCase();
+    if(!kw||title.indexOf(kw)>-1){item.style.display='';visible++;}
+    else{item.style.display='none';}
+  });
+  document.getElementById('noResult').style.display=visible?'none':'block';
+}
+</script>
 </body>
 </html>
