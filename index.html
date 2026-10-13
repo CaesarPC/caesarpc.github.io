@@ -66,7 +66,6 @@ footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:r
   <div class="right">
     <span id="userInfo" style="display:none;font-size:14px">游客</span>
     <button class="user-btn" id="installBtn" onclick="installPWA()" style="display:none">📲 安装到桌面</button>
-    <button class="user-btn" id="loginBtn" onclick="showLogin()">登录</button>
   </div>
 </div>
 <div class="wrap">
@@ -118,20 +117,6 @@ footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:r
   </div>
 </div>
 <footer>© 2026 CaesarBase · alpha 1.1 · <a href="/about.html" style="color:var(--dim)">关于本站</a></footer>
-<div class="login-modal" id="loginModal">
-  <div class="login-box">
-    <h3 id="loginTitle">登录 CaesarBase</h3>
-    <div style="display:flex;gap:6px;margin-bottom:12px">
-      <button id="tabLogin" style="flex:1;padding:8px;border:none;border-radius:8px;background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a;font-weight:600;cursor:pointer" onclick="switchMode('login')">登录</button>
-      <button id="tabRegister" style="flex:1;padding:8px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--dim);cursor:pointer" onclick="switchMode('register')">注册</button>
-    </div>
-    <input type="text" id="loginUser" placeholder="用户名（2-20字符）">
-    <input type="password" id="loginPwd" placeholder="密码（至少6位）">
-    <input type="password" id="loginPwd2" placeholder="确认密码" style="display:none">
-    <button onclick="doLogin()" id="loginBtn">登录</button>
-    <button style="background:transparent;border:1px solid var(--border);color:var(--dim)" onclick="closeLogin()">取消</button>
-  </div>
-</div>
 <script>
 const c=document.getElementById('mc'),x=c.getContext('2d');
 let meteors=[];
@@ -318,5 +303,6 @@ window.addEventListener('load',function(){
   }
 });
 </script>
+<script src="/cr/clip.js"></script>
 </body>
 </html>

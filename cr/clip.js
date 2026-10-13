@@ -11,7 +11,7 @@
 (function () {
   if (window.CrGH) return;
   var s = document.createElement('script');
-  s.src = 'ghdb_v2.js?v=20261006c';
+  s.src = '/cr/ghdb_v2.js?v=20261014a';
   s.async = false;
   (document.head || document.body).appendChild(s);
 })();
@@ -102,6 +102,7 @@
     '<div class="cr-head"><span id="cr-crown" class="cr-crown" style="display:none">👑</span><span class="cr-name" id="cr-name">游客模式</span></div>' +
     '<button class="cr-btn" id="cr-login">登录 / 注册</button>' +
     '<button class="cr-btn" id="cr-note" style="display:none">📝 备忘录</button>' +
+    '<button class="cr-btn" id="cr-settings">⚙️ 设置</button>' +
     '<button class="cr-btn" id="cr-admin" style="display:none">🛠️ 后台管理</button>' +
     '<button class="cr-btn" id="cr-logout" style="display:none">🚪 退出登录</button>' +
     '</div>' +
@@ -218,8 +219,40 @@
 
   /* 后台管理（仅Server） */
   adminBtn.onclick = function () {
-    window.open('admin.html', '_blank');
+    var path = location.pathname.indexOf('/cr/') === 0 ? 'admin.html' : '/cr/admin.html';
+    window.open(path, '_blank');
   };
+
+  /* 用户设置 */
+  var settingsBtn = document.getElementById('cr-settings');
+  settingsBtn.onclick = function () {
+    var curTheme = localStorage.getItem('cr_theme') || 'dark';
+    showBox(
+      '<h3>⚙️ 设置</h3>' +
+      '<div style="margin:12px 0">' +
+      '<label style="font-size:13px;color:var(--dim)">主题模式</label>' +
+      '<div style="display:flex;gap:8px;margin-top:8px">' +
+      '<button class="cr-cancel" id="th-dark" style="flex:1;'+(curTheme==='dark'?'border-color:#50fa7b;color:#50fa7b':'')+'">🌙 深色</button>' +
+      '<button class="cr-cancel" id="th-light" style="flex:1;'+(curTheme==='light'?'border-color:#50fa7b;color:#50fa7b':'')+'">☀️ 浅色</button>' +
+      '</div></div>' +
+      '<div class="cr-row"><button class="cr-cancel" id="s-close">关闭</button></div>'
+    );
+    document.getElementById('th-dark').onclick = function(){ localStorage.setItem('cr_theme','dark'); applyTheme(); location.reload(); };
+    document.getElementById('th-light').onclick = function(){ localStorage.setItem('cr_theme','light'); applyTheme(); location.reload(); };
+    document.getElementById('s-close').onclick = hideBox;
+  };
+
+  /* 主题切换 */
+  function applyTheme(){
+    var t = localStorage.getItem('cr_theme') || 'dark';
+    if(t === 'light'){
+      var st = document.createElement('style');
+      st.textContent = 'body{background:#f5f5f0 !important;color:#222 !important}';
+      st.id = 'cr-light-theme';
+      document.head.appendChild(st);
+    }
+  }
+  applyTheme();
 
   /* 备忘录 */
   noteBtn.onclick = function () {
