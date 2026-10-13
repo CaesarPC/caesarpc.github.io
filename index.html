@@ -7,3 +7,311 @@
 <title>CaesarBase</title>
 <link rel="icon" href="/icon-192.png">
 <link rel="manifest" href="/manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--green:#50fa7b;--blue:#8be9fd;--purple:#bd93f9;--text:#e6e6f0;--dim:#6272a4;--gold:#ffd700}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.topbar{background:rgba(20,20,35,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar .logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .right{display:flex;gap:10px;align-items:center}
+.user-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:20px;font-size:14px;cursor:pointer;transition:all .2s}
+.user-btn:hover{border-color:var(--green)}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}
+.hero{text-align:center;margin-bottom:40px}
+.hero h1{font-size:48px;font-weight:900;background:linear-gradient(135deg,#50fa7b 0%,#8be9fd 50%,#bd93f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.hero p{color:var(--dim);margin-top:10px;font-size:15px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.big-card{background:rgba(26,26,46,.85);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;padding:28px;text-decoration:none;color:var(--text);transition:all .3s;display:flex;flex-direction:column}
+.big-card:hover{border-color:var(--green);transform:translateY(-3px)}
+.big-card .icon{font-size:32px;margin-bottom:12px}
+.big-card h3{font-size:20px;margin-bottom:6px}
+.big-card p{font-size:14px;color:var(--dim);line-height:1.6}
+.big-card .go{display:inline-block;margin-top:12px;color:var(--green);font-size:14px}
+.article-preview{margin-top:10px;padding-top:12px;border-top:1px solid var(--border)}
+.article-preview .art-item{display:block;padding:5px 0;color:var(--green);font-size:13px;text-decoration:none}
+.article-preview .more{color:var(--green);font-size:12px;margin-top:8px;display:block;text-decoration:none;font-weight:600}
+.article-preview .more:hover{color:var(--green)}
+.admin-card{border-color:var(--gold)}
+.admin-card .icon{color:var(--gold)}
+.admin-card h3{color:var(--gold)}
+.crown{color:var(--gold);margin-left:6px}
+footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:relative;z-index:1}
+.login-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:center;justify-content:center}
+.login-modal.show{display:flex}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;width:320px}
+.login-box h3{margin-bottom:16px;text-align:center}
+.login-box input{width:100%;background:#0f0f1a;border:1px solid var(--border);border-radius:8px;padding:12px;margin:6px 0;color:var(--text)}
+.login-box button{width:100%;background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;margin-top:10px}
+.install-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(6px)}
+.install-box{background:#282a36;border:1px solid var(--border);border-radius:16px;padding:22px;width:90%;max-width:340px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.install-box h3{color:#50fa7b;margin:0 0 6px}
+.install-box .tip{color:var(--dim);font-size:13px;margin:0 0 16px}
+.install-box .opt{display:flex;flex-direction:column;gap:4px;align-items:center;width:100%;margin:8px 0;padding:14px;border-radius:12px;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+.install-box .opt small{font-size:12px;font-weight:400;opacity:.8}
+.install-box .opt.ios{background:rgba(50,200,255,.15);color:#8be9fd}
+.install-box .opt.apk{background:rgba(80,250,123,.12);color:#50fa7b}
+.install-box .opt:hover{transform:scale(1.03);filter:brightness(1.2)}
+.install-box .cancel{background:transparent;border:1px solid var(--border);color:var(--dim);width:100%;padding:10px;border-radius:10px;margin-top:10px;cursor:pointer}
+</style>
+</head>
+<body>
+<!-- 离线提示顶栏 -->
+<div id="offlineBar" style="display:none;position:fixed;top:0;left:0;right:0;background:#2d2d3f;color:#888;padding:4px 16px;font-size:12px;text-align:center;z-index:9999;">
+  📡 当前未联网 · 部分功能不可用
+</div>
+<canvas id="mc"></canvas>
+<div class="topbar">
+  <div class="logo">CaesarBase</div>
+  <div class="right">
+    <span id="userInfo" style="display:none;font-size:14px">游客</span>
+    <button class="user-btn" id="installBtn" onclick="installPWA()" style="display:none">📲 安装到桌面</button>
+    <button class="user-btn" id="loginBtn" onclick="showLogin()">登录</button>
+  </div>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>CaesarBase</h1>
+    <p>个人主站 · 导流 · 社区 · 合作</p>
+  </div>
+  <div class="cards" id="cardBox">
+    <a class="big-card" href="https://caesarpc.github.io/cr/index.html">
+      <div class="icon">🧰</div>
+      <h3>Cr工具站</h3>
+      <p>域名查找、编码转换、文件转换、在线小游戏、技术文章，全部免费使用。</p>
+      <span class="go">进入工具站 →</span>
+    </a>
+    <div class="big-card">
+      <div class="icon">📝</div>
+      <h3>技术文章</h3>
+      <p>同步Cr工具站最新技术文章。</p>
+      <div class="article-preview" id="articleList">
+        <span style="color:var(--dim);font-size:13px">加载中...</span>
+      </div>
+      <a class="more" href="https://caesarpc.github.io/cr/articles.html">想看更多文章？进入Cr工具站浏览全部 →</a>
+    </div>
+    <a class="big-card" href="https://caesarpc.github.io/cr/topics.html">
+      <div class="icon">🗂️</div>
+      <h3>技术专题合集</h3>
+      <p>按专题分类整理，前端/后端/网络/AI，系统学习不迷路。</p>
+      <span class="go">浏览专题合集 →</span>
+    </a>
+    <a class="big-card" href="sponsor.html">
+      <div class="icon">📢</div>
+      <h3>品牌导流合作</h3>
+      <p>广告位招商、品牌导流合作，提交你的站点信息。</p>
+      <span class="go">填写合作申请 →</span>
+    </a>
+
+    <div style="grid-column:1/-1;margin-top:20px;padding:10px 0;border-top:1px solid var(--border);font-size:13px;color:var(--dim);letter-spacing:2px">🛡️ 安全研究专区</div>
+
+    <a class="big-card" href="https://caesarpc.github.io/src-scanner-web/">
+      <div class="icon">🛡️</div>
+      <h3>SRC漏洞扫描器 <span style="font-size:11px;background:#ff4757;color:#fff;padding:2px 8px;border-radius:4px;margin-left:6px">需密钥</span></h3>
+      <p>三层扫描（浅层100项/中层150项/深层50项），敏感路径自动检测，50并发。仅限授权安全测试使用。</p>
+      <span class="go">进入扫描器 →</span>
+    </a>
+    <a class="big-card" href="rangefield.html">
+      <div class="icon">🎯</div>
+      <h3>靶场练习</h3>
+      <p>选择题式安全练习，勾选你认为有问题的文件，提交看答案和原理。免费开放，练熟了再实战。</p>
+      <span class="go">开始练习 →</span>
+    </a>
+  </div>
+</div>
+<footer>© 2026 CaesarBase · alpha 1.1</footer>
+
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <h3>登录 CaesarBase</h3>
+    <input type="text" id="loginUser" placeholder="用户名">
+    <input type="password" id="loginPwd" placeholder="密码">
+    <button onclick="doLogin()">登录</button>
+    <button style="background:transparent;border:1px solid var(--border);color:var(--dim)" onclick="closeLogin()">取消</button>
+  </div>
+</div>
+
+<script>
+// 流星背景
+const c=document.getElementById('mc'),x=c.getContext('2d');
+let meteors=[];
+function resize(){c.width=innerWidth;c.height=innerHeight}
+function spawn(){
+  const fromLeft=Math.random()<0.6;
+  let sx,sy,vx,vy;
+  if(fromLeft){sx=-30;sy=Math.random()*c.height*0.7;}
+  else{sx=Math.random()*c.width*0.8;sy=-30;}
+  const angle=(44+Math.random()*2)*Math.PI/180;
+  const speed=3+Math.random()*5;
+  vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+  meteors.push({x:sx,y:sy,vx:vx,vy:vy,size:1+speed*0.3,tail:20+speed*12,alpha:0.2+Math.random()*0.3});
+  setTimeout(spawn,200+Math.random()*400);
+}
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  meteors=meteors.filter(m=>m.x<c.width+200&&m.y<c.height+200);
+  meteors.forEach(m=>{
+    m.x+=m.vx;m.y+=m.vy;
+    const g=x.createLinearGradient(m.x,m.y,m.x-m.vx/m.vy*m.tail,m.y-m.tail);
+    g.addColorStop(0,'rgba(139,242,253,'+m.alpha+')');
+    g.addColorStop(1,'rgba(139,242,253,0)');
+    x.strokeStyle=g;x.lineWidth=m.size;
+    x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x-m.vx/m.vy*m.tail,m.y-m.tail);x.stroke();
+  });
+  requestAnimationFrame(draw);
+}
+resize();spawn();draw();addEventListener('resize',resize);
+
+// 5篇独立文章（CaesarBase自己的页面，返回主站）
+const cbArticles=[
+  {url:'cb-article-tech-ai-agent-dev-intro.html',title:'AI Agent智能体开发入门'},
+  {url:'cb-article-tech-graphql-api.html',title:'GraphQL API设计'},
+  {url:'cb-article-tech-distributed-lock.html',title:'分布式锁实现方案'},
+  {url:'cb-article-tech-db-sharding-practice.html',title:'分库分表实战'},
+  {url:'cb-article-tech-rw-split-ha.html',title:'读写分离与数据库高可用'}
+];
+function loadArticles(){
+  const box=document.getElementById('articleList');
+  box.innerHTML='';
+  cbArticles.forEach(a=>{
+    const el=document.createElement('a');
+    el.className='art-item';
+    el.href=a.url;
+    el.textContent='📄 '+a.title;
+    box.appendChild(el);
+  });
+}
+loadArticles();
+
+// 登录
+function showLogin(){document.getElementById('loginModal').classList.add('show')}
+function closeLogin(){document.getElementById('loginModal').classList.remove('show')}
+function doLogin(){
+  const u=document.getElementById('loginUser').value;
+  const p=document.getElementById('loginPwd').value;
+  if(u==='Server'&&p==='314314314'){
+    sessionStorage.setItem('cb_user','Server');
+    sessionStorage.setItem('cb_admin','true');
+    location.reload();
+  }else if(u==='67'&&p==='67'){
+    sessionStorage.setItem('cb_user','67');
+    sessionStorage.setItem('cb_mod','true');
+    location.reload();
+  }else{
+    alert('用户名或密码错误');
+  }
+}
+const cu=sessionStorage.getItem('cb_user');
+if(cu){
+  document.getElementById('userInfo').textContent=cu==='Server'?'Server 👑':cu;
+  document.getElementById('userInfo').style.display='inline';
+  document.getElementById('loginBtn').textContent='退出';
+  document.getElementById('loginBtn').onclick=()=>{sessionStorage.clear();location.reload()};
+  if(sessionStorage.getItem('cb_admin')){
+    const box=document.getElementById('cardBox');
+    const ac=document.createElement('a');
+    ac.className='big-card admin-card';
+    ac.href='cr/admin.html';
+    ac.innerHTML='<div class="icon">👑</div><h3>进入后台</h3><p>Server专属后台管理</p><span class="go">打开后台 →</span>';
+    box.appendChild(ac);
+  }
+}
+</script>
+<script>
+// PWA注册
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https://caesarpc.github.io/sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW failed:', err));
+  });
+}
+
+// ==== 安装到桌面(PWA) ====
+let deferredPrompt = null;
+// iPadOS 的Safari会把UA伪装成Mac, 需用多点触控+Mac平台识别
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+  || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  || (navigator.userAgentData && /macOS/i.test(navigator.userAgentData.platform) && navigator.maxTouchPoints > 1);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+// 安卓/电脑Chrome: 捕获安装提示
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').style.display = 'inline-block';
+});
+
+// iOS Safari: 不支持beforeinstallprompt, 直接显示按钮引导
+if (isIOS && !isStandalone) {
+  document.getElementById('installBtn').style.display = 'inline-block';
+}
+
+// 已安装为App → 隐藏按钮
+if (isStandalone) {
+  const b = document.getElementById('installBtn');
+  if (b) b.style.display = 'none';
+}
+
+const APK_URL = 'https://caesarpc.github.io/apk/CaesarBase.apk';
+
+function installPWA() {
+  // 跳转到独立安装选择页(纯静态页面, 不依赖JS弹窗, 鸿蒙等浏览器也能正常显示)
+  window.location.href = 'install.html?v=' + Date.now();  // 加时间戳强制绕过CDN缓存
+}
+
+function closeInstallModal() {
+  document.getElementById('installModal').style.display = 'none';
+}
+
+// iOS/iPad: PWA 添加到主屏幕
+function installIOS() {
+  closeInstallModal();
+  alert('在 iPad/iPhone 上安装 CaesarBase：\n1. 点底部中间的「分享」按钮\n2. 向下滑，点「添加到主屏幕」\n3. 点右上角「添加」即可\n\n装完会像独立App一样全屏运行');
+}
+
+// 安卓/鸿蒙: 下载 APK(两者同一文件)
+function installApk() {
+  closeInstallModal();
+  window.location.href = APK_URL;
+}
+</script>
+<script>
+// 离线检测
+function updateOnlineStatus() {
+  const bar = document.getElementById('offlineBar');
+  if (navigator.onLine) {
+    bar.style.display = 'none';
+  } else {
+    bar.style.display = 'block';
+  }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+</script>
+
+<!-- 安装方式选择面板 -->
+<div class="install-modal" id="installModal" style="display:none" onclick="if(event.target===this)closeInstallModal()">
+  <div class="install-box">
+    <h3>选择安装方式</h3>
+    <p class="tip">把 CaesarBase 装成独立 App</p>
+    <button class="opt ios" onclick="installIOS()">🍎 iOS / iPad<small>PWA 添加到主屏幕</small></button>
+    <button class="opt apk" onclick="installApk()">🤖 鸿蒙 HarmonyOS<small>下载 APK 安装包</small></button>
+    <button class="opt apk" onclick="installApk()">📱 安卓 Android<small>下载 APK 安装包</small></button>
+    <button class="cancel" onclick="closeInstallModal()">取消</button>
+  </div>
+</div>
+
+<script src="cr/ghdb_v2.js?v=20261008a"></script>
+<script>
+// CaesarBase 主站访问记录(与CR工具站共用云端 api_data/visits.json)
+window.addEventListener('load',function(){
+  if(window.CrGH && window.CrGH.visitLog){
+    try{ window.CrGH.visitLog({page:'CaesarBase主站', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
+  }
+});
+</script>
+
+</body>
+</html>
