@@ -22,7 +22,7 @@
   /* ---------- token（混淆存放，运行时还原；换 token 时改这里） ----------
    * 混淆串 = base64(每个字符码点+7 后反转)。防止 GitHub 推送保护检测到有效 token。
    * 还原：base64解码 → 反转 → 每个字符-7。
-   * ⚠ 该 token 会随网页公开，务必使用受限 token（仅 website-finder 仓库、Contents 读写）。
+   * ⚠ 该 token 会随网页公开，务必使用受限 token（仅 caesarpc.github.io 仓库、Contents 读写）。
    */
   var _ENC = 'VnlhfT1xU21TS1FUPUlYVlNRVjd+WUtqU0pNVjl+WHJeSFhOSVxsV051czhwWExvXGBKU09OXFJSWH5mPm07eld1V05bgVhtN0hXOTlUWEo4OGZ7aHdmaXxve3Bu';
   function _token() {
