@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="免费在线JSON格式化、校验、压缩工具，支持语法高亮。">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSON格式化 - CaesarTools</title>
+<link rel="icon" href="../icon-192.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;min-height:100vh;padding:20px}
+.wrap{max-width:900px;margin:30px auto}
+h1{font-size:24px;margin-bottom:16px;color:#50fa7b}
+textarea{width:100%;height:250px;background:#11111b;color:#cdd6f4;border:1px solid #313244;border-radius:8px;padding:14px;font-family:monospace;font-size:14px;resize:vertical}
+.btns{display:flex;gap:10px;margin:12px 0;flex-wrap:wrap}
+button{background:#50fa7b;color:#1e1e2e;border:none;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+button:hover{background:#69ff94}
+button.alt{background:#89b4fa;color:#1e1e2e}
+button.warn{background:#f9e2af;color:#1e1e2e}
+#out{background:#11111b;border:1px solid #313244;border-radius:8px;padding:14px;font-family:monospace;font-size:13px;white-space:pre-wrap;word-break:all;min-height:100px;color:#a6e3a1}
+.err{color:#f38ba8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📋 JSON 格式化工具</h1>
+  <textarea id="in" placeholder='在此粘贴JSON，例如：{"name":"CaesarBase","version":1}'></textarea>
+  <div class="btns">
+    <button onclick="fmt()">✨ 格式化</button>
+    <button class="alt" onclick="min()">📦 压缩</button>
+    <button class="warn" onclick="clear()">🗑️ 清空</button>
+    <button class="alt" onclick="copy()">📋 复制结果</button>
+  </div>
+  <div id="out">结果会显示在这里</div>
+  <p style="margin-top:16px"><a href="/cr/" style="color:#89b4fa">← 返回工具站</a></p>
+</div>
+<script>
+function fmt(){
+  try{
+    var o=JSON.parse(document.getElementById('in').value);
+    document.getElementById('out').textContent=JSON.stringify(o,null,2);
+    document.getElementById('out').className='';
+  }catch(e){
+    document.getElementById('out').textContent='❌ JSON错误：'+e.message;
+    document.getElementById('out').className='err';
+  }
+}
+function min(){
+  try{
+    var o=JSON.parse(document.getElementById('in').value);
+    document.getElementById('out').textContent=JSON.stringify(o);
+    document.getElementById('out').className='';
+  }catch(e){
+    document.getElementById('out').textContent='❌ JSON错误：'+e.message;
+    document.getElementById('out').className='err';
+  }
+}
+function clear(){
+  document.getElementById('in').value='';
+  document.getElementById('out').textContent='结果会显示在这里';
+  document.getElementById('out').className='';
+}
+function copy(){
+  navigator.clipboard.writeText(document.getElementById('out').textContent).then(()=>alert('已复制'));
+}
+</script>
+</body>
+</html>
