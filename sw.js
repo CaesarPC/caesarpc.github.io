@@ -1,5 +1,5 @@
 // CaesarBase PWA Service Worker - 全面离线支持 v3
-const CACHE_NAME = 'caesarbase-v3';
+const CACHE_NAME = 'caesarbase-v4';
 // 预缓存全部核心功能页(47项) + 访问过的页面自动实时缓存(含全部文章)
 const ASSETS = [
   '/',
@@ -68,14 +68,28 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 请求: 缓存优先 + 网络回退 + 写回缓存(访问过的页面/文章自动离线)
+// 请求: HTML页面网络优先(保证更新), 其他资源缓存优先
 self.addEventListener('fetch', event => {
   const req = event.request;
   if (req.method !== 'GET') return;
-  // 只处理同源页面/资源(跳过GitHub API等外部请求)
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
 
+  // HTML页面: 网络优先, 失败时用缓存
+  if (req.headers.get('accept') && req.headers.get('accept').includes('text/html')) {
+    event.respondWith(
+      fetch(req).then(res => {
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(c => c.put(req, copy));
+        }
+        return res;
+      }).catch(() => caches.match(req).then(cached => cached || caches.match('/index.html')))
+    );
+    return;
+  }
+
+  // 其他资源: 缓存优先
   event.respondWith(
     caches.match(req).then(cached => {
       if (cached) return cached;
@@ -85,7 +99,7 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_NAME).then(c => c.put(req, copy));
         }
         return res;
-      }).catch(() => caches.match('/index.html').then(f => f || new Response('离线', {status:200})));
+      });
     })
   );
 });
