@@ -1,5 +1,5 @@
-// CaesarBase PWA Service Worker - 全面离线支持 v3
-const CACHE_NAME = 'caesarbase-v4';
+// CaesarBase PWA Service Worker - 离线支持 v5
+const CACHE_NAME = 'caesarbase-v5';
 // 预缓存全部核心功能页(47项) + 访问过的页面自动实时缓存(含全部文章)
 const ASSETS = [
   '/',
@@ -18,31 +18,14 @@ const ASSETS = [
   '/cb-article-tech-rw-split-ha.html',
   '/cr/404.html',
   '/cr/admin.html',
-  '/cr/all-articles.html',
-  '/cr/api-design.html',
-  '/cr/browser-extension.html',
-  '/cr/cloud_index.html',
+  '/cr/tools.html',
+  '/cr/index.html',
   '/cr/codec.html',
   '/cr/combiner.html',
-  '/cr/echarts-basics.html',
-  '/cr/en.html',
-  '/cr/file-convert.html',
-  '/cr/finder.html',
-  '/cr/frontend-security.html',
-  '/cr/games.html',
-  '/cr/image-host.html',
-  '/cr/index.html',
-  '/cr/mobile-responsive.html',
   '/cr/paint.html',
   '/cr/paste.html',
   '/cr/pomodoro.html',
-  '/cr/pwa-intro.html',
-  '/cr/remote.html',
-  '/cr/share.html',
-  '/cr/software.html',
-  '/cr/tools.html',
-  '/cr/topic-backend.html',
-  '/cr/topic-frontend.html',
+  '/cr/articles.html',
   '/cr/topics.html',
   '/cr/wall.html',
   '/cr/wasm-intro.html',
