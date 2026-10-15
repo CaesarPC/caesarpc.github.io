@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="组件化是现代前端的基础。但写一个'好'组件和写一个'能跑'组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。"好"组件和写一个"能跑"组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。">
+<meta name="description" content="前端组件设计 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-244.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端组件设计 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端组件设计 - CaesarTools">
-<meta property="og:description" content="组件化是现代前端的基础。但写一个'好'组件和写一个'能跑'组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。"好"组件和写一个"能跑"组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。">
+<meta property="og:description" content="前端组件设计 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-244.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端组件设计", "description": "组件化是现代前端的基础。但写一个'好'组件和写一个'能跑'组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。", "articleSection": "前端开发", "keywords": ["前端组件设计"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-244.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端组件设计", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-244.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端组件设计"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端组件设计</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端组件设计是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 前端组件设计：高内聚低耦合的艺术</p>
 <p>组件化是现代前端的基础。但写一个"好"组件和写一个"能跑"组件差距很大。好的组件复用性强、易于维护、接口清晰；坏的组件到处耦合、改一处崩三处。组件设计的核心原则就八个字：高内聚，低耦合。</p>
 <p>## 一、Props设计</p>
@@ -49,28 +45,15 @@ a:hover{text-decoration:underline}
 <p>## 二、事件回调</p>
 <p>组件不直接修改父组件的数据，而是通过回调通知父组件：onChange、onSelect、onDelete。父组件传入处理函数，组件在合适的时机调用它。这种单向数据流让组件行为可预测。</p>
 <p>## 三、插槽与组合</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>不要试图用props配置一切。复杂的内容用插槽（slot）让父组件自定义。按钮组件的props可以是type/size，但按钮里的具体内容用插槽——父组件想放图标放图标，想放文字放文字。</p>
 <p>## 四、受控与非受控</p>
 <p>表单组件有两种模式。非受控：组件自己管理状态，外部通过默认值初始化。受控：组件的状态完全由父组件通过props控制，组件只是展示和转发事件。</p>
 <p>大多数业务组件用受控模式——状态在父组件，组件纯粹展示。简单的独立组件可以用非受控。</p>
 <p>## 五、总结</p>
 <p>好组件的标准：props少而精、事件清晰、插槽灵活、职责单一。一个组件只做一件事，做好。不要写万能大组件——什么都往里塞，最后谁都用不好。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a><a href="article-tech-242.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 环境变量与配置管理</a><a href="article-tech-254.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful简明指南</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

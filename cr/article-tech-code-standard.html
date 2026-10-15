@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="一个人写代码怎么写都行，但一个团队十几个人写同一个项目，如果没有统一规范，代码会变成无法维护的灾难：有人用单引号有人用双引号、有人写分有人不写、变量命名风格各异、提交信息乱七八糟。Code Review时大家花时间争论风格问题，而不是讨论逻辑问题。代码规范和工程协作制度，就是为了解决这个问题。">
+<meta name="description" content="团队代码规范与工程协作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-code-standard.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>团队代码规范与工程协作 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="团队代码规范与工程协作 - CaesarTools">
-<meta property="og:description" content="一个人写代码怎么写都行，但一个团队十几个人写同一个项目，如果没有统一规范，代码会变成无法维护的灾难：有人用单引号有人用双引号、有人写分有人不写、变量命名风格各异、提交信息乱七八糟。Code Review时大家花时间争论风格问题，而不是讨论逻辑问题。代码规范和工程协作制度，就是为了解决这个问题。">
+<meta property="og:description" content="团队代码规范与工程协作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-code-standard.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "团队代码规范与工程协作", "description": "一个人写代码怎么写都行，但一个团队十几个人写同一个项目，如果没有统一规范，代码会变成无法维护的灾难：有人用单引号有人用双引号、有人写分有人不写、变量命名风格各异、提交信息乱七八糟。Code Review时大家花时间争论风格问题，而不是讨论逻辑问题。代码规范和工程协作制度，就是为了解决这个问题。", "articleSection": "技术教程", "keywords": ["团队代码规范与工程协作"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-code-standard.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "团队代码规范与工程协作", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-code-standard.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "团队代码规范与工程协作"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>团队代码规范与工程协作</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>团队代码规范与工程协作：让多人项目不混乱的制度建设</h2>
 <p>一个人写代码怎么写都行，但一个团队十几个人写同一个项目，如果没有统一规范，代码会变成无法维护的灾难：有人用单引号有人用双引号、有人写分有人不写、变量命名风格各异、提交信息乱七八糟。Code Review时大家花时间争论风格问题，而不是讨论逻辑问题。代码规范和工程协作制度，就是为了解决这个问题。</p>
 <p>代码风格规范是最基础的。ESLint检测代码错误和风格问题，Prettier自动格式化代码。关键是：这些规则要配置在项目里，提交代码时自动检查、自动格式化，不靠人自觉。CI流水线里加一步Lint检查，不符合规范的代码不让合并。这样团队里所有人的代码风格自动统一，不需要在Review时争论。</p>
@@ -46,18 +43,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>结对编程和技术分享是团队知识共享的方式。新人入职有导师带，每周技术分享会有人讲自己做的东西。知识不集中在某几个人脑子里，团队才不会因为某人离职而停摆。</p>
 <p>代码规范和工程制度不是束缚创造力，而是减少无意义的沟通成本。当风格问题都由工具自动解决，Review就专注于真正重要的逻辑和设计问题。成熟的工程团队和业余团队的区别，往往就体现在这些"看不见"的制度细节上。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-api-versioning.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-cross-tab-comm.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器跨标签页通信</a><a href="article-tech-ddd-intro.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DDD领域驱动设计入门</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-config-center-svc-discovery.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心与服务发现</a><a href="article-tech-clean-arch-hexagonal.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a><a href="article-tech-ddd-intro.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DDD领域驱动设计入门</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

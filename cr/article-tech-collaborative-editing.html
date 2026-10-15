@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Google Docs最让人惊叹的功能是：多人同时编辑同一个文档，你能看到别人的光标在动，别人也能实时看到你的修改。这种实时协同编辑技术，背后是一套复杂的算法和工程体系。理解它的原理，对理解现代Web应用的实时协作能力很有帮助。">
+<meta name="description" content="实时协同编辑技术解析 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-collaborative-editing.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>实时协同编辑技术解析 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="实时协同编辑技术解析 - CaesarTools">
-<meta property="og:description" content="Google Docs最让人惊叹的功能是：多人同时编辑同一个文档，你能看到别人的光标在动，别人也能实时看到你的修改。这种实时协同编辑技术，背后是一套复杂的算法和工程体系。理解它的原理，对理解现代Web应用的实时协作能力很有帮助。">
+<meta property="og:description" content="实时协同编辑技术解析 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-collaborative-editing.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "实时协同编辑技术解析", "description": "Google Docs最让人惊叹的功能是：多人同时编辑同一个文档，你能看到别人的光标在动，别人也能实时看到你的修改。这种实时协同编辑技术，背后是一套复杂的算法和工程体系。理解它的原理，对理解现代Web应用的实时协作能力很有帮助。", "articleSection": "技术教程", "keywords": ["实时协同编辑技术解析"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-collaborative-editing.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "实时协同编辑技术解析", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-collaborative-editing.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "实时协同编辑技术解析"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>实时协同编辑技术解析</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>实时协同编辑技术解析：多人同时编辑一个文档的实现原理</h2>
 <p>Google Docs最让人惊叹的功能是：多人同时编辑同一个文档，你能看到别人的光标在动，别人也能实时看到你的修改。这种实时协同编辑技术，背后是一套复杂的算法和工程体系。理解它的原理，对理解现代Web应用的实时协作能力很有帮助。</p>
 <p>协同编辑的核心问题是：两个人同时修改同一段文字，怎么合并？如果用户A输入"你好"，用户B同时输入"Hello"，最终文档应该是什么？顺序怎么定？冲突怎么解决？这就是协同算法要解决的问题。</p>
@@ -48,18 +45,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>实际产品中，飞书文档、腾讯文档、Notion都用了类似的技术栈。除了文字编辑，白板（多人画流程图）、代码协同编辑（多人写同一段代码）也是类似的原理——都是基于CRDT的实时操作同步。</p>
 <p>实时协同编辑是Web应用从"单人工具"走向"多人协作平台"的关键技术。它的背后是CRDT算法、WebSocket实时通信、富文本引擎的结合。理解这套技术，能帮助我们理解为什么在线文档、在线白板这些产品体验这么流畅。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-bff-layer.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF层设计与实践</a><a href="article-tech-api-gateway-arch.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API网关架构设计</a><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分库分表实战</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-code-standard.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 团队代码规范与工程协作</a><a href="article-tech-bff-layer.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF层设计与实践</a><a href="article-tech-data-masking-privacy.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

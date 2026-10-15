@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="try/catch是基本错误处理，但很多人用得不规范。异步代码的错误要用.catch()或try/catch包裹await。全局未捕获错误用window.onerror和unhandledrejection监听。">
+<meta name="description" content="JavaScript错误处理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-309.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript错误处理 - CaesarTools</title>
 <style>
@@ -23,42 +22,26 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript错误处理 - CaesarTools">
-<meta property="og:description" content="try/catch是基本错误处理，但很多人用得不规范。异步代码的错误要用.catch()或try/catch包裹await。全局未捕获错误用window.onerror和unhandledrejection监听。">
+<meta property="og:description" content="JavaScript错误处理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-309.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "JavaScript错误处理", "description": "try/catch是基本错误处理，但很多人用得不规范。异步代码的错误要用.catch()或try/catch包裹await。全局未捕获错误用window.onerror和unhandledrejection监听。", "articleSection": "前端开发", "keywords": ["JavaScript错误处理"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-309.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "JavaScript错误处理", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-309.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "JavaScript错误处理"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript错误处理</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript错误处理是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>JavaScript错误处理最佳实践</p>
 <p>try/catch是基本错误处理，但很多人用得不规范。异步代码的错误要用.catch()或try/catch包裹await。全局未捕获错误用window.onerror和unhandledrejection监听。</p>
 <p>常见错误类型：SyntaxError（语法错误）、ReferenceError（引用不存在的变量）、TypeError（类型错误）、RangeError（参数越界）。自定义错误类继承Error，添加错误码和上下文信息。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>生产环境不要把错误信息直接展示给用户。记录错误日志（带堆栈、用户信息、请求信息），给用户友好提示。前端监控平台（Sentry）自动收集错误，帮助定位问题。</p>
 <p>错误处理的原则：能处理的就地处理（重试、降级）；不能处理的向上抛出；全局兜底捕获未处理错误；记录日志便于排查。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-320.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript解构赋值</a><a href="article-tech-302.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript异步迭代</a><a href="article-tech-312.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS层叠上下文与z-index</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

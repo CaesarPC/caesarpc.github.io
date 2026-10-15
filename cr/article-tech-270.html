@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Google提出了三个衡量网页用户体验的核心指标，叫Web Vitals。它们直接影响SEO排名。# 什么是Web Vitals：Google的核心指标Largest Contentful Paint——页面上最大的内容元素（大图、大段文字）渲染完成的时间。好的标准：小于2.5秒。LCP慢，用户觉得页面...">
+<meta name="description" content="WebVitals - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-270.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebVitals - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="WebVitals - CaesarTools">
-<meta property="og:description" content="Google提出了三个衡量网页用户体验的核心指标，叫Web Vitals。它们直接影响SEO排名。# 什么是Web Vitals：Google的核心指标Largest Contentful Paint——页面上最大的内容元素（大图、大段文字）渲染完成的时间。好的标准：小于2.5秒。LCP慢，用户觉得页面...">
+<meta property="og:description" content="WebVitals - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-270.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "WebVitals", "description": "Google提出了三个衡量网页用户体验的核心指标，叫Web Vitals。它们直接影响SEO排名。", "articleSection": "前端开发", "keywords": ["WebVitals"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-270.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "WebVitals", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-270.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "WebVitals"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>WebVitals</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">WebVitals是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 什么是Web Vitals：Google的核心指标</p>
 <p>Google提出了三个衡量网页用户体验的核心指标，叫Web Vitals。它们直接影响SEO排名。</p>
 <p>## 一、LCP：最大内容渲染时间</p>
@@ -46,7 +42,6 @@ a:hover{text-decoration:underline}
 <p>## 二、INP：交互到绘制延迟</p>
 <p>Interaction to Next Paint——用户交互（点击、按键）到页面响应的时间。好的标准：小于200毫秒。INP差，用户觉得页面卡。</p>
 <p>优化INP：减少长JS任务、代码分割、Web Worker处理重计算。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、CLS：累计布局偏移</p>
 <p>Cumulative Layout Shift——页面内容意外移动的程度。比如图片加载完把文字挤下去、广告插入导致布局跳动。好的标准：小于0.1。</p>
 <p>优化CLS：给图片设宽高、预留广告位空间、不要在已有内容上方插入新元素。</p>
@@ -54,21 +49,9 @@ a:hover{text-decoration:underline}
 <p>Chrome DevTools的Lighthouse面板可以跑一遍。生产环境用web-vitals库收集真实用户数据。</p>
 <p>## 五、总结</p>
 <p>Web Vitals是Google定义的用户体验标准：LCP看加载、INP看交互、CLS看稳定性。三个都达标，用户体验和SEO都不会差。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 代码分割</a><a href="article-tech-276.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebComponents</a><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

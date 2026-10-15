@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="富文本编辑器原理：从contenteditable到协同编辑博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配基础原理：contenteditable属性让div可编辑。document.exe...">
+<meta name="description" content="富文本编辑器原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-159.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>富文本编辑器原理 - CaesarTools</title>
 <style>
@@ -23,45 +22,29 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="富文本编辑器原理 - CaesarTools">
-<meta property="og:description" content="富文本编辑器原理：从contenteditable到协同编辑博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配基础原理：contenteditable属性让div可编辑。document.exe...">
+<meta property="og:description" content="富文本编辑器原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-159.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "富文本编辑器原理", "description": "富文本编辑器原理：从contenteditable到协同编辑", "articleSection": "技术教程", "keywords": ["富文本编辑器原理"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-159.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "富文本编辑器原理", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-159.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "富文本编辑器原理"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>富文本编辑器原理</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">富文本编辑器原理是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>富文本编辑器原理：从contenteditable到协同编辑</p>
 <p>博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配，都是坑。</p>
 <p>基础原理：contenteditable属性让div可编辑。document.execCommand做加粗、斜体、插入链接等操作。但execCommand已被废弃，新方案是直接操作DOM。</p>
 <p>成熟编辑器：Quill、TipTap、Slate.js、ProseMirror。它们封装了文档模型（不是HTML字符串，是结构化数据）、历史记录（撤销重做）、插件系统（@提及、图片插入）、协同编辑（前面讲的CRDT）。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>XSS防护是必须的。用户粘贴的内容可能带恶意脚本。渲染时要过滤HTML标签，只允许安全标签和属性。不要直接把用户输入的HTML插入页面。</p>
 <p>协同编辑是高级功能：多个用户同时编辑同一文档，基于CRDT算法（前面讲过）实现实时合并。</p>
 <p>不要自己从零写富文本编辑器。用成熟库，它们处理了各种边界情况。自己写一个生产级编辑器需要数月。</p>
 <p>富文本编辑器是看起来简单做起来难的典型。理解原理，选对工具，是正确做法。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上传与大文件分片</a><a href="article-tech-149.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器跨标签页通信</a><a href="article-tech-157.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI应用产品设计原则</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-156.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI_Agent智能体开发</a><a href="article-tech-161.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能预算</a><a href="article-tech-165.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术文档写作</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

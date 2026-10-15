@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="SSR虽然首屏快，但每个请求都在服务器渲染HTML，CPU开销大。如果页面内容变化不频繁，每次都重新渲染就是浪费。SSR缓存就是解决这个问题。">
+<meta name="description" content="SSR缓存 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-261.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SSR缓存 - CaesarTools</title>
 <style>
@@ -23,48 +22,32 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="SSR缓存 - CaesarTools">
-<meta property="og:description" content="SSR虽然首屏快，但每个请求都在服务器渲染HTML，CPU开销大。如果页面内容变化不频繁，每次都重新渲染就是浪费。SSR缓存就是解决这个问题。">
+<meta property="og:description" content="SSR缓存 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-261.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "SSR缓存", "description": "SSR虽然首屏快，但每个请求都在服务器渲染HTML，CPU开销大。如果页面内容变化不频繁，每次都重新渲染就是浪费。SSR缓存就是解决这个问题。", "articleSection": "技术教程", "keywords": ["SSR缓存"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-261.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SSR缓存", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-261.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "SSR缓存"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>SSR缓存</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">SSR缓存是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 什么是SSR缓存：别每次都渲染</p>
 <p>SSR虽然首屏快，但每个请求都在服务器渲染HTML，CPU开销大。如果页面内容变化不频繁，每次都重新渲染就是浪费。SSR缓存就是解决这个问题。</p>
 <p>## 一、页面级缓存</p>
 <p>把渲染好的HTML缓存起来。第一个请求渲染页面A，生成HTML缓存5分钟。接下来5分钟内所有请求直接返回缓存的HTML，不需要重新渲染。5秒后缓存过期，下一个请求重新渲染并刷新缓存。</p>
 <p>## 二、ISR增量静态再生</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>Next.js的ISR就是这个思路。页面在构建时静态生成，部署后定期在后台重新生成。用户看到的是缓存的HTML，内容不会太旧，但服务器不用每次渲染。</p>
 <p>## 三、什么时候缓存</p>
 <p>内容更新不频繁的页面（博客、文档、营销页）——大胆缓存。
 用户个性化页面（我的订单、个人中心）——不能缓存，每个人看到的不一样。</p>
 <p>## 四、总结</p>
 <p>SSR不是每次都要渲染。能缓存就缓存——页面级缓存或ISR，把SSR的CPU开销降到最低。个性化页面才需要实时渲染。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-258.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HSTS</a><a href="article-tech-268.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSRHydration</a><a href="article-tech-270.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebVitals</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

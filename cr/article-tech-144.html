@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="服务器宕机、机房断电、云厂商故障——这些意外总会发生。区别在于成熟的系统早就准备好了预案，出问题自动切换，用户几乎无感知。容灾就是为此设计的。">
+<meta name="description" content="容灾备份与多活架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-144.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>容灾备份与多活架构 - CaesarTools</title>
 <style>
@@ -23,46 +22,30 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="容灾备份与多活架构 - CaesarTools">
-<meta property="og:description" content="服务器宕机、机房断电、云厂商故障——这些意外总会发生。区别在于成熟的系统早就准备好了预案，出问题自动切换，用户几乎无感知。容灾就是为此设计的。">
+<meta property="og:description" content="容灾备份与多活架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-144.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "容灾备份与多活架构", "description": "服务器宕机、机房断电、云厂商故障——这些意外总会发生。区别在于成熟的系统早就准备好了预案，出问题自动切换，用户几乎无感知。容灾就是为此设计的。", "articleSection": "后端架构", "keywords": ["容灾备份与多活架构"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-144.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "容灾备份与多活架构", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-144.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "容灾备份与多活架构"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>容灾备份与多活架构</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">容灾备份与多活架构是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>容灾备份与多活架构：保证系统永不宕机</p>
 <p>服务器宕机、机房断电、云厂商故障——这些意外总会发生。区别在于成熟的系统早就准备好了预案，出问题自动切换，用户几乎无感知。容灾就是为此设计的。</p>
 <p>数据备份是基础。数据库定期全量备份+增量备份，备份文件存到不同地方（异地、对象存储）。定期演练恢复——备份了但恢复不出来等于没备份。RTO（恢复时间目标）和RPO（数据丢失量）是两个关键指标：多快恢复、能容忍丢多少数据。</p>
 <p>主从切换是高可用的基本。数据库主库挂了，自动提升从库为主库（前面讲过）。应用服务器多实例部署，前面挂负载均衡，一台挂了流量自动切到其他台。</p>
 <p>同城双活：两个机房都在同一城市，同时提供服务，数据实时同步。一个机房挂了，另一个立刻接管。延迟低（同城网络快），但遭遇城市级灾难（地震、火灾）两个机房都受影响。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>异地多活：在不同城市部署多个机房，都对外提供服务，数据跨地域同步。一个城市的机房整体挂了，其他城市照常服务。这是最高可用级别，但实现复杂：数据同步延迟、跨地域事务、一致性问题。成本也最高。</p>
 <p>并不是所有系统都需要异地多活。要看业务对可用性的要求。一个内部管理系统，宕机几小时问题不大；一个支付系统，一秒宕机都是巨大损失。根据业务重要性选择容灾级别，不要过度建设。</p>
 <p>混沌工程是验证容灾能力的方法：主动在生产环境注入故障（杀一个实例、断网络、延迟注入），看系统是否真的能自动恢复。Netflix的Chaos Monkey是代表。平时演练，真出问题才不慌。</p>
 <p>容灾是花钱买保险。平时看不到价值，出问题时挽回的损失远超过投入。但要按业务需求分级投入，不是每个系统都要做到五九个九。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-152.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 暗色模式实现</a><a href="article-tech-140.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理与优化</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-142.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术选型决策方法</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

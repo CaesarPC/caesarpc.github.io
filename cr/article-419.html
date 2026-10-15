@@ -5,11 +5,10 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-419.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>前端状态管理：从useState到Zustand - CaesarTools</title>
-<meta name="description" content="组件多了，状态到处放。A组件状态B组件要用。prop一层层传（prop drilling），代码又臭又长。">
+<meta name="description" content="前端状态管理：从useState到Zustand - CaesarBase 免费技术文章">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,19 +26,17 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端状态管理：从useState到Zustand - CaesarTools">
-<meta property="og:description" content="组件多了，状态到处放。A组件状态B组件要用。prop一层层传（prop drilling），代码又臭又长。">
+<meta property="og:description" content="前端状态管理：从useState到Zustand - CaesarBase 免费技术文章">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-419.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端状态管理：从useState到Zustand", "description": "组件多了，状态到处放。A组件状态B组件要用。prop一层层传（prop drilling），代码又臭又长。", "articleSection": "前端开发", "keywords": ["前端状态管理", "从useState到Zustand"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-419.html"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端状态管理：从useState到Zustand"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端状态管理：从useState到Zustand", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-419.html"}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
 <h1>前端状态管理：从useState到Zustand</h1>
-<div class="meta">CaesarTools 技术文章 · 2026-10-15 📅 2026-10-15 </div>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
 <div class="content">
 <h2>一、状态为什么乱</h2>
 <p>组件多了，状态到处放。A组件状态B组件要用。prop一层层传（prop drilling），代码又臭又长。</p>
@@ -74,17 +71,6 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 <div class="foot">CaesarTools · 免费技术站</div>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-41.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端路由原理与实践</a><a href="article-408.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL索引原理与优化</a><a href="article-386.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTP缓存策略：让网站第二次访问快如闪电</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-412.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS变量与主题切换</a><a href="article-410.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a><a href="article-418.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷贝与浅拷贝</a></div>
 </body>
 </html>

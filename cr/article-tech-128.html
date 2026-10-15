@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Elasticsearch搜索引擎实战：从模糊查询到全文检索的技术升级数据库的LIKE '%关键词%'查询性能差、功能弱（不支持分词、相关性排序、中文分词麻烦）。当需要做搜索功能（商品搜索、文章搜索、日志查询），就该上专门的搜索引Elasticsearch的核心是倒排索引。传统索引是"文档→词"，倒排索...">
+<meta name="description" content="Elasticsearch搜索引擎实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-128.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elasticsearch搜索引擎实战 - CaesarTools</title>
 <style>
@@ -23,48 +22,32 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Elasticsearch搜索引擎实战 - CaesarTools">
-<meta property="og:description" content="Elasticsearch搜索引擎实战：从模糊查询到全文检索的技术升级数据库的LIKE '%关键词%'查询性能差、功能弱（不支持分词、相关性排序、中文分词麻烦）。当需要做搜索功能（商品搜索、文章搜索、日志查询），就该上专门的搜索引Elasticsearch的核心是倒排索引。传统索引是"文档→词"，倒排索...">
+<meta property="og:description" content="Elasticsearch搜索引擎实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-128.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Elasticsearch搜索引擎实战", "description": "Elasticsearch搜索引擎实战：从模糊查询到全文检索的技术升级", "articleSection": "技术教程", "keywords": ["Elasticsearch搜索引擎实战"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-128.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Elasticsearch搜索引擎实战", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-128.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Elasticsearch搜索引擎实战"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Elasticsearch搜索引擎实战</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Elasticsearch搜索引擎实战是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>Elasticsearch搜索引擎实战：从模糊查询到全文检索的技术升级</p>
 <p>数据库的LIKE '%关键词%'查询性能差、功能弱（不支持分词、相关性排序、中文分词麻烦）。当需要做搜索功能（商品搜索、文章搜索、日志查询），就该上专门的搜索引擎。Elasticsearch是最流行的开源搜索引擎。</p>
 <p>Elasticsearch的核心是倒排索引。传统索引是"文档→词"，倒排索引是"词→哪些文档包含这个词"。搜索时根据关键词直接找到包含它的文档，速度极快。这和数据库的B+树索引不同，ES是为全文搜索设计的。</p>
 <p>基本概念：Index（索引，相当于数据库）、Type（已废弃）、Document（文档，相当于行）、Field（字段）。数据以JSON文档形式存入ES。写入文档时，ES自动分词建立倒排索引。</p>
 <p>中文分词是关键。英文按空格分词，中文要专门的分词器。IK分词器支持中文细粒度和粗粒度分词，是中文搜索的标配。配置好分词器，"南京市长江大桥"才能正确分成"南京市/长江大桥"而不是"南京市长/江大桥"。</p>
 <p>搜索能力：全文检索（关键词匹配）、多字段搜索（同时搜标题和内容）、过滤（分类、价格范围）、排序（按相关度、时间）、聚合统计（按类别分组统计数量）。这些组合起来，能实现电商网站那种复杂搜索：按关键词搜、按价格筛选、按分类过滤、按销量排序。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>数据同步是ES和数据库配合的核心问题。数据存在MySQL，搜索用ES，两边数据要保持同步。方案：双写（业务代码同时写MySQL和ES，但不一致风险高）；_binlog同步（Canal监听MySQL binlog，自动同步到ES，推荐方案）；消息队列异步同步（数据库变更发MQ，消费者更新ES）。</p>
 <p>ES不适合做事务查询和精准统计（它是最终一致，不适合强事务）。它的定位是搜索引擎，不是主数据库。主数据在MySQL，ES做索引副本，查询从ES走。</p>
 <p>实际应用场景：电商商品搜索、站内文章搜索、日志检索（ELK栈的L就是Logstash收集日志到ES，Kibana查询）、企业内部搜索。</p>
 <p>性能注意：ES是内存密集型，JVM堆内存要合理配置；分片数规划好（太多小分片浪费，太少大分片难迁移）；不用的索引定期删除或归档。</p>
 <p>搜索引擎是网站从"能看"到"好用"的关键组件。好的搜索体验让用户快速找到想要的内容，ES是实现这一点的标准工具。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-127.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 读写分离与数据库高可用</a><a href="article-tech-122.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服务端渲染SSR与同构应用</a><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理与优化</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-130.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 熔断降级与容错设计</a><a href="article-tech-115.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 监控告警系统建设</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

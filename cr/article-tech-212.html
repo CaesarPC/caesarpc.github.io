@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Nginx是全世界使用最广泛的Web服务器。超过三分之一的网站用Nginx做反向代理和负载均衡。它做静态文件服务快得惊人，做反向代理配置灵活，做负载均衡能轻松扛住几万并发。但很多人对Nginx的印象还停留在'改改配置文件转发一下请求'，没有真正用起来它的强大功能。"改改配置文件转发一下请求"，没有真正用起来它的强大功能。">
+<meta name="description" content="Nginx反向代理与负载均衡 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-212.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nginx反向代理与负载均衡 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Nginx反向代理与负载均衡 - CaesarTools">
-<meta property="og:description" content="Nginx是全世界使用最广泛的Web服务器。超过三分之一的网站用Nginx做反向代理和负载均衡。它做静态文件服务快得惊人，做反向代理配置灵活，做负载均衡能轻松扛住几万并发。但很多人对Nginx的印象还停留在'改改配置文件转发一下请求'，没有真正用起来它的强大功能。"改改配置文件转发一下请求"，没有真正用起来它的强大功能。">
+<meta property="og:description" content="Nginx反向代理与负载均衡 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-212.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Nginx反向代理与负载均衡", "description": "Nginx是全世界使用最广泛的Web服务器。超过三分之一的网站用Nginx做反向代理和负载均衡。它做静态文件服务快得惊人，做反向代理配置灵活，做负载均衡能轻松扛住几万并发。但很多人对Nginx的印象还停留在'改改配置文件转发一下请求'，没有真正用起来它的强大功能。", "articleSection": "技术教程", "keywords": ["Nginx反向代理与负载均衡"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-212.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Nginx反向代理与负载均衡", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-212.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Nginx反向代理与负载均衡"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Nginx反向代理与负载均衡</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Nginx反向代理与负载均衡是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># Nginx实战：反向代理、负载均衡与静态服务</p>
 <p>Nginx是全世界使用最广泛的Web服务器。超过三分之一的网站用Nginx做反向代理和负载均衡。它做静态文件服务快得惊人，做反向代理配置灵活，做负载均衡能轻松扛住几万并发。但很多人对Nginx的印象还停留在"改改配置文件转发一下请求"，没有真正用起来它的强大功能。</p>
 <p>## 一、Nginx是什么</p>
@@ -65,7 +61,6 @@ server {
 server {
     location / { proxy_pass http://backend; }
 }</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>默认是轮询——请求一个一个轮流分给三台服务器。还可以配置权重（某台机器性能好多分点流量）、ip_hash（同一个用户固定访问同一台服务器，解决Session共享问题）。</p>
 <p>## 四、静态文件服务</p>
 <p>Nginx做静态文件服务的性能极高，直接从磁盘读文件返回，不需要经过后端应用。</p>
@@ -87,21 +82,9 @@ location ~ \.js$用正则匹配以.js结尾的请求。
 <p>掌握这几种匹配方式，就能灵活地把不同路径的请求分发到不同的后端或者处理方式。</p>
 <p>## 七、总结</p>
 <p>Nginx不是什么复杂的技术，但它是每个Web项目都要用到的基础设施。反向代理、负载均衡、静态服务、HTTPS终止、Gzip压缩——这些是Nginx最常用的功能。配置文件写多了就发现，它就是一套声明式规则，理解了location匹配和proxy_pass的转发逻辑，大部分场景都能搞定。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-204.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API设计新范式_GraphQL与gRPC</a><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全过程</a><a href="article-tech-209.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP与UDP协议对比</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

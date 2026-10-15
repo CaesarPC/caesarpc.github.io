@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（'订单已创建'），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。"订单已创建"），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。">
+<meta name="description" content="事件驱动架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-138.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>事件驱动架构 - CaesarTools</title>
 <style>
@@ -23,46 +22,30 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="事件驱动架构 - CaesarTools">
-<meta property="og:description" content="传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（'订单已创建'），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。"订单已创建"），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。">
+<meta property="og:description" content="事件驱动架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-138.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "事件驱动架构", "description": "传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（'订单已创建'），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。", "articleSection": "后端架构", "keywords": ["事件驱动架构"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-138.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "事件驱动架构", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-138.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "事件驱动架构"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>事件驱动架构</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">事件驱动架构是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>事件驱动架构：用事件解耦系统的设计哲学</p>
 <p>传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（"订单已创建"），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。</p>
 <p>事件的本质是状态变更的记录。"订单已创建"事件记录了"订单从无到有"这个事实。事件一旦发布就是事实，不可篡改。这和命令（"请创建订单"）不同：命令是要求对方做什么，事件是记录已经发生了什么。</p>
 <p>事件驱动的实现：消息队列做事件总线。订单服务发布OrderCreated事件到Kafka/RabbitMQ，库存服务、通知服务、积分服务各自订阅这个事件，做自己的处理。新增一个下游（比如推荐服务想订阅订单事件），只需要新增订阅者，订单服务完全不用改。</p>
 <p>事件溯源（Event Sourcing）是进阶模式：不存储当前状态，而是存储所有事件序列。当前状态是事件回放的结果。要查订单历史，直接看事件流就行。这种模式在审计要求高、需要完整历史的场景很有用，但复杂度高。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>CQRS（命令查询职责分离）常和事件驱动配合：写操作走一套模型（命令端），读操作走另一套模型（查询端）。写侧保证业务一致性，读侧为查询优化（可以有冗余数据、物化视图）。读写分离到不同模型，各自优化。</p>
 <p>事件驱动的优势：解耦（新增订阅者不影响发布者）、异步（发布者不用等订阅者处理完）、可重放（事件存下来，新服务上线可以重放历史事件初始化）。</p>
 <p>挑战：事件顺序（要保证同一实体的事件按顺序处理）、事件重复（消费端幂等）、调试困难（调用链是异步的，追踪一次业务要串联多个事件）、最终一致性（不是实时一致，要有容忍度）。</p>
 <p>事件驱动适合：业务事件多、需要多系统联动、希望系统解耦的场景。简单CRUD系统用事件驱动是过度设计。判断标准：是否有"一个业务动作触发多个后续动作"的需求？是就考虑事件驱动。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-132.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心与服务发现</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-129.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流算法实战</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-128.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Elasticsearch搜索引擎实战</a><a href="article-tech-144.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 容灾备份与多活架构</a><a href="article-tech-142.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术选型决策方法</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

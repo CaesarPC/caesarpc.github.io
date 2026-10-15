@@ -5,11 +5,10 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-111.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Redis缓存三大问题：穿透、击穿、雪崩 - CaesarTools</title>
-<meta name="description" content="查一个不存在的key，每次都打到数据库。恶意请求不存在的ID，数据库被打爆。缓存加不好比不加还惨。三个经典问题搞清楚，缓存才安全。解法1：缓存空结果。查不到也写缓存，TTL短一点。解法2：布隆过滤器。先判断ID是否存在，不存在直接返回。热点key过期瞬间，大量请求同时打到数据库。">
+<meta name="description" content="Redis缓存三大问题：穿透、击穿、雪崩 - CaesarBase 免费技术文章">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,19 +26,17 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Redis缓存三大问题：穿透、击穿、雪崩 - CaesarTools">
-<meta property="og:description" content="查一个不存在的key，每次都打到数据库。恶意请求不存在的ID，数据库被打爆。缓存加不好比不加还惨。三个经典问题搞清楚，缓存才安全。解法1：缓存空结果。查不到也写缓存，TTL短一点。解法2：布隆过滤器。先判断ID是否存在，不存在直接返回。热点key过期瞬间，大量请求同时打到数据库。">
+<meta property="og:description" content="Redis缓存三大问题：穿透、击穿、雪崩 - CaesarBase 免费技术文章">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-111.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Redis缓存三大问题：穿透、击穿、雪崩", "description": "查一个不存在的key，每次都打到数据库。恶意请求不存在的ID，数据库被打爆。", "articleSection": "后端架构", "keywords": ["Redis缓存三大问题", "穿透", "击穿", "雪崩"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-111.html"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Redis缓存三大问题：穿透、击穿、雪崩"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Redis缓存三大问题：穿透、击穿、雪崩", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-111.html"}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
 <h1>Redis缓存三大问题：穿透、击穿、雪崩</h1>
-<div class="meta">CaesarTools 技术文章 · 2026-10-15 📅 2026-10-15 </div>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
 <div class="content">
 <h2>一、缓存为什么出问题</h2>
 <p>缓存加不好比不加还惨。三个经典问题搞清楚，缓存才安全。</p>
@@ -71,17 +68,6 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 <div class="foot">CaesarTools · 免费技术站</div>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-022.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 公开留言墙</a><a href="article-023.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 计算器在线使用</a><a href="article-025.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 密码生成器</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-104.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS变量与主题切换</a><a href="article-105.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-106.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a></div>
 </body>
 </html>

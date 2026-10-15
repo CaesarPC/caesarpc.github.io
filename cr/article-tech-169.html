@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="JavaScript单线程的奥秘在事件循环（Event Loop）。理解事件循环，才能搞懂为什么setTimeout比Promise慢、为什么UI渲染在特定时机发生。这是JS面试和实战的核心知识点。">
+<meta name="description" content="JavaScript事件循环深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-169.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript事件循环深入 - CaesarTools</title>
 <style>
@@ -23,45 +22,29 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript事件循环深入 - CaesarTools">
-<meta property="og:description" content="JavaScript单线程的奥秘在事件循环（Event Loop）。理解事件循环，才能搞懂为什么setTimeout比Promise慢、为什么UI渲染在特定时机发生。这是JS面试和实战的核心知识点。">
+<meta property="og:description" content="JavaScript事件循环深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-169.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "JavaScript事件循环深入", "description": "JavaScript单线程的奥秘在事件循环（Event Loop）。理解事件循环，才能搞懂为什么setTimeout比Promise慢、为什么UI渲染在特定时机发生。这是JS面试和实战的核心知识点。", "articleSection": "前端开发", "keywords": ["JavaScript事件循环深入"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-169.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "JavaScript事件循环深入", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-169.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "JavaScript事件循环深入"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript事件循环深入</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript事件循环深入是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>JavaScript事件循环深入：宏任务微任务与渲染时机</p>
 <p>JavaScript单线程的奥秘在事件循环（Event Loop）。理解事件循环，才能搞懂为什么setTimeout比Promise慢、为什么UI渲染在特定时机发生。这是JS面试和实战的核心知识点。</p>
 <p>事件循环的执行顺序：调用栈清空后，先执行所有微任务（Promise.then、MutationObserver、queueMicrotask），然后做渲染（如果需要），再取一个宏任务（setTimeout、setInterval、I/O）执行。这个循环不断重复。</p>
 <p>宏任务和微任务的区别：宏任务是每次事件循环的主要任务（script整体代码、setTimeout、setInterval、I/O、UI渲染）；微任务是当前任务结束后立刻执行的任务，在下次渲染之前。微任务优先级高于宏任务。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>执行顺序举例：console.log('1'); setTimeout(() => console.log('2'), 0); Promise.resolve().then(() => console.log('3')); console.log('4'); 输出顺序是1、4、3、2。因为同步代码先执行（1、4），然后微任务（3），最后宏任务（2）。</p>
 <p>渲染时机：浏览器在微任务清空后、下一个宏任务之前做渲染。这就是为什么在微任务里修改DOM，浏览器能一次性渲染，不会闪多次。而如果在宏任务里连续修改DOM，中间可能插入渲染。</p>
 <p>requestAnimationFrame的回调在渲染前执行，适合做动画。它的回调会在下次重绘前调用，保证动画流畅。</p>
 <p>理解事件循环，才能解释各种"诡异"的执行顺序问题。比如为什么await后面的代码比setTimeout先执行——因为await是微任务，setTimeout是宏任务。这不是玄学，是事件循环的规则。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-164.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系统设计方法论</a><a href="article-tech-178.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-tech-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本编辑器原理</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-175.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript闭包与作用域</a><a href="article-tech-170.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Grid布局实战</a><a href="article-tech-172.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ React_Hooks深入</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

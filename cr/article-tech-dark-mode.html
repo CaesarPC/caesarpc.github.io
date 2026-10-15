@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。">
+<meta name="description" content="暗色模式实现 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-dark-mode.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>暗色模式实现 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="暗色模式实现 - CaesarTools">
-<meta property="og:description" content="暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。">
+<meta property="og:description" content="暗色模式实现 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-dark-mode.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "暗色模式实现", "description": "暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。", "articleSection": "技术教程", "keywords": ["暗色模式实现"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-dark-mode.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "暗色模式实现", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-dark-mode.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "暗色模式实现"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>暗色模式实现</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>暗色模式实现：让网站支持白天黑夜两种主题</h2>
 <p>暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。</p>
 <p>核心思路：所有颜色定义为CSS变量。:root里定义亮色主题的变量值，[data-theme="dark"]里定义暗色变量值。组件里用var(--color-bg)而不是写死颜色。切换主题就是切换data-theme属性，所有变量值自动切换。</p>
@@ -45,18 +42,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>持久化：用户选择存localStorage，下次访问记住。切换时要避免闪烁（页面加载前就根据存储的偏好设置好主题）。</p>
 <p>暗色模式是细节体验，但做好了显示产品用心。CSS变量是现代主题切换的标准做法。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-code-standard.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 团队代码规范与工程协作</a><a href="article-tech-clean-arch-hexagonal.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a><a href="article-tech-db-sharding.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库分库分表</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-data-masking-privacy.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a><a href="article-tech-collaborative-editing.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 实时协同编辑技术解析</a><a href="article-tech-clean-arch-hexagonal.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

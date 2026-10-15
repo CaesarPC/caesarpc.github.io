@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="页面慢、卡、白屏时间长——这是用户对一个产品最直接的负面感受。前端性能优化不是某一个技巧，而是一整套系统性工作。从资源加载、渲染、交互三个维度入手，每个环节做一点优化，整体体验就能提升一个量级。">
+<meta name="description" content="前端性能优化清单 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-228.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端性能优化清单 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端性能优化清单 - CaesarTools">
-<meta property="og:description" content="页面慢、卡、白屏时间长——这是用户对一个产品最直接的负面感受。前端性能优化不是某一个技巧，而是一整套系统性工作。从资源加载、渲染、交互三个维度入手，每个环节做一点优化，整体体验就能提升一个量级。">
+<meta property="og:description" content="前端性能优化清单 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-228.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端性能优化清单", "description": "页面慢、卡、白屏时间长——这是用户对一个产品最直接的负面感受。前端性能优化不是某一个技巧，而是一整套系统性工作。从资源加载、渲染、交互三个维度入手，每个环节做一点优化，整体体验就能提升一个量级。", "articleSection": "前端开发", "keywords": ["前端性能优化清单"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-228.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端性能优化清单", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-228.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端性能优化清单"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端性能优化清单</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端性能优化清单是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 前端性能优化清单：从加载到交互的全方位加速</p>
 <p>页面慢、卡、白屏时间长——这是用户对一个产品最直接的负面感受。前端性能优化不是某一个技巧，而是一整套系统性工作。从资源加载、渲染、交互三个维度入手，每个环节做一点优化，整体体验就能提升一个量级。</p>
 <p>## 一、加载优化</p>
@@ -50,7 +46,6 @@ a:hover{text-decoration:underline}
 <p>首屏白屏时间长，是因为浏览器要下载HTML、CSS、JS，解析执行完才能渲染。</p>
 <p>关键CSS内联：首屏需要的CSS直接写在HTML的style标签里，不用等外部CSS文件下载。</p>
 <p>预加载关键资源：<link rel="preload">告诉浏览器优先加载重要资源（字体、首屏图片）。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>骨架屏：页面加载时先显示灰色占位骨架，用户感知加载速度快。</p>
 <p>## 三、交互优化</p>
 <p>页面加载完了，但操作卡顿——滚动掉帧、点击延迟。</p>
@@ -63,21 +58,9 @@ a:hover{text-decoration:underline}
 <p>Google提出的三个核心指标：LCP（最大内容渲染时间，应小于2.5秒）、INP（交互到绘制延迟，应小于200ms）、CLS（累计布局偏移，应小于0.1）。用Chrome DevTools的Lighthouse可以测量这些指标。</p>
 <p>## 六、总结</p>
 <p>性能优化没有银弹，但有清单。加载优化资源体积，渲染优化首屏速度，交互优化响应流畅度。每一项做一点，用户感知到的就是一个快而流畅的产品。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁</a><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储三剑客</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="做一个新功能、新项目，技术栈选什么？数据库用MySQL还是PostgreSQL？前端用React还是Vue？消息队列用Kafka还是RabbitMQ？技术选型没有标准答案，但有方法论。">
+<meta name="description" content="技术选型决策方法 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-142.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>技术选型决策方法 - CaesarTools</title>
 <style>
@@ -23,47 +22,31 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="技术选型决策方法 - CaesarTools">
-<meta property="og:description" content="做一个新功能、新项目，技术栈选什么？数据库用MySQL还是PostgreSQL？前端用React还是Vue？消息队列用Kafka还是RabbitMQ？技术选型没有标准答案，但有方法论。">
+<meta property="og:description" content="技术选型决策方法 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-142.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "技术选型决策方法", "description": "做一个新功能、新项目，技术栈选什么？数据库用MySQL还是PostgreSQL？前端用React还是Vue？消息队列用Kafka还是RabbitMQ？技术选型没有标准答案，但有方法论。", "articleSection": "技术教程", "keywords": ["技术选型决策方法"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-142.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "技术选型决策方法", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-142.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "技术选型决策方法"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>技术选型决策方法</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">技术选型决策方法是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>技术选型决策方法：在众多方案中做对选择</p>
 <p>做一个新功能、新项目，技术栈选什么？数据库用MySQL还是PostgreSQL？前端用React还是Vue？消息队列用Kafka还是RabbitMQ？技术选型没有标准答案，但有方法论。</p>
 <p>第一步是明确需求和约束。这个项目要解决什么问题？团队熟悉什么技术？预算多少？什么时候要上线？需求和约束不清晰，选型就是瞎选。比如一个内部工具，没必要上微服务；一个高并发交易系统，不能用不熟悉的新技术。</p>
 <p>第二步是列出候选方案。不要只知道一个方案就选它。调研两三个主流选项，了解各自的优劣。</p>
 <p>第三步是评估维度。常见维度：团队熟悉度（学习成本）、社区生态（文档、插件、人才）、性能（够不够用）、成熟度（踩坑多不多）、运维成本、长期维护性。按项目权重打分。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>第四步是做POC验证。关键技术选型不要只看文档，写个原型实际跑一跑。性能压测一下、关键功能试一下，文档说的和实际用的可能有差距。</p>
 <p>常见的选型误区：追新（用最新但不成熟的技术，踩坑）；盲目跟风（别人用什么我用什么，不考虑适不适合）；过度设计（小项目上大架构）；个人偏好（因为我喜欢这个语言就选它）。</p>
 <p>好的选型原则：成熟优先（新项目用经过验证的技术，别当小白鼠）；熟悉优先（团队会的技术比"更好"的技术重要）；简单优先（能满足需求的最简单方案）；可逆优先（选了以后容易换的方案，不要锁死在某家）。</p>
 <p>技术选型不是一劳永逸。架构和技术会演进，定期复盘：当初选的方案现在还合适吗？有没有更好的选择？但不要频繁换技术栈，那是巨大的浪费。</p>
 <p>技术选型是架构师的核心工作之一。它不是选"最好的技术"，而是选"最适合当前场景的技术"。理解权衡，比知道技术本身更重要。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架构详解</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-144.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 容灾备份与多活架构</a><a href="article-tech-145.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 压力测试与容量规划</a><a href="article-tech-130.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 熔断降级与容错设计</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

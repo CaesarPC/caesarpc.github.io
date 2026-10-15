@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="JavaScript的面向对象和经典语言不同，它基于原型（Prototype）而不是类。每个对象都有一个内部链接指向另一个对象（原型），属性查找时如果自身没有，就沿着原型链往上找。理解原型链，才能搞懂继承和this指向。">
+<meta name="description" content="JavaScript原型链与继承 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-171.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript原型链与继承 - CaesarTools</title>
 <style>
@@ -23,44 +22,28 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript原型链与继承 - CaesarTools">
-<meta property="og:description" content="JavaScript的面向对象和经典语言不同，它基于原型（Prototype）而不是类。每个对象都有一个内部链接指向另一个对象（原型），属性查找时如果自身没有，就沿着原型链往上找。理解原型链，才能搞懂继承和this指向。">
+<meta property="og:description" content="JavaScript原型链与继承 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-171.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "JavaScript原型链与继承", "description": "JavaScript的面向对象和经典语言不同，它基于原型（Prototype）而不是类。每个对象都有一个内部链接指向另一个对象（原型），属性查找时如果自身没有，就沿着原型链往上找。理解原型链，才能搞懂继承和this指向。", "articleSection": "前端开发", "keywords": ["JavaScript原型链与继承"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-171.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "JavaScript原型链与继承", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-171.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "JavaScript原型链与继承"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript原型链与继承</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript原型链与继承是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>JavaScript原型链与继承：理解对象背后的机制</p>
 <p>JavaScript的面向对象和经典语言不同，它基于原型（Prototype）而不是类。每个对象都有一个内部链接指向另一个对象（原型），属性查找时如果自身没有，就沿着原型链往上找。理解原型链，才能搞懂继承和this指向。</p>
 <p>原型链的工作方式：对象obj有个__proto__属性，指向它的原型对象。访问obj.name时，JS先在obj自身找name，找不到就去obj.__proto__找，再找不到就去原型的原型找，直到null。这条链就是原型链。</p>
 <p>构造函数和原型：function Person() {} Person.prototype是原型对象，new Person()创建的实例，其__proto__指向Person.prototype。这样实例就能共享原型上的方法。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>继承的实现：子类的原型指向父类的实例。比如Student.prototype = new Person()，这样Student的实例就能访问Person原型上的方法。ES6的class语法只是语法糖，底层还是原型链。</p>
 <p>this的指向：this在函数定义时不确定，在调用时确定。谁调用函数，this就指向谁。call/apply/bind可以改变this指向。箭头函数没有自己的this，继承外层作用域的this。</p>
 <p>理解原型链，才能明白为什么obj.toString()能用——因为Object.prototype上有toString方法，所有对象都继承它。这是JS对象系统的核心机制。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-161.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能预算</a><a href="article-tech-160.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS动画与性能优化</a><a href="article-tech-176.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器渲染管线</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

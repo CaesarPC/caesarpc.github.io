@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="为什么字典（Map）能瞬间查到key对应的值？为什么数据库用哈希索引？为什么密码存储要用哈希？答案都是哈希表——计算机科学中最重要的数据结构之一。理解哈希表的工作原理，不只是为了面试，更是为了写出高效的数据存取代码。">
+<meta name="description" content="哈希表原理与应用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-213.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>哈希表原理与应用 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="哈希表原理与应用 - CaesarTools">
-<meta property="og:description" content="为什么字典（Map）能瞬间查到key对应的值？为什么数据库用哈希索引？为什么密码存储要用哈希？答案都是哈希表——计算机科学中最重要的数据结构之一。理解哈希表的工作原理，不只是为了面试，更是为了写出高效的数据存取代码。">
+<meta property="og:description" content="哈希表原理与应用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-213.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "哈希表原理与应用", "description": "为什么字典（Map）能瞬间查到key对应的值？为什么数据库用哈希索引？为什么密码存储要用哈希？答案都是哈希表——计算机科学中最重要的数据结构之一。理解哈希表的工作原理，不只是为了面试，更是为了写出高效的数据存取代码。", "articleSection": "技术教程", "keywords": ["哈希表原理与应用"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-213.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "哈希表原理与应用", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-213.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "哈希表原理与应用"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>哈希表原理与应用</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">哈希表原理与应用是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 哈希表原理与应用：O(1)查找的秘密</p>
 <p>为什么字典（Map）能瞬间查到key对应的值？为什么数据库用哈希索引？为什么密码存储要用哈希？答案都是哈希表——计算机科学中最重要的数据结构之一。理解哈希表的工作原理，不只是为了面试，更是为了写出高效的数据存取代码。</p>
 <p>## 一、哈希函数与哈希表</p>
@@ -48,7 +44,6 @@ a:hover{text-decoration:underline}
 <p>解决碰撞最常用的方法是链地址法：数组的每个位置不是直接存一个值，而是存一个链表（或动态数组）。所有哈希到同一个位置的key，都挂在那个位置的链表上。查找的时候，先算hash找到位置，然后遍历那个链表逐个比较key。</p>
 <p>理想情况下每个位置只有一个元素，查找O(1)。碰撞多了链表变长，查找退化成O(n)。所以好的哈希函数很重要——它让数据均匀分布，每个位置的链表都很短。</p>
 <p>## 三、负载因子与扩容</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>当哈希表塞满了，碰撞会越来越多，性能下降。负载因子=元素个数/数组大小。当负载因子超过阈值（通常0.7），就要扩容——新建一个两倍大的数组，把所有元素重新哈希放进新数组。</p>
 <p>扩容是O(n)操作，但摊还到每次插入，平均还是O(1)。就像搬家——不是每次加东西都搬一次，而是东西多到一定程度才搬一次大的。</p>
 <p>## 四、哈希表的应用</p>
@@ -58,21 +53,9 @@ a:hover{text-decoration:underline}
 <p>密码存储：这是最特殊的应用。密码不能明文存储，要用哈希函数计算哈希值后存哈希。登录时把用户输入的密码哈希，和数据库里的哈希对比。即使数据库泄露，攻击者也拿不到原始密码。但密码哈希必须用慢哈希（bcrypt、argon2），不能用普通的MD5——普通哈希太快，暴力破解分分钟搞定。</p>
 <p>## 五、总结</p>
 <p>哈希表是计算机科学中最实用的数据结构之一。它用O(1)的平均查找时间，支撑了字典、缓存、索引、集合等无数基础组件。理解哈希函数、碰撞处理、扩容机制，你就理解了为什么键值存储这么快，也知道了它在什么情况下会变慢。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-205.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 独立开发者的全栈实战指南</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全过程</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

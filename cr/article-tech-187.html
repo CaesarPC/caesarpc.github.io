@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="# 前端框架演进史：从jQuery到React，再到AI驱动的开发新时代前端开发的技术栈变化之快，在整个软件开发领域都是出了名的。十年前前端工程师的核心技能是jQuery和CSS兼容性，五年前是Angular、React、Vue三大## 一、上古时代：jQuery与命令式DOM操作">
+<meta name="description" content="前端框架演进史 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-187.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端框架演进史 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端框架演进史 - CaesarTools">
-<meta property="og:description" content="# 前端框架演进史：从jQuery到React，再到AI驱动的开发新时代前端开发的技术栈变化之快，在整个软件开发领域都是出了名的。十年前前端工程师的核心技能是jQuery和CSS兼容性，五年前是Angular、React、Vue三大## 一、上古时代：jQuery与命令式DOM操作">
+<meta property="og:description" content="前端框架演进史 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-187.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端框架演进史", "description": "# 前端框架演进史：从jQuery到React，再到AI驱动的开发新时代", "articleSection": "前端开发", "keywords": ["前端框架演进史"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-187.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端框架演进史", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-187.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端框架演进史"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端框架演进史</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端框架演进史是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 前端框架演进史：从jQuery到React，再到AI驱动的开发新时代</p>
 <p>前端开发的技术栈变化之快，在整个软件开发领域都是出了名的。十年前前端工程师的核心技能是jQuery和CSS兼容性，五年前是Angular、React、Vue三大框架之争，今天是Vite、Server Components、AI代码生成重塑开发流程。很多前端开发者感叹"学不动了"，每年都有新框架、新工具、新概念冒出来，刚学会一个又出来一个新的。但如果我们拨开这些表面的技术名词，梳理前端框架演进的内在逻辑，就会发现所有变化都围绕着几个核心问题：如何更高效地管理状态、如何更流畅地渲染界面、如何更轻松地组织代码。理解了这些底层逻辑，就不会被层出不穷的新技术牵着鼻子走。</p>
 <p>## 一、上古时代：jQuery与命令式DOM操作</p>
@@ -57,7 +53,6 @@ a:hover{text-decoration:underline}
 <p>## 四、状态管理：当组件多了之后</p>
 <p>组件化解决了代码组织的问题，但又带来了新的问题：组件之间怎么共享数据？</p>
 <p>简单场景下，数据可以通过父子组件的props传递。但当组件嵌套很深，或者多个不相关的组件需要共享同一份数据时，一层层props传递就变得非常痛苦，这就是所谓的"prop drilling"问题。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>状态管理库就是为了解决这个问题而生的。Vue有Vuex和Pinia，React有Redux和Zustand。它们的核心思路是：把需要全局共享的数据放到一个单一的"store"里，任何组件都可以直接从store读取数据，也可以修改store里的数据。数据变了，所有用到这个数据的组件都会自动更新。</p>
 <p>状态管理的核心原则是"单向数据流"：数据从store流向组件，组件通过触发action来修改store，不允许组件直接修改store里的数据。这样所有的数据变化都有迹可循，出了问题可以追踪是哪个action改了数据。</p>
 <p>## 五、工程化：从写页面到建工程</p>
@@ -76,21 +71,9 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>从jQuery到Vue/React，从命令式操作DOM到数据驱动视图，从单页应用到服务端组件，前端框架的每一次演进，都是在解决上一代技术暴露出的痛点。但万变不离其宗：核心目标始终是让开发者更高效地构建用户界面，让用户获得更流畅的体验。</p>
 <p>对于前端开发者来说，不需要追逐每一个新框架。重要的是理解底层的设计思想：数据驱动、组件化、单向数据流、渲染优化。这些思想不会因为框架更替而过时。框架会变，但解决问题的思路是相通的。掌握了底层原理，无论未来出现什么新框架，都能快速上手。而那些只会背API、套模板的开发者，才是真正容易被技术淘汰的人。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-192.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服务架构拆解</a><a href="article-tech-196.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript类型系统进阶</a><a href="article-tech-184.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 后端微服务架构与高并发设计实践</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

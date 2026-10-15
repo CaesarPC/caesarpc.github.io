@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。">
+<meta name="description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-distributed-lock.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分布式锁实现方案 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="分布式锁实现方案 - CaesarTools">
-<meta property="og:description" content="单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。">
+<meta property="og:description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-distributed-lock.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "分布式锁实现方案", "description": "单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。", "articleSection": "后端架构", "keywords": ["分布式锁实现方案"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-distributed-lock.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "分布式锁实现方案", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-distributed-lock.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "分布式锁实现方案"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>分布式锁实现方案</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>分布式锁实现方案：多机环境下的并发控制</h2>
 <p>单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。</p>
 <p>典型场景：定时任务每台机器都跑，怎么保证只跑一次？库存扣减并发，怎么防止超卖？定时任务的分布式锁：实例启动定时任务前先抢锁，抢到的才执行，其他实例跳过。</p>
@@ -47,18 +44,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>锁的粒度很重要。锁整个订单服务太粗，应该锁具体的订单ID。锁的过期时间要合理：太短业务没执行完锁就释放了，太长进程挂了恢复慢。看门狗（Watchdog）机制：业务执行期间自动续期，执行完才停止，解决"业务执行时间不确定"的问题。</p>
 <p>分布式锁是分布式系统的基础组件，但要谨慎使用。能用乐观锁（数据库版本号）解决的不要用分布式锁；能缩小锁粒度的不要锁大范围。锁是并发安全的最后手段，不是第一选择。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-frontend-authz.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端权限设计</a><a href="article-tech-event-driven-arch.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分库分表实战</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-data-masking-privacy.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a><a href="article-tech-dark-mode.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 暗色模式实现</a><a href="article-tech-elk-log-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志收集体系ELK</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

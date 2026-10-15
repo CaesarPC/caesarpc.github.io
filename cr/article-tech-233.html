@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="组件化开发让代码复用变得简单，但也带来了新问题：数据怎么在组件之间共享？父子组件用props传，那两个不相关的组件呢？跨了三四层的组件呢？状态管理库就是解决这个问题的。">
+<meta name="description" content="状态管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-233.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>状态管理 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="状态管理 - CaesarTools">
-<meta property="og:description" content="组件化开发让代码复用变得简单，但也带来了新问题：数据怎么在组件之间共享？父子组件用props传，那两个不相关的组件呢？跨了三四层的组件呢？状态管理库就是解决这个问题的。">
+<meta property="og:description" content="状态管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-233.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "状态管理", "description": "组件化开发让代码复用变得简单，但也带来了新问题：数据怎么在组件之间共享？父子组件用props传，那两个不相关的组件呢？跨了三四层的组件呢？状态管理库就是解决这个问题的。", "articleSection": "技术教程", "keywords": ["状态管理"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-233.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "状态管理", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-233.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "状态管理"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>状态管理</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">状态管理是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 状态管理：当组件多了之后的数据共享</p>
 <p>组件化开发让代码复用变得简单，但也带来了新问题：数据怎么在组件之间共享？父子组件用props传，那两个不相关的组件呢？跨了三四层的组件呢？状态管理库就是解决这个问题的。</p>
 <p>## 一、Prop Drilling问题</p>
@@ -46,7 +42,6 @@ a:hover{text-decoration:underline}
 <p>## 二、全局Store</p>
 <p>状态管理的思路是：把需要共享的数据放到一个全局的store里。任何组件都可以直接从store读数据，不需要一层层传props。任何组件都可以修改store里的数据，所有用到这个数据的组件自动更新。</p>
 <p>React的方案：Redux、Zustand、Jotai。Vue的方案：Vuex、Pinia。核心思想都一样——单一数据源。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、单向数据流</p>
 <p>store里的数据，组件只能读，不能直接改。要改数据必须dispatch一个action（动作），action由reducer处理，生成新的state。这样所有数据变化都有迹可循——谁改的、什么时候改的、改了什么，都能追踪。</p>
 <p>这种模式一开始觉得麻烦——改个数还要写action和reducer。但项目大了之后，你会感谢这种约束：状态变化是可预测的，出了问题能追踪到是哪个action改的。</p>
@@ -54,21 +49,9 @@ a:hover{text-decoration:underline}
 <p>不是所有项目都需要状态管理库。简单的应用，useState和props就够了。当你发现：多个不相关组件需要同一份数据、props传了三四层还在传、共享状态逻辑散落在各个组件里——这时候就该上状态管理了。</p>
 <p>## 五、总结</p>
 <p>状态管理解决的是组件间数据共享问题。全局store替代prop drilling，单向数据流保证状态变化可追踪。但不要过度使用——简单组件用本地state就行，全局store只放真正需要共享的数据。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-231.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JSON数据格式</a><a href="article-tech-230.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 正则表达式</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委托</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

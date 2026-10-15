@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="z-index不是越大越在前。它只在同一层叠上下文里比较。不同层叠上下文之间，z-index再大也跑不过外层的层叠上下文。理解层叠上下文，才能搞懂为什么z-index失效。">
+<meta name="description" content="CSS层叠上下文与z-index - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-312.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CSS层叠上下文与z-index - CaesarTools</title>
 <style>
@@ -23,42 +22,26 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="CSS层叠上下文与z-index - CaesarTools">
-<meta property="og:description" content="z-index不是越大越在前。它只在同一层叠上下文里比较。不同层叠上下文之间，z-index再大也跑不过外层的层叠上下文。理解层叠上下文，才能搞懂为什么z-index失效。">
+<meta property="og:description" content="CSS层叠上下文与z-index - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-312.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "CSS层叠上下文与z-index", "description": "z-index不是越大越在前。它只在同一层叠上下文里比较。不同层叠上下文之间，z-index再大也跑不过外层的层叠上下文。理解层叠上下文，才能搞懂为什么z-index失效。", "articleSection": "前端开发", "keywords": ["CSS层叠上下文与z-index"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-312.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "CSS层叠上下文与z-index", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-312.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "CSS层叠上下文与z-index"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CSS层叠上下文与z-index</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CSS层叠上下文与z-index是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>CSS层叠上下文与z-index</p>
 <p>z-index不是越大越在前。它只在同一层叠上下文里比较。不同层叠上下文之间，z-index再大也跑不过外层的层叠上下文。理解层叠上下文，才能搞懂为什么z-index失效。</p>
 <p>层叠上下文的创建条件：根元素html、position不是static且z-index不是auto、opacity小于1、transform不为none、filter不为none。这些都会创建新的层叠上下文。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>z-index在同一层叠上下文内比较。如果父元素创建了层叠上下文，子元素的z-index只在父元素内部有效，无法超越外部元素。这就是为什么有时候z-index设9999还是被遮住——因为父元素的层叠上下文把它限制住了。</p>
 <p>理解层叠上下文，才能正确使用z-index。不是所有情况都能靠加大z-index解决。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🎨 颜色选择器</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-307.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript生成器函数</a><a href="article-tech-319.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS伪类与伪元素</a><a href="article-tech-311.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript展开运算符</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-307.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript生成器函数</a><a href="article-tech-319.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS伪类与伪元素</a><a href="article-tech-311.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript展开运算符</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

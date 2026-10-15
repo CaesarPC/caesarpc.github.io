@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="每个项目都有技术债：为了赶进度写的临时方案、没写的测试、重复的代码、过时的依赖。短期看加快了进度，长期看拖慢了开发速度——改代码要绕弯路、出Bug要花时间查。技术债和金融债务一样：不还，利息越滚越大。">
+<meta name="description" content="技术债管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-tech-debt.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>技术债管理 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="技术债管理 - CaesarTools">
-<meta property="og:description" content="每个项目都有技术债：为了赶进度写的临时方案、没写的测试、重复的代码、过时的依赖。短期看加快了进度，长期看拖慢了开发速度——改代码要绕弯路、出Bug要花时间查。技术债和金融债务一样：不还，利息越滚越大。">
+<meta property="og:description" content="技术债管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-tech-debt.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "技术债管理", "description": "每个项目都有技术债：为了赶进度写的临时方案、没写的测试、重复的代码、过时的依赖。短期看加快了进度，长期看拖慢了开发速度——改代码要绕弯路、出Bug要花时间查。技术债和金融债务一样：不还，利息越滚越大。", "articleSection": "技术教程", "keywords": ["技术债管理"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-tech-debt.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "技术债管理", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-tech-debt.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "技术债管理"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>技术债管理</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>技术债管理：像还债一样管理代码质量问题</h2>
 <p>每个项目都有技术债：为了赶进度写的临时方案、没写的测试、重复的代码、过时的依赖。短期看加快了进度，长期看拖慢了开发速度——改代码要绕弯路、出Bug要花时间查。技术债和金融债务一样：不还，利息越滚越大。</p>
 <p>技术债的来源：赶进度用快速但不优雅的方案；需求变更仓促改代码没重构；不熟悉技术栈写出低效代码；业务迭代快，没时间优化。</p>
@@ -45,18 +42,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>判断技术债要不要还：看这段代码是否高频修改。经常改的模块，技术债要还（每次改都在付利息）；很少碰的代码，放着就行（没利息）。</p>
 <p>不是所有"不优雅"的代码都是要还的债。完美主义会导致过度工程。技术债管理的核心是权衡：业务速度和代码质量的平衡。完全不还债，系统最终会慢到无法开发；全部时间还债，业务停滞。找到中间点。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-vite-deep-dive.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-tech-writing.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术文档写作</a><a href="article-tech-typescript-advanced.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript高级类型编程实战</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-url.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ URL编码是什么？%20是什么意思？</a><a href="article-tech-websocket-realtime.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket与实时通信</a><a href="article-tech-web-security-fundamental.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Web安全攻防基础</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

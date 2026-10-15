@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-731.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vite前端构建工具详解 - CaesarTools</title>
+<meta name="description" content="Vite前端构建工具详解 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Vite前端构建工具详解 - CaesarTools">
+<meta property="og:description" content="Vite前端构建工具详解 - CaesarBase 免费技术文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-731.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Vite前端构建工具详解", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-731.html"}</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Vite前端构建工具详解</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Webpack为什么慢</h2>
+<p>中型项目冷启动30秒，改一行等5秒。Webpack启动时递归打包所有模块，不管你用不用。</p>
+<p>Vite利用浏览器原生ESM和esbuild，启动300毫秒。</p>
+<h2>二、Vite为什么快</h2>
+<p>开发时不打包。浏览器请求哪个文件才处理哪个。项目从100模块变10000，启动时间不变。</p>
+<p>esbuild预构建依赖，比JS打包器快10-100倍。</p>
+<p>改一个文件只重新请求那个模块，毫秒级HMR。</p>
+<h2>三、基本使用</h2>
+<p>npm create vite@latest my-app -- --template react</p>
+<p>cd my-app && npm install && npm run dev</p>
+<h2>四、生产构建</h2>
+<p>npm run build用Rollup。代码压缩、tree-shaking、分包。</p>
+<h2>五、常用配置</h2>
+<p>server.proxy开发代理。</p>
+<p>build.rollupOptions.output.manualChunks分包。</p>
+<p>import.meta.env.VITE_xxx环境变量。</p>
+<h2>六、插件生态</h2>
+<p>@vitejs/plugin-react、plugin-vue。社区插件丰富。</p>
+<h2>七、常见坑</h2>
+<p>IE不支持ESM用legacy插件。</p>
+<p>老项目迁移成本高。</p>
+<p>某些Webpack loader要换Vite插件。</p>
+<h2>八、Vite和Webpack怎么选</h2>
+<p>新项目Vite。老项目Webpack迁移成本高，逐步迁。需要兼容IE11用Webpack或Vite legacy插件。</p>
+<h2>九、总结</h2>
+<p>Vite用浏览器原生能力重新定义开发体验。启动快、HMR快、配置简单。新项目无脑选。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-73.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-74.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引实战</a><a href="article-76.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a></div>
+</body>
+</html>

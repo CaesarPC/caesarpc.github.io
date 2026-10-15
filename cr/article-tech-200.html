@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="很多团队听说大厂都在分库分表，自己项目才几十万条数据就急着拆。这完全是过度优化。分库分表带来的复杂度，在数据量小的时候远远大于收益。">
+<meta name="description" content="数据库分库分表 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-200.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>数据库分库分表 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="数据库分库分表 - CaesarTools">
-<meta property="og:description" content="很多团队听说大厂都在分库分表，自己项目才几十万条数据就急着拆。这完全是过度优化。分库分表带来的复杂度，在数据量小的时候远远大于收益。">
+<meta property="og:description" content="数据库分库分表 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-200.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "数据库分库分表", "description": "很多团队听说大厂都在分库分表，自己项目才几十万条数据就急着拆。这完全是过度优化。分库分表带来的复杂度，在数据量小的时候远远大于收益。", "articleSection": "后端架构", "keywords": ["数据库分库分表"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-200.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "数据库分库分表", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-200.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "数据库分库分表"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>数据库分库分表</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">数据库分库分表是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 数据库分库分表：当单表数据量突破千万级</p>
 <p>数据库是业务系统最核心的组件，也是最容易成为瓶颈的组件。早期项目，一张MySQL表存个几百万条数据，加上索引和缓存，跑得好好的。但随着业务增长，单表数据量突破千万、甚至上亿的时候，你会发现查询越来越慢、写入越来越卡、加索引要锁表半天、备份恢复要十几个小时。这时候就到了分库分表的阶段。分库分表不是什么高深的架构，但它是一个"一旦做了就回不去"的决策——数据拆了之后，跨表查询、分页排序、事务一致性全都是问题。所以做之前要想清楚：真的到了必须拆的时候吗？</p>
 <p>## 一、什么时候该拆：不要过早优化</p>
@@ -53,7 +49,6 @@ a:hover{text-decoration:underline}
 <p>最常见的是取模分片：user_id % N，N是分片数量。同一个用户的数据永远落在同一张表里。好处是数据分布均匀。缺点是扩容麻烦——从4张表扩到8张表，所有数据的取模结果都变了，需要全部迁移。</p>
 <p>范围分片：按时间区间或者ID区间分表。比如2025年的订单放一张表，2026年的订单放另一张表。好处是扩容简单——新加一年的表就行，老数据不用动。缺点是热点问题——新数据都写在最新的那张表里，老表没人访问，数据分布不均匀。</p>
 <p>实际项目中，订单表经常按时间范围分表（因为订单天然按时间查询，新订单是热点），用户表按用户ID取模（因为用户数据要均匀分布）。选分片键的原则是：大多数查询都能带上这个分片键，这样查询只需要访问一张表，不用扫描所有分片。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 四、分表后的麻烦事</p>
 <p>分表不是把一张表拆成N张表就完事了，它会带来一系列新问题。</p>
 <p>跨分片查询是最头疼的。如果查询条件不带分片键，比如"查询所有状态为已完成的订单"，这个查询需要扫描所有分片的表，然后在应用层合并结果。性能比单表差得多。解决办法是尽量让查询都带分片键，或者用冗余表/搜索引擎做跨分片查询。</p>
@@ -69,21 +64,9 @@ a:hover{text-decoration:underline}
 <p>## 七、总结</p>
 <p>分库分表是数据库架构演进的必经之路，但它是一步"过河拆桥"的棋——拆了之后再想合并回来非常困难。所以做之前一定要确认：数据量真的到了瓶颈吗？所有不拆表的优化手段都试过了吗？未来的查询模式是什么样的？分片键选对了吗？</p>
 <p>对于大多数中小项目，单表加索引、加缓存、读写分离，撑到千万级数据完全没问题。不要为了"大厂都这么做"而过早拆分。但如果你已经到了那个临界点，了解分库分表的原理和常见坑，能帮你少走很多弯路。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-203.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 程序员的技术成长路径</a><a href="article-tech-192.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服务架构拆解</a><a href="article-tech-199.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket与实时通信</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-203.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 程序员的技术成长路径</a><a href="article-tech-196.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript类型系统进阶</a><a href="article-tech-205.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 独立开发者的全栈实战指南</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

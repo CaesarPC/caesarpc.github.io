@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现'多页面'体验的。"多页面"体验的。">
+<meta name="description" content="前端路由原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-232.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端路由原理 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端路由原理 - CaesarTools">
-<meta property="og:description" content="单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现'多页面'体验的。"多页面"体验的。">
+<meta property="og:description" content="前端路由原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-232.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端路由原理", "description": "单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现'多页面'体验的。", "articleSection": "前端开发", "keywords": ["前端路由原理"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-232.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端路由原理", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-232.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端路由原理"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端路由原理</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端路由原理是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 前端路由：SPA页面切换的底层原理</p>
 <p>单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现"多页面"体验的。</p>
 <p>## 一、两种路由模式</p>
@@ -46,7 +42,6 @@ a:hover{text-decoration:underline}
 <p>History模式：URL看起来像正常路径，比如example.com/about。用HTML5的History API（pushState）修改地址栏，不刷新页面。URL更美观，但需要服务器配合——用户直接访问example.com/about时，服务器要返回同一个index.html，不然404。</p>
 <p>## 二、路由怎么工作</p>
 <p>不管哪种模式，核心逻辑都一样：监听URL变化→匹配路由表→渲染对应组件。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>路由表是一个映射：路径→组件。
 '/' → Home组件
 '/about' → About组件
@@ -58,21 +53,9 @@ a:hover{text-decoration:underline}
 <p>进入某个路由前做检查：比如未登录用户访问/profile页面，拦截跳转到登录页。路由守卫就是一个前置钩子，在路由跳转前执行，决定放行还是重定向。</p>
 <p>## 五、总结</p>
 <p>前端路由的本质是：监听URL变化→匹配组件→局部渲染。Hash模式简单，History模式美观但需服务器配置。理解这个原理，用React Router或Vue Router就知道它在做什么了。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 图片优化</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

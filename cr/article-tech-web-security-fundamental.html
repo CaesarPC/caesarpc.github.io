@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="跨站脚本攻击（XSS）是最常见的Web漏洞。原理很简单：你把用户输入的内容未经处理直接显示在页面上，恶意用户就可以在输入里塞一段JavaScript代码，其他用户浏览这个页面时，这段脚本就在他们的浏览器里执行了。">
+<meta name="description" content="Web安全攻防基础 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web安全攻防基础 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Web安全攻防基础 - CaesarTools">
-<meta property="og:description" content="跨站脚本攻击（XSS）是最常见的Web漏洞。原理很简单：你把用户输入的内容未经处理直接显示在页面上，恶意用户就可以在输入里塞一段JavaScript代码，其他用户浏览这个页面时，这段脚本就在他们的浏览器里执行了。">
+<meta property="og:description" content="Web安全攻防基础 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Web安全攻防基础", "description": "跨站脚本攻击（XSS）是最常见的Web漏洞。原理很简单：你把用户输入的内容未经处理直接显示在页面上，恶意用户就可以在输入里塞一段JavaScript代码，其他用户浏览这个页面时，这段脚本就在他们的浏览器里执行了。", "articleSection": "前端开发", "keywords": ["Web安全攻防基础"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Web安全攻防基础", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Web安全攻防基础"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>Web安全攻防基础</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2># Web安全攻防：开发者必须知道的常见漏洞与防御</h2>
 <p>很多开发者写代码只关注功能能不能跑通，完全不考虑安全问题。在本地开发环境里一切正常，一旦部署到公网，各种扫描器、爬虫、黑客脚本立刻找上门来。XSS打你的用户Cookie、SQL注入拖你的数据库、CSRF伪造你的用户请求、文件上传拿到服务器权限——这些不是电影里的情节，而是每天都在发生的真实攻击。Web安全不是安全团队的事，每个写Web代码的开发者都应该掌握最基本的安全常识。因为漏洞往往就藏在你写的那一行拼接SQL、那个直接渲染用户输入的innerHTML里。</p>
 <h2>## 一、XSS：把脚本注入到别人的浏览器里</h2>
@@ -68,18 +65,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>安全不是上线前做一次扫描就完事的。新的漏洞不断被发现，依赖库的安全公告要持续关注，定期用工具扫描项目的依赖有没有已知漏洞。最小权限原则贯穿始终：数据库账号只给需要的权限、API密钥只给需要的范围、服务器端口不要全部对外开放。</p>
 <p>对于普通开发者来说，不需要成为安全专家，但必须建立最基本的安全意识：用户输入永远不可信、敏感数据永远不硬编码、权限校验永远在后端做、永远用参数化查询。把这些变成肌肉记忆，就能挡住90%以上的常见攻击。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-vite-deep-dive.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-system-design-method.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系统设计方法论</a><a href="article-tech-typescript.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript类型系统进阶</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🔑 密码生成器</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-tcp-ip-basics.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP网络基础</a><a href="article-tech-tech-debt.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术债管理</a><a href="article-tech-virtual-list.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表性能优化</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="代码安全，是线上项目不可缺少的一环，很多个人项目的安全隐患都藏在细节之中。前端安全最常见的风险是XSS跨站脚本攻击。恶意用户在输入框提交带脚本的内容，如果后端没有做过滤，前端直接渲染原始内容，攻击者就可以执行脚本、窃取用户Cookie。防御思路核心是输入过滤、输出转义，对用户提交的所有内容做清洗，不要直接渲染">
+<meta name="description" content="开源生态、代码安全与个人开发者的项目长期维护思路 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-opensource-security.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>开源生态、代码安全与个人开发者的项目长期维护思路 - CaesarTools</title>
 <style>
@@ -27,20 +26,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="开源生态、代码安全与个人开发者的项目长期维护思路 - CaesarTools">
-<meta property="og:description" content="代码安全，是线上项目不可缺少的一环，很多个人项目的安全隐患都藏在细节之中。前端安全最常见的风险是XSS跨站脚本攻击。恶意用户在输入框提交带脚本的内容，如果后端没有做过滤，前端直接渲染原始内容，攻击者就可以执行脚本、窃取用户Cookie。防御思路核心是输入过滤、输出转义，对用户提交的所有内容做清洗，不要直接渲染">
+<meta property="og:description" content="开源生态、代码安全与个人开发者的项目长期维护思路 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-opensource-security.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "开源生态、代码安全与个人开发者的项目长期维护思路", "description": "代码安全，是线上项目不可缺少的一环，很多个人项目的安全隐患都藏在细节之中。前端安全最常见的风险是XSS跨站脚本攻击。恶意用户在输入框提交带脚本的内容，如果后端没有做过滤，前端直接渲染原始内容，攻击者就可以执行脚本、窃取用户Cookie。防御思路核心是输入过滤、输出转义，对用户提交的所有内容做清洗，不要直接渲染", "articleSection": "安全", "keywords": ["开源生态", "代码安全与个人开发者的项目长期维护思路"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-opensource-security.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "开源生态、代码安全与个人开发者的项目长期维护思路", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-opensource-security.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "开源生态、代码安全与个人开发者的项目长期维护思路"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>开源生态、代码安全与个人开发者的项目长期维护思路</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 技术教程</div>
 <div class="section"><h2>引言：开源生态与安全</h2><p>现代开发依赖开源，但长期维护和安全常被忽略。</p></div>
 <p>对于绝大多数程序员，无论是业余爱好者还是在职工程师，都无法从零编写所有底层代码。现代软件开发高度依赖开源生态，同时，项目长期维护、安全审计、依赖管理，是很多个人开发者极易忽略的环节。很多个人工具站、前端项目、后端服务，初期开发顺利，上线运行一段时间后，突然出现漏洞、服务宕机、依赖包无法安装，根源大多是对开源依赖管理、代码安全、长期维护缺乏足够认知。看懂开源生态的利弊，建立安全意识，掌握项目持续维护的方法论，才能让自己开发的应用稳定运行，避免项目"写完即报废"。</p>
 <div class="section"><h2>开源是编程世界的基石</h2><p>不用重复造轮子，大幅降低开发门槛。</p></div>
@@ -67,17 +64,5 @@ a:hover{text-decoration:underline}
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🔑 密码生成器</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-domain.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 怎么查一个域名有没有被注册？免费方法</a><a href="article-network-server.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 编程时代的技术底层：网络、服务器与代码工程化的核心逻辑</a><a href="article-dev-architecture.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 现代软件开发全链路解析：前端、后端与编程技术的发展与实践</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

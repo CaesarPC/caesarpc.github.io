@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个'看不见'的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。"看不见"的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。">
+<meta name="description" content="前端监控体系搭建 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-frontend-monitoring.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端监控体系搭建 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端监控体系搭建 - CaesarTools">
-<meta property="og:description" content="用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个'看不见'的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。"看不见"的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。">
+<meta property="og:description" content="前端监控体系搭建 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-frontend-monitoring.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端监控体系搭建", "description": "用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个'看不见'的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。", "articleSection": "前端开发", "keywords": ["前端监控体系搭建"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-frontend-monitoring.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端监控体系搭建", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-frontend-monitoring.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端监控体系搭建"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>前端监控体系搭建</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>前端监控体系搭建：让线上问题在你发现之前先报警</h2>
 <p>用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个"看不见"的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。</p>
 <p>错误监控是前端监控最基本的能力。JavaScript运行时错误通过window.onerror和unhandledrejection事件捕获。资源加载错误（图片404、脚本加载失败）通过捕获阶段监听error事件收集。框架层面（React的ErrorBoundary、Vue的errorHandler）捕获组件渲染错误。所有错误信息带上：错误消息、堆栈、用户UA、浏览器版本、URL、发生时间，上报到监控服务。</p>
@@ -48,18 +45,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>埋点分析是另一类前端数据采集：用户点了哪些按钮、看了哪些页面、转化漏斗哪一步流失。这不是技术监控，而是产品数据分析。通过埋点SDK自动采集用户行为，产品经理用数据做决策。</p>
 <p>没有监控的前端是黑盒。你不知道网站在用户手机上到底跑得怎么样，只能靠用户反馈（但用户不会反馈）。建立前端监控体系，是产品从Demo走向成熟的标志。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-dr-multi-active.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 容灾备份与多活架构</a><a href="article-tech-gray-release-abtest.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-low-code.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 低代码平台技术原理解析</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-file-upload-chunk.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上传与大文件分片</a><a href="article-tech-distributed-tx.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式事务方案对比</a><a href="article-tech-distributed-lock.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁实现方案</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

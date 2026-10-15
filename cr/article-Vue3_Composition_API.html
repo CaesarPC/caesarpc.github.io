@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Vue3的Composition API改变了组件逻辑的组织方式。以前用Options API（data、methods、computed分开写），相关逻辑分散在不同选项里。Composition API把相关逻辑聚合在一起，更容易复用和维护。">
+<meta name="description" content="Vue3_Composition_API - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-Vue3_Composition_API.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vue3_Composition_API - CaesarTools</title>
 <style>
@@ -23,44 +22,27 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Vue3_Composition_API - CaesarTools">
-<meta property="og:description" content="Vue3的Composition API改变了组件逻辑的组织方式。以前用Options API（data、methods、computed分开写），相关逻辑分散在不同选项里。Composition API把相关逻辑聚合在一起，更容易复用和维护。">
+<meta property="og:description" content="Vue3_Composition_API - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-Vue3_Composition_API.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Vue3_Composition_API", "description": "Vue3的Composition API改变了组件逻辑的组织方式。以前用Options API（data、methods、computed分开写），相关逻辑分散在不同选项里。Composition API把相关逻辑聚合在一起，更容易复用和维护。", "articleSection": "前端开发", "keywords": ["Vue3_Composition_API"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-Vue3_Composition_API.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Vue3_Composition_API", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-Vue3_Composition_API.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Vue3_Composition_API"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Vue3_Composition_API</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Vue3 Composition API是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>Vue3 Composition API：逻辑复用的新范式</p>
 <p>Vue3的Composition API改变了组件逻辑的组织方式。以前用Options API（data、methods、computed分开写），相关逻辑分散在不同选项里。Composition API把相关逻辑聚合在一起，更容易复用和维护。</p>
 <p>核心概念：setup函数是组件的入口。ref定义响应式变量，computed定义计算属性，watch监听变化，onMounted等生命周期钩子。所有逻辑都在setup里组织。</p>
 <p>逻辑复用是Composition API最大的优势。以前mixin复用逻辑，但mixin有命名冲突和来源不清的问题。Composition API用自定义Hook（composable函数）复用逻辑：把一段逻辑抽成函数，在多个组件里调用。比如useUser、useFetch、useTheme，每个Hook是独立的逻辑单元。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>ref和reactive的区别：ref需要.value访问（包裹基本类型），reactive直接操作对象。实际开发中ref更常用，因为它简单且不需要解构丢失响应性。</p>
 <p>生命周期：onMounted、onUpdated、onUnmounted在setup里调用。比Options API的钩子更灵活，可以在同一个组件里多次调用同一个钩子（组织逻辑时很方便）。</p>
 <p>Composition API让组件代码从"按选项组织"变成"按功能组织"。一个功能的所有代码（状态、计算、方法）放在一起，可读性和可维护性大幅提升。这是Vue3的核心改进。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-base64.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 什么是Base64编码？一分钟看懂</a><a href="article-710.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful API设计规范实战</a><a href="article-709.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能优化全链路</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="微服务之间怎么调用？最早是HTTP+JSON（REST），简单但性能一般。gRPC是Google开源的RPC框架，用HTTP/2做传输、Protocol Buffers做序列化，性能比REST高很多。">
+<meta name="description" content="gRPC与高性能RPC框架 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-137.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>gRPC与高性能RPC框架 - CaesarTools</title>
 <style>
@@ -23,46 +22,30 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="gRPC与高性能RPC框架 - CaesarTools">
-<meta property="og:description" content="微服务之间怎么调用？最早是HTTP+JSON（REST），简单但性能一般。gRPC是Google开源的RPC框架，用HTTP/2做传输、Protocol Buffers做序列化，性能比REST高很多。">
+<meta property="og:description" content="gRPC与高性能RPC框架 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-137.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "gRPC与高性能RPC框架", "description": "微服务之间怎么调用？最早是HTTP+JSON（REST），简单但性能一般。gRPC是Google开源的RPC框架，用HTTP/2做传输、Protocol Buffers做序列化，性能比REST高很多。", "articleSection": "技术教程", "keywords": ["gRPC与高性能RPC框架"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-137.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "gRPC与高性能RPC框架", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-137.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "gRPC与高性能RPC框架"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>gRPC与高性能RPC框架</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">gRPC与高性能RPC框架是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>gRPC与高性能RPC框架：服务间调用的新选择</p>
 <p>微服务之间怎么调用？最早是HTTP+JSON（REST），简单但性能一般。gRPC是Google开源的RPC框架，用HTTP/2做传输、Protocol Buffers做序列化，性能比REST高很多。</p>
 <p>RPC（远程过程调用）的思想：调用远程服务像调用本地函数一样。你写userClient.GetUser(123)，底层自动处理网络通信、序列化、错误处理。开发者不用关心HTTP细节。</p>
 <p>gRPC的工作方式：先写.proto接口定义文件，声明服务方法、请求和响应的数据结构。用protoc工具生成各语言的客户端和服务端代码。服务端实现接口，客户端用生成的Stub调用。</p>
 <p>gRPC的优势：性能高（Protobuf二进制序列化比JSON小、快；HTTP/2多路复用）；强类型（.proto就是接口契约，自动生成代码）；多语言支持（一套定义，Java/Go/Python/C++都能用）；流式调用（支持客户端流、服务端流、双向流，适合实时数据）。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>缺点：浏览器不能直接调gRPC（需要gRPC-Web代理）；调试不如REST直观（curl不方便）；学习成本（要学Protobuf语法）。</p>
 <p>适用场景：微服务之间内部调用，追求性能和类型安全，用gRPC很合适。对外提供API给浏览器/第三方用，还是REST或GraphQL更友好。</p>
 <p>其他RPC框架：Dubbo（阿里开源，Java生态流行）、Thrift（Facebook开源）。思想类似，都是IDL定义+代码生成。</p>
 <p>服务间调用的选型：内部高性能调用选gRPC/Dubbo；对外API选REST/GraphQL。根据场景选择，不是所有地方都上RPC。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架构详解</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-136.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP网络基础</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架构详解</a><a href="article-tech-121.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微前端架构实践</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-719.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CI/CD持续集成与部署 - CaesarTools</title>
+<meta name="description" content="CI/CD持续集成与部署 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CI/CD持续集成与部署 - CaesarTools">
+<meta property="og:description" content="CI/CD持续集成与部署 - CaesarBase 免费技术文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-719.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "CI/CD持续集成与部署", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-719.html"}</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>CI/CD持续集成与部署</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么需要CI/CD</h2>
+<p>手动部署：本地改代码→git push→SSH登服务器→git pull→npm install→pm2 restart。每次部署手动操作，漏一步就出问题。团队大了，谁改的、什么时候部署的、部署出问题回滚到哪个版本，全靠聊天记录翻。</p>
+<p>CI/CD就是把这套流程自动化。代码push到GitHub后，自动跑测试、自动打包、自动部署到服务器。出问题一键回滚。</p>
+<h2>二、GitHub Actions实战</h2>
+<p>.github/workflows/deploy.yml：</p>
+<p>name: Deploy</p>
+<p>on:</p>
+<p>push:</p>
+<p>branches: [main]</p>
+<p>jobs:</p>
+<p>deploy:</p>
+<p>runs-on: ubuntu-latest</p>
+<p>steps:</p>
+<p>- uses: actions/checkout@v3</p>
+<p>- uses: actions/setup-node@v3</p>
+<p>with:</p>
+<p>node-version: 20</p>
+<p>- run: npm ci</p>
+<p>- run: npm test</p>
+<p>- run: npm run build</p>
+<p>- name: Deploy to server</p>
+<p>uses: appleboy/ssh-action@v1</p>
+<p>with:</p>
+<p>host: ${{ secrets.SSH_HOST }}</p>
+<p>username: ${{ secrets.SSH_USER }}</p>
+<p>key: ${{ secrets.SSH_KEY }}</p>
+<p>script: |</p>
+<p>cd /var/www/app</p>
+<p>git pull</p>
+<p>npm ci --production</p>
+<p>pm2 restart app</p>
+<h2>三、流程拆解</h2>
+<p>push代码触发。</p>
+<p>自动跑npm test，测试不过阻止部署。</p>
+<p>npm run build打包。</p>
+<p>SSH到服务器，git pull，npm ci，pm2 restart。</p>
+<h2>四、关键原则</h2>
+<p>测试必须过才部署。</p>
+<p>部署是自动化的，不靠人。</p>
+<p>出问题一键回滚到上个版本。</p>
+<p>日志要记录每次部署。</p>
+<h2>五、常见坑</h2>
+<p>测试写得水，CI跑了等于没跑。</p>
+<p>服务器密码放GitHub代码里，必须用secrets。</p>
+<p>没做回滚流程，部署出问题全站挂。</p>
+<h2>六、总结</h2>
+<p>CI/CD是工程成熟度标志。代码push自动测试自动部署，出问题一键回滚。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-714.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服务和单体架构怎么选</a><a href="article-723.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Docker容器化部署实战</a><a href="article-726.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS动画性能优化</a></div>
+</body>
+</html>

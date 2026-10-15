@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="MySQL这类关系型数据库用了几十年，但不是所有场景都适合。当数据结构灵活、读写量极大、需要水平扩展时，NoSQL数据库是更好的选择。NoSQL不是'没有SQL'，而是'非关系型SQL'。">
+<meta name="description" content="NoSQL数据库 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-255.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NoSQL数据库 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="NoSQL数据库 - CaesarTools">
-<meta property="og:description" content="MySQL这类关系型数据库用了几十年，但不是所有场景都适合。当数据结构灵活、读写量极大、需要水平扩展时，NoSQL数据库是更好的选择。NoSQL不是'没有SQL'，而是'非关系型SQL'。">
+<meta property="og:description" content="NoSQL数据库 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-255.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "NoSQL数据库", "description": "MySQL这类关系型数据库用了几十年，但不是所有场景都适合。当数据结构灵活、读写量极大、需要水平扩展时，NoSQL数据库是更好的选择。NoSQL不是'没有SQL'，而是'非关系型SQL'。", "articleSection": "后端架构", "keywords": ["NoSQL数据库"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-255.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "NoSQL数据库", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-255.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "NoSQL数据库"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>NoSQL数据库</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">NoSQL数据库是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 什么是NoSQL：关系型数据库之外的世界</p>
 <p>MySQL这类关系型数据库用了几十年，但不是所有场景都适合。当数据结构灵活、读写量极大、需要水平扩展时，NoSQL数据库是更好的选择。NoSQL不是"没有SQL"，而是"非关系型SQL"。</p>
 <p>## 一、为什么需要NoSQL</p>
@@ -48,7 +44,6 @@ a:hover{text-decoration:underline}
 - 列存储（HBase）：海量数据分析。
 - 图数据库（Neo4j）：关系网络查询。</p>
 <p>## 二、MongoDB</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>最流行的NoSQL。数据以BSON（类似JSON）存在集合里，不像关系型数据库要求严格表结构。同一个集合里的文档可以有不同字段——非常适合数据结构不确定、快速迭代的场景。</p>
 <p>## 三、什么时候选NoSQL</p>
 <p>数据结构灵活、快速迭代——MongoDB。
@@ -57,21 +52,9 @@ a:hover{text-decoration:underline}
 社交关系、推荐图——图数据库。</p>
 <p>## 四、总结</p>
 <p>NoSQL不是要取代MySQL，而是补充。关系型数据用MySQL，灵活文档用MongoDB，极速缓存用Redis。根据数据特点选数据库，不要拿一把锤子看什么都是钉子。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo</a><a href="article-tech-246.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志最佳实践</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

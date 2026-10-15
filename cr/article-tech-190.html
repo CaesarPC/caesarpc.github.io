@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="很多人以为Git是记录文件每次修改了哪些行——类似Word里的修订模式。实际上Git的工作方式完全不同：它记录的是每次提交时整个项目的快照。如果文件没有变化，Git不会再存一份副本，而是指向之前已经存储的那份。这种设计让Git的提交极其轻量，创建分支几乎是零成本的操作。">
+<meta name="description" content="Git与版本控制工作流 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-190.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Git与版本控制工作流 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Git与版本控制工作流 - CaesarTools">
-<meta property="og:description" content="很多人以为Git是记录文件每次修改了哪些行——类似Word里的修订模式。实际上Git的工作方式完全不同：它记录的是每次提交时整个项目的快照。如果文件没有变化，Git不会再存一份副本，而是指向之前已经存储的那份。这种设计让Git的提交极其轻量，创建分支几乎是零成本的操作。">
+<meta property="og:description" content="Git与版本控制工作流 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-190.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Git与版本控制工作流", "description": "很多人以为Git是记录文件每次修改了哪些行——类似Word里的修订模式。实际上Git的工作方式完全不同：它记录的是每次提交时整个项目的快照。如果文件没有变化，Git不会再存一份副本，而是指向之前已经存储的那份。这种设计让Git的提交极其轻量，创建分支几乎是零成本的操作。", "articleSection": "技术教程", "keywords": ["Git与版本控制工作流"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-190.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Git与版本控制工作流", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-190.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Git与版本控制工作流"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Git与版本控制工作流</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Git与版本控制工作流是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># Git与版本控制：从单人提交到团队协作的完整工作流</p>
 <p>Git是每个开发者每天都在用的工具，但绝大多数人只掌握了最基础的几条命令——add、commit、push、pull。一旦遇到分支冲突、历史回滚、多人协作、代码审查这些稍微复杂的场景，就开始手忙脚乱，甚至用删除仓库重新克隆这种"核武器"级别的操作来解决问题。版本控制不是简单的备份工具，它是一套完整的工程协作体系。理解Git的底层原理、掌握分支管理策略、熟悉团队协作流程，能让开发效率提升一个量级，也能避免因为误操作导致几天的代码付诸东流。</p>
 <p>## 一、Git的本质：快照而非差异</p>
@@ -54,7 +50,6 @@ a:hover{text-decoration:underline}
 <p>feature分支还是要有的，但应该很小、很短。一个功能开一个分支，一两天做完就合并。不要一个feature分支挂几周不动，等到合并的时候代码已经天翻地覆了。</p>
 <p>## 四、解决冲突：最不可怕的噩梦</p>
 <p>合并分支时出现冲突，是很多新手最害怕的时刻。打开文件看到<<<<<<< HEAD、=======、>>>>>>> feature这样的标记，完全不知道该怎么办。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>其实冲突并不可怕。冲突的意思很简单：同一个文件的同一行，你改了一版，别人改了另一版，Git不知道该保留哪个。你需要手动打开文件，看看两边分别改了什么，然后决定保留什么——有时候全留、有时候只留一边、有时候需要融合两边的改动。改完之后删掉那些冲突标记，git add，再git commit就好了。</p>
 <p>解决冲突的关键原则是：不要盲目选择" ours"或"theirs"。要真正读懂两边的代码在做什么，理解为什么会冲突，然后做出正确的合并决定。很多冲突其实是两个人改了同一段代码做了不同的事，需要坐下来聊一下到底要哪个逻辑。</p>
 <p>## 五、Rebase vs Merge：线性历史的美学</p>
@@ -71,21 +66,9 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>Git是一个设计非常优雅的工具，但它的学习曲线确实陡峭。大多数人卡在基础操作上，是因为不理解底层的数据模型——快照、指针、三态。理解了这些，分支、合并、rebase这些概念就不再是黑盒。</p>
 <p>团队协作中，好的Git工作流不是越复杂越好，而是越简单越能坚持下去。小分支、频繁合并、干净的提交历史、规范的commit message，这些习惯看起来不起眼，但在项目生命周期里会持续产生价值。代码仓库不只是代码存储的地方，它是团队集体记忆的载体。善待你的Git历史，就是善待三个月后回来维护代码的自己。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-193.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息队列与异步架构</a><a href="article-tech-200.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库分库分表</a><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 设计模式实战</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-192.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服务架构拆解</a><a href="article-tech-188.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 测试驱动开发与代码质量</a><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演进史</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

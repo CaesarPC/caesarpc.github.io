@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="递归和动态规划是编程算法中最重要也最让人头疼的两个概念。很多人面试时被要求写斐波那契数列或者爬楼梯，写出来了但说不清为什么这么写。递归是一种思维方式——把大问题拆解成同结构的小问题；动态规划是一种优化手段——把重复计算的中间结果存起来，避免重复劳动。理解这两个概念，不只是为了面试，更是为了写出高效的代码。">
+<meta name="description" content="递归与动态规划 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-208.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>递归与动态规划 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="递归与动态规划 - CaesarTools">
-<meta property="og:description" content="递归和动态规划是编程算法中最重要也最让人头疼的两个概念。很多人面试时被要求写斐波那契数列或者爬楼梯，写出来了但说不清为什么这么写。递归是一种思维方式——把大问题拆解成同结构的小问题；动态规划是一种优化手段——把重复计算的中间结果存起来，避免重复劳动。理解这两个概念，不只是为了面试，更是为了写出高效的代码。">
+<meta property="og:description" content="递归与动态规划 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-208.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "递归与动态规划", "description": "递归和动态规划是编程算法中最重要也最让人头疼的两个概念。很多人面试时被要求写斐波那契数列或者爬楼梯，写出来了但说不清为什么这么写。递归是一种思维方式——把大问题拆解成同结构的小问题；动态规划是一种优化手段——把重复计算的中间结果存起来，避免重复劳动。理解这两个概念，不只是为了面试，更是为了写出高效的代码。", "articleSection": "技术教程", "keywords": ["递归与动态规划"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-208.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "递归与动态规划", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-208.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "递归与动态规划"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>递归与动态规划</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">递归与动态规划是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 递归与动态规划：算法面试与实战中的核心思维</p>
 <p>递归和动态规划是编程算法中最重要也最让人头疼的两个概念。很多人面试时被要求写斐波那契数列或者爬楼梯，写出来了但说不清为什么这么写。递归是一种思维方式——把大问题拆解成同结构的小问题；动态规划是一种优化手段——把重复计算的中间结果存起来，避免重复劳动。理解这两个概念，不只是为了面试，更是为了写出高效的代码。</p>
 <p>## 一、递归：自己调用自己</p>
@@ -54,7 +50,6 @@ a:hover{text-decoration:underline}
 <p>function fib(n, memo = {}) { if (n < 2) return n; if (memo[n]) return memo[n]; memo[n] = fib(n-1, memo) + fib(n-2, memo); return memo[n]; }</p>
 <p>加了缓存之后，每个f(n)只算一次，时间复杂度从O(2^n)降到O(n)。这就是动态规划的雏形——把中间结果存起来，避免重复计算。</p>
 <p>## 四、动态规划：自底向上</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>记忆化递归是"自顶向下"——从大问题往下拆，遇到算过的子问题直接返回缓存。动态规划通常是"自底向上"——从最小的子问题开始，一步步往上推，直到算出大问题的答案。</p>
 <p>斐波那契的动态规划写法：function fib(n) { if (n < 2) return n; let dp = [0, 1]; for (let i = 2; i <= n; i++) { dp[i] = dp[i-1] + dp[i-2]; } return dp[n]; }</p>
 <p>从dp[0]、dp[1]开始，依次算出dp[2]、dp[3]...一直到dp[n]。时间复杂度O(n)，空间复杂度也是O(n)。</p>
@@ -71,21 +66,9 @@ a:hover{text-decoration:underline}
 <p>## 七、总结</p>
 <p>递归和动态规划不是什么神秘的算法，它们是一种思维方式：把大问题拆成小问题，把重复计算的结果存起来。递归是自上而下想问题，动态规划是自下而上解决问题。很多时候你先用递归想清楚怎么拆，再翻译成动态规划的自底向上写法。</p>
 <p>刷题不是目的，目的是训练这种拆解问题的能力。遇到一个复杂问题，先问自己：这个问题能不能拆成同结构的小问题？小问题的答案能不能推导出大问题？如果能，就往递归和动态规划的方向想。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 设计模式实战</a><a href="article-tech-206.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTP2与HTTP3协议演进</a><a href="article-tech-213.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 哈希表原理与应用</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

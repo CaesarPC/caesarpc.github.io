@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="你每天上网都在用HTTP，但你可能不知道它已经偷偷更新了好几个版本。HTTP/1.1统治了互联网二十多年，它简单、可靠，但在现代高并发场景下瓶颈越来越明显。HTTP/2通过多路复用、头部压缩、服务器推送，大幅提升了性能。而HTTP/3更是抛弃了TCP，改用全新的QUIC协议，解决了TCP层的队头阻塞问题。理解">
+<meta name="description" content="HTTP2与HTTP3协议演进 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-206.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTTP2与HTTP3协议演进 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="HTTP2与HTTP3协议演进 - CaesarTools">
-<meta property="og:description" content="你每天上网都在用HTTP，但你可能不知道它已经偷偷更新了好几个版本。HTTP/1.1统治了互联网二十多年，它简单、可靠，但在现代高并发场景下瓶颈越来越明显。HTTP/2通过多路复用、头部压缩、服务器推送，大幅提升了性能。而HTTP/3更是抛弃了TCP，改用全新的QUIC协议，解决了TCP层的队头阻塞问题。理解">
+<meta property="og:description" content="HTTP2与HTTP3协议演进 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-206.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "HTTP2与HTTP3协议演进", "description": "你每天上网都在用HTTP，但你可能不知道它已经偷偷更新了好几个版本。HTTP/1.1统治了互联网二十多年，它简单、可靠，但在现代高并发场景下瓶颈越来越明显。HTTP/2通过多路复用、头部压缩、服务器推送，大幅提升了性能。而HTTP/3更是抛弃了TCP，改用全新的QUIC协议，解决了TCP层的队头阻塞问题。理解", "articleSection": "技术教程", "keywords": ["HTTP2与HTTP3协议演进"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-206.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "HTTP2与HTTP3协议演进", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-206.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "HTTP2与HTTP3协议演进"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>HTTP2与HTTP3协议演进</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">HTTP2与HTTP3协议演进是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># HTTP/2与HTTP/3：网络协议的下一代演进</p>
 <p>你每天上网都在用HTTP，但你可能不知道它已经偷偷更新了好几个版本。HTTP/1.1统治了互联网二十多年，它简单、可靠，但在现代高并发场景下瓶颈越来越明显。HTTP/2通过多路复用、头部压缩、服务器推送，大幅提升了性能。而HTTP/3更是抛弃了TCP，改用全新的QUIC协议，解决了TCP层的队头阻塞问题。理解这些协议演进背后的逻辑，能帮你更好地理解Web性能优化的方向。</p>
 <p>## 一、HTTP/1.1的瓶颈：队头阻塞</p>
@@ -50,7 +46,6 @@ a:hover{text-decoration:underline}
 <p>HTTP/2的第二个改进是头部压缩。HTTP/1.1的请求头每次都要重复带Cookie、User-Agent等信息，头部开销可能比实际body还大。HTTP/2用HPACK算法压缩头部，维护一份双方都知道的字典，重复的头部只传差异部分，大幅减少了传输量。</p>
 <p>第三个改进是服务器推送。服务器可以主动把浏览器还没请求的资源推过去——比如浏览器请求了HTML，服务器发现HTML里引用了CSS，主动把CSS也推过去，省得浏览器解析完HTML再发一次CSS请求。这个功能实际用得不多，因为控制不好容易推一堆浏览器用不上的东西。</p>
 <p>## 三、HTTP/2的局限：TCP层的队头阻塞</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>HTTP/2解决了应用层的队头阻塞，但它跑在TCP之上，TCP层还有队头阻塞。TCP是可靠传输，保证数据包按顺序到达。如果中间某个包丢了，后面的包就算到了也得等着——等那个丢包重传成功之后才能继续往下走。</p>
 <p>在HTTP/2的多路复用下，多个stream共享一个TCP连接。一旦TCP层丢了包，所有stream都得停在那里等重传。虽然应用层没有队头阻塞了，但传输层有。在网络不稳定的移动场景下，这个问题特别明显。</p>
 <p>## 四、HTTP/3与QUIC：抛弃TCP的勇气</p>
@@ -62,21 +57,9 @@ a:hover{text-decoration:underline}
 <p>好消息是：HTTP/2和HTTP/3对开发者基本透明。你不需要改任何代码，只要服务器和CDN支持，浏览器会自动用最新的协议。</p>
 <p>但理解协议特性可以帮你做出更好的优化决策。HTTP/2下，域名分片和文件合并已经没有意义了——多路复用本身就解决了并行问题，合并文件反而影响缓存命中率。HTTP/3下，弱网环境的用户体验会自动改善，不需要你做额外工作。</p>
 <p>未来HTTP/3会逐步普及，就像当年HTTPS取代HTTP一样。这是一个对开发者透明、对用户有益的底层升级。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-203.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 程序员的技术成长路径</a><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 设计模式实战</a><a href="article-tech-207.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器渲染原理</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

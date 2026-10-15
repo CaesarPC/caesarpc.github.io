@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。">
+<meta name="description" content="Redis高级数据结构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-236.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Redis高级数据结构 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Redis高级数据结构 - CaesarTools">
-<meta property="og:description" content="很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。">
+<meta property="og:description" content="Redis高级数据结构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-236.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Redis高级数据结构", "description": "很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。", "articleSection": "后端架构", "keywords": ["Redis高级数据结构"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-236.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Redis高级数据结构", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-236.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Redis高级数据结构"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Redis高级数据结构</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Redis高级数据结构是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># Redis高级数据结构：不只是键值对</p>
 <p>很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。</p>
 <p>## 一、Hash：存储对象</p>
@@ -48,7 +44,6 @@ a:hover{text-decoration:underline}
 <p>## 三、Set：去重与标签</p>
 <p>Set是无序不重复集合。SADD添加元素，SISMEMBER判断是否存在。天然去重——同一个元素加多少次都只有一份。</p>
 <p>适合做标签系统：文章id=100的标签是"JS""前端"，SADD article:100:tags "JS" "前端"。反向也可以：这个标签下有哪些文章。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 四、Sorted Set：排行榜</p>
 <p>Sorted Set每个成员关联一个score（分数），按score排序。ZADD加元素，ZRANGE按分数排名取前N个。</p>
 <p>这是Redis做排行榜的核心——热搜榜、积分排行榜、实时排名。ZADD article:rank 1000 "文章A"，ZREVRANGE article:rank 0 9取前10名。O(log n)的插入和排名查询。</p>
@@ -58,21 +53,9 @@ a:hover{text-decoration:underline}
 <p>统计一个页面一天有多少独立访客（UV）。用Set存所有访客ID，100万用户就占100万空间。HyperLogLog用极小的内存（12KB）就能估算亿级数据的基数——有一定误差（0.81%），但对UV统计完全够用。</p>
 <p>## 七、总结</p>
 <p>Redis不只是缓存字符串。Hash存对象、List做队列、Set做去重标签、Sorted Set做排行榜、Bitmap做签到、HyperLogLog做计数。选对数据结构，一个Redis能顶好几个专门组件。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委托</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入门</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

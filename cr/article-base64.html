@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="这就是 Base64 编码。它不是加密，而是一种'把二进制数据变成纯文字'的方法。你有没有见过这样一串奇怪的字符：SGVsbG8gV29ybGQh？这就是 Base64 编码。它不是加密，而是一种"把二进制数据变成纯文字"的方法。网络传输的时候，有些地方只认文字，不认图片、音频这些二进制数据。于是人们发..."把二进制数据变成纯文字"的方法。">
+<meta name="description" content="什么是Base64编码？一分钟看懂 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-base64.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>什么是Base64编码？一分钟看懂 - CaesarTools</title>
 <style>
@@ -27,46 +26,29 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="什么是Base64编码？一分钟看懂 - CaesarTools">
-<meta property="og:description" content="这就是 Base64 编码。它不是加密，而是一种'把二进制数据变成纯文字'的方法。你有没有见过这样一串奇怪的字符：SGVsbG8gV29ybGQh？这就是 Base64 编码。它不是加密，而是一种"把二进制数据变成纯文字"的方法。网络传输的时候，有些地方只认文字，不认图片、音频这些二进制数据。于是人们发..."把二进制数据变成纯文字"的方法。">
+<meta property="og:description" content="什么是Base64编码？一分钟看懂 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-base64.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "什么是Base64编码？一分钟看懂", "description": "这就是 Base64 编码。它不是加密，而是一种'把二进制数据变成纯文字'的方法。", "articleSection": "技术教程", "keywords": ["什么是Base64编码？一分钟看懂"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-base64.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "什么是Base64编码？一分钟看懂", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-base64.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "什么是Base64编码？一分钟看懂"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>什么是Base64编码？一分钟看懂</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">什么是Base64编码？一分钟看懂是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>你有没有见过这样一串奇怪的字符：<code>SGVsbG8gV29ybGQh</code>？</p>
 <p>这就是 Base64 编码。它不是加密，而是一种"把二进制数据变成纯文字"的方法。</p>
 <p>网络传输的时候，有些地方只认文字，不认图片、音频这些二进制数据。于是人们发明了 Base64，把图片等文件"翻译"成一串纯字母数字，就能在网页里直接显示了。</p>
 <p>你在网页上看到的小图标、头像，很多就是用 Base64 嵌进去的，不用额外发请求加载图片。</p>
 <p>1. 网页里嵌小图片（不用单独请求图片文件）</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>2. 邮件里传附件（邮件协议只认文字）</p>
 <p>3. API 接口里传二进制数据</p>
 <p>本站的编码解码工具就能一键搞定 Base64 编码和解码，纯本地处理，不上传服务器，隐私安全。</p>
 <p><a href="tools.html" style="color:#2563eb;">→ 打开 Base64 编码解码工具</a></p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🔄 Base64编解码</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-dev-architecture.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 现代软件开发全链路解析：前端、后端与编程技术的发展与实践</a><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储：Cookie、LocalStorage、IndexedDB怎么选</a><a href="article-domain.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 怎么查一个域名有没有被注册？免费方法</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

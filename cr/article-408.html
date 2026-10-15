@@ -5,11 +5,10 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-408.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SQL索引原理与优化 - CaesarTools</title>
-<meta name="description" content="索引是B+树数据结构。查WHERE id=100，不用全表扫描，直接走B+树查找，复杂度从O(n)降到O(log n)。">
+<meta name="description" content="SQL索引原理与优化 - CaesarBase 免费技术文章">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,19 +26,17 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="SQL索引原理与优化 - CaesarTools">
-<meta property="og:description" content="索引是B+树数据结构。查WHERE id=100，不用全表扫描，直接走B+树查找，复杂度从O(n)降到O(log n)。">
+<meta property="og:description" content="SQL索引原理与优化 - CaesarBase 免费技术文章">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-408.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "SQL索引原理与优化", "description": "索引是B+树数据结构。查WHERE id=100，不用全表扫描，直接走B+树查找，复杂度从O(n)降到O(log n)。", "articleSection": "技术教程", "keywords": ["SQL索引原理与优化"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-408.html"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "SQL索引原理与优化"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SQL索引原理与优化", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-408.html"}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
 <h1>SQL索引原理与优化</h1>
-<div class="meta">CaesarTools 技术文章 · 2026-10-15 📅 2026-10-15 </div>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
 <div class="content">
 <h2>一、索引是什么</h2>
 <p>索引是B+树数据结构。查WHERE id=100，不用全表扫描，直接走B+树查找，复杂度从O(n)降到O(log n)。</p>
@@ -68,17 +65,6 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 <div class="foot">CaesarTools · 免费技术站</div>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-430.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库事务与ACID</a><a href="article-41.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端路由原理与实践</a><a href="article-42.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端状态管理：为什么要用Redux/Zustand</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-407.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷贝与浅拷贝</a><a href="article-415.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引实战</a><a href="article-403.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a></div>
 </body>
 </html>

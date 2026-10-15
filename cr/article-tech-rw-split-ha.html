@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。">
+<meta name="description" content="读写分离与数据库高可用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>读写分离与数据库高可用 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="读写分离与数据库高可用 - CaesarTools">
-<meta property="og:description" content="数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。">
+<meta property="og:description" content="读写分离与数据库高可用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "读写分离与数据库高可用", "description": "数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。", "articleSection": "后端架构", "keywords": ["读写分离与数据库高可用"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "读写分离与数据库高可用", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "读写分离与数据库高可用"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>读写分离与数据库高可用</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>读写分离与数据库高可用：让数据库不再单点故障</h2>
 <p>数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。</p>
 <p>MySQL的主从复制是基础：主库写入binlog，从库拉取binlog重放，保持数据同步。一个主库可以挂多个从库。应用配置两个数据源：写操作走主库，读操作走从库。数据库连接池或中间件（ShardingSphere、MyCat）自动路由。</p>
@@ -47,18 +44,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>云数据库（RDS）把这些都托管了：主从复制、自动备份、故障切换、扩容，都是云厂商做。你只需要连接数据库。中小团队用云数据库，不用自己折腾主从复制和高可用。</p>
 <p>数据库高可用的核心思路是：不依赖单机，任何一台挂了系统照常运行。数据多副本、自动故障转移、读写分离扩展读能力。这套架构让数据库从单点变成高可用集群。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-ssr-isomorphic.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服务端渲染SSR与同构应用</a><a href="article-tech-monitoring-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 监控告警系统建设</a><a href="article-tech-tech-debt.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术债管理</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-ml-training.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 机器学习模型训练全流程</a><a href="article-tech-tcp-ip-basics.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP网络基础</a><a href="article-tech-ssr-isomorphic.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服务端渲染SSR与同构应用</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

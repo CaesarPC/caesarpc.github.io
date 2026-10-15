@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。">
+<meta name="description" content="分布式锁 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-226.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分布式锁 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="分布式锁 - CaesarTools">
-<meta property="og:description" content="单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。">
+<meta property="og:description" content="分布式锁 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-226.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "分布式锁", "description": "单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。", "articleSection": "后端架构", "keywords": ["分布式锁"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-226.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "分布式锁", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-226.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "分布式锁"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>分布式锁</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">分布式锁是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 分布式锁：多实例下的并发控制</p>
 <p>单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。</p>
 <p>## 一、为什么需要分布式锁</p>
@@ -47,7 +43,6 @@ a:hover{text-decoration:underline}
 <p>## 二、基于Redis的分布式锁</p>
 <p>最常用的分布式锁实现是Redis。SET key random_value NX PX 30000——这条命令的意思是：如果key不存在就设置成功，同时设30秒自动过期。NX（Not Exists）保证了只有一个客户端能设置成功，其他客户端设置失败就拿不到锁。</p>
 <p>random_value是客户端生成的唯一随机值——释放锁的时候要验证这个值是不是自己的，防止误删别人的锁。释放锁要用Lua脚本保证原子性：先比对value，匹配了再删。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>为什么要设过期时间？怕拿到锁的客户端挂了，锁永远不释放——死锁。设了过期时间，即使客户端挂了，锁也会自动释放。</p>
 <p>## 三、Redlock：多节点Redis</p>
 <p>上面的方案在单节点Redis下工作。但如果Redis主节点拿到锁之后挂了，锁还没同步到从节点，从节点升主，新主上没有这个锁——另一个客户端也能拿到锁，两个客户端同时持有锁。</p>
@@ -56,21 +51,9 @@ a:hover{text-decoration:underline}
 <p>也可以用数据库做分布式锁：建一张锁表，唯一键是锁名。拿锁就插入一条记录，释放锁就删除。简单可靠，但性能不如Redis——每次拿锁都要读写数据库。适合并发不高的场景。</p>
 <p>## 五、总结</p>
 <p>分布式锁是分布式系统的基础组件。Redis SET NX是最常用的实现，记住三个要点：NX保证互斥、PX防止死锁、唯一值防止误删。不是所有场景都需要分布式锁——只有跨进程竞争同一资源时才用。单机能解决的问题不要上分布式锁。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 状态管理</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Cloudflare Pages、GitHub Pages、Vercel。现代个人站点、工具站与轻量商业网站的开发逻辑，已经彻底从传统本地服务器部署转向云端托管模式。相较于老旧的本地主机部署，云端部署具备免常驻开机、防宕机、全球节点加静态网站托管是当前轻量化项目最核心的部署方式，适用于前端纯静态页面、工...">
+<meta name="description" content="网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-cloud-deploy.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解 - CaesarTools</title>
 <style>
@@ -27,20 +26,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解 - CaesarTools">
-<meta property="og:description" content="Cloudflare Pages、GitHub Pages、Vercel。现代个人站点、工具站与轻量商业网站的开发逻辑，已经彻底从传统本地服务器部署转向云端托管模式。相较于老旧的本地主机部署，云端部署具备免常驻开机、防宕机、全球节点加静态网站托管是当前轻量化项目最核心的部署方式，适用于前端纯静态页面、工...">
+<meta property="og:description" content="网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-cloud-deploy.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解", "description": "Cloudflare Pages、GitHub Pages、Vercel。", "articleSection": "后端架构", "keywords": ["网站云端部署与轻量化运维", "静态托管", "CDN加速与服务稳定化技术详解"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-cloud-deploy.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-cloud-deploy.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>网站云端部署与轻量化运维：静态托管、CDN加速与服务稳定化技术详解</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 技术教程</div>
 <div class="section"><h2>引言：云端托管成主流</h2><p>免开机、防宕机、全球加速、低成本上线。</p></div>
 <p>现代个人站点、工具站与轻量商业网站的开发逻辑，已经彻底从传统本地服务器部署转向云端托管模式。相较于老旧的本地主机部署，云端部署具备免常驻开机、防宕机、全球节点加速、低成本甚至零成本上线等优势，是目前个人开发者、小型技术项目、工具类网站的主流落地方案。多数新手开发者在完成前后端代码编写后，常会卡在部署环节，出现页面无法访问、静态资源加载失败、外网无法穿透、域名解析异常、缓存错乱等问题，本质原因是对云端托管、静态分发、网络加速与基础运维逻辑认知缺失。本文系统拆解现代网站云端部署的核心技术、主流方案、避坑要点与运维规范，覆盖静态站部署、反向代理、CDN加速、防访问失效、跨域配置等刚需技术点。</p>
 <div class="section"><h2>静态网站托管</h2><p>Cloudflare Pages、GitHub Pages、Vercel。</p></div>
@@ -65,17 +62,5 @@ a:hover{text-decoration:underline}
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-json.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JSON格式化是什么？为什么程序员都需要它</a><a href="article-Vue3_Composition_API.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vue3_Composition_API</a><a href="article-base64.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 什么是Base64编码？一分钟看懂</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

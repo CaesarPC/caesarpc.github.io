@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="早期的网页是纯静态的——服务器返回HTML，浏览器渲染出来，用户看完就走。后来出现了表单提交、AJAX异步请求，网页可以动态更新内容了。但这些都是'请求-响应'模式：浏览器主动问服务器要数据，服务器才返回。如果服务器有新数据想主动推给浏览器——比如聊天消息、股票价格、实时通知、多人协作编辑——怎么办？">
+<meta name="description" content="WebSocket与实时通信 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-websocket-realtime.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebSocket与实时通信 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="WebSocket与实时通信 - CaesarTools">
-<meta property="og:description" content="早期的网页是纯静态的——服务器返回HTML，浏览器渲染出来，用户看完就走。后来出现了表单提交、AJAX异步请求，网页可以动态更新内容了。但这些都是'请求-响应'模式：浏览器主动问服务器要数据，服务器才返回。如果服务器有新数据想主动推给浏览器——比如聊天消息、股票价格、实时通知、多人协作编辑——怎么办？">
+<meta property="og:description" content="WebSocket与实时通信 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-websocket-realtime.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "WebSocket与实时通信", "description": "早期的网页是纯静态的——服务器返回HTML，浏览器渲染出来，用户看完就走。后来出现了表单提交、AJAX异步请求，网页可以动态更新内容了。但这些都是'请求-响应'模式：浏览器主动问服务器要数据，服务器才返回。如果服务器有新数据想主动推给浏览器——比如聊天消息、股票价格、实时通知、多人协作编辑——怎么办？", "articleSection": "前端开发", "keywords": ["WebSocket与实时通信"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-websocket-realtime.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "WebSocket与实时通信", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-websocket-realtime.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "WebSocket与实时通信"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>WebSocket与实时通信</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2># WebSocket与实时通信：从轮询到全双工的演进</h2>
 <p>早期的网页是纯静态的——服务器返回HTML，浏览器渲染出来，用户看完就走。后来出现了表单提交、AJAX异步请求，网页可以动态更新内容了。但这些都是"请求-响应"模式：浏览器主动问服务器要数据，服务器才返回。如果服务器有新数据想主动推给浏览器——比如聊天消息、股票价格、实时通知、多人协作编辑——怎么办？</p>
 <p>在WebSocket出现之前，开发者用的是各种"hack"方案：短轮询（浏览器每隔几秒问一次服务器有没有新数据）、长轮询（服务器挂起请求直到有数据才返回）、Comet流。这些方案要么浪费请求，要么实现复杂。WebSocket的出现彻底改变了这个局面——它在浏览器和服务器之间建立一条持久的全双工连接，双方可以随时互发消息。</p>
@@ -67,18 +64,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>实时通信是现代Web应用的标配能力。从轮询的低效，到长轮询的折中，再到WebSocket的全双工，技术演进的方向始终是：更低的延迟、更少的开销、更好的开发体验。</p>
 <p>对于开发者来说，选什么协议取决于场景。简单的服务器推送用SSE，双向实时交互用WebSocket，快速原型用Socket.IO。但不管用什么协议，工程上的问题是共通的：连接管理、断线重连、心跳保活、多实例扩展、消息可靠性、安全鉴权。这些问题处理好了，实时应用才能真正稳定运行。WebSocket不是银弹，但它是目前Web上做实时双向通信的最佳工具。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-typescript.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript类型系统进阶</a><a href="article-tech-virtual-list.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表性能优化</a><a href="article-tech-tech-selection.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术选型决策方法</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-tech-debt.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术债管理</a><a href="article-tech-web-crawler.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 网络爬虫基础与反爬对抗技术解析</a><a href="article-tech-web-security-fundamental.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Web安全攻防基础</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

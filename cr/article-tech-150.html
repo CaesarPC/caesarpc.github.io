@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="后台管理系统有多角色：管理员看所有功能、编辑只能编辑内容、访客只能查看。前端权限控制要做到：没权限的路由不显示、没权限的菜单不渲染、没权限的按钮禁用或隐藏。">
+<meta name="description" content="前端权限设计 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-150.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端权限设计 - CaesarTools</title>
 <style>
@@ -23,45 +22,29 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端权限设计 - CaesarTools">
-<meta property="og:description" content="后台管理系统有多角色：管理员看所有功能、编辑只能编辑内容、访客只能查看。前端权限控制要做到：没权限的路由不显示、没权限的菜单不渲染、没权限的按钮禁用或隐藏。">
+<meta property="og:description" content="前端权限设计 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-150.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端权限设计", "description": "后台管理系统有多角色：管理员看所有功能、编辑只能编辑内容、访客只能查看。前端权限控制要做到：没权限的路由不显示、没权限的菜单不渲染、没权限的按钮禁用或隐藏。", "articleSection": "前端开发", "keywords": ["前端权限设计"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-150.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端权限设计", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-150.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端权限设计"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端权限设计</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端权限设计是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p>前端权限设计：从路由到按钮的三级权限控制</p>
 <p>后台管理系统有多角色：管理员看所有功能、编辑只能编辑内容、访客只能查看。前端权限控制要做到：没权限的路由不显示、没权限的菜单不渲染、没权限的按钮禁用或隐藏。</p>
 <p>前端权限分三层：路由级（能不能进这个页面）、菜单级（侧边栏显示哪些菜单）、按钮级（页面内哪些操作按钮可见/可点）。</p>
 <p>实现方式：登录后后端返回用户权限列表（角色、可访问路由、权限点）。前端根据权限列表动态生成路由（没权限的路由不注册）；菜单根据权限过滤渲染；按钮根据权限点判断是否显示。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>路由守卫做第一道防线：用户直接输入URL访问没权限的页面，路由守卫拦截跳转403。</p>
 <p>前端权限只是体验优化，不是安全措施。真正的权限校验在后端——前端隐藏按钮不阻止用户直接调API。后端接口必须验证权限，前端配合做体验。</p>
 <p>常见的权限模型：RBAC（基于角色的访问控制）——用户关联角色，角色关联权限，最简单常用。更复杂的ABAC（基于属性）按用户属性、资源属性动态判断，一般系统用不到。</p>
 <p>好的权限设计让不同角色看到不同的界面，既安全又友好。这是中后台系统的标配功能。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-156.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI_Agent智能体开发</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-146.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术债管理</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-154.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储方案对比</a><a href="article-tech-155.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端埋点与数据采集</a><a href="article-tech-144.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 容灾备份与多活架构</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

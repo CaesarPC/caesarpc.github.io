@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="ChatGPT是你问一句它答一句。AI Agent（智能体）更进一步：给它一个目标，它自己拆解任务、调用工具、执行步骤、直到完成。比如'帮我订一张明天去上海的机票'，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。"帮我订一张明天去上海的机票"，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。">
+<meta name="description" content="AI Agent智能体开发入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-ai-agent-dev-intro.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Agent智能体开发入门 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="AI Agent智能体开发入门 - CaesarTools">
-<meta property="og:description" content="ChatGPT是你问一句它答一句。AI Agent（智能体）更进一步：给它一个目标，它自己拆解任务、调用工具、执行步骤、直到完成。比如'帮我订一张明天去上海的机票'，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。"帮我订一张明天去上海的机票"，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。">
+<meta property="og:description" content="AI Agent智能体开发入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-ai-agent-dev-intro.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "AI Agent智能体开发入门", "description": "ChatGPT是你问一句它答一句。AI Agent（智能体）更进一步：给它一个目标，它自己拆解任务、调用工具、执行步骤、直到完成。比如'帮我订一张明天去上海的机票'，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。", "articleSection": "人工智能", "keywords": ["AI", "Agent智能体开发入门"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-ai-agent-dev-intro.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "AI Agent智能体开发入门", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-ai-agent-dev-intro.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "AI Agent智能体开发入门"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>AI Agent智能体开发入门</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>AI Agent智能体开发：从聊天机器人到自主任务执行</h2>
 <p>ChatGPT是你问一句它答一句。AI Agent（智能体）更进一步：给它一个目标，它自己拆解任务、调用工具、执行步骤、直到完成。比如"帮我订一张明天去上海的机票"，Agent自己查航班、选时间、比价、下单，全程不需要你一步步指挥。</p>
 <p>Agent的核心组成：大脑（大模型做决策）、工具（搜索、计算器、API调用、数据库查询）、记忆（短期对话历史+长期知识库）、规划（把大目标拆成小步骤）。</p>
@@ -46,18 +43,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>挑战：可靠性（大模型可能走错路，需要人工确认关键步骤）、成本（多轮调用大模型费用不低）、延迟（多步推理用户要等）。Agent还在早期，复杂任务需要设计好边界和人工介入点。</p>
 <p>AI Agent是大模型应用的下一个前沿。从"聊天"到"做事"，是AI从工具变成助手的关键一步。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-bff-layer.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF层设计与实践</a><a href="article-tech-RAG.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 大语言模型微调与RAG检索增强实战</a><a href="article-tech-Redis.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis缓存设计与穿透击穿雪崩防护</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-api-gateway-arch.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API网关架构设计</a><a href="article-tech-Redis.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis缓存设计与穿透击穿雪崩防护</a><a href="article-tech-SEO.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 网站SEO优化与搜索引擎收录技术详解</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

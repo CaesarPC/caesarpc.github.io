@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-608.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Node.js进程管理PM2 - CaesarTools</title>
+<meta name="description" content="Node.js进程管理PM2 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Node.js进程管理PM2 - CaesarTools">
+<meta property="og:description" content="Node.js进程管理PM2 - CaesarBase 免费技术文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-608.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Node.js进程管理PM2", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-608.html"}</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Node.js进程管理PM2</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么要PM2</h2>
+<p>node app.js，关终端进程就死了。PM2让进程后台运行，崩溃自动重启，开机自启。</p>
+<h2>二、基本用法</h2>
+<p>pm2 start app.js</p>
+<p>pm2 list看进程。</p>
+<p>pm2 logs app看日志。</p>
+<p>pm2 restart app重启。</p>
+<p>pm2 stop app停止。</p>
+<h2>三、集群模式</h2>
+<p>pm2 start app.js -i max</p>
+<p>利用多核CPU，自动负载均衡。</p>
+<h2>四、开机自启</h2>
+<p>pm2 startup生成命令，执行后开机自动启动进程。</p>
+<h2>五、日志管理</h2>
+<p>pm2 logs --lines 100看最近100行。</p>
+<p>日志自动轮转，不会越积越大。</p>
+<h2>六、常见坑</h2>
+<p>改代码后要pm2 restart。</p>
+<p>环境变量要配ecosystem.config.js。</p>
+<h2>七、总结</h2>
+<p>PM2是Node生产必备。后台运行、崩溃重启、开机自启、集群模式。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-610.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS变量与主题切换</a><a href="article-615.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-613.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引实战</a></div>
+</body>
+</html>

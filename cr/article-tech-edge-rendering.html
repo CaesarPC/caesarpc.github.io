@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="Web架构正在从集中式向分布式演进。传统模式：代码部署在一个机房，全球用户访问。新模式：计算推到边缘节点，离用户最近的地方处理。前面讲过Cloudflare Workers，这是边缘计算。边缘渲染是它的进阶：在边缘节点做SSR，而不是只做静态托管。">
+<meta name="description" content="边缘渲染与下一代Web架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-edge-rendering.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>边缘渲染与下一代Web架构 - CaesarTools</title>
 <style>
@@ -22,20 +21,18 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="边缘渲染与下一代Web架构 - CaesarTools">
-<meta property="og:description" content="Web架构正在从集中式向分布式演进。传统模式：代码部署在一个机房，全球用户访问。新模式：计算推到边缘节点，离用户最近的地方处理。前面讲过Cloudflare Workers，这是边缘计算。边缘渲染是它的进阶：在边缘节点做SSR，而不是只做静态托管。">
+<meta property="og:description" content="边缘渲染与下一代Web架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-edge-rendering.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "边缘渲染与下一代Web架构", "description": "Web架构正在从集中式向分布式演进。传统模式：代码部署在一个机房，全球用户访问。新模式：计算推到边缘节点，离用户最近的地方处理。前面讲过Cloudflare Workers，这是边缘计算。边缘渲染是它的进阶：在边缘节点做SSR，而不是只做静态托管。", "articleSection": "前端开发", "keywords": ["边缘渲染与下一代Web架构"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-edge-rendering.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "边缘渲染与下一代Web架构", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-edge-rendering.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "边缘渲染与下一代Web架构"}]}</script>
 </head>
-<body><div style="max-width:800px;margin:0 auto;padding:20px"><div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>边缘渲染与下一代Web架构</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>边缘渲染与下一代Web架构：从集中式到分布式的演进</h2>
 <p>Web架构正在从集中式向分布式演进。传统模式：代码部署在一个机房，全球用户访问。新模式：计算推到边缘节点，离用户最近的地方处理。前面讲过Cloudflare Workers，这是边缘计算。边缘渲染是它的进阶：在边缘节点做SSR，而不是只做静态托管。</p>
 <p>传统SSR：服务器在一个地方，美国用户访问要跨洋。边缘SSR：在全球几百个节点都渲染，用户从最近节点拿渲染好的HTML，延迟极低。</p>
@@ -44,18 +41,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>趋势：Web架构从"一个服务器服务所有人"变成"全球节点协同服务"。边缘计算、边缘渲染、边缘数据库，整个技术栈都在下移到离用户最近的地方。</p>
 <p>这是Web架构的大方向：更快、更近、更分布式。理解这个趋势，就理解了Cloudflare、Vercel这些公司为什么崛起。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-gray-release-abtest.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分库分表实战</a><a href="article-tech-frontend-monitoring.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端监控体系搭建</a></div>
 <script src="/cr/clip.js"></script>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-distributed-tx.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式事务方案对比</a><a href="article-tech-elk-log-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志收集体系ELK</a><a href="article-tech-ddd-intro.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DDD领域驱动设计入门</a></div>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

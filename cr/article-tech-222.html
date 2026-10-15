@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="你本地测试一切正常，用户那边却报白屏、按钮点了没反应。你没有用户的操作录像，不知道他们用的什么浏览器、点了什么按钮、报了什么错。这种'在我电脑上是好的'困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。"在我电脑上是好的"困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。">
+<meta name="description" content="前端错误监控 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-222.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端错误监控 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端错误监控 - CaesarTools">
-<meta property="og:description" content="你本地测试一切正常，用户那边却报白屏、按钮点了没反应。你没有用户的操作录像，不知道他们用的什么浏览器、点了什么按钮、报了什么错。这种'在我电脑上是好的'困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。"在我电脑上是好的"困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。">
+<meta property="og:description" content="前端错误监控 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-222.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "前端错误监控", "description": "你本地测试一切正常，用户那边却报白屏、按钮点了没反应。你没有用户的操作录像，不知道他们用的什么浏览器、点了什么按钮、报了什么错。这种'在我电脑上是好的'困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。", "articleSection": "前端开发", "keywords": ["前端错误监控"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-222.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "前端错误监控", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-222.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "前端错误监控"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端错误监控</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端错误监控是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 前端错误监控：让线上BUG无所遁形</p>
 <p>你本地测试一切正常，用户那边却报白屏、按钮点了没反应。你没有用户的操作录像，不知道他们用的什么浏览器、点了什么按钮、报了什么错。这种"在我电脑上是好的"困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。</p>
 <p>## 一、监控什么</p>
@@ -49,7 +45,6 @@ a:hover{text-decoration:underline}
 <p>## 二、怎么上报</p>
 <p>捕获到错误后，把信息发送到后端收集服务器。用navigator.sendBeacon发送——它是异步的、不阻塞页面卸载的，特别适合在页面关闭时发数据。不要用fetch同步发，可能页面已经关了请求还没发出去。</p>
 <p>上报接口本身也要容错——上报失败了不要影响用户体验，静默失败就行。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、Source Map：压缩后的代码怎么调试</p>
 <p>线上代码经过压缩混淆，变量名变成了a、b、c，错误堆栈里的行号列号对应的是压缩后的代码，根本没法读。解决办法是Source Map——构建工具生成一个映射文件，记录压缩后的位置对应原始代码的位置。把Source Map上传到错误监控平台，它会自动把压缩后的错误堆栈还原成原始代码的位置。</p>
 <p>注意：Source Map不要部署到公网——它等于把源代码公开了。上传到监控平台的私有存储就行。</p>
@@ -60,21 +55,9 @@ a:hover{text-decoration:underline}
 <p>除了错误，还能监控性能指标：页面加载时间、首屏渲染时间、接口响应时间。这些数据汇聚起来，你就知道哪些页面慢、哪些接口慢，有针对性地优化。</p>
 <p>## 六、总结</p>
 <p>前端错误监控不是可选项——只要你的产品有真实用户，就需要它。本地测试覆盖不了所有浏览器和场景，用户的真实错误信息是最宝贵的反馈。集成Sentry这样的工具，半小时搞定，以后线上出问题你能第一时间知道，而不是等用户来骂。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-212.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Nginx反向代理与负载均衡</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 图片优化</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

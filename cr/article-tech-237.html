@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="SQL是操作关系型数据库的语言。不管你用MySQL、PostgreSQL还是SQLite，核心SQL语法几乎一样。掌握基本的增删改查和聚合查询，就能应对80%的日常数据库操作需求。">
+<meta name="description" content="SQL入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-237.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SQL入门 - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="SQL入门 - CaesarTools">
-<meta property="og:description" content="SQL是操作关系型数据库的语言。不管你用MySQL、PostgreSQL还是SQLite，核心SQL语法几乎一样。掌握基本的增删改查和聚合查询，就能应对80%的日常数据库操作需求。">
+<meta property="og:description" content="SQL入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-237.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "SQL入门", "description": "SQL是操作关系型数据库的语言。不管你用MySQL、PostgreSQL还是SQLite，核心SQL语法几乎一样。掌握基本的增删改查和聚合查询，就能应对80%的日常数据库操作需求。", "articleSection": "技术教程", "keywords": ["SQL入门"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-237.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "SQL入门", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-237.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "SQL入门"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>SQL入门</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">SQL入门是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># SQL入门：增删改查与聚合查询</p>
 <p>SQL是操作关系型数据库的语言。不管你用MySQL、PostgreSQL还是SQLite，核心SQL语法几乎一样。掌握基本的增删改查和聚合查询，就能应对80%的日常数据库操作需求。</p>
 <p>## 一、查询：SELECT</p>
@@ -51,7 +47,6 @@ a:hover{text-decoration:underline}
 <p>## 三、更新：UPDATE</p>
 <p>UPDATE users SET age = 26 WHERE id = 123;</p>
 <p>警告：UPDATE不加WHERE会更新全表！执行前先SELECT确认条件对不对。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 四、删除：DELETE</p>
 <p>DELETE FROM users WHERE id = 123;</p>
 <p>同样警告：不加WHERE删全表。生产环境执行DELETE前先SELECT看看影响哪些行。</p>
@@ -66,21 +61,9 @@ SELECT orders.id, users.name FROM orders JOIN users ON orders.user_id = users.id
 <p>INNER JOIN只返回两表匹配的行。LEFT JOIN保留左表所有行，右表没匹配的填NULL。</p>
 <p>## 七、总结</p>
 <p>SQL的核心就这几个动词：SELECT查、INSERT增、UPDATE改、DELETE删。加上WHERE条件、ORDER BY排序、LIMIT分页、GROUP BY聚合、JOIN关联——日常开发够用了。复杂查询先想清楚要什么数据，再从这几个积木组合。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a><a href="article-tech-240.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 防抖与节流</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>

@@ -37,11 +37,6 @@ button.go{background:#50fa7b;color:#1e1e2e;border:none;border-radius:6px;padding
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <link rel="icon" href="/icon-192.png">
-<meta property="og:title" content="实用工具 | CaesarTools">
-<meta property="og:description" content="实用工具 | CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/tools.html">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 </head>
 <body>
 <!-- 离线提示顶栏 -->
@@ -147,7 +142,7 @@ function swLap(){document.getElementById('swLaps').textContent+=(document.getEle
 function swReset(){clearInterval(swI);swI=null;swT=0;document.getElementById('swOut').textContent='00:00.0';document.getElementById('swLaps').textContent='';}
 function calcPress(k){if(k==='C'){window._calc='';}else if(k==='='){try{window._calc=String(eval(window._calc));}catch(e){window._calc='错误';}}else{window._calc+=k;}document.getElementById('calcDisp').value=window._calc;}
 </script>
-<script src="clip.js?v=20261015b"></script>
+<script src="clip.js?v=20261006c"></script>
 <script>
 // PWA注册
 if ('serviceWorker' in navigator) {

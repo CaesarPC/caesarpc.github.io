@@ -5,8 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="robots" content="index,follow">
-<meta name="description" content="一个项目有多个npm包——UI组件库、工具函数、主题配置——它们互相依赖。如果每个包一个Git仓库，改一个公共依赖要去好几个仓库发版，麻烦死了。Monorepo把所有包放在一个Git仓库里管理。">
+<meta name="description" content="Monorepo - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-263.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monorepo - CaesarTools</title>
 <style>
@@ -23,21 +22,18 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Monorepo - CaesarTools">
-<meta property="og:description" content="一个项目有多个npm包——UI组件库、工具函数、主题配置——它们互相依赖。如果每个包一个Git仓库，改一个公共依赖要去好几个仓库发版，麻烦死了。Monorepo把所有包放在一个Git仓库里管理。">
+<meta property="og:description" content="Monorepo - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-263.html">
 <meta property="og:type" content="article">
-<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "inLanguage": "zh-CN", "datePublished": "2026-10-15", "dateModified": "2026-10-15", "headline": "Monorepo", "description": "一个项目有多个npm包——UI组件库、工具函数、主题配置——它们互相依赖。如果每个包一个Git仓库，改一个公共依赖要去好几个仓库发版，麻烦死了。Monorepo把所有包放在一个Git仓库里管理。", "articleSection": "技术教程", "keywords": ["Monorepo"], "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase", "logo": {"@type": "ImageObject", "url": "https://caesarpc.github.io/icon-512.png"}}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-263.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Monorepo", "author": {"@type": "Organization", "name": "CaesarBase"}, "publisher": {"@type": "Organization", "name": "CaesarBase"}, "mainEntityOfPage": "https://caesarpc.github.io/cr/article-tech-263.html"}</script>
 <link rel="icon" href="/icon-192.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "CaesarBase", "item": "https://caesarpc.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CaesarTools", "item": "https://caesarpc.github.io/cr/"}, {"@type": "ListItem", "position": 3, "name": "文章", "item": "https://caesarpc.github.io/cr/articles.html"}, {"@type": "ListItem", "position": 4, "name": "Monorepo"}]}</script>
 </head>
 <body>
 <div class="wrap">
-<div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Monorepo</h1>
-<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Monorepo是什么</h2>
+<div class="meta">CaesarTools · 技术教程</div>
 <p># 什么是Monorepo：多包项目的管理方式</p>
 <p>一个项目有多个npm包——UI组件库、工具函数、主题配置——它们互相依赖。如果每个包一个Git仓库，改一个公共依赖要去好几个仓库发版，麻烦死了。Monorepo把所有包放在一个Git仓库里管理。</p>
 <p>## 一、好处</p>
@@ -46,27 +42,14 @@ a:hover{text-decoration:underline}
 统一工具链：ESLint、TS配置统一管理，不用每个包配一遍。</p>
 <p>## 二、工具</p>
 <p>pnpm workspace是最流行的Monorepo方案。一个pnpm-workspace.yaml定义哪些目录是包，包之间用workspace:*协议互相引用。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>Nx/Turborepo更进一步：缓存构建任务，只重新构建受影响的包。大项目构建速度快很多。</p>
 <p>## 三、什么时候需要</p>
 <p>只有一个包的项目不需要Monorepo。多个相关包、互相依赖、需要统一发版——Monorepo才有意义。个人项目不要为了用Monorepo而Monorepo。</p>
 <p>## 四、总结</p>
 <p>Monorepo是多包项目的工程方案。pnpm workspace入门，Nx/Turborepo做大项目。一个仓库管所有包，改一处全局同步。</p>
-<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-268.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSRHydration</a><a href="article-tech-265.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebAssembly</a><a href="article-tech-266.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JAMstack</a></div>
 <script src="/cr/clip.js"></script>
-<div id="readProgress" style="position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:9999;width:0%"></div>
-<a href="#" id="backToTop" style="display:none;position:fixed;bottom:24px;right:24px;width:42px;height:42px;background:#282a36;border:1px solid #44475a;border-radius:50%;color:#50fa7b;text-align:center;line-height:42px;font-size:18px;text-decoration:none;z-index:999">↑</a>
-<script>
-window.addEventListener('scroll',function(){
-  var h=document.documentElement;
-  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
-  document.getElementById('readProgress').style.width=p+'%';
-  document.getElementById('backToTop').style.display=h.scrollTop>300?'block':'none';
-});
-document.getElementById('backToTop').onclick=function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})};
-</script>
 </body>
 </html>
