@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Vite构建工具深度解析</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>Vite构建工具深度解析：为什么它比Webpack快这么多</p>
 <p>Webpack启动项目要等几十秒，Vite启动只要几百毫秒。差距在哪？原理不同。Webpack在开发启动时就要把整个应用打包成bundle（不管你访问哪个页面，全部先编译）。Vite利用浏览器原生ES模块支持：启动时不打包，浏览器请求哪个模块，Vite才即时编译哪个模块。冷启动速度和项目大小关系不大——大项目也是秒开。</p>

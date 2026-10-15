@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>分布式锁实现方案</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>分布式锁实现方案：多机环境下的并发控制</p>
 <p>单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。</p>

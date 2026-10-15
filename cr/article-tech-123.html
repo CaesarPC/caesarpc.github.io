@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>BFF层设计与实践</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>BFF层设计：前端专属的后端聚合层</p>
 <p>后端有十几个微服务，前端要拿一个页面的数据，需要调用用户服务、商品服务、订单服务三个接口。前端发三个请求，自己聚合数据。这有几个问题：请求多慢、前端要处理多个接口的错误、后端服务一变前端就要改。BFF（Backend For Frontend）就是为解决这个问题的中间层：为前端定制的聚合服务，一次请求返回页面需要的全部数据。</p>

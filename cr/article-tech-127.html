@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>读写分离与数据库高可用</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>读写分离与数据库高可用：让数据库不再单点故障</p>
 <p>数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。</p>

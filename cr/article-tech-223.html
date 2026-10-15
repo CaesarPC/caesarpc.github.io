@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>虚拟列表与长列表优化</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p># 虚拟列表：长列表流畅渲染的秘密</p>
 <p>你有没有遇到过一个页面渲染了上万条列表数据，然后滚动卡顿、滑动掉帧、CPU飙高？问题出在DOM节点太多——浏览器每渲染一个节点都有开销，10000个DOM节点同时存在，内存占用和重排成本都很高。虚拟列表就是解决这个问题的经典方案：不管数据有多少条，只渲染屏幕上可见的那十几条。</p>

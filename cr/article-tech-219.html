@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>限流与熔断降级</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p># 限流与熔断：高并发系统的自保机制</p>
 <p>当你的系统突然遭遇十倍于平时的流量——可能是上了热搜、可能是被恶意攻击——系统会怎样？如果不做任何保护，数据库连接池被打满、CPU跑满、内存耗尽，整个系统彻底崩溃。限流和熔断就是系统在高压下的自保机制：宁可拒绝一部分请求，也不让整个系统挂掉。</p>

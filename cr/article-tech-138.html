@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>事件驱动架构</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>事件驱动架构：用事件解耦系统的设计哲学</p>
 <p>传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（"订单已创建"），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。</p>

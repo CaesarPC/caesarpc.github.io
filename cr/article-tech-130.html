@@ -49,6 +49,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>熔断降级与容错设计</h1>
+<h2>概述</h2>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>熔断降级与容错设计：分布式系统的故障隔离哲学</p>
 <p>微服务架构下，服务A调用服务B，服务B又调用服务C。如果服务C挂了，B的调用一直阻塞等待，B的线程被占满，B也挂了，接着A也被拖垮——这就是级联故障。像多米诺骨牌，一个组件故障导致整个系统崩溃。熔断降级就是防止这种雪崩的容错机制。</p>
