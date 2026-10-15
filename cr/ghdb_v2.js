@@ -152,7 +152,9 @@
         if (!_retried && j.message && (j.message.indexOf('sha') >= 0 || j.status === 409)) {
           return ghWrite(file, data, cb, true);
         }
-        cb({ error: (j.message || '写入失败') + (TOKEN ? '' : '（token缺失）') });
+        var wmsg = j.message || '写入失败';
+        if (wmsg === 'Bad credentials') wmsg = '登录凭证已过期，请联系站长';
+        cb({ error: wmsg });
       })
       .catch(function () { cb({ error: '网络错误' }); });
   }
