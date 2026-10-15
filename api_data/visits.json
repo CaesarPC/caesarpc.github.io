@@ -286,5 +286,13 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
   "ref": ""
+ },
+ {
+  "id": 1792075185530,
+  "ts": 1792075185530,
+  "time": "2026-10-15 22:39",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (iPad; CPU OS 17_7_11 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.79(0x18004f29) NetType/WIFI Language/zh_HK",
+  "ref": "https://caesarpc.github.io/website-finder/index.html"
  }
 ]
