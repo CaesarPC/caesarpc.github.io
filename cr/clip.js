@@ -11,7 +11,7 @@
 (function () {
   if (window.CrGH) return;
   var s = document.createElement('script');
-  s.src = '/cr/ghdb_v2.js?v=20261015c';
+  s.src = '/cr/ghdb_v2.js?v=20261015d';
   s.async = false;
   (document.head || document.body).appendChild(s);
 })();

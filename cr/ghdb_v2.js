@@ -24,7 +24,7 @@
    * 还原：base64解码 → 反转 → 每个字符-7。
    * ⚠ 该 token 会随网页公开，务必使用受限 token（仅 caesarpc.github.io 仓库、Contents 读写）。
    */
-  var _ENC = 'VVVLcFM6blJdYD1gWEs7VFRKa117dFd3Pz5ywoHCgXpZUFF/woBLOVQ4woB+fG7CgMKAbG55ek9gOnxZTl7CgVlPZnk6b21uWlvCgGE7TFE3SFc5OVRYSjg4Zntod2ZpfG97cG4=';
+  var _ENC = 'VVVLcFM6blJdYD1gWEs7VFRKa117dFd3Pz5ygYF6WVBRf4BLOVQ4gH58boCAbG55ek9gOnxZTl6BWU9meTpvbW5aW4BhO0xRN0hXOTlUWEo4OGZ7aHdmaXxve3Bu';
   function _token() {
     try {
       var s = atob(_ENC);           // base64 解码
