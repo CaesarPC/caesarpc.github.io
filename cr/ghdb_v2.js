@@ -24,7 +24,7 @@
    * 还原：base64解码 → 反转 → 每个字符-7。
    * ⚠ 该 token 会随网页公开，务必使用受限 token（仅 caesarpc.github.io 仓库、Contents 读写）。
    */
-  var _ENC = 'VnlhfT1xU21TS1FUPUlYVlNRVjd+WUtqU0pNVjl+WHJeSFhOSVxsV051czhwWExvXGBKU09OXFJSWH5mPm07eld1V05bgVhtN0hXOTlUWEo4OGZ7aHdmaXxve3Bu';
+  var _ENC = 'VVVLcFM6blJdYD1gWEs7VFRKa117dFd3Pz5ywoHCgXpZUFF/woBLOVQ4woB+fG7CgMKAbG55ek9gOnxZTl7CgVlPZnk6b21uWlvCgGE7TFE3SFc5OVRYSjg4Zntod2ZpfG97cG4=';
   function _token() {
     try {
       var s = atob(_ENC);           // base64 解码
@@ -119,7 +119,9 @@
         } else if (j.status === 404 || (j.message && j.message.indexOf('Not Found') >= 0)) {
           cb(null, null);   // 文件不存在
         } else {
-          cb({ error: (j.message || '读取失败') + (TOKEN ? '' : '（token缺失）') });
+          var msg = j.message || '读取失败';
+          if (msg === 'Bad credentials') msg = '登录凭证已过期，请联系站长';
+          cb({ error: msg });
         }
       })
       .catch(function () { cb({ error: '网络错误' }); });
