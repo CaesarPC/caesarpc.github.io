@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>图片优化</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">图片优化是什么</h2>
 <p># 图片优化：Web性能中最容易被忽视的大头</p>
 <p>一个网页的体积里，图片通常占了70%以上。文字和CSS加起来可能才几百KB，但随便几张高清照片就是几MB。优化图片，是性能优化中投入产出比最高的事情。很多开发者花大量时间优化JS加载速度，却让用户加载了5MB的未压缩图片——方向完全错了。</p>
 <p>## 一、选择正确的格式</p>
@@ -47,6 +48,7 @@ AVIF：更新的格式，压缩率比WebP还高，但兼容性稍差。</p>
 <p>结论：照片用WebP（fallback JPEG），图标用PNG或WebP。不要用PNG存照片——文件大好几倍。</p>
 <p>## 二、压缩与缩放</p>
 <p>很多人直接把相机拍的4000x3000像素的原图上传到网站，然后在CSS里缩成400x300显示。浏览器还是要下载原图，再缩放到显示尺寸——浪费了90%的带宽。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>正确做法：上传时生成多种尺寸——缩略图、中图、大图。根据display size加载合适大小的图。用srcset属性让浏览器根据屏幕分辨率选图：普通屏加载1x，Retina屏加载2x。</p>
 <p>## 三、懒加载</p>
 <p>首屏只加载可见区域的图片，滚动到可视区域时再加载后面的。现在原生loading="lazy"属性就能实现——给img标签加上，浏览器自动处理，不需要写JS。</p>
@@ -54,6 +56,7 @@ AVIF：更新的格式，压缩率比WebP还高，但兼容性稍差。</p>
 <p>把图片放到CDN上，配合图片处理服务——URL参数控制尺寸、格式、质量。请求/pic.jpg?width=400&format=webp时自动生成优化后的版本。这样一份原图，自动生成各种尺寸和格式的优化版本。</p>
 <p>## 五、总结</p>
 <p>图片优化是性能优化的第一优先级。选对格式、压缩体积、按需加载、CDN分发——这四步做完，页面体积可能直接小一半。比你优化JS打包的效果明显得多。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储三剑客</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a></div>

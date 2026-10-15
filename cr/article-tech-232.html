@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端路由原理</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端路由原理是什么</h2>
 <p># 前端路由：SPA页面切换的底层原理</p>
 <p>单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现"多页面"体验的。</p>
 <p>## 一、两种路由模式</p>
@@ -45,6 +46,7 @@ a:hover{text-decoration:underline}
 <p>History模式：URL看起来像正常路径，比如example.com/about。用HTML5的History API（pushState）修改地址栏，不刷新页面。URL更美观，但需要服务器配合——用户直接访问example.com/about时，服务器要返回同一个index.html，不然404。</p>
 <p>## 二、路由怎么工作</p>
 <p>不管哪种模式，核心逻辑都一样：监听URL变化→匹配路由表→渲染对应组件。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>路由表是一个映射：路径→组件。
 '/' → Home组件
 '/about' → About组件
@@ -56,6 +58,7 @@ a:hover{text-decoration:underline}
 <p>进入某个路由前做检查：比如未登录用户访问/profile页面，拦截跳转到登录页。路由守卫就是一个前置钩子，在路由跳转前执行，决定放行还是重定向。</p>
 <p>## 五、总结</p>
 <p>前端路由的本质是：监听URL变化→匹配组件→局部渲染。Hash模式简单，History模式美观但需服务器配置。理解这个原理，用React Router或Vue Router就知道它在做什么了。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 图片优化</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>

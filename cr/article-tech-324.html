@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript闭包实战案例</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript闭包实战案例是什么</h2>
 <p>JavaScript闭包实战案例</p>
 <p>闭包让内部函数访问外部函数的变量，即使外部函数已经执行完毕。典型用途：数据私有化、函数工厂、防抖节流。</p>
 <p>数据私有化：function counter() { let count = 0; return { inc: () => ++count, get: () => count }; }。外部只能通过inc和get操作count，不能直接修改。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>函数工厂：function createLogger(prefix) { return (msg) => console.log(`[${prefix}] ${msg}`); }。每个logger有自己的prefix闭包。</p>
 <p>防抖节流也是闭包应用：用闭包保存定时器状态。理解闭包，才能写出模块化、数据安全的JS代码。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-319.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS伪类与伪元素</a><a href="article-tech-330.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS变量实战</a><a href="article-tech-331.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript闭包与模块化</a></div>

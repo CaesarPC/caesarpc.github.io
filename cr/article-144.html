@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-144.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Node.js部署：PM2和进程管理 - CaesarTools</title>
-<meta name="description" content="node app.js直接跑，关终端进程死了。崩溃了不会自动重启。要多进程利用多核CPU。">
+<meta name="description" content="node app.js直接跑，关终端进程死了。崩溃了不会自动重启。要多进程利用多核CPU。pm2 start app.js --name my-apipm2 ls看进程。pm2 logs看日志。pm2 restart my-api重启。pm2 start app.js -i max">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,7 +27,7 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Node.js部署：PM2和进程管理 - CaesarTools">
-<meta property="og:description" content="node app.js直接跑，关终端进程死了。崩溃了不会自动重启。要多进程利用多核CPU。">
+<meta property="og:description" content="node app.js直接跑，关终端进程死了。崩溃了不会自动重启。要多进程利用多核CPU。pm2 start app.js --name my-apipm2 ls看进程。pm2 logs看日志。pm2 restart my-api重启。pm2 start app.js -i max">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-144.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

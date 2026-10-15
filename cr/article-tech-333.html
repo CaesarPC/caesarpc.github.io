@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript事件委托实战</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript事件委托实战是什么</h2>
 <p>JavaScript事件委托实战</p>
 <p>事件委托利用事件冒泡，在父元素上绑一个监听器，处理所有子元素的事件。列表有100个按钮，不用每个都绑事件，在父元素上绑一个就行。</p>
 <p>原理：事件冒泡到父元素，通过event.target判断实际点击的子元素。新增的子元素自动享受委托，不需要重新绑定。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>优势：减少监听器数量（性能好）；动态添加的元素自动绑定；内存占用低。</p>
 <p>实现：父元素.addEventListener('click', e => { if (e.target.matches('.item')) { ... } })。这是前端优化的常用技巧。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-324.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript闭包实战案例</a><a href="article-tech-338.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS响应式设计方案</a><a href="article-tech-325.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Flexbox对齐指南</a></div>

@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>ORM</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">ORM是什么</h2>
 <p># 什么是ORM：对象关系映射</p>
 <p>直接写SQL操作数据库很灵活，但字符串拼接容易出错、表结构变了要改SQL。ORM（Object-Relational Mapping）让你用面向对象的方式操作数据库。</p>
 <p>## 一、怎么工作</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 防SQL注入——ORM参数化查询。
 模型变更时统一管理。
 类型安全（配合TypeScript）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、坏处</p>
 <p>复杂查询写起来别扭——ORM简化了简单CRUD，但复杂SQL（子查询、特殊join）反而比手写SQL难。
 N+1查询问题——查用户列表再逐个查订单，产生N+1次查询。需要手动优化。</p>
@@ -53,6 +55,7 @@ N+1查询问题——查用户列表再逐个查订单，产生N+1次查询。�
 <p>Prisma（现代TypeScript）、Sequelize、TypeORM（Node生态）。Django ORM（Python）。Hibernate（Java）。</p>
 <p>## 五、总结</p>
 <p>ORM让数据库操作变成面向对象。简单CRUD用ORM效率高，复杂查询还是手写SQL。不是所有场景都要ORM，看项目需求。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 代码分割</a><a href="article-tech-273.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微前端</a><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a></div>

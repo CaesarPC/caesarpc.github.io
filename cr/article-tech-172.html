@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="React Hooks深入：useEffect依赖数组与性能优化">
+<meta name="description" content="React Hooks深入：useEffect依赖数组与性能优化React的useEffect是最常用的Hook，但也是最容易写错的。依赖数组漏写会导致闭包陷阱，多写会导致重复执行。理解useEffect的执行时机和依赖规则useEffect的执行时机：组件渲染后执行。依赖数组决定什么时候重新执行：空数...">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-172.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>React_Hooks深入 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="React_Hooks深入 - CaesarTools">
-<meta property="og:description" content="React Hooks深入：useEffect依赖数组与性能优化">
+<meta property="og:description" content="React Hooks深入：useEffect依赖数组与性能优化React的useEffect是最常用的Hook，但也是最容易写错的。依赖数组漏写会导致闭包陷阱，多写会导致重复执行。理解useEffect的执行时机和依赖规则useEffect的执行时机：组件渲染后执行。依赖数组决定什么时候重新执行：空数...">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-172.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,13 +37,16 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>React_Hooks深入</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">React Hooks深入是什么</h2>
 <p>React Hooks深入：useEffect依赖数组与性能优化</p>
 <p>React的useEffect是最常用的Hook，但也是最容易写错的。依赖数组漏写会导致闭包陷阱，多写会导致重复执行。理解useEffect的执行时机和依赖规则，是写出健壮React代码的关键。</p>
 <p>useEffect的执行时机：组件渲染后执行。依赖数组决定什么时候重新执行：空数组只在挂载后执行一次；有依赖时，依赖变化后重新执行；不写依赖则每次渲染都执行。</p>
 <p>常见坑：闭包陷阱。useEffect里用了组件内的变量，但依赖数组没包含这个变量，导致effect里拿到的是旧值。解决方法是把用到的变量都加进依赖数组。ESLint的react-hooks插件会自动检查这个问题。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>性能优化：如果effect里做了昂贵操作（请求、计算），要确保依赖正确，避免不必要的重复执行。useMemo缓存计算结果，useCallback缓存函数引用，配合React.memo避免不必要的子组件重渲染。</p>
 <p>清理函数：useEffect可以返回一个清理函数，在组件卸载或依赖变化前执行。比如清除定时器、取消订阅、移除事件监听。这是防止内存泄漏的关键。</p>
 <p>理解useEffect的依赖规则，配合ESLint检查，就能写出正确的effect代码。这是React开发的基本功。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

@@ -37,18 +37,21 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Monorepo工具链</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Monorepo工具链是什么</h2>
 <p># 什么是前端Monorepo工具链</p>
 <p>前面讲过Monorepo概念，这里补充工具链的实际选择。</p>
 <p>## 一、pnpm workspace</p>
 <p>入门首选。pnpm-workspace.yaml定义工作区，package.json里用"workspace:*"引用内部包。安装快、磁盘省。适合中小型Monorepo。</p>
 <p>## 二、Turborepo</p>
 <p>在pnpm之上加任务编排。build/test/lint这些任务有依赖关系——先build依赖包再build主包。Turborepo自动拓扑排序，并行执行，缓存已构建的包。大项目构建时间从几分钟降到几秒。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、Nx</p>
 <p>更重的Monorepo工具。有代码生成、依赖图、模块化约束。适合大型企业级Monorepo。学习曲线陡，小项目不需要。</p>
 <p>## 四、怎么选</p>
 <p>小项目pnpm workspace。大项目加Turborepo。企业级选Nx。不要一上来就Nx——配置复杂度可能让你放弃Monorepo。</p>
 <p>## 五、总结</p>
 <p>Monorepo工具链：pnpm workspace打底，Turborepo加速构建，Nx做大项目。从简单开始，不够再加。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-270.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebVitals</a><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a><a href="article-tech-291.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript_this指向规则</a></div>

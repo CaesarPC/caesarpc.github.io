@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="富文本编辑器原理：从contenteditable到协同编辑">
+<meta name="description" content="富文本编辑器原理：从contenteditable到协同编辑博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配基础原理：contenteditable属性让div可编辑。document.exe...">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-159.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>富文本编辑器原理 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="富文本编辑器原理 - CaesarTools">
-<meta property="og:description" content="富文本编辑器原理：从contenteditable到协同编辑">
+<meta property="og:description" content="富文本编辑器原理：从contenteditable到协同编辑博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配基础原理：contenteditable属性让div可编辑。document.exe...">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-159.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,14 +37,17 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>富文本编辑器原理</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">富文本编辑器原理是什么</h2>
 <p>富文本编辑器原理：从contenteditable到协同编辑</p>
 <p>博客、评论、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配，都是坑。</p>
 <p>基础原理：contenteditable属性让div可编辑。document.execCommand做加粗、斜体、插入链接等操作。但execCommand已被废弃，新方案是直接操作DOM。</p>
 <p>成熟编辑器：Quill、TipTap、Slate.js、ProseMirror。它们封装了文档模型（不是HTML字符串，是结构化数据）、历史记录（撤销重做）、插件系统（@提及、图片插入）、协同编辑（前面讲的CRDT）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>XSS防护是必须的。用户粘贴的内容可能带恶意脚本。渲染时要过滤HTML标签，只允许安全标签和属性。不要直接把用户输入的HTML插入页面。</p>
 <p>协同编辑是高级功能：多个用户同时编辑同一文档，基于CRDT算法（前面讲过）实现实时合并。</p>
 <p>不要自己从零写富文本编辑器。用成熟库，它们处理了各种边界情况。自己写一个生产级编辑器需要数月。</p>
 <p>富文本编辑器是看起来简单做起来难的典型。理解原理，选对工具，是正确做法。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

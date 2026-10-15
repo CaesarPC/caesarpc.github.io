@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>FetchAPI</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">FetchAPI是什么</h2>
 <p># 前端Fetch API：现代网络请求</p>
 <p>XMLHttpRequest是老派的AJAX方式，写起来回调嵌套。现代前端用Fetch API——Promise风格，简洁优雅。</p>
 <p>## 一、基本用法</p>
@@ -51,6 +52,7 @@ async function getUsers() {
   return data;
 }</p>
 <p>## 二、POST请求</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>fetch('/api/users', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -65,6 +67,7 @@ setTimeout(() => controller.abort(), 5000);
 fetch(url, { signal: controller.signal });</p>
 <p>## 四、总结</p>
 <p>Fetch是现代前端请求数据的标准方式。比XHR简洁，支持Promise和async/await。记住两个坑：HTTP错误要手动检查ok，超时要用AbortController。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-256.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO</a></div>

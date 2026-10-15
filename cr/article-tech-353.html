@@ -37,10 +37,13 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript_Promise并发控制</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript Promise并发控制是什么</h2>
 <p>JavaScript Promise并发控制</p>
 <p>Promise.all并行执行多个异步操作。但如果有100个请求，同时发会打垮服务器。需要并发控制：限制同时进行的Promise数量。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>实现：写一个并发控制器，维护一个正在执行的Promise队列，满了就等待，有完成的再补新的。p-limit是成熟库。</p>
 <p>场景：批量上传文件、批量调API，控制并发数避免过载。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

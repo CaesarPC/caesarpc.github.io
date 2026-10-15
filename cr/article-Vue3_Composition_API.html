@@ -37,13 +37,16 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Vue3_Composition_API</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Vue3 Composition API是什么</h2>
 <p>Vue3 Composition API：逻辑复用的新范式</p>
 <p>Vue3的Composition API改变了组件逻辑的组织方式。以前用Options API（data、methods、computed分开写），相关逻辑分散在不同选项里。Composition API把相关逻辑聚合在一起，更容易复用和维护。</p>
 <p>核心概念：setup函数是组件的入口。ref定义响应式变量，computed定义计算属性，watch监听变化，onMounted等生命周期钩子。所有逻辑都在setup里组织。</p>
 <p>逻辑复用是Composition API最大的优势。以前mixin复用逻辑，但mixin有命名冲突和来源不清的问题。Composition API用自定义Hook（composable函数）复用逻辑：把一段逻辑抽成函数，在多个组件里调用。比如useUser、useFetch、useTheme，每个Hook是独立的逻辑单元。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>ref和reactive的区别：ref需要.value访问（包裹基本类型），reactive直接操作对象。实际开发中ref更常用，因为它简单且不需要解构丢失响应性。</p>
 <p>生命周期：onMounted、onUpdated、onUnmounted在setup里调用。比Options API的钩子更灵活，可以在同一个组件里多次调用同一个钩子（组织逻辑时很方便）。</p>
 <p>Composition API让组件代码从"按选项组织"变成"按功能组织"。一个功能的所有代码（状态、计算、方法）放在一起，可读性和可维护性大幅提升。这是Vue3的核心改进。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

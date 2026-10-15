@@ -37,18 +37,21 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>代码分割</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">代码分割是什么</h2>
 <p># 什么是前端代码分割</p>
 <p>把所有JS打包成一个大bundle，首屏要下载几百KB甚至几MB。代码分割把bundle拆成多个小块，按需加载。</p>
 <p>## 一、怎么工作</p>
 <p>按路由分割：访问首页只加载首页的JS，访问个人中心才加载个人中心的JS。用动态import()实现：const About = lazy(() => import('./About.js'))。</p>
 <p>按组件分割：大组件（图表、富文本编辑器）单独拆出来，用到时才加载。</p>
 <p>## 二、好处</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>首屏加载快——只下载当前页面需要的代码。
 用户没访问的页面代码不下载。</p>
 <p>## 三、注意</p>
 <p>不要拆太碎——太多小文件请求也慢。合理分割：按路由一级拆，大组件按需拆。</p>
 <p>## 四、总结</p>
 <p>代码分割是前端性能优化标配。Vite/Webpack自动支持，用动态import()按路由拆分。首屏体积小一半。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

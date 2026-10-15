@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="前面讲过HTTPS原理，这里讲部署时的一个关键配置：HSTS。">
+<meta name="description" content="前面讲过HTTPS原理，这里讲部署时的一个关键配置：HSTS。# HTTPS强制与HSTS：防止降级攻击用户输入example.com，浏览器默认先尝试HTTP。即使你的服务器把HTTP 301跳转到HTTPS，第一次HTTP请求还是发出去了——理论上存在被中间人">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-258.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HSTS - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="HSTS - CaesarTools">
-<meta property="og:description" content="前面讲过HTTPS原理，这里讲部署时的一个关键配置：HSTS。">
+<meta property="og:description" content="前面讲过HTTPS原理，这里讲部署时的一个关键配置：HSTS。# HTTPS强制与HSTS：防止降级攻击用户输入example.com，浏览器默认先尝试HTTP。即使你的服务器把HTTP 301跳转到HTTPS，第一次HTTP请求还是发出去了——理论上存在被中间人">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-258.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>HSTS</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">HSTS是什么</h2>
 <p># HTTPS强制与HSTS：防止降级攻击</p>
 <p>前面讲过HTTPS原理，这里讲部署时的一个关键配置：HSTS。</p>
 <p>## 一、问题</p>
@@ -44,11 +45,13 @@ a:hover{text-decoration:underline}
 <p>## 二、HSTS</p>
 <p>HSTS（HTTP Strict Transport Security）是一个响应头：
 Strict-Transport-Security: max-age=31536000</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>浏览器收到这个头后，记住：这个网站一年内只允许用HTTPS访问。以后用户输入http://example.com，浏览器直接内部跳HTTPS，不发HTTP请求。彻底消除降级攻击窗口。</p>
 <p>## 三、注意</p>
 <p>HSTS一旦设置，反悔很难。设了max-age=一年，这一年内浏览器强制HTTPS。如果你的证书出问题了，用户一年都访问不了。先设短时间（比如max-age=300）测试没问题，再加大。</p>
 <p>## 四、总结</p>
 <p>HSTS是HTTPS的最后一道防线。开启后浏览器强制HTTPS，防止降级攻击。配置简单，一个响应头，但要谨慎设置max-age。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-268.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSRHydration</a><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-261.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR缓存</a></div>

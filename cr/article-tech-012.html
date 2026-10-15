@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="CSS定位机制：static、relative、absolute、fixed、sticky">
+<meta name="description" content="CSS定位机制：static、relative、absolute、fixed、stickyCSS定位有五种模式。static是默认（正常文档流）；relative相对定位（相对于正常位置偏移，不脱离文档流）；absolute绝对定位（相对于最近的定位">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-012.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CSS定位机制 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="CSS定位机制 - CaesarTools">
-<meta property="og:description" content="CSS定位机制：static、relative、absolute、fixed、sticky">
+<meta property="og:description" content="CSS定位机制：static、relative、absolute、fixed、stickyCSS定位有五种模式。static是默认（正常文档流）；relative相对定位（相对于正常位置偏移，不脱离文档流）；absolute绝对定位（相对于最近的定位">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-012.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,12 +37,15 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CSS定位机制</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CSS定位机制是什么</h2>
 <p>CSS定位机制：static、relative、absolute、fixed、sticky</p>
 <p>CSS定位有五种模式。static是默认（正常文档流）；relative相对定位（相对于正常位置偏移，不脱离文档流）；absolute绝对定位（相对于最近的定位祖先元素，脱离文档流）；fixed固定定位（相对于视口，滚动时不动）；sticky粘性定位（滚动到阈值时固定）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>absolute：脱离文档流，相对于最近的position不是static的祖先定位。常用做弹出层、下拉菜单。
 fixed：相对于视口，页面滚动时元素固定不动。常用于固定导航栏、回到顶部按钮。
 sticky：relative+fixed结合，滚动到阈值时"粘"在顶部。常用于表格表头、分类导航。</p>
 <p>理解五种定位的区别，才能正确布局。absolute配合relative父元素做弹出层，fixed做固定元素，sticky做粘性导航。这是CSS布局的基础。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

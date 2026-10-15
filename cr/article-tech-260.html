@@ -37,11 +37,13 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CDN</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CDN是什么</h2>
 <p># 什么是CDN：内容分发网络</p>
 <p>你在北京，服务器在广州。每次请求都从广州传到北京，延迟几十毫秒。如果你的用户遍布全国甚至全球，怎么办？CDN就是解决这个问题的。</p>
 <p>## 一、原理</p>
 <p>CDN在全国（全球）各地部署边缘节点。你的静态资源（图片、JS、CSS、视频）缓存到这些节点上。北京用户访问，从北京节点返回；上海用户，从上海节点返回。物理距离近了，延迟大幅降低。</p>
 <p>## 二、缓存规则</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>CDN节点怎么知道该缓存什么？你配置缓存规则：静态资源缓存7天，HTML不缓存（每次回源拿最新）。用户请求时，CDN先查本地缓存——有就直接返回，没有就回源站取回来，缓存后返回。</p>
 <p>## 三、好处</p>
 <p>加速：就近访问，延迟低。
@@ -49,6 +51,7 @@ a:hover{text-decoration:underline}
 抗攻击：DDoS流量被CDN挡在边缘。</p>
 <p>## 四、总结</p>
 <p>CDN是Web性能优化的标配。静态资源放CDN，用户就近访问，源站减压。几乎所有网站都用CDN，配置简单收益巨大。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-250.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流用户体验</a><a href="article-tech-253.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ FetchAPI</a><a href="article-tech-258.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HSTS</a></div>

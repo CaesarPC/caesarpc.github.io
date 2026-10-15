@@ -37,13 +37,16 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器渲染管线</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">浏览器渲染管线是什么</h2>
 <p>浏览器渲染管线：从HTML到像素的完整过程</p>
 <p>浏览器拿到HTML后，要经过一系列步骤才能把页面画到屏幕上。理解渲染管线，才能做性能优化。步骤是：解析HTML构建DOM树、解析CSS构建CSSOM树、合成渲染树、布局（Layout）、绘制（Paint）、合成（Composite）。</p>
 <p>第一步解析：HTML解析器把字节流转成DOM树；CSS解析器把样式转成CSSOM树。两者合并成渲染树——只包含需要显示的节点（display:none的不渲染）。</p>
 <p>第二步布局（Layout/Reflow）：计算每个节点在屏幕上的确切位置和大小。这是最昂贵的步骤，因为要重新计算整个树的几何信息。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>第三步绘制（Paint）：填充像素——颜色、文字、图片。把渲染树画成图层。</p>
 <p>第四步合成（Composite）：把多个图层合并成最终画面。只触发合成的属性（transform、opacity）性能最好，因为不需要重新布局和绘制。</p>
 <p>性能优化的核心：减少重排（Layout）。修改width/height会触发布局，修改transform/opacity只触发合成。动画用transform，不要用top/left。这是前端性能优化的基本原则。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

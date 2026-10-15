@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Serverless</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Serverless是什么</h2>
 <p># 什么是Serverless：不用管服务器的后端</p>
 <p>传统后端：你买一台服务器，装环境，部署代码，管理进程。Serverless：你只写函数代码，云平台自动管理服务器、自动扩缩容、按调用次数计费。</p>
 <p>## 一、怎么工作</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 <p>零运维：不用管服务器。
 自动扩缩：流量大自动加实例，流量小自动缩。
 按调用付费：没用户不花钱。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、坏处</p>
 <p>冷启动：长时间没请求后第一个请求要冷启动（初始化实例），可能几百毫秒延迟。
 运行时间限制：函数通常最多跑几十秒。
@@ -54,6 +56,7 @@ a:hover{text-decoration:underline}
 <p>API接口、定时任务、Webhook处理、低频触发的逻辑。不适合长时间运行的服务（WebSocket、持续后端进程）。</p>
 <p>## 五、总结</p>
 <p>Serverless让你只写业务代码，服务器管理全交给云平台。适合事件驱动、短运行时的逻辑。长时间运行的服务还是用传统服务器。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 代码分割</a><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a><a href="article-tech-276.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebComponents</a></div>

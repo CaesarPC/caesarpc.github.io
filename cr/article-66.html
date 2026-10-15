@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-66.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JavaScript深拷贝与浅拷贝 - CaesarTools</title>
-<meta name="description" content="const b = JSON.parse(JSON.stringify(a));">
+<meta name="description" content="const b = JSON.parse(JSON.stringify(a));const a = { name: '小明' };或Object.assign({}, a);嵌套对象还是引用。改b.age.x，a.age.x也变。缺点：函数、undefined、Date丢失。">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,7 +27,7 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript深拷贝与浅拷贝 - CaesarTools">
-<meta property="og:description" content="const b = JSON.parse(JSON.stringify(a));">
+<meta property="og:description" content="const b = JSON.parse(JSON.stringify(a));const a = { name: '小明' };或Object.assign({}, a);嵌套对象还是引用。改b.age.x，a.age.x也变。缺点：函数、undefined、Date丢失。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-66.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

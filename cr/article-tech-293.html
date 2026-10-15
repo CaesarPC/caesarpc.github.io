@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript原型链继承</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript原型链继承是什么</h2>
 <p>JavaScript原型链继承完整解析</p>
 <p>JS的继承基于原型链，不是类继承。每个对象有一个__proto__指向其原型，原型也有自己的原型，形成链条。访问属性时沿链查找，直到null。</p>
 <p>构造函数：function Person() {}，Person.prototype是原型对象。new Person()创建的实例，其__proto__指向Person.prototype。这样实例就能共享原型上的方法。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>继承实现：子类的原型指向父类的实例。Student.prototype = new Person()，这样Student的实例就能访问Person原型上的方法。ES6的class语法只是语法糖，底层还是原型链。</p>
 <p>理解原型链，就明白为什么obj.toString()能用——因为Object.prototype上有toString方法，所有对象都继承它。这是JS对象系统的核心机制。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-287.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件委托</a><a href="article-tech-289.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript_Promise完整指南</a><a href="article-tech-275.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo工具链</a></div>

@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="JavaScript模块化：从IIFE到ES Module的演进">
+<meta name="description" content="JavaScript模块化：从IIFE到ES Module的演进JS模块化经历了多个阶段：早期没有模块系统，全局变量污染；IIFE立即执行函数模拟模块；CommonJS（Node.js）；AMD（RequireJS）；最终统ES Module是现代标准：export导出，import导入。浏览器原生支持...">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-007.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript模块化演进 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript模块化演进 - CaesarTools">
-<meta property="og:description" content="JavaScript模块化：从IIFE到ES Module的演进">
+<meta property="og:description" content="JavaScript模块化：从IIFE到ES Module的演进JS模块化经历了多个阶段：早期没有模块系统，全局变量污染；IIFE立即执行函数模拟模块；CommonJS（Node.js）；AMD（RequireJS）；最终统ES Module是现代标准：export导出，import导入。浏览器原生支持...">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-007.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript模块化演进</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript模块化演进是什么</h2>
 <p>JavaScript模块化：从IIFE到ES Module的演进</p>
 <p>JS模块化经历了多个阶段：早期没有模块系统，全局变量污染；IIFE立即执行函数模拟模块；CommonJS（Node.js）；AMD（RequireJS）；最终统一到ES Module。</p>
 <p>ES Module是现代标准：export导出，import导入。浏览器原生支持（script标签加type="module"）。静态导入（编译时确定依赖关系），支持tree-shaking（未使用的导出被移除）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>CommonJS（require）是动态的，运行时加载；ES Module是静态的，编译时确定。这带来了tree-shaking的优势——打包时移除未使用的代码。</p>
 <p>现代前端项目全部用ES Module。import/export语法，配合打包工具（Vite、Webpack），实现模块管理和代码分割。理解模块化的演进，就明白为什么现在用import而不是require。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

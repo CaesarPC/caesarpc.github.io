@@ -37,10 +37,13 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript事件冒泡与捕获</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript事件冒泡与捕获是什么</h2>
 <p>JavaScript事件冒泡与捕获</p>
 <p>事件传播有三个阶段：捕获阶段（从window向下到目标元素）、目标阶段（到达目标）、冒泡阶段（从目标向上到window）。addEventListener的第三个参数useCapture设为true时在捕获阶段触发，false（默认）在冒泡阶段触发。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>事件委托利用冒泡：在父元素上监听事件，通过event.target判断实际点击的子元素。这样只需要一个监听器，而不是给每个子元素都绑事件。新增的子元素自动享受委托，不需要重新绑定。</p>
 <p>stopPropagation阻止事件继续传播（冒泡或捕获）。preventDefault阻止默认行为（如表单提交、链接跳转）。理解事件传播机制，才能正确做事件委托和阻止冒泡。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

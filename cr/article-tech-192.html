@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>微服务架构拆解</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">微服务架构拆解是什么</h2>
 <p># 微服务架构拆解：从单体到分布式的权衡与误区</p>
 <p>"微服务"这个词在过去十年里被说烂了。好像一个项目不拆成微服务，就不好意思跟人说自己是做后端的。但实际上，微服务不是什么先进的银弹，它是为了解决特定规模问题而出现的一种架构选择。很多团队在项目只有三五个人、日活几百的时候就上微服务，结果把简单的事情搞复杂了——部署一套服务要管十几个容器，调个接口还要走服务发现，出了问题要在七八个服务里查日志。微服务有它的适用边界，理解它解决什么问题、带来什么代价，才能做出正确的架构决策。</p>
 <p>## 一、单体架构：被误解的"落后方案"</p>
@@ -54,6 +55,7 @@ a:hover{text-decoration:underline}
 <p>第三是运维复杂度。单体你只管部署一个进程。微服务你要部署几十个服务，每个服务还要考虑多实例、负载均衡、服务发现、配置中心、链路追踪、日志聚合。一套微服务的基础设施（K8s、服务网格、监控告警）搭起来，运维成本是单体的十倍不止。</p>
 <p>## 四、什么时候该拆：不要过早优化</p>
 <p>判断要不要拆微服务，核心看团队规模和业务复杂度。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>如果你的团队不到十个人，业务还在快速验证阶段，老老实实写单体。不要因为"大厂都用微服务"就跟风。单体写得好，模块化做得到位，后面拆微服务的时候把每个模块独立出去就行，成本很低。</p>
 <p>真正该拆的时候是什么样的？你的系统已经大到：某个模块需要独立扩容了（比如搜索服务占了90%的资源）；不同模块的发布节奏完全不同（用户模块一个月发一次，推荐模块一天发三次）；团队大到一个代码库已经管不过来了（几十个开发者天天合并冲突）。这时候拆分的收益才大于成本。</p>
 <p>## 五、服务间通信：REST还是消息队列</p>
@@ -71,6 +73,7 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>微服务不是目的，而是手段。它解决的是"一个大系统太多人维护、迭代不动了"的问题。如果你的系统还没到那个规模，微服务带来的复杂度远大于收益。</p>
 <p>很多团队把微服务当成一种身份象征，觉得不上微服务技术就不先进。但真正有经验的架构师，追求的是用最简单的方案解决问题。能单体解决就别拆，非要拆的时候先从模块化的单体开始，等真的撑不住了再拆成服务。架构不是设计出来的，是演进出来的。不要在第一天就设计一个三年后的架构——你大概率会猜错需求，然后为错误的设计付出长期代价。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演进史</a><a href="article-tech-184.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 后端微服务架构与高并发设计实践</a><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 设计模式实战</a></div>

@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端模块化</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端模块化是什么</h2>
 <p># 前端模块化：从script标签到ES Module</p>
 <p>早期JS没有模块系统，所有变量都挂在全局作用域。两个文件声明了同名变量，后加载的覆盖先加载的——各种冲突。文件多了之后，加载顺序也成了问题——A依赖B，B必须在A之前加载。模块化就是为了解决这些问题。</p>
 <p>## 一、IIFE与命名空间</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 <p>Node.js用CommonJS：require引入模块，module.exports导出。同步加载，适合服务端。</p>
 <p>浏览器早期用AMD（RequireJS）：异步加载模块，定义时声明依赖。但语法繁琐，现在基本没人用了。</p>
 <p>## 三、ES Module</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>ES6（2015）正式在语言层面加入了模块系统：import和export。</p>
 <p>// math.js
 export function add(a, b) { return a + b; }
@@ -60,6 +62,7 @@ import myFunc from './myFunc.js';</p>
 <p>浏览器原生ES Module需要服务器支持，而且大量小文件请求慢。Vite/Webpack把所有模块打包成少数几个文件，配合Tree Shaking和代码分割，既享受模块化开发又有加载性能。</p>
 <p>## 五、总结</p>
 <p>模块化的核心是：每个文件是独立作用域，显式导出需要暴露的，显式导入需要依赖的。ES Module是现代标准，import/export语法简洁。理解模块化，前端工程化才有意义。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

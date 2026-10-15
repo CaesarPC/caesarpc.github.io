@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。">
+<meta name="description" content="前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。# CORS与Cookie：跨域带凭证的坑前端localhost:5173请求后端api.example.com。默认情况下，跨域请求不带Cookie——即使后端设置了Set-Cookie。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-252.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CORS与Cookie - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="CORS与Cookie - CaesarTools">
-<meta property="og:description" content="前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。">
+<meta property="og:description" content="前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。# CORS与Cookie：跨域带凭证的坑前端localhost:5173请求后端api.example.com。默认情况下，跨域请求不带Cookie——即使后端设置了Set-Cookie。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-252.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CORS与Cookie</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CORS与Cookie是什么</h2>
 <p># CORS与Cookie：跨域带凭证的坑</p>
 <p>前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。</p>
 <p>## 一、问题</p>
@@ -45,11 +46,13 @@ a:hover{text-decoration:underline}
 <p>前端fetch要加credentials: 'include'。
 后端要加Access-Control-Allow-Credentials: true。
 后端Access-Control-Allow-Origin不能是*，必须指定具体的前端域名。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>三个条件缺一不可。少任何一个，Cookie都带不上。</p>
 <p>## 三、为什么不能用*</p>
 <p>安全考虑：如果Allow-Origin是*，意味着任意网站都能跨域请求你的API。加上Allow-Credentials后，任意网站都能带着用户的Cookie请求——那CSRF防护就废了。所以浏览器强制要求：要带凭证，Origin必须明确指定。</p>
 <p>## 四、总结</p>
 <p>跨域带Cookie是三个条件的组合：前端credentials include + 后端Allow-Credentials true + 后端指定具体Origin。少一个都不行。这个坑几乎每个做前后端分离的开发者都踩过。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>

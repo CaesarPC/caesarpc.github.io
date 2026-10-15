@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器事件循环</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">浏览器事件循环是什么</h2>
 <p># 浏览器事件循环：JavaScript异步执行的底层逻辑</p>
 <p>JavaScript是单线程的——同一时间只能做一件事。那为什么Ajax请求不会卡住整个页面？为什么setTimeout定时器到点了会执行？答案是事件循环（Event Loop）。理解事件循环，你就理解了JS异步的一切。</p>
 <p>## 一、单线程为什么能异步</p>
@@ -48,6 +49,7 @@ a:hover{text-decoration:underline}
 <p>宏任务包括：setTimeout、setInterval、I/O、UI渲染、script整体代码。
 微任务包括：Promise.then、MutationObserver、queueMicrotask。</p>
 <p>执行规则：执行完当前宏任务后，清空所有微任务队列，然后执行下一个宏任务。也就是说，微任务优先级比宏任务高——所有微任务在下一个宏任务之前全部执行完。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>console.log('1');
 setTimeout(() => console.log('2'));
 Promise.resolve().then(() => console.log('3'));
@@ -60,6 +62,7 @@ console.log('4');</p>
 <p>对于大部分业务代码，你只需要记住：微任务比宏任务先执行，Promise.then比setTimeout快。</p>
 <p>## 五、总结</p>
 <p>事件循环是JS异步的核心机制。单线程的JS靠它实现了非阻塞I/O——同步代码一口气执行完，异步回调按队列依次执行。理解宏任务和微任务的优先级，能帮你搞清楚那些"为什么我的代码输出顺序和预期不一样"的诡异问题。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 树与二叉树</a><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-219.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流与熔断降级</a></div>

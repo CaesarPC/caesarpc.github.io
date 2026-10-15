@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>防抖与节流</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">防抖与节流是什么</h2>
 <p># 防抖与节流：高频事件的性能控制</p>
 <p>搜索框每输入一个字符就发一次API请求？滚动事件每帧触发几十次？鼠标移动事件更疯狂——一秒钟触发上百次。如果每次都执行复杂逻辑，页面直接卡死。防抖和节流是控制高频事件执行频率的两种经典方案。</p>
 <p>## 一、防抖（Debounce）</p>
@@ -50,6 +51,7 @@ a:hover{text-decoration:underline}
   };
 }</p>
 <p>## 二、节流（Throttle）</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>节流的思路：不管事件触发多频繁，在固定时间间隔内只执行一次。比如每200毫秒最多执行一次。</p>
 <p>滚动事件适合节流。用户滚动页面时，scroll事件疯狂触发，但你不需要每帧都做处理。节流保证每200毫秒执行一次滚动逻辑就够了。</p>
 <p>function throttle(fn, interval) {
@@ -67,6 +69,7 @@ a:hover{text-decoration:underline}
 节流：固定频率执行。滚动监听、鼠标移动、拖拽。</p>
 <p>## 四、总结</p>
 <p>防抖和节流是前端处理高频事件的标配工具。搜索用防抖，滚动用节流。现代框架（Lodash）都有现成的实现，直接用就行。但理解原理，知道什么时候用哪个。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a><a href="article-tech-236.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis高级数据结构</a><a href="article-tech-246.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志最佳实践</a></div>

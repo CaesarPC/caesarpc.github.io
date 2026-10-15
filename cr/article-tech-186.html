@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>API设计规范与前后端协作</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">API设计规范与前后端协作是什么</h2>
 <p># API设计规范与前后端协作：从混乱到高效的工程实践</p>
 <p>在现代软件开发中，前后端分离已经成为标准架构模式。前端负责用户界面交互，后端负责业务逻辑和数据处理，两者之间通过API接口进行通信。一个设计良好的API，可以让前后端开发高效并行，联调顺畅，后期维护成本低；而一个设计混乱的API，会导致前后端反复扯皮、接口频繁返工、BUG层出不穷，严重拖慢整个项目的进度。很多团队把API设计当作"后端随便写，前端随便调"的小事，直到项目上线后才发现接口难用、扩展困难、问题频出。掌握API设计的核心规范，建立高效的前后端协作模式，是每个全栈开发者和技术团队的必修课。</p>
 <p>## 一、RESTful设计风格：不是万能，但足够好用</p>
@@ -55,6 +56,7 @@ a:hover{text-decoration:underline}
 <p>## 四、参数设计：少即是多，命名要语义化</p>
 <p>API接口的参数设计，最容易犯的错误就是参数太多太杂。一个查询接口恨不得传十几个参数，每个参数都是可选的，前端不知道哪些必填哪些可选，后端也不知道哪些参数组合是合法的。</p>
 <p>好的参数设计应该遵循"职责单一"原则。一个接口只做一件事，参数控制在合理范围内。如果确实需要很多参数，考虑把它们封装成一个对象，或者拆分成多个接口。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>参数命名要语义化，见名知意。不要用模糊的名字比如type、status、flag，要写清楚是什么的type、什么的status。比如user_type、order_status、is_deleted。布尔类型的字段用is_、has_、can_开头，比如is_enabled、has_permission、can_edit，这样一看就知道是布尔值。</p>
 <p>时间参数的格式也要统一。建议使用ISO 8601格式的字符串，或者统一时间戳。不要有的接口返回"2026-10-06 12:00:00"，有的返回"1728187200"，有的返回"2026/10/06"，前端光处理时间格式就要写一堆适配代码。</p>
 <p>## 五、错误处理：让前端能精准定位问题</p>
@@ -72,6 +74,7 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>API设计看似是后端的工作，实际上直接影响整个团队的开发效率和产品质量。统一的响应格式、规范的RESTful风格、合理的版本管理、语义化的参数命名、精准的错误处理、完善的接口文档，这些看起来都是"小事"，但加在一起决定了前后端协作是顺畅高效还是痛苦不堪。</p>
 <p>很多技术团队把精力都放在了框架选型、架构设计上，却忽视了最基础的API设计规范。实际上，一个项目的技术债务，很大一部分都是从混乱的API接口开始累积的。前期多花一点时间设计好接口规范，后期能省下十倍的联调和维护成本。对于开发者个人来说，能设计出优雅、易用、可扩展的API，也是工程能力成熟的重要标志。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

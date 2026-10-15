@@ -37,16 +37,19 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>SameSiteCookie</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">SameSiteCookie是什么</h2>
 <p># 什么是Cookie的SameSite属性</p>
 <p>Cookie有个属性叫SameSite，控制Cookie在跨站请求中是否发送。它是防御CSRF的重要手段。</p>
 <p>## 一、三个值</p>
 <p>SameSite=Strict：完全禁止跨站带Cookie。从别的网站点链接过来，Cookie都不带。安全但体验差——从搜索引擎点进你的网站，用户是未登录状态。</p>
 <p>SameSite=Lax：大部分跨站不带Cookie，但导航到你的网站（点击链接）时带。这是现代浏览器的默认值。平衡了安全和体验。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>SameSite=None：跨站请求都带Cookie。需要同时设Secure（只在HTTPS下）。第三方Cookie场景才需要。</p>
 <p>## 二、为什么默认Lax</p>
 <p>以前跨站请求都带Cookie，CSRF攻击有机可乘。浏览器默认Lax后，大部分跨站POST请求不带Cookie，CSRF攻击大大减少。</p>
 <p>## 三、总结</p>
 <p>SameSite=Lax是现代浏览器默认值，自动防大部分CSRF。不需要额外配置，但要知道它的存在——如果你的网站需要跨站带Cookie（比如嵌入第三方iframe），要显式设SameSite=None; Secure。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-260.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN</a><a href="article-tech-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS与Cookie</a></div>

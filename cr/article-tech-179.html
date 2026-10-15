@@ -37,12 +37,15 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器跨域机制与CORS</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">浏览器跨域机制与CORS是什么</h2>
 <p>浏览器跨域机制与CORS完整指南</p>
 <p>浏览器的同源策略限制了从一个源加载的文档或脚本如何与另一个源的资源交互。这是安全机制，但也给开发带来麻烦：前端localhost:3000想调用后端localhost:8080的接口，浏览器报跨域错误。</p>
 <p>同源策略：协议、域名、端口三者完全一致才算同源。不同端口、不同子域名、不同协议都算跨域。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>CORS（跨源资源共享）是解决跨域的标准方案。后端在响应头里加Access-Control-Allow-Origin，允许指定源访问。简单请求直接发，复杂请求（带自定义头、非POST/GET）会先发OPTIONS预检请求，服务器同意后才发真实请求。</p>
 <p>常见解决方案：CORS（后端配置响应头）、代理（开发环境用Vite/Webpack代理转发）、JSONP（只支持GET，老旧方案）、Nginx反向代理（生产环境把API路径代理到后端，同源就不跨域了）。</p>
 <p>理解同源策略和CORS，才能解决开发中最常见的跨域问题。这是前端开发的基本功。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-168.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS容器查询</a><a href="article-tech-186.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API设计规范与前后端协作</a><a href="article-tech-177.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS选择器优先级</a></div>

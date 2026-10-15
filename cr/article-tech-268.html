@@ -37,15 +37,18 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>SSRHydration</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">SSRHydration是什么</h2>
 <p># 什么是SSR Hydration：注水过程</p>
 <p>SSR在服务端把React组件渲染成HTML发给浏览器。浏览器看到了完整内容，但还不能交互——按钮点了没反应。Hydration就是把静态HTML"激活"成可交互的SPA。</p>
 <p>## 一、过程</p>
 <p>服务端发送HTML → 浏览器显示内容（快速）→ 下载JS → React在已有HTML上"注水"：绑定事件监听、挂载状态、让组件可交互。</p>
 <p>用户先看到内容，然后几秒钟后交互可用。这个顺序很重要——先看到内容比先看到白屏好。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 二、Hydration的性能问题</p>
 <p>Hydration要下载和执行整个JS bundle。即使页面看起来已经渲染了，JS还在后台跑，可能阻塞交互。优化方向：选择性Hydration（只激活交互部分）、部分Hydration（按优先级注水）。</p>
 <p>## 三、总结</p>
 <p>Hydration是SSR从静态HTML到可交互SPA的桥梁。先展示内容，后激活交互。理解这个过程，你就知道为什么SSR首屏快但交互可能有延迟。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-262.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端表单</a><a href="article-tech-270.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebVitals</a><a href="article-tech-267.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ EdgeFunctions</a></div>

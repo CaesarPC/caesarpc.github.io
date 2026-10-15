@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>DockerCompose</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">DockerCompose是什么</h2>
 <p># Docker Compose：多容器应用一键启动</p>
 <p>前面讲过Docker单个容器，实际项目往往不止一个容器——你的应用需要数据库、缓存、可能还有消息队列。每个都手动docker run，参数一大堆，换台服务器重新敲一遍。Docker Compose就是用一个配置文件定义所有服务，一条命令全部启动。</p>
 <p>## 一、docker-compose.yml</p>
@@ -59,12 +60,14 @@ a:hover{text-decoration:underline}
   redis:
     image: redis:alpine</p>
 <p>一条docker compose up启动三个服务。app、db、redis在同一个网络里，可以用服务名互相访问——app连接mysql://db:3306，db就是数据库容器的主机名。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 二、数据卷</p>
 <p>db下面的volumes把容器内的数据目录映射到命名卷dbdata。容器删了重建，数据还在。前面讲过——不做数据卷，数据库数据容器一删就没。</p>
 <p>## 三、开发体验</p>
 <p>docker compose up启动所有服务，docker compose down停止并删除容器。改了代码？app服务挂载了当前目录进去，代码改动实时生效。换台电脑？装了Docker，clone项目，docker compose up，一切跑起来。环境一致性彻底解决。</p>
 <p>## 四、总结</p>
 <p>Docker Compose是本地开发和小型部署的利器。一个yml文件定义整个应用的所有服务，一条命令启动。个人项目用Compose完全够了，不需要上K8s。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入门</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS与Cookie</a></div>

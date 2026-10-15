@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="前面讲过API设计，这里用最直白的方式再讲一遍RESTful的核心。">
+<meta name="description" content="前面讲过API设计，这里用最直白的方式再讲一遍RESTful的核心。# 什么是RESTful：用URL和动词表达操作不要写/getUserList、/createOrder、/deleteArticle。URL应该是资源名词：/users、/orders、/articles。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-254.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RESTful简明指南 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="RESTful简明指南 - CaesarTools">
-<meta property="og:description" content="前面讲过API设计，这里用最直白的方式再讲一遍RESTful的核心。">
+<meta property="og:description" content="前面讲过API设计，这里用最直白的方式再讲一遍RESTful的核心。# 什么是RESTful：用URL和动词表达操作不要写/getUserList、/createOrder、/deleteArticle。URL应该是资源名词：/users、/orders、/articles。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-254.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>RESTful简明指南</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">RESTful简明指南是什么</h2>
 <p># 什么是RESTful：用URL和动词表达操作</p>
 <p>前面讲过API设计，这里用最直白的方式再讲一遍RESTful的核心。</p>
 <p>## 一、URL是名词，不是动词</p>
@@ -49,6 +50,7 @@ PUT /users/123 — 更新用户
 DELETE /users/123 — 删除用户</p>
 <p>同一个URL，不同HTTP方法表达不同操作。</p>
 <p>## 二、用HTTP状态码表达结果</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>200成功，201创建成功，400参数错误，401未登录，403没权限，404不存在，500服务器错误。前端根据状态码做不同处理。</p>
 <p>## 三、嵌套表达关系</p>
 <p>/orders/123/items — 订单123下的商品项。层级清晰表达资源关系。</p>
@@ -56,6 +58,7 @@ DELETE /users/123 — 删除用户</p>
 <p>简单实用为主。真的遇到复杂操作（支付、登录），URL里加动作也没关系：/api/payment、/api/login。团队内部统一比严格遵守教条重要。</p>
 <p>## 五、总结</p>
 <p>RESTful就是：URL用名词，HTTP方法表达操作，状态码表达结果。记住这三点，你的API就比大部分人写得规范。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-262.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端表单</a><a href="article-tech-261.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR缓存</a><a href="article-tech-258.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HSTS</a></div>

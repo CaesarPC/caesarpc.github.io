@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>正则表达式</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">正则表达式是什么</h2>
 <p># 正则表达式：文本处理的瑞士军刀</p>
 <p>正则表达式是程序员最该掌握的工具之一。校验邮箱、提取URL、替换文本格式、从日志中搜索特定模式——凡是涉及字符串模式匹配的工作，正则都能几行代码搞定。但很多人看到一堆\w\d+就头大，觉得正则看不懂。其实正则的语法很简单，花半小时掌握基础，能省你几天的手动字符串处理。</p>
 <p>## 一、基本匹配</p>
@@ -64,6 +65,7 @@ $ 匹配字符串结尾
 <p>## 三、实用例子</p>
 <p>校验手机号：/^1[3-9]\d{9}$/
 1开头，第二位3-9，后面9位数字，整体匹配（^和$确保从头到尾完全匹配）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>校验邮箱：/^[\w.-]+@[\w.-]+\.\w+$/
 简单版邮箱匹配。</p>
 <p>提取URL：/https?:\/\/[^\s]+/g
@@ -76,6 +78,7 @@ $ 匹配字符串结尾
 <p>这个区别很重要。比如提取HTML标签内容，贪婪和非贪婪结果完全不同。</p>
 <p>## 五、总结</p>
 <p>正则不需要一次背完。记住\d\w\s*+?这几个常用元字符，能应对80%的场景。复杂的正则现写现查，不需要死记。但至少要能读懂别人写的正则，知道它在匹配什么模式。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🔍 正则测试</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-225.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 幂等性设计</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>

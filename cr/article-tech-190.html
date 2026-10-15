@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Git与版本控制工作流</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Git与版本控制工作流是什么</h2>
 <p># Git与版本控制：从单人提交到团队协作的完整工作流</p>
 <p>Git是每个开发者每天都在用的工具，但绝大多数人只掌握了最基础的几条命令——add、commit、push、pull。一旦遇到分支冲突、历史回滚、多人协作、代码审查这些稍微复杂的场景，就开始手忙脚乱，甚至用删除仓库重新克隆这种"核武器"级别的操作来解决问题。版本控制不是简单的备份工具，它是一套完整的工程协作体系。理解Git的底层原理、掌握分支管理策略、熟悉团队协作流程，能让开发效率提升一个量级，也能避免因为误操作导致几天的代码付诸东流。</p>
 <p>## 一、Git的本质：快照而非差异</p>
@@ -53,6 +54,7 @@ a:hover{text-decoration:underline}
 <p>feature分支还是要有的，但应该很小、很短。一个功能开一个分支，一两天做完就合并。不要一个feature分支挂几周不动，等到合并的时候代码已经天翻地覆了。</p>
 <p>## 四、解决冲突：最不可怕的噩梦</p>
 <p>合并分支时出现冲突，是很多新手最害怕的时刻。打开文件看到<<<<<<< HEAD、=======、>>>>>>> feature这样的标记，完全不知道该怎么办。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>其实冲突并不可怕。冲突的意思很简单：同一个文件的同一行，你改了一版，别人改了另一版，Git不知道该保留哪个。你需要手动打开文件，看看两边分别改了什么，然后决定保留什么——有时候全留、有时候只留一边、有时候需要融合两边的改动。改完之后删掉那些冲突标记，git add，再git commit就好了。</p>
 <p>解决冲突的关键原则是：不要盲目选择" ours"或"theirs"。要真正读懂两边的代码在做什么，理解为什么会冲突，然后做出正确的合并决定。很多冲突其实是两个人改了同一段代码做了不同的事，需要坐下来聊一下到底要哪个逻辑。</p>
 <p>## 五、Rebase vs Merge：线性历史的美学</p>
@@ -69,6 +71,7 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>Git是一个设计非常优雅的工具，但它的学习曲线确实陡峭。大多数人卡在基础操作上，是因为不理解底层的数据模型——快照、指针、三态。理解了这些，分支、合并、rebase这些概念就不再是黑盒。</p>
 <p>团队协作中，好的Git工作流不是越复杂越好，而是越简单越能坚持下去。小分支、频繁合并、干净的提交历史、规范的commit message，这些习惯看起来不起眼，但在项目生命周期里会持续产生价值。代码仓库不只是代码存储的地方，它是团队集体记忆的载体。善待你的Git历史，就是善待三个月后回来维护代码的自己。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

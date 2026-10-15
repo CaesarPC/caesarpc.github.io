@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript异步迭代</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript异步迭代是什么</h2>
 <p>JavaScript异步迭代与for-await-of</p>
 <p>for-await-of是异步迭代的语法。遍历异步数据源（如逐行读取文件、分页API）时，for await (const item of asyncIterable)会等待每个异步操作完成再进入下一次循环。</p>
 <p>普通for-of遍历同步数据；for-await-of遍历异步数据。它内部处理Promise，自动await每个值。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>适用场景：分页加载数据（每次await一页）、逐行处理大文件、WebSocket消息流。比手动写Promise链更清晰。</p>
 <p>理解异步迭代，才能处理复杂的异步数据流。这是JS异步编程的高级内容。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-304.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript_Proxy与Reflect</a><a href="article-tech-308.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Grid高级布局</a><a href="article-tech-296.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件冒泡与捕获</a></div>

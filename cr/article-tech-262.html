@@ -37,12 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端表单</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端表单是什么</h2>
 <p># 前端表单处理：从受控组件到表单库</p>
 <p>表单是Web应用最常见也最麻烦的部分。输入校验、错误提示、提交状态、异步加载——手写起来一大堆样板代码。</p>
 <p>## 一、受控组件</p>
 <p>React里受控表单：每个input的value绑state，onChange更新state。表单数据就是state，可以随时读取和校验。</p>
 <p>缺点：每次输入都触发重渲染，大表单性能差。</p>
 <p>## 二、表单库</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>成熟的表单库（React Hook Form、Formik）解决了这些问题：
 - 非受控方式减少重渲染。
 - 内置校验（Zod/Yup）。
@@ -53,6 +55,7 @@ a:hover{text-decoration:underline}
 <p>校验分两层：前端即时校验（输入时提示错误），后端最终校验。前端校验提升体验，后端校验保证安全——前端校验可以被绕过。</p>
 <p>## 四、总结</p>
 <p>表单不要手写。用React Hook Form这类库，校验、错误、提交状态都封装好了。把精力放在业务逻辑上，不要重复造表单轮子。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-270.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebVitals</a><a href="article-tech-271.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a></div>

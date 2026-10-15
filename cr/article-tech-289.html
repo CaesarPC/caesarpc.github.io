@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="JavaScript Promise完整指南：从基础到高级用法">
+<meta name="description" content="JavaScript Promise完整指南：从基础到高级用法Promise是JS异步编程的核心。它表示一个异步操作的最终完成（或失败）及其结果值。三种状态：pending（进行中）、fulfilled（成功）、rejec基础用法：new Promise((resolve, reject) => { ....">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-289.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript_Promise完整指南 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript_Promise完整指南 - CaesarTools">
-<meta property="og:description" content="JavaScript Promise完整指南：从基础到高级用法">
+<meta property="og:description" content="JavaScript Promise完整指南：从基础到高级用法Promise是JS异步编程的核心。它表示一个异步操作的最终完成（或失败）及其结果值。三种状态：pending（进行中）、fulfilled（成功）、rejec基础用法：new Promise((resolve, reject) => { ....">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-289.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript_Promise完整指南</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript Promise完整指南是什么</h2>
 <p>JavaScript Promise完整指南：从基础到高级用法</p>
 <p>Promise是JS异步编程的核心。它表示一个异步操作的最终完成（或失败）及其结果值。三种状态：pending（进行中）、fulfilled（成功）、rejected（失败）。状态一旦改变就不可逆。</p>
 <p>基础用法：new Promise((resolve, reject) => { ... })。then处理成功，catch处理失败，finally无论成功失败都执行。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>高级用法：Promise.all（全部成功才成功）、Promise.race（取最快的）、Promise.allSettled（等全部完成，不管成功失败）、Promise.any（取第一个成功的）。</p>
 <p>链式调用：promise.then().then().catch()，每个then返回新Promise，形成链。理解Promise的状态机和链式调用，是掌握JS异步编程的关键。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-297.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Flexbox与Grid选择</a><a href="article-tech-302.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript异步迭代</a><a href="article-tech-296.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件冒泡与捕获</a></div>

@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>DNS解析全过程</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">DNS解析全过程是什么</h2>
 <p># DNS解析全过程：从域名到IP地址的旅程</p>
 <p>你输入www.example.com，浏览器怎么知道这个域名对应的服务器IP是多少？答案是DNS——域名系统。它就像互联网的电话簿，把人类好记的域名翻译成机器用的IP地址。这个过程通常在几十毫秒内完成，但它涉及一系列分布式查询，任何一环出问题，网站就打不开。理解DNS的工作原理，是排查网络问题的基础。</p>
 <p>## 一、递归查询与迭代查询</p>
@@ -47,6 +48,7 @@ a:hover{text-decoration:underline}
 <p>## 二、缓存加速</p>
 <p>如果每次都走完整的三层查询，DNS会很慢。所以每一层都有缓存。浏览器缓存、操作系统缓存、DNS服务器缓存，都会把解析结果存一段时间（TTL，生存时间）。在TTL有效期内，直接从缓存返回，不需要走完整查询。</p>
 <p>这就是为什么第一次访问一个网站可能慢一点，第二次就快了——DNS结果已经缓存了。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、常见DNS记录类型</p>
 <p>A记录：把域名指向一个IPv4地址。
 AAAA记录：把域名指向一个IPv6地址。
@@ -61,6 +63,7 @@ TXT记录：存储文本信息，常用于域名验证、SPF反垃圾邮件。</
 <p>运营商默认的DNS可能慢、可能被劫持（把你导向广告页面）。公共DNS如8.8.8.8（Google）、114.114.114.114（国内）通常更快更可靠。DoH（DNS over HTTPS）把DNS查询加密在HTTPS里，防止运营商窃听和篡改。现代浏览器默认支持DoH，进一步提升了隐私和安全性。</p>
 <p>## 六、总结</p>
 <p>DNS是互联网最基础也最容易被忽视的基础设施。没有DNS，你只能记一串数字IP上网。理解域名解析的完整过程——本地缓存→递归查询→根→顶级域→权威DNS——能帮你在网站打不开的时候，快速定位问题出在哪一环。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-206.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTP2与HTTP3协议演进</a><a href="article-tech-220.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JWT认证与Session对比</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a></div>

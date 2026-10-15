@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="JavaScript Proxy与Reflect：元编程能力">
+<meta name="description" content="JavaScript Proxy与Reflect：元编程能力Proxy可以包装一个对象，拦截并自定义其基本操作（属性查找、赋值、枚举、函数调用）。Reflect提供与Proxy拦截器对应的默认操作。这是JS的元编程能力—Proxy用途：数据绑定（Vue3的响应式系统用Proxy）、校验（赋值时验证数据）...">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-304.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript_Proxy与Reflect - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript_Proxy与Reflect - CaesarTools">
-<meta property="og:description" content="JavaScript Proxy与Reflect：元编程能力">
+<meta property="og:description" content="JavaScript Proxy与Reflect：元编程能力Proxy可以包装一个对象，拦截并自定义其基本操作（属性查找、赋值、枚举、函数调用）。Reflect提供与Proxy拦截器对应的默认操作。这是JS的元编程能力—Proxy用途：数据绑定（Vue3的响应式系统用Proxy）、校验（赋值时验证数据）...">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-304.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript_Proxy与Reflect</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript Proxy与Reflect是什么</h2>
 <p>JavaScript Proxy与Reflect：元编程能力</p>
 <p>Proxy可以包装一个对象，拦截并自定义其基本操作（属性查找、赋值、枚举、函数调用）。Reflect提供与Proxy拦截器对应的默认操作。这是JS的元编程能力——在语言层面操作语言本身。</p>
 <p>Proxy用途：数据绑定（Vue3的响应式系统用Proxy）、校验（赋值时验证数据）、缓存（惰性计算）、日志（记录属性访问）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>Reflect配合Proxy使用：在拦截器里调用Reflect的默认行为，而不是手动实现。比如return Reflect.get(target, prop)。</p>
 <p>Vue3的响应式就是用Proxy替代了Vue2的Object.defineProperty。理解Proxy，才能理解现代框架的响应式原理。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript展开运算符</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript展开运算符是什么</h2>
 <p>JavaScript展开运算符与剩余参数</p>
 <p>展开运算符（...）把数组或对象展开成单个元素。[...arr1, ...arr2]合并数组；{...obj1, ...obj2}合并对象。剩余参数把多个参数收集成数组：function sum(...nums) { return nums.reduce((a,b)=>a+b,0) }。</p>
 <p>展开运算符用于数组/对象浅拷贝：const newArr = [...oldArr]。合并对象：const merged = {...obj1, ...obj2}（后面的覆盖前面的同名属性）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>剩余参数用于函数定义：function foo(first, ...rest) {}，rest是除了first之外的所有参数组成的数组。</p>
 <p>这两个语法让数组/对象操作更简洁。不用concat、Object.assign，直接用...语法。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

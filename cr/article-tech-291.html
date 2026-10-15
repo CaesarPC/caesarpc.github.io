@@ -6,7 +6,9 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="this是JS中最容易混淆的概念。它的指向不是在函数定义时确定，而是在函数调用时确定。规则：">
+<meta name="description" content="this是JS中最容易混淆的概念。它的指向不是在函数定义时确定，而是在函数调用时确定。规则：JavaScript this指向规则完全解析1. 默认绑定：独立函数调用，this指向全局对象（严格模式下是undefined）。
+2. 隐式绑定：作为对象方法调用，this指向调用对象。
+3. 显式绑定">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-291.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JavaScript_this指向规则 - CaesarTools</title>
 <style>
@@ -23,7 +25,9 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript_this指向规则 - CaesarTools">
-<meta property="og:description" content="this是JS中最容易混淆的概念。它的指向不是在函数定义时确定，而是在函数调用时确定。规则：">
+<meta property="og:description" content="this是JS中最容易混淆的概念。它的指向不是在函数定义时确定，而是在函数调用时确定。规则：JavaScript this指向规则完全解析1. 默认绑定：独立函数调用，this指向全局对象（严格模式下是undefined）。
+2. 隐式绑定：作为对象方法调用，this指向调用对象。
+3. 显式绑定">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-291.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +41,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript_this指向规则</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript this指向规则是什么</h2>
 <p>JavaScript this指向规则完全解析</p>
 <p>this是JS中最容易混淆的概念。它的指向不是在函数定义时确定，而是在函数调用时确定。规则：</p>
 <p>1. 默认绑定：独立函数调用，this指向全局对象（严格模式下是undefined）。
@@ -44,8 +49,10 @@ a:hover{text-decoration:underline}
 3. 显式绑定：call/apply/bind指定this。
 4. new绑定：构造函数中this指向新创建的对象。
 5. 箭头函数：没有自己的this，继承外层词法作用域的this。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>判断this的顺序：看是否new调用→是否call/apply/bind→是否对象方法调用→默认全局。箭头函数例外，继承外层this。</p>
 <p>理解this的五种规则，才能搞懂各种场景下this的指向。这是JS面试必考题。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

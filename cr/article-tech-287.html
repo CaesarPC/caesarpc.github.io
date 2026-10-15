@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript事件委托</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript事件委托是什么</h2>
 <p>JavaScript事件委托：利用冒泡减少监听器数量</p>
 <p>列表有100个按钮，每个都绑点击事件性能差。事件委托利用事件冒泡，在父元素上绑一个监听器，通过event.target判断是哪个子元素被点击。这样只需要一个监听器，而不是100个。</p>
 <p>原理：事件触发后会从目标元素冒泡到父元素。在父元素上监听click，通过event.target找到实际点击的元素。新增的子元素自动享受委托，不需要重新绑定。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>优势：减少监听器数量（性能好）；动态添加的元素自动绑定（不需要重新bind）；内存占用低。</p>
 <p>实现：父元素.addEventListener('click', e => { if (e.target.matches('.item')) { ... } })。用matches判断点击的是不是目标元素。这是前端优化的常用技巧。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

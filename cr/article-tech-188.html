@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="# 测试驱动开发：从'写完再测'到'先想清楚再写'的思维转变"写完再测"到"先想清楚再写"的思维转变">
+<meta name="description" content="# 测试驱动开发：从'写完再测'到'先想清楚再写'的思维转变# 测试驱动开发：从"写完再测"到"先想清楚再写"的思维转变很多开发者对测试的态度是：功能写完了，手动点一下看看能不能跑通，没问题就上线了。至于自动化测试，觉得是浪费时间——我自己测过就行了，写测试代码还要多写一倍的工作"写完再测"到"先想清楚再写"的思维转变">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-188.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>测试驱动开发与代码质量 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="测试驱动开发与代码质量 - CaesarTools">
-<meta property="og:description" content="# 测试驱动开发：从'写完再测'到'先想清楚再写'的思维转变"写完再测"到"先想清楚再写"的思维转变">
+<meta property="og:description" content="# 测试驱动开发：从'写完再测'到'先想清楚再写'的思维转变# 测试驱动开发：从"写完再测"到"先想清楚再写"的思维转变很多开发者对测试的态度是：功能写完了，手动点一下看看能不能跑通，没问题就上线了。至于自动化测试，觉得是浪费时间——我自己测过就行了，写测试代码还要多写一倍的工作"写完再测"到"先想清楚再写"的思维转变">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-188.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>测试驱动开发与代码质量</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">测试驱动开发与代码质量是什么</h2>
 <p># 测试驱动开发：从"写完再测"到"先想清楚再写"的思维转变</p>
 <p>很多开发者对测试的态度是：功能写完了，手动点一下看看能不能跑通，没问题就上线了。至于自动化测试，觉得是浪费时间——我自己测过就行了，写测试代码还要多写一倍的工作量。这种心态在小项目、Demo阶段没问题，但一旦项目开始迭代、人员开始增加，没有测试的代码就像没有安全网的高空走钢丝，每次改动都提心吊胆，生怕改了这里坏了那里。测试驱动开发（TDD）是一种完全相反的开发方式：先写测试，再写实现代码，用测试来驱动设计和开发。它不是什么银弹，但它代表了一种更严谨、更自信的工程思维方式。</p>
 <p>## 一、为什么需要自动化测试</p>
@@ -56,6 +57,7 @@ a:hover{text-decoration:underline}
 <p>第三步是"重构"：在测试通过的保护下，优化代码结构。把重复的逻辑抽出来，给变量起好名字，拆分手太长的函数。因为测试是绿的，你放心大胆地改，改完跑一遍测试，还是绿的就说明没改坏。</p>
 <p>这三步不断循环，每加一个功能就重复一次。很多人觉得TDD写起来慢，但实际上，因为你在写代码之前就想清楚了边界情况，返工和调试的时间大幅减少，整体开发速度反而更快。</p>
 <p>## 四、好的测试用例长什么样</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>写测试不是走过场。一个好的测试用例应该具备几个特点。</p>
 <p>首先是命名清晰。测试用例的名字应该描述"在什么情况下，应该发生什么"。比如test_order_total_price_should_sum_item_prices_when_multiple_items_in_cart，一眼就知道这个测试在测什么。不要叫test1、testFunction、testCase，这种名字过两周你自己都不知道在测什么。</p>
 <p>其次是每个测试只测一件事。一个测试用例只验证一个行为，不要一个测试里测了好几个功能。这样测试失败的时候，你一看名字就知道哪里出了问题。如果一个测试方法里有十几个assert，那大概率应该拆成好几个测试。</p>
@@ -75,6 +77,7 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>测试驱动开发不是什么高深的方法论，它的本质是一种严谨的思维习惯：动手写实现代码之前，先想清楚你要实现什么、怎么验证它是对的。这种思维方式比具体的TDD流程更重要。</p>
 <p>很多开发者觉得写测试浪费时间，那是因为他们只看到了写测试的成本，没看到后期改代码、查BUG、重构时省下的时间。一个有完善测试的项目，你敢改、敢优化、敢重构；一个没有测试的项目，每次改动都是在赌运气。测试不是负担，而是让你写代码更有底气的安全网。AI时代，写实现代码越来越快，但知道该写什么、怎么验证它对，这种判断力反而更值钱了。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

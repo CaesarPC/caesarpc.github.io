@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>事件委托</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">事件委托是什么</h2>
 <p># 事件委托：少绑定监听器的性能技巧</p>
 <p>一个列表有1000条数据，每条都有一个删除按钮。你给每个按钮都绑定一个click事件监听器——1000个监听器，内存占用大，新加的列表项还得重新绑定。事件委托用一个监听器搞定所有按钮。</p>
 <p>## 一、原理</p>
@@ -48,6 +49,7 @@ a:hover{text-decoration:underline}
   }
 });</p>
 <p>不管列表里有10个还是10000个按钮，只绑了一个监听器。新加的按钮自动支持，不需要重新绑定。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 二、好处</p>
 <p>性能好：一个监听器 vs 一千个。
 动态元素友好：新加的列表项自动有事件，不用手动绑定。
@@ -56,6 +58,7 @@ a:hover{text-decoration:underline}
 <p>判断event.target时要小心——按钮里面可能有图标、span等子元素。点击图标时target是img不是button。解决办法：用closest()向上找最近的匹配元素：e.target.closest('button')。</p>
 <p>## 四、总结</p>
 <p>事件委托是利用事件冒泡的经典优化。列表、表格这种动态生成大量相似元素的场景，用一个父级监听器搞定所有子元素的事件，性能好又省心。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 状态管理</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a></div>

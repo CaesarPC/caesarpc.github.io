@@ -37,13 +37,16 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端性能预算</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">前端性能预算是什么</h2>
 <p>前端性能预算：给页面性能设一条不可突破的红线</p>
 <p>性能优化容易变成"感觉慢了再调"。性能预算（Performance Budget）是预先设定一条红线：页面JS不超过200KB、首屏时间不超过2秒、LCP不超过2.5秒。超过就报警或阻断合并。</p>
 <p>为什么需要预算？没有量化目标，优化就没有方向。设了预算，每次提交代码自动检查：JS体积涨了？图片太大了？超过预算CI直接失败，不让合并。</p>
 <p>预算指标选择：传输体积（JS/CSS/图片大小）、加载时间（LCP、TTFB）、运行时性能（INP、CLS）。核心Web指标（前面讲过）是好的起点。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>怎么执行：CI流水线里跑性能检测（Lighthouse CI），对比预算阈值。超了就失败。也可以在开发环境实时提示。</p>
 <p>预算要合理：不是越小越好（功能要做），而是和业务匹配。一个工具站200KB JS够了，一个复杂应用可能要500KB。根据实际情况定。</p>
 <p>性能预算让优化变成持续的纪律，不是一次性工作。每次提交都守住红线，性能不会逐渐劣化。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

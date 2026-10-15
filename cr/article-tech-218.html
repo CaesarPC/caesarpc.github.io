@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CSS布局Flex与Grid</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CSS布局Flex与Grid是什么</h2>
 <p># CSS布局艺术：Flexbox与Grid的现代排版</p>
 <p>十年前做网页布局靠float、position、margin各种hack，一个居中都要写半天。现在Flexbox和Grid两个布局系统，把CSS排版的难题基本解决了。Flexbox处理一维布局（一行或一列），Grid处理二维布局（行和列同时控制）。掌握这两个工具，布局不再是前端的痛点。</p>
 <p>## 一、Flexbox：一维弹性布局</p>
@@ -47,6 +48,7 @@ a:hover{text-decoration:underline}
 <p>## 二、Grid：二维网格布局</p>
 <p>Grid是为"行和列同时控制"的布局设计的。display: grid; grid-template-columns: 1fr 1fr 1fr; 定义三列等宽。grid-template-rows定义行高。</p>
 <p>Grid最强大的地方是可以精确定位：grid-column: 1 / 3; 表示这个元素从第1列线跨到第3列线（占两列）。grid-row: 2 / 4; 表示占第2到第4行。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>复杂的网页布局——顶部导航、侧边栏、主内容区、底部——以前要float加margin调半天，现在Grid几行定义：grid-template-areas: "header header" "sidebar main" "footer footer"; 然后每个区域指定grid-area。</p>
 <p>## 三、什么时候用Flex什么时候用Grid</p>
 <p>简单原则：一维用Flex，二维用Grid。</p>
@@ -57,6 +59,7 @@ a:hover{text-decoration:underline}
 <p>以前做响应式靠媒体查询+float，现在用Grid的auto-fit和minmax自动响应：grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));。这句话的意思是：每列最小250px，有多少空间放多少列，空间不够自动换行。不需要写媒体查询，自动适应屏幕宽度。</p>
 <p>## 五、总结</p>
 <p>Flexbox和Grid是现代CSS布局的两大支柱。Flex解决一维排列，Grid解决二维网格。花时间把这两个工具练熟，以后写布局就不用查文档了——它们就是CSS的"正常方式"，float那些hack可以扔了。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-tools" style="margin-top:20px;padding:16px;background:#282a36;border-radius:10px;border:1px solid #44475a"><h3 style="color:#8be9fd;font-size:14px;margin:0 0 10px">🛠️ 相关工具</h3><a href="tools.html" style="display:inline-block;margin:4px 8px 4px 0;color:#50fa7b;text-decoration:none;font-size:13px;background:#1e1e2e;padding:6px 12px;border-radius:6px">🎨 颜色选择器</a></div><div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 树与二叉树</a><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全过程</a><a href="article-tech-212.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Nginx反向代理与负载均衡</a></div>

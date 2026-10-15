@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>数据库索引与查询优化</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">数据库索引与查询优化是什么</h2>
 <p># 数据库索引与查询优化：从原理到实战的完整指南</p>
 <p>数据库是绝大多数软件系统的核心底座，无论是用户登录验证、电商订单查询，还是AI模型训练数据检索，最终都要落到数据库的读写操作上。很多开发者在使用数据库时，只停留在基础的增删改查层面，写出的SQL语句看似正确，却在数据量增长后暴露出严重的性能问题。一个没有经过优化的查询语句，在数据量从几百条增长到几百万条时，执行时间可能从毫秒级飙升到几十秒，直接拖垮整个系统。理解数据库索引的工作原理，掌握查询优化的核心方法，是后端开发者从"会用数据库"到"用好数据库"的关键跨越。</p>
 <p>## 一、索引到底是什么：从书架查找理解B+树结构</p>
@@ -58,6 +59,7 @@ a:hover{text-decoration:underline}
 <p>## 四、索引失效的常见场景</p>
 <p>实际开发中，有很多写法会导致索引失效，这是查询优化中最常踩的坑。</p>
 <p>第一，在索引列上使用函数或运算。比如where DATE(create_time) = '2026-01-01'，对索引列使用了DATE函数，数据库无法直接使用索引树进行比较，只能全表扫描。正确的写法应该是where create_time >= '2026-01-01' and create_time < '2026-01-02'，把范围条件放在原始字段上。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>第二，使用like模糊查询以通配符开头。比如where name like '%张'，这种写法无法利用索引，因为B+树是按顺序排列的，你不知道开头是什么，就无法定位。而where name like '张%'是可以利用索引的，因为知道前缀是"张"，可以直接定位到对应的区间。</p>
 <p>第三，隐式类型转换。如果字段是字符串类型，查询条件写where phone = 13800138000（数字），数据库会自动把字段转成数字再比较，相当于在字段上做了转换，导致索引失效。正确写法应该是where phone = '13800138000'。</p>
 <p>第四，使用or连接的条件中有一个字段没有索引。比如where a = 1 or b = 2，如果a有索引但b没有，整个查询可能都不会使用索引，因为数据库要合并两个结果集，优化器认为全表扫描代价更低。</p>
@@ -75,6 +77,7 @@ a:hover{text-decoration:underline}
 <p>## 八、总结</p>
 <p>数据库查询优化不是一蹴而就的技巧堆砌，而是一套从原理出发的系统工程。理解B+树索引结构，明白聚簇索引和回表的代价，掌握联合索引的最左前缀法则，识别索引失效的常见写法，用Explain工具分析执行计划，针对分页、事务、锁等高频场景做专项优化，这些能力加在一起，才能真正让数据库在高并发、大数据量场景下稳定高效运行。</p>
 <p>很多开发者把数据库当作黑盒，只会写最简单的SQL，出了性能问题就加机器、加缓存。实际上，很多性能问题的根源在于糟糕的SQL写法和不合理的索引设计。掌握数据库优化的底层逻辑，用一张表就能扛住原本需要多台服务器的并发量，这就是技术深度带来的价值。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演进史</a><a href="article-tech-183.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI模型云端部署与推理优化技术全解</a><a href="article-tech-188.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 测试驱动开发与代码质量</a></div>

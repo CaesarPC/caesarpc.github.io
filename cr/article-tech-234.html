@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>SSR与SSG</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">SSR与SSG是什么</h2>
 <p># 服务端渲染与静态生成：SEO和首屏速度的权衡</p>
 <p>传统SPA（单页应用）的问题是：HTML是空壳，JS下载完才渲染内容。首屏白屏时间长，而且爬虫可能抓不到内容——因为爬虫不执行JS。服务端渲染（SSR）和静态站点生成（SSG）就是解决这个问题的。</p>
 <p>## 一、CSR：客户端渲染</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 <p>服务器收到请求后，在服务端把React/Vue组件渲染成HTML字符串，直接返回给浏览器。浏览器收到的就是完整的HTML，立刻显示内容——不需要等JS下载执行。</p>
 <p>hydration（注水）：浏览器加载JS后，把静态HTML"激活"成可交互的SPA。用户看到内容快，交互正常。</p>
 <p>SSR的好处：首屏快（HTML直接可用）、SEO好（爬虫看到的是完整内容）。代价：服务器压力大（每个请求都要在服务端渲染），开发复杂（要区分服务端和客户端代码）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、SSG：静态站点生成</p>
 <p>静态生成在构建时就把所有页面渲染成静态HTML。build的时候，把每个路由预渲染成一个HTML文件。用户访问时直接返回静态文件，不需要服务器动态渲染。</p>
 <p>SSG速度最快——就是静态文件，CDN直接分发。适合内容不常变的站点：博客、文档、营销页面。Next.js的getStaticProps就是SSG。</p>
@@ -57,6 +59,7 @@ a:hover{text-decoration:underline}
 内部工具、后台管理系统——CSR就够了，不需要SSR。</p>
 <p>## 六、总结</p>
 <p>SSR和SSG不是非此即彼。现代框架（Next.js、Nuxt）支持混合模式：这个页面用SSG，那个页面用SSR，另一个用CSR。根据每个页面的特点选最合适的渲染方式。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a><a href="article-tech-230.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 正则表达式</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委托</a></div>

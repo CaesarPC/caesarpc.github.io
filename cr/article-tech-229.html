@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>响应式设计</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">响应式设计是什么</h2>
 <p># 响应式设计：让一个页面适配所有屏幕</p>
 <p>从手机到平板到桌面显示器，屏幕尺寸千差万别。你不可能为每种屏幕做一个独立版本——那维护成本太高了。响应式设计就是用一套代码，根据屏幕宽度自动调整布局和内容，在不同设备上都有良好的显示效果。</p>
 <p>## 一、媒体查询</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 <p>常见断点：手机<768px，平板768-1024px，桌面>1024px。在这些断点之间调整布局。</p>
 <p>## 二、移动优先</p>
 <p>现代响应式设计提倡移动优先：先写手机端的样式，再用min-width媒体查询逐步添加大屏样式。因为手机端布局最简单（一列排列），大屏更复杂（多列布局）。从简到繁比从繁到简容易。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、弹性单位</p>
 <p>不要用固定像素宽度。用百分比、vw/vh、rem这些弹性单位：
 - 百分比：相对于父元素宽度。
@@ -58,6 +60,7 @@ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 屏幕宽就多列，窄就少列，自动换行。不需要写媒体查询。</p>
 <p>## 五、总结</p>
 <p>响应式设计不是高深技术，就是：弹性单位 + 媒体查询 + 移动优先。花时间写好断点和弹性布局，一个页面就能在手机和桌面上都好看。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储三剑客</a><a href="article-tech-235.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库事务ACID</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a></div>

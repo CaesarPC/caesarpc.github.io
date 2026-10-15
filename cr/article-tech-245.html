@@ -6,7 +6,8 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="前面讲Redis缓存时详细聊过这三个问题，这里做一个浓缩总结，方便快速复习。">
+<meta name="description" content="前面讲Redis缓存时详细聊过这三个问题，这里做一个浓缩总结，方便快速复习。# 缓存穿透、击穿、雪崩复习：分布式缓存三大问题大量请求查一个数据库里根本不存在的key，每次都穿透到数据库。
+解决：缓存空值（查不到也存一个空标记，短TTL）；布隆过滤器（请求前先过一层，不存在直接拒绝）。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-245.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>缓存三大问题复习 - CaesarTools</title>
 <style>
@@ -23,7 +24,8 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="缓存三大问题复习 - CaesarTools">
-<meta property="og:description" content="前面讲Redis缓存时详细聊过这三个问题，这里做一个浓缩总结，方便快速复习。">
+<meta property="og:description" content="前面讲Redis缓存时详细聊过这三个问题，这里做一个浓缩总结，方便快速复习。# 缓存穿透、击穿、雪崩复习：分布式缓存三大问题大量请求查一个数据库里根本不存在的key，每次都穿透到数据库。
+解决：缓存空值（查不到也存一个空标记，短TTL）；布隆过滤器（请求前先过一层，不存在直接拒绝）。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-245.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,6 +39,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>缓存三大问题复习</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">缓存三大问题复习是什么</h2>
 <p># 缓存穿透、击穿、雪崩复习：分布式缓存三大问题</p>
 <p>前面讲Redis缓存时详细聊过这三个问题，这里做一个浓缩总结，方便快速复习。</p>
 <p>## 一、穿透：查不存在的数据</p>
@@ -45,6 +48,7 @@ a:hover{text-decoration:underline}
 <p>## 二、击穿：热点Key过期瞬间</p>
 <p>一个超热点key过期，瞬间几千并发全打到数据库。
 解决：互斥锁（第一个请求去查库重建缓存，其他等待）；热点key永不过期（后台异步更新）。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、雪崩：大面积同时过期</p>
 <p>大量key同一时间集中过期，或Redis节点宕机，请求全涌向数据库。
 解决：过期时间加随机偏移（不要同时过期）；Redis集群高可用；数据库限流兜底。</p>
@@ -53,6 +57,7 @@ a:hover{text-decoration:underline}
 解决：延迟双删（更新DB后删一次缓存，延迟一会再删一次）；短TTL兜底。</p>
 <p>## 五、一句话总结</p>
 <p>穿透是查不存在的，击穿是热点过期，雪崩是大面积挂。记住这三个词的区别和对应方案，面试和实战都够用。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a></div>

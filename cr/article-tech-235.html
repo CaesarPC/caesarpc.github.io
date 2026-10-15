@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>数据库事务ACID</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">数据库事务ACID是什么</h2>
 <p># 数据库事务：ACID与并发控制的核心</p>
 <p>转账的时候，A扣100块，B加100块。这两个操作要么都成功，要么都失败——不能扣了A的钱B没收到。这就是数据库事务要解决的问题。事务是数据库区别于文件系统的核心特性，理解ACID和隔离级别，是后端开发的基本功。</p>
 <p>## 一、ACID四大特性</p>
@@ -46,6 +47,7 @@ a:hover{text-decoration:underline}
 <p>持久性（Durability）：事务提交后，结果永久保存。即使数据库崩溃，重启后数据还在。</p>
 <p>## 二、并发问题</p>
 <p>多个事务同时操作数据时，会出现几种问题：</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>脏读：事务A读到了事务B还没提交的数据。B回滚了，A读到的就是无效数据。</p>
 <p>不可重复读：事务A两次读同一行数据，中间事务B修改了这行并提交，A两次读到的不一样。</p>
 <p>幻读：事务A两次查询范围，中间事务B插入了新行，A第二次多看到了几行。</p>
@@ -58,6 +60,7 @@ a:hover{text-decoration:underline}
 <p>大部分业务用默认隔离级别就够了。只有转账、库存扣减这类要求强一致的场景，才需要仔细考虑隔离级别和锁。不要盲目调高级别——隔离级别越高并发性能越差。</p>
 <p>## 五、总结</p>
 <p>事务保证了一组数据库操作的原子性。ACID是理想，隔离级别是权衡——越高越安全但越慢。理解脏读、不可重复读、幻读三种问题，知道默认级别能挡住哪些，就够日常开发用了。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-228.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能优化清单</a><a href="article-tech-229.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 响应式设计</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>

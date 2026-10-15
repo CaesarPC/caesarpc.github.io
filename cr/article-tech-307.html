@@ -37,11 +37,14 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>JavaScript生成器函数</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">JavaScript生成器函数是什么</h2>
 <p>JavaScript生成器函数function*</p>
 <p>生成器函数（function*）是可以暂停和恢复的函数。yield关键字暂停执行，返回一个值；next()恢复执行。这让处理流式数据、无限序列、惰性计算变得方便。</p>
 <p>基本用法：function* gen() { yield 1; yield 2; yield 3; }。const g = gen(); g.next()返回{value:1, done:false}。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>应用场景：分页加载数据（每次yield一页）、处理大文件流（逐行yield）、实现状态机。生成器让异步流程可以用同步风格书写（配合co库）。</p>
 <p>理解生成器，才能处理复杂的流式数据和异步流程。它是JS高级特性，在需要惰性计算或流式处理时很有用。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

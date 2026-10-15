@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>环境变量与配置管理</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">环境变量与配置管理是什么</h2>
 <p># 环境变量与配置管理：12 Factor App实践</p>
 <p>同一个项目，开发环境连本地数据库，测试环境连测试数据库，生产环境连线上数据库。数据库密码、API密钥、第三方服务地址——这些不能硬编码在代码里。环境变量就是解决这个问题的标准方案。</p>
 <p>## 一、为什么需要环境变量</p>
@@ -45,6 +46,7 @@ a:hover{text-decoration:underline}
 <p>## 二、怎么用</p>
 <p>Node.js：process.env.DATABASE_URL读取环境变量。
 前端：Vite用import.meta.env.VITE_XXX。注意：前端代码里的环境变量会被打包进JS，任何人都能看到——不要在前端放敏感密钥。敏感配置只放后端。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 三、.env文件</p>
 <p>本地开发时，用.env文件存环境变量：
 DATABASE_URL=mongodb://localhost:27017/dev
@@ -54,6 +56,7 @@ API_KEY=secret123</p>
 <p>生产环境的环境变量通过部署平台注入——Docker run -e、云平台的环境变量配置、K8s的Secret。不要把生产密钥放在代码仓库里。</p>
 <p>## 五、总结</p>
 <p>环境变量是配置管理的标准做法：代码不变，环境变量变，同一份代码跑在不同环境。敏感信息不进Git，通过部署平台注入。这是12 Factor App的核心理念之一。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>

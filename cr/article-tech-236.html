@@ -37,6 +37,7 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Redis高级数据结构</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">Redis高级数据结构是什么</h2>
 <p># Redis高级数据结构：不只是键值对</p>
 <p>很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。</p>
 <p>## 一、Hash：存储对象</p>
@@ -47,6 +48,7 @@ a:hover{text-decoration:underline}
 <p>## 三、Set：去重与标签</p>
 <p>Set是无序不重复集合。SADD添加元素，SISMEMBER判断是否存在。天然去重——同一个元素加多少次都只有一份。</p>
 <p>适合做标签系统：文章id=100的标签是"JS""前端"，SADD article:100:tags "JS" "前端"。反向也可以：这个标签下有哪些文章。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>## 四、Sorted Set：排行榜</p>
 <p>Sorted Set每个成员关联一个score（分数），按score排序。ZADD加元素，ZRANGE按分数排名取前N个。</p>
 <p>这是Redis做排行榜的核心——热搜榜、积分排行榜、实时排名。ZADD article:rank 1000 "文章A"，ZREVRANGE article:rank 0 9取前10名。O(log n)的插入和排名查询。</p>
@@ -56,6 +58,7 @@ a:hover{text-decoration:underline}
 <p>统计一个页面一天有多少独立访客（UV）。用Set存所有访客ID，100万用户就占100万空间。HyperLogLog用极小的内存（12KB）就能估算亿级数据的基数——有一定误差（0.81%），但对UV统计完全够用。</p>
 <p>## 七、总结</p>
 <p>Redis不只是缓存字符串。Hash存对象、List做队列、Set做去重标签、Sorted Set做排行榜、Bitmap做签到、HyperLogLog做计数。选对数据结构，一个Redis能顶好几个专门组件。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委托</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入门</a></div>

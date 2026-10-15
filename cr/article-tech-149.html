@@ -37,14 +37,17 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>浏览器跨标签页通信</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">浏览器跨标签页通信是什么</h2>
 <p>浏览器跨标签页通信：多个标签页之间怎么传数据</p>
 <p>用户开了两个标签页，一个在购物车页，一个在商品页。商品页加了商品，购物车标签页要实时更新数量——这就是跨标签页通信。不同标签页是独立的浏览器进程，怎么通信？</p>
 <p>BroadcastChannel是最简单的方式。同一个域名下的标签页，创建同一个Channel，一个标签页发消息，其他所有标签页都能收到。API简单，兼容性好。</p>
 <p>Storage事件是另一种方式。localStorage变化时，其他标签页会触发storage事件（注意：修改的那个标签页不触发，其他的触发）。利用这个特性可以跨页传消息。缺点是只能传字符串、触发时机和容量有限制。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>SharedWorker是更底层的方案：多个标签页共享一个Web Worker，通过它做消息中转。适合复杂场景，但实现复杂。</p>
 <p>WebSocket配合：所有标签页都连同一个WebSocket服务，服务器广播消息，所有标签页都收到。这其实是跨设备通信了，不只是跨标签页。</p>
 <p>常见场景：多标签页同步登录状态（一个标签页退出，其他也退出）；购物车数量实时更新；多标签页协同操作（一个标签页操作，另一个显示结果）。</p>
 <p>实际项目中，BroadcastChannel足够解决大多数跨标签页需求。理解这个能力，遇到多标签页同步场景就知道怎么做。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-145.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 压力测试与容量规划</a><a href="article-tech-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本编辑器原理</a><a href="article-tech-142.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技术选型决策方法</a></div>

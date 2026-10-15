@@ -6,7 +6,7 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
 <meta name="robots" content="index,follow">
-<meta name="description" content="CSS-in-JS方案对比：styled-components、emotion与零运行时方案">
+<meta name="description" content="CSS-in-JS方案对比：styled-components、emotion与零运行时方案CSS-in-JS是把CSS写在JavaScript里的方案。它解决了传统CSS的全局污染问题，让组件样式真正模块化。主流方案有styled-component">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-174.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CSS_in_JS方案对比 - CaesarTools</title>
 <style>
@@ -23,7 +23,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="CSS_in_JS方案对比 - CaesarTools">
-<meta property="og:description" content="CSS-in-JS方案对比：styled-components、emotion与零运行时方案">
+<meta property="og:description" content="CSS-in-JS方案对比：styled-components、emotion与零运行时方案CSS-in-JS是把CSS写在JavaScript里的方案。它解决了传统CSS的全局污染问题，让组件样式真正模块化。主流方案有styled-component">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-174.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
@@ -37,13 +37,16 @@ a:hover{text-decoration:underline}
 <div style="font-size:12px;color:#6272a4;margin-bottom:16px"><a href="/" style="color:#8be9fd">CaesarBase</a> / <a href="/cr/index.html" style="color:#8be9fd">CaesarTools</a> / <a href="/cr/articles.html" style="color:#8be9fd">文章</a></div><a href="articles.html" class="back">← 返回文章列表</a>
 <h1>CSS_in_JS方案对比</h1>
 <div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">CSS in JS方案对比是什么</h2>
 <p>CSS-in-JS方案对比：styled-components、emotion与零运行时方案</p>
 <p>CSS-in-JS是把CSS写在JavaScript里的方案。它解决了传统CSS的全局污染问题，让组件样式真正模块化。主流方案有styled-components、emotion，以及新一代的零运行时方案。</p>
 <p>styled-components是最流行的CSS-in-JS库。用模板标签创建组件：const Button = styled.button`padding: 8px 16px; background: blue; color: white;`。然后直接用<Button>。样式和组件绑定，不会泄漏到全局。支持props动态样式：${props => props.primary && 'background: red;'}。</p>
 <p>emotion是另一个主流方案，API类似styled-components，但性能更好，支持零运行时模式。它和styled-components功能重叠，选择哪个看团队偏好。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">核心要点</h2>
 <p>零运行时方案（如Vanilla Extract、Linaria）在构建时把CSS提取成静态文件，运行时没有JS开销。这对性能敏感的场景很重要。它们保留了CSS-in-JS的开发体验（CSS写在JS里），但产物是纯CSS。</p>
 <p>CSS Modules是浏览器原生支持的方案（构建时处理），不需要运行时库。它把CSS类名局部化，组件样式互不污染。这是最轻量的方案，适合不想要CSS-in-JS运行时开销的项目。</p>
 <p>选择建议：小项目用CSS Modules（简单无依赖）；中大型项目用styled-components或emotion（开发体验好）；性能敏感场景用零运行时方案。CSS-in-JS不是必须的，但它解决了全局CSS污染的真实痛点。</p>
+<h2 style="color:#8be9fd;font-size:18px;margin:24px 0 12px">总结</h2>
 <p><a href="articles.html">← 返回文章列表</a></p>
 </div>
 <script src="/cr/clip.js"></script>
