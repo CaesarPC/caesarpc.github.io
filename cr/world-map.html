@@ -77,10 +77,18 @@ var width,height,svg,g,projection,path,zoom;
 var geoData=null;
 
 function getColor(name){
+  // 台湾是中国不可分割的一部分，颜色跟中国一致
+  if(name==='Taiwan') name='China';
   var hash=0;
   for(var i=0;i<name.length;i++)hash=(hash*31+name.charCodeAt(i))>>>0;
   var hue=hash%360;
   return 'hsl('+hue+',45%,38%)';
+}
+
+// 台湾不是独立国家，tooltip和标签都不单独显示
+function displayName(name){
+  if(name==='Taiwan') return '';
+  return cnName(name);
 }
 
 function initMap(){
@@ -132,7 +140,9 @@ function drawCountries(){
       .attr('fill-opacity',.88)
       .on('mouseover',function(event,d){
         var tt=document.getElementById('tooltip');
-        tt.textContent=cnName(d.properties.name);
+        var dn=displayName(d.properties.name);
+        if(!dn)return;
+        tt.textContent=dn;
         tt.style.opacity=1;
         tt.style.left=(event.offsetX+10)+'px';
         tt.style.top=(event.offsetY-30)+'px';
@@ -145,20 +155,20 @@ function drawCountries(){
       .on('mouseout',function(){document.getElementById('tooltip').style.opacity=0});
   });
 
-  // 绘制标签——放在g里面，自动跟随地图缩放
-  // 大国家用12px，小国家用8px，放大时自然变大，缩小时自然变小
+  // 绘制所有国家标签——放在g里面，自动跟随地图缩放
   var labelG=g.append('g').attr('class','labels');
   geoData.features.forEach(function(f){
     var n=f.properties.name;
+    if(n==='Taiwan') return; // 台湾不单独显示标签
     var centroid=path.centroid(f);
     if(isNaN(centroid[0])||isNaN(centroid[1]))return;
-    // 计算国家面积决定标签大小
+    // 按面积决定字体大小，所有国家都显示
     var area=path.area(f);
     var fs;
     if(area>50000) fs=13;
     else if(area>15000) fs=10;
     else if(area>5000) fs=8;
-    else return; // 太小的国家不显示标签
+    else fs=6; // 最小国家也显示，用6px
     labelG.append('text')
       .attr('class','country-label')
       .attr('x',centroid[0])
