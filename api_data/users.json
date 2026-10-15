@@ -1,1 +1,8 @@
-{}
+{
+ "testuser99": {
+  "salt": "3c4a6c547888a29e16175cfabc5f162b",
+  "hash": "01cc8e9ef89d3934c53400ddd9ff575dcc4eaf8468b3b1bdc606cae3d9bfa22e",
+  "created": "2026-10-15 21:31",
+  "role": "user"
+ }
+}
