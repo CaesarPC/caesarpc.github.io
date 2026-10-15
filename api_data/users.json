@@ -6,8 +6,8 @@
   "role": "user"
  },
  "Server": {
-  "salt": "1ac7ac15c3898ae8b24b693bb3b6dd2c",
-  "hash": "aa3aa77286f275ab7cddd6aa14b03d9dc9bd1c69fba76d09fbbb5375f99d39f6",
+  "salt": "378f233e5b5c07cfe4fc104fe1b92cb8",
+  "hash": "f8666fe150f55da3c1d24c50c9ddca26cab6114d681e3db0673c5c287785154c",
   "created": "2026-10-15 22:04",
   "role": "user"
  }
