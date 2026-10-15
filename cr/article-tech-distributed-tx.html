@@ -5,7 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="分布式事务方案对比 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta name="description" content="本地事务很简单：数据库的ACID，一个事务里多个操作要么都成功要么都回滚。但微服务架构下，一个业务操作涉及多个服务、多个数据库：下单要扣库存服务、扣余额服务、创建订单服务，这三个操作在三个数据库里，本地事务管不了。分布式事务就是解决跨服务的数据一致性问题。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-distributed-tx.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分布式事务方案对比 - CaesarTools</title>
 <style>
@@ -21,7 +21,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="分布式事务方案对比 - CaesarTools">
-<meta property="og:description" content="分布式事务方案对比 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta property="og:description" content="本地事务很简单：数据库的ACID，一个事务里多个操作要么都成功要么都回滚。但微服务架构下，一个业务操作涉及多个服务、多个数据库：下单要扣库存服务、扣余额服务、创建订单服务，这三个操作在三个数据库里，本地事务管不了。分布式事务就是解决跨服务的数据一致性问题。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-distributed-tx.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

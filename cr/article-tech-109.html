@@ -5,7 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="对象存储与云存储架构原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta name="description" content="早期的网站存储文件，就是存在服务器本地磁盘上，通过Nginx直接对外提供下载。这种方式在单机时代没问题，但随着文件数量增长（图片、视频、用户上传的附件），单机存储的瓶颈很快暴露：扩容麻烦、备份困难、带宽有限、多机文件不一致。对象存储（Object Storage）就是为解决海量文件存储而生的架构。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-109.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>对象存储与云存储架构原理 - CaesarTools</title>
 <style>
@@ -22,7 +22,7 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="对象存储与云存储架构原理 - CaesarTools">
-<meta property="og:description" content="对象存储与云存储架构原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta property="og:description" content="早期的网站存储文件，就是存在服务器本地磁盘上，通过Nginx直接对外提供下载。这种方式在单机时代没问题，但随着文件数量增长（图片、视频、用户上传的附件），单机存储的瓶颈很快暴露：扩容麻烦、备份困难、带宽有限、多机文件不一致。对象存储（Object Storage）就是为解决海量文件存储而生的架构。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-109.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

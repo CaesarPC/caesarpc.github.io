@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-276.html">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>JavaScript原型链完全指南：理解继承的底层机制 - CaesarTools</title>
-<meta name="description" content="JavaScript原型链完全指南：理解继承的底层机制 - CaesarBase 免费技术文章">
+<meta name="description" content="Java先写class再new对象。JS早期没有class，用对象之间直接关联实现继承。每个对象有个内部属性[[Prototype]]（浏览器里__proto__），指向它的原型。访问obj.prop时，obj自身没有，就顺着__proto__往上找，直到null。这条链就是原型链。">
 <link rel="icon" href="../icon-192.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -26,7 +26,7 @@ h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="JavaScript原型链完全指南：理解继承的底层机制 - CaesarTools">
-<meta property="og:description" content="JavaScript原型链完全指南：理解继承的底层机制 - CaesarBase 免费技术文章">
+<meta property="og:description" content="Java先写class再new对象。JS早期没有class，用对象之间直接关联实现继承。每个对象有个内部属性[[Prototype]]（浏览器里__proto__），指向它的原型。访问obj.prop时，obj自身没有，就顺着__proto__往上找，直到null。这条链就是原型链。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-276.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

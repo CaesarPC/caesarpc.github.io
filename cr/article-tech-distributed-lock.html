@@ -5,7 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta name="description" content="单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-distributed-lock.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分布式锁实现方案 - CaesarTools</title>
 <style>
@@ -21,7 +21,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="分布式锁实现方案 - CaesarTools">
-<meta property="og:description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta property="og:description" content="单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-distributed-lock.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">

@@ -5,7 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="读写分离与数据库高可用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta name="description" content="数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>读写分离与数据库高可用 - CaesarTools</title>
 <style>
@@ -21,7 +21,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="读写分离与数据库高可用 - CaesarTools">
-<meta property="og:description" content="读写分离与数据库高可用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技术文章和安全研究。">
+<meta property="og:description" content="数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。">
 <meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
