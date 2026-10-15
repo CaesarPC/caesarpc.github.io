@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文字计数器 - CaesarTools</title>
+<meta name="description" content="免费在线文字计数器，统计字数、字符数、行数，支持中英文。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/wordcount.html">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/icon-192.png">
+<style>
+body{background:#1e1e2e;color:#e6e6e6;font-family:Segoe UI,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding:20px}
+.back{position:fixed;top:16px;left:16px;color:#8be9fd;text-decoration:none;font-size:14px}
+h2{color:#50fa7b;margin-top:20px}
+textarea{width:100%;max-width:700px;height:250px;padding:16px;border-radius:12px;border:1px solid #44475a;background:#282a36;color:#e6e6e6;font-size:15px;resize:vertical;outline:none}
+textarea:focus{border-color:#50fa7b}
+.stats{display:flex;gap:16px;margin:20px 0;flex-wrap:wrap;justify-content:center}
+.stat{background:#282a36;border:1px solid #44475a;border-radius:12px;padding:16px 24px;text-align:center;min-width:100px}
+.stat .num{font-size:28px;font-weight:bold;color:#50fa7b;font-family:monospace}
+.stat .label{font-size:12px;color:#6272a4;margin-top:4px}
+</style>
+</head>
+<body>
+<a class="back" href="/cr/index.html">← 返回工具箱</a>
+<h2>📝 文字计数器</h2>
+<textarea id="ta" placeholder="粘贴或输入文字..." oninput="count()"></textarea>
+<div class="stats">
+<div class="stat"><div class="num" id="c-chars">0</div><div class="label">字符数</div></div>
+<div class="stat"><div class="num" id="c-words">0</div><div class="label">词数</div></div>
+<div class="stat"><div class="num" id="c-cn">0</div><div class="label">中文字</div></div>
+<div class="stat"><div class="num" id="c-lines">0</div><div class="label">行数</div></div>
+<div class="stat"><div class="num" id="c-read">0</div><div class="label">阅读(分钟)</div></div>
+</div>
+<script>
+function count(){
+  var t=document.getElementById('ta').value;
+  document.getElementById('c-chars').textContent=t.length;
+  document.getElementById('c-words').textContent=(t.match(/\S+/g)||[]).length;
+  document.getElementById('c-cn').textContent=(t.match(/[\u4e00-\u9fff]/g)||[]).length;
+  document.getElementById('c-lines').textContent=t.split('\n').length;
+  var cn=(t.match(/[\u4e00-\u9fff]/g)||[]).length;
+  var words=(t.match(/[a-zA-Z]+/g)||[]).length;
+  document.getElementById('c-read').textContent=((cn+words)/300).toFixed(1);
+}
+</script>
+<script src="/cr/clip.js"></script>
+</body>
+</html>
