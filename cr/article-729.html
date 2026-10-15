@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-729.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端性能优化全链路 - CaesarTools</title>
+<meta name="description" content="前端性能优化全链路 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端性能优化全链路</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么性能是网站的生命线</h2>
+<p>Google的Web Vital统计数据显示，页面加载每慢1秒，移动端转化率下降约7%。LCP（最大内容绘制）超过2.5秒的网站，跳出率平均上升24%。这不是技术圈自嗨的指标，它直接关系到网站上每一个访客会不会变成客户。</p>
+<p>很多团队把性能优化理解成"加个CDN就完了"，但实际上它是一条从网络请求、资源加载、渲染管线到交互响应的完整链路。</p>
+<h2>二、首屏加载：把"等"变成"不等"</h2>
+<h3>2.1 资源体积是第一战场</h3>
+<p>首屏慢，90%的情况是资源太大。</p>
+<p>图片是体积大户。一张未经压缩的手机照片可能5MB，而WebP格式在同等画质下体积只有JPEG的30%。用Squoosh或sharp批量压缩，一张首页Banner从2MB压到200KB，LCP能直接快1.5秒。同时用srcset提供多尺寸，手机用户只下480px宽的图，不下2400px的桌面图。</p>
+<p>字体文件动辄几百KB。woff2格式比TTF小30%，再用fonttools子集化，只保留网站用到的那几百个汉字，中文字体能从3MB砍到200KB以内。</p>
+<p>JavaScript包体积是另一头大象。Vite打包后跑一次rollup-plugin-visualizer，你会发现自己引了一整个lodash只为了用一个debounce。改成import { debounce } from 'lodash-es'，tree-shaking能去掉大半。</p>
+<h3>2.2 加载顺序决定体验</h3>
+<p>关键资源（首屏CSS、核心JS、首屏图）必须最先加载，用link rel="preload"显式声明。次关键资源用preload配合未来路由预取。非关键资源（页面底部的客服头像、统计脚本）用defer或者动态import。</p>
+<p>一个常被忽略的点：CSS是渲染阻塞资源。把首屏用到的CSS内联到HTML里（通常15KB以内），剩下的CSS异步加载，浏览器可以立刻开始渲染。</p>
+<h2>三、渲染管线：浏览器到底在干什么</h2>
+<p>浏览器渲染一个页面分五步：下载HTML、解析成DOM树、下载CSS、合成渲染树、Layout布局、Paint绘制、Composite合成层。</p>
+<p>优化的核心原则：只触发必要的重排和重绘。JS里读offsetTop再写style，会强制同步布局，浏览器被迫重新算一遍。正确做法是先批量读，再批量写。</p>
+<h2>四、运行时性能：交互才是体验的下半场</h2>
+<p>首屏快了，点一下按钮卡半天，用户照样骂。长任务是罪魁祸首。主线程上任何超过50ms的任务都会block交互。</p>
+<p>解法：把大计算拆成小片，用scheduler.postTask或者requestIdleCallback在浏览器空闲时跑。渲染1000条列表，不要一次性React render完，分5次每次200条。</p>
+<p>内存泄漏会让页面越用越慢。SPA页面用久了卡顿，九成是内存泄漏。常见三种：没清的定时器、没移除的事件监听、闭包意外持有大对象。</p>
+<h2>五、监测：不测量就无法优化</h2>
+<p>把Web Vital三个核心指标埋点上报：LCP、INP、CLS。每周看一次真实用户数据，而不是只看自己本机的速度。开发机是M系列Mac，用户是4G网络下的千元安卓机——差着十万八千里。</p>
+<h2>六、总结</h2>
+<p>性能优化不是一次性项目，是持续的工程习惯。记住优先级：先压体积（图片、字体、JS），再排加载顺序，再减少渲染开销，最后盯着真实用户数据迭代。做到LCP小于2.5秒、INP小于200ms，网站已经超过90%的同行。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

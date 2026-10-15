@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-463.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redis分布式锁实战 - CaesarTools</title>
+<meta name="description" content="Redis分布式锁实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Redis分布式锁实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么需要分布式锁</h2>
+<p>多个服务实例同时操作一个资源，并发改数据。比如秒杀：100件商品，1000人同时抢。单机锁不够，要分布式锁。</p>
+<h2>二、Redis做锁</h2>
+<p>SET lock:order:1 NX PX 10000</p>
+<p>NX：key不存在才设成功。</p>
+<p>PX：10秒自动过期，防死锁。</p>
+<p>操作完DEL释放锁。</p>
+<h2>三、解锁要验证value</h2>
+<p>不能直接DEL。A的锁B解了。SET时带唯一value，解锁时GET比对再DEL。</p>
+<h2>四、Redlock</h2>
+<p>单节点锁有风险（主节点挂了）。Redlock多节点同时申请，多数成功才算拿到锁。生产用Redlock算法。</p>
+<h2>五、看门狗</h2>
+<p>锁快过期业务还没完。看门狗自动续期。Redisson库实现了。</p>
+<h2>六、常见坑</h2>
+<p>锁不自动过期死锁。PX设过期。</p>
+<p>解锁不验证value误删别人锁。</p>
+<p>锁粒度太粗性能差。</p>
+<p>不要在锁里做耗时操作。</p>
+<h2>七、锁的粒度</h2>
+<p>锁整个订单表太粗，所有人串行。锁具体订单ID：lock:order:123。不同订单并行，相同订单串行。</p>
+<h2>八、总结</h2>
+<p>Redis分布式锁：SET NX PX、唯一value解锁、看门狗续期。生产用Redisson库。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

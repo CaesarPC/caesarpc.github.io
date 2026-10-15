@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-639.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTPS与网站安全实战 - CaesarTools</title>
+<meta name="description" content="HTTPS与网站安全实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>HTTPS与网站安全实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么必须上HTTPS</h2>
+<p>HTTP是明文传输，你登录网站输入的密码，中间经过的每一个路由器都能看到。2024年Chrome和Firefox对所有HTTP网站直接标"不安全"红色警告，搜索引擎也把HTTPS作为排名信号，支付接口和Cookie的Secure属性更是强制要求HTTPS。不上HTTPS基本等于没法做正经网站。</p>
+<h2>二、免费SSL证书怎么申请</h2>
+<p>Let's Encrypt提供完全免费的SSL证书，三个月有效期，自动续期。用Certbot工具一键配置：</p>
+<p>sudo certbot --nginx -d example.com -d www.example.com</p>
+<p>Certbot会自动改Nginx配置文件，自动申请证书，自动配置HTTPS跳转。跑完就能用。三个月后它自己会续期，不用人管。</p>
+<h2>三、OWASP十大安全风险要防什么</h2>
+<h3>3.1 SQL注入</h3>
+<p>用户输入直接拼SQL字符串："SELECT * FROM users WHERE id = " + req.query.id。攻击者传id=1;DROP TABLE users;，你的库就没了。解法永远是参数化查询：pool.query('SELECT * FROM users WHERE id = $1', [id])。</p>
+<h3>3.2 XSS跨站脚本</h3>
+<p>用户评论里写<script>偷cookie</script>，其他用户访问时脚本就在浏览器里跑了。解法：输出到HTML时转义特殊字符。React默认转义，v-html要特别小心。CSP响应头限制脚本来源。</p>
+<h3>3.3 CSRF跨站请求伪造</h3>
+<p>用户登录你的网站，同时访问恶意网站，恶意网站偷偷发请求到你的后端，带着用户Cookie。解法：CSRF Token、SameSite Cookie、验证Referer头。</p>
+<h3>3.4 敏感数据泄露</h3>
+<p>密码绝对不能明文存数据库。用bcrypt哈希，bcrypt自带salt，计算慢，抗暴力破解。数据库被拖库，攻击者拿到的也是哈希值。</p>
+<h2>四、安全响应头</h2>
+<p>Nginx配置加几个头，挡住大部分攻击：</p>
+<p>add_header X-Frame-Options DENY;</p>
+<p>add_header X-Content-Type-Options nosniff;</p>
+<p>add_header Strict-Transport-Security "max-age=31536000";</p>
+<p>add_header Content-Security-Policy "default-src 'self'";</p>
+<p>X-Frame-Options防止别人iframe嵌套你的页面做点击劫持。HSTS强制浏览器以后都用HTTPS访问。CSP限制脚本只能从自己域名加载。</p>
+<h2>五、CORS跨域配置</h2>
+<p>不要直接写Access-Control-Allow-Origin: *。生产环境指定具体域名：</p>
+<p>app.use(cors({</p>
+<p>origin: 'https://example.com',</p>
+<p>credentials: true</p>
+<p>}));</p>
+<h2>六、密钥管理</h2>
+<p>数据库密码、JWT密钥、第三方API Key不要写代码里。用环境变量：</p>
+<p>DATABASE_URL=postgres://...</p>
+<p>JWT_SECRET=随机长字符串</p>
+<p>.gitignore文件要把.env排除。一旦密钥提交到GitHub公开仓库，立刻删、换密钥、改历史。</p>
+<h2>七、登录接口防护</h2>
+<p>登录是攻击重灾区。加三道防线：失败5次锁账号10分钟；图形验证码或滑块防爆破；日志记录异常IP，批量失败的IP直接封。JWT有效期设15分钟，泄露了影响也小。</p>
+<h2>八、依赖安全</h2>
+<p>npm audit扫描已知漏洞。重要项目用lock文件锁版本。GitHub Dependabot自动提PR修依赖漏洞。</p>
+<h2>九、常见漏项</h2>
+<p>后台管理地址/admin不做IP白名单，被爆破。上传接口不校验文件类型，传个webshell上去。错误信息把堆栈返回给用户，泄露数据库结构。日志里打印密码。这些都是新手常犯的错。</p>
+<h2>十、总结</h2>
+<p>网站安全不是一次配置就完事。HTTPS是基础，SQL注入/XSS/CSRF要从代码层防，密码哈希、密钥管理、安全响应头、CORS配置一套配齐。安全是持续工程，不是一次性项目。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

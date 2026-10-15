@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-397.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebSocket实时通信实战 - CaesarTools</title>
+<meta name="description" content="WebSocket实时通信实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>WebSocket实时通信实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、HTTP和WebSocket区别</h2>
+<p>HTTP请求-响应，答完连接关了。服务器想主动推消息做不到，只能轮询。</p>
+<p>WebSocket全双工：建立连接后，双方随时互相发消息。聊天、通知、实时看板需要这个。</p>
+<h2>二、基本用法</h2>
+<p>前端：</p>
+<p>const ws = new WebSocket('wss://example.com/ws');</p>
+<p>ws.onopen = () => ws.send('hello');</p>
+<p>ws.onmessage = (e) => console.log(e.data);</p>
+<p>后端Node：</p>
+<p>const WebSocket = require('ws');</p>
+<p>const wss = new WebSocket.Server({ port: 8080 });</p>
+<p>wss.on('connection', (ws) => {</p>
+<p>ws.on('message', (data) => ws.send('收到: ' + data));</p>
+<p>});</p>
+<h2>三、心跳保活</h2>
+<p>连接可能被中间网关掐断。客户端每30秒发ping，服务器回pong。多久没收到就重连。</p>
+<h2>四、自动重连</h2>
+<p>连接断了指数退避重连：1秒、2秒、4秒、8秒，最多30秒。不要疯狂重连打挂服务器。</p>
+<h2>五、生产配置</h2>
+<p>Nginx配Upgrade头。</p>
+<p>连接时带token鉴权。</p>
+<p>多实例用Redis Pub/Sub广播。</p>
+<h2>六、Socket.io</h2>
+<p>封装WebSocket，自动降级长轮询，带重连和房间功能。新手推荐。</p>
+<h2>七、常见坑</h2>
+<p>Nginx没配Upgrade头握手失败。</p>
+<p>没心跳连接被掐。</p>
+<p>重连太频繁雪崩。</p>
+<h2>八、SSE vs WebSocket</h2>
+<p>SSE服务器单向推送，简单自动重连。通知、行情用SSE。聊天双向用WebSocket。</p>
+<h2>九、消息格式</h2>
+<p>统一JSON格式：{type: 'chat', data: {...}}。前端按type分发处理。不要裸字符串，后期扩展麻烦。</p>
+<h2>十、总结</h2>
+<p>WebSocket实时通信标配。心跳保活、自动重连、Nginx配Upgrade、集群Redis广播。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-705.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript原型链完全指南 - CaesarTools</title>
+<meta name="description" content="JavaScript原型链完全指南 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript原型链完全指南</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、JS为什么需要原型链</h2>
+<p>Java是类继承：先写class，再new对象。JS一开始设计时没有class（ES6才有），它用原型prototype实现继承——对象之间直接关联，一个对象的父类是另一个对象。</p>
+<p>每个JS对象都有一个内部属性[[Prototype]]（浏览器里是__proto__），指向它的原型对象。访问obj.prop时，obj自身没有这个属性，就顺着__proto__往上找，一直找到null为止。这条链就是原型链。</p>
+<h2>二、一个对象的原型链长什么样</h2>
+<p>const arr = [1,2,3];</p>
+<p>arr.push(4);</p>
+<p>我们天天用push方法，但arr对象上并没有push方法。arr.__proto__是Array.prototype，push就在那里。arr.__proto__.__proto__是Object.prototype，toString则是在Object.prototype上找到的。Object.prototype.__proto__是null，到头了。</p>
+<h2>三、constructor和prototype的关系</h2>
+<p>每个函数都有个prototype属性，这个prototype对象有个constructor指回函数本身。</p>
+<p>function Person(name) { this.name = name; }</p>
+<p>Person.prototype.greet = function() { console.log(this.name); };</p>
+<p>const p = new Person('小明');</p>
+<p>p.__proto__ === Person.prototype;</p>
+<p>p.constructor === Person;</p>
+<p>new做了三件事：创建空对象、把对象__proto__指向构造函数prototype、执行构造函数绑定this。</p>
+<h2>四、ES6 class是语法糖</h2>
+<p>class Person {</p>
+<p>constructor(name) { this.name = name; }</p>
+<p>greet() { console.log(this.name); }</p>
+<p>}</p>
+<p>class只是上面原型写法的语法糖，底层完全一样。extends实现原型链继承，super调用父类构造函数。现代项目用class更易读，但要知道它底层还是原型链。</p>
+<h2>五、instanceof原理</h2>
+<p>obj instanceof Type：沿着obj的原型链找，看有没有Type.prototype。[] instanceof Array为true，[] instanceof Object也为true，因为Array.prototype.__proto__是Object.prototype。</p>
+<h2>六、给内置类型扩展方法</h2>
+<p>Array.prototype.sum = function() { return this.reduce((a,b)=>a+b,0); };</p>
+<p>[1,2,3].sum()返回6。但直接改内置原型有风险，未来JS可能加同名方法冲突。现代项目用工具函数更安全。</p>
+<h2>七、判断类型</h2>
+<p>typeof对数组、null都返回object，不可靠。Object.prototype.toString.call([])返回[object Array]，这个方法判断类型最准。</p>
+<h2>八、常见坑</h2>
+<p>坑1：for...in遍历会把原型链上的可枚举属性带出来。用hasOwnProperty过滤，或者用Object.keys。</p>
+<p>坑2：改了prototype，所有实例立刻受影响。因为它们共享同一个原型对象。</p>
+<p>坑3：__proto__不是标准API（虽然浏览器都实现）。生产代码用Object.getPrototypeOf(obj)和Object.setPrototypeOf()。</p>
+<p>坑4：原型链查找有性能成本。频繁访问深层原型属性要考虑。</p>
+<h2>九、总结</h2>
+<p>原型链是JS继承的根基。理解__proto__、prototype、constructor三者关系，知道属性查找顺序，class和extends就是纸上谈兵。面试必考，工作中也处处在用——只是你用React或Vue框架时框架帮你包了一层。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

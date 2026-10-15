@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-265.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTPS与网站安全：保护你的网站不被黑 - CaesarTools</title>
+<meta name="description" content="HTTPS与网站安全：保护你的网站不被黑 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>HTTPS与网站安全：保护你的网站不被黑</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么必须HTTPS</h2>
+<p>HTTP明文传输，密码被中间路由器看到。2024年浏览器对HTTP标"不安全"，搜索引擎优先收录HTTPS。</p>
+<h2>二、免费证书</h2>
+<p>Let's Encrypt免费。Certbot一键配置：</p>
+<p>sudo certbot --nginx -d example.com</p>
+<p>三个月自动续期。</p>
+<h2>三、OWASP十大风险</h2>
+<h3>3.1 SQL注入</h3>
+<p>用户输入拼SQL。参数化查询解决。</p>
+<h3>3.2 XSS</h3>
+<p>用户评论写script。输出转义。React默认转义。</p>
+<h3>3.3 CSRF</h3>
+<p>恶意网站带用户Cookie发请求。CSRF Token、SameSite Cookie。</p>
+<h3>3.4 密码泄露</h3>
+<p>bcrypt哈希，不明文。</p>
+<h2>四、安全响应头</h2>
+<p>X-Frame-Options DENY防iframe嵌套。</p>
+<p>Strict-Transport-Security强制HTTPS。</p>
+<p>Content-Security-Policy限制脚本来源。</p>
+<h2>五、CORS</h2>
+<p>不要Access-Control-Allow-Origin: *。指定具体域名。</p>
+<h2>六、密钥管理</h2>
+<p>环境变量存。.gitignore掉.env。不提交代码。</p>
+<h2>七、常见漏项</h2>
+<p>后台地址不做IP白名单。</p>
+<p>上传接口不校验文件类型。</p>
+<p>错误返回堆栈泄露结构。</p>
+<p>日志打印密码。</p>
+<h2>八、总结</h2>
+<p>HTTPS是基础。SQL注入/XSS/CSRF代码层防。密码哈希、密钥管理、安全头。安全是持续工程。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

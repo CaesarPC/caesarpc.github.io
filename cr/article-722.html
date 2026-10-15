@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-722.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>浏览器存储：Cookie、LocalStorage、IndexedDB怎么选 - CaesarTools</title>
+<meta name="description" content="浏览器存储：Cookie、LocalStorage、IndexedDB怎么选 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>浏览器存储：Cookie、LocalStorage、IndexedDB怎么选</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、三种存储对比</h2>
+<p>Cookie：小，4KB，每次请求自动带，服务器可读。</p>
+<p>LocalStorage：5MB，只读JS，不随请求带。</p>
+<p>IndexedDB：大，几百MB，异步，结构化数据。</p>
+<h2>二、Cookie</h2>
+<p>document.cookie = "token=abc; max-age=86400; secure; httponly";</p>
+<p>httponly让JS读不到，防XSS偷cookie。</p>
+<p>secure只在HTTPS传。</p>
+<p>SameSite防CSRF。</p>
+<h2>三、LocalStorage</h2>
+<p>localStorage.setItem('user', JSON.stringify(user));</p>
+<p>const user = JSON.parse(localStorage.getItem('user'));</p>
+<p>同步API，数据大了卡页面。</p>
+<h2>四、IndexedDB</h2>
+<p>异步存大量结构化数据。离线应用、PWA用它。</p>
+<h2>五、怎么选</h2>
+<p>登录token：Cookie，httponly secure。</p>
+<p>用户偏好：LocalStorage。</p>
+<p>离线缓存大量数据：IndexedDB。</p>
+<h2>六、常见坑</h2>
+<p>localStorage存敏感信息，XSS能偷。</p>
+<p>Cookie大小限制4KB，别塞太多。</p>
+<p>隐私模式下存储可能不可用，代码要兜底。</p>
+<h2>七、总结</h2>
+<p>Cookie存认证，LocalStorage存偏好，IndexedDB存大数据。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

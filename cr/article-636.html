@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-636.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linux服务器入门 - CaesarTools</title>
+<meta name="description" content="Linux服务器入门 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Linux服务器入门</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么前端要懂Linux</h2>
+<p>网站部署到Linux服务器。你要SSH上去看日志、改配置、重启服务。不懂Linux，部署时只能复制粘贴命令，出问题就慌。</p>
+<h2>二、常用命令</h2>
+<p>cd切换目录。ls看文件。</p>
+<p>ls -la看所有文件包括隐藏。</p>
+<p>pwd当前路径。</p>
+<p>mkdir创建目录。</p>
+<p>rm删除文件。</p>
+<h2>三、文件编辑</h2>
+<p>vim file.txt进入编辑模式。</p>
+<p>i插入。Esc退出。:wq保存退出。:q!不保存退出。</p>
+<h2>四、进程管理</h2>
+<p>ps aux看进程。</p>
+<p>top看资源占用。</p>
+<p>kill PID杀进程。</p>
+<h2>五、日志查看</h2>
+<p>tail -f /var/log/nginx/access.log实时看日志。</p>
+<p>grep "error" /var/log/nginx/error.log找错误。</p>
+<h2>六、权限</h2>
+<p>chmod改权限。chown改所有者。</p>
+<p>文件755可执行。644可读可写。</p>
+<h2>七、常见坑</h2>
+<p>rm -rf别乱写路径。</p>
+<p>sudo命令小心。</p>
+<p>生产服务器改配置先备份。</p>
+<h2>八、总结</h2>
+<p>Linux是部署必备。常用命令、vim、进程管理、看日志，够应付日常。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

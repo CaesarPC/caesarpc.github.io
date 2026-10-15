@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-177.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Flexbox完全指南：一维布局的终极方案 - CaesarTools</title>
+<meta name="description" content="CSS Flexbox完全指南：一维布局的终极方案 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>CSS Flexbox完全指南：一维布局的终极方案</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Flexbox解决了什么</h2>
+<p>早年做个三栏布局要float、清浮动、负margin、hack。垂直居中小时候面试被问烂。Flexbox把容器和子元素的关系标准化，几行代码搞定。</p>
+<h2>二、核心概念</h2>
+<p>父元素display:flex。子元素自动变成弹性项目。</p>
+<p>两条轴：主轴和交叉轴。默认主轴横向。</p>
+<p>justify-content管主轴。</p>
+<p>align-items管交叉轴。</p>
+<h2>三、容器属性</h2>
+<h3>3.1 flex-direction</h3>
+<p>row横向（默认）。column纵向。reverse反向。</p>
+<h3>3.2 justify-content</h3>
+<p>flex-start起点。center居中。space-between两端。space-around间距相等。</p>
+<h3>3.3 align-items</h3>
+<p>stretch拉伸（默认）。flex-start起点。center居中。baseline基线。</p>
+<h3>3.4 flex-wrap</h3>
+<p>nowrap不换行。wrap换行。</p>
+<h3>3.5 gap</h3>
+<p>子元素间距。比margin干净。</p>
+<h2>四、子元素属性</h2>
+<p>flex-grow放大比例。flex-shrink收缩比例。flex-basis初始大小。</p>
+<p>flex:1是grow:1 shrink:1 basis:0的简写。</p>
+<p>align-self单个覆盖交叉轴对齐。</p>
+<p>order改变视觉顺序。</p>
+<h2>五、实战场景</h2>
+<p>居中：display:flex; justify-content:center; align-items:center。</p>
+<p>导航栏：justify-content:space-between。</p>
+<p>卡片墙：flex-wrap:wrap + gap。</p>
+<h2>六、常见坑</h2>
+<p>坑1：flex子元素内容溢出。加min-width:0。</p>
+<p>坑2：嵌套flex对齐错乱。每层单独设方向。</p>
+<p>坑3：gap老浏览器不支持。2024年基本无碍。</p>
+<h2>七、Flex和Grid怎么选</h2>
+<p>Flexbox一维：一行或一列排列。Grid二维：行列同时控制。导航栏、按钮组、卡片内容横排用Flex。页面骨架、不规则网格用Grid。</p>
+<h2>八、总结</h2>
+<p>Flexbox一维布局。居中、导航、卡片排列都靠它。和Grid配合：Grid做骨架，Flex做组件。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

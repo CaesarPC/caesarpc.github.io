@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-353.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TypeScript入门到实战 - CaesarTools</title>
+<meta name="description" content="TypeScript入门到实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>TypeScript入门到实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、JS的痛</h2>
+<p>动态类型运行时才发现错。大型项目改字段名编译不报错，用户点击才崩。TS加静态类型，编译时抓错。</p>
+<h2>二、基本类型</h2>
+<p>let name: string = '小明';</p>
+<p>let age: number = 18;</p>
+<p>let hobbies: string[] = ['篮球'];</p>
+<h2>三、接口</h2>
+<p>interface User {</p>
+<p>id: number;</p>
+<p>name: string;</p>
+<p>email?: string;</p>
+<p>readonly createdAt: Date;</p>
+<p>}</p>
+<p>传错字段编译报错。</p>
+<h2>四、联合类型</h2>
+<p>type Status = 'pending' | 'success' | 'error';</p>
+<p>比string精确。</p>
+<h2>五、泛型</h2>
+<p>function identity<T>(arg: T): T { return arg; }</p>
+<p>写通用函数不丢类型。</p>
+<h2>六、React里用</h2>
+<p>interface Props { title: string; onClick: () => void; }</p>
+<p>function Button({ title, onClick }: Props) { ... }</p>
+<h2>七、常见坑</h2>
+<p>any等于没写。开strict。</p>
+<p>as强行断言出运行时错。</p>
+<p>第三方库装@types/xxx。</p>
+<h2>八、类型推导</h2>
+<p>TS自动推导，不用每个都标注。边界（函数参数、公共API）标注就行。</p>
+<h2>九、Utility Types</h2>
+<p>Partial让所有属性可选。Pick选部分属性。Omit排除属性。ReturnType取函数返回类型。这些工具类型让类型操作更简洁。</p>
+<h2>十、总结</h2>
+<p>TS是JS加类型。大型项目编译期抓bug，重构有提示。新项目无脑TS。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

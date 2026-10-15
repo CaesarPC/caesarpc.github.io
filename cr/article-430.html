@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-430.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据库事务与ACID - CaesarTools</title>
+<meta name="description" content="数据库事务与ACID - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>数据库事务与ACID</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、事务是什么</h2>
+<p>一组操作要么全成功，要么全失败。转账：A扣100，B加100。中间断电钱不能少。</p>
+<p>BEGIN;</p>
+<p>UPDATE accounts SET balance=balance-100 WHERE id=1;</p>
+<p>UPDATE accounts SET balance=balance+100 WHERE id=2;</p>
+<p>COMMIT;</p>
+<p>错了ROLLBACK。</p>
+<h2>二、ACID</h2>
+<p>原子性：全成功或全失败。</p>
+<p>一致性：事务前后数据一致。</p>
+<p>隔离性：并发事务互不干扰。</p>
+<p>持久性：提交后永久保存。</p>
+<h2>三、并发问题</h2>
+<p>脏读：读到别的事务未提交数据。</p>
+<p>不可重复读：同一事务两次读同一行结果不同。</p>
+<p>幻读：同一查询两次行数不同。</p>
+<h2>四、隔离级别</h2>
+<p>读未提交：啥都不防。</p>
+<p>读已提交：防脏读。PostgreSQL默认。</p>
+<p>可重复读：防脏读+不可重复读。MySQL默认。</p>
+<p>串行化：全防，最慢。</p>
+<h2>五、生产怎么选</h2>
+<p>大多数用默认。金融级用串行化。不要自己设，知道默认行为。</p>
+<h2>六、长事务问题</h2>
+<p>事务开着不commit，锁不释放，其他查询卡住。事务要短，不要在事务里发HTTP请求。</p>
+<h2>七、死锁</h2>
+<p>两个事务互相等对方的锁。按固定顺序访问表。</p>
+<h2>八、事务和业务</h2>
+<p>订单创建+扣库存+发通知，通知发MQ异步不在事务里。事务只包含数据库操作。</p>
+<h2>九、总结</h2>
+<p>事务保证数据一致性。ACID四大特性，隔离级别控制并发。事务要短，按顺序访问避免死锁。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

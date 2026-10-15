@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-711.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebGL与Three.js 3D网页入门 - CaesarTools</title>
+<meta name="description" content="WebGL与Three.js 3D网页入门 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>WebGL与Three.js 3D网页入门</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、网页3D是什么</h2>
+<p>以前做3D网页要写OpenGL Shader，难倒一堆前端。Three.js把底层WebGL封装了，用JavaScript写3D网页变得像写HTML一样简单。现在产品展示、数据大屏、虚拟展厅、3D小游戏都能做。</p>
+<h2>二、起步代码</h2>
+<p><script type="importmap"></p>
+<p>{</p>
+<p>"imports": {</p>
+<p>"three": "https://unpkg.com/three@0.160.0/build/three.module.js"</p>
+<p>}</p>
+<p>}</p>
+<p></script></p>
+<p><script type="module"></p>
+<p>import * as THREE from 'three';</p>
+<p>// 场景</p>
+<p>const scene = new THREE.Scene();</p>
+<p>// 相机：视角75度，宽高比，近裁剪面，远裁剪面</p>
+<p>const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);</p>
+<p>// 渲染器</p>
+<p>const renderer = new THREE.WebGLRenderer();</p>
+<p>renderer.setSize(innerWidth, innerHeight);</p>
+<p>document.body.appendChild(renderer.domElement);</p>
+<p>// 一个立方体</p>
+<p>const geometry = new THREE.BoxGeometry(1, 1, 1);</p>
+<p>const material = new THREE.MeshNormalMaterial();</p>
+<p>const cube = new THREE.Mesh(geometry, material);</p>
+<p>scene.add(cube);</p>
+<p>camera.position.z = 3;</p>
+<p>// 动画循环</p>
+<p>function animate() {</p>
+<p>cube.rotation.x += 0.01;</p>
+<p>cube.rotation.y += 0.01;</p>
+<p>renderer.render(scene, camera);</p>
+<p>requestAnimationFrame(animate);</p>
+<p>}</p>
+<p>animate();</p>
+<p></script></p>
+<h2>三、核心概念</h2>
+<p>场景Scene：所有物体都放在里面。</p>
+<p>相机Camera：决定从哪个角度看。</p>
+<p>渲染器Renderer：把场景画到画布上。</p>
+<p>几何体Geometry：物体的形状，盒子、球、圆柱。</p>
+<p>材质Material：物体表面的颜色、反光。</p>
+<p>光源Light：没有光就是黑的。环境光、平行光、点光源。</p>
+<h2>四、加载3D模型</h2>
+<p>设计师在Blender里做好模型，导出.glb文件：</p>
+<p>import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';</p>
+<p>const loader = new GLTFLoader();</p>
+<p>loader.load('model.glb', (gltf) => {</p>
+<p>scene.add(gltf.scene);</p>
+<p>});</p>
+<h2>五、交互</h2>
+<p>OrbitControls让鼠标拖动旋转视角：</p>
+<p>import { OrbitControls } from 'three/addons/controls/OrbitControls.js';</p>
+<p>const controls = new OrbitControls(camera, renderer.domElement);</p>
+<p>Raycaster检测鼠标点到了哪个3D物体，做点击交互。</p>
+<h2>六、性能优化</h2>
+<p>面数太高掉帧。一个模型不要超过5万面。</p>
+<p>纹理太大占显存。压缩到1024x1024。</p>
+<p>像素比devicePixelRatio大于2时降采样，手机GPU吃力。</p>
+<h2>七、常见坑</h2>
+<p>坑1：没加光源，整个场景全黑。</p>
+<p>坑2：相机位置不对，看不到物体。</p>
+<p>坑3：模型面数太高，手机上卡成PPT。</p>
+<h2>八、总结</h2>
+<p>Three.js让网页3D普及。起步就是场景+相机+渲染器+几何体+材质。性能注意面数和纹理。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

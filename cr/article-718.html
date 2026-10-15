@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-718.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebSocket实时通信实战 - CaesarTools</title>
+<meta name="description" content="WebSocket实时通信实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>WebSocket实时通信实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、HTTP和WebSocket区别</h2>
+<p>HTTP请求响应，一次请求一次响应。服务器不能主动推数据。要做实时聊天，前端要每秒轮询一次，浪费。</p>
+<p>WebSocket建立连接后一直保持，服务器可以主动推消息给前端。双向通信，实时聊天、实时股价、协同编辑都用它。</p>
+<h2>二、基本用法</h2>
+<p>// 前端</p>
+<p>const ws = new WebSocket('wss://example.com/chat');</p>
+<p>ws.onopen = () => ws.send('你好');</p>
+<p>ws.onmessage = (e) => console.log('收到:', e.data);</p>
+<p>// Node后端</p>
+<p>const WebSocket = require('ws');</p>
+<p>const server = new WebSocket.Server({ port: 8080 });</p>
+<p>server.on('connection', (socket) => {</p>
+<p>socket.on('message', (msg) => {</p>
+<p>console.log('收到:', msg);</p>
+<p>socket.send('已收到');</p>
+<p>});</p>
+<p>});</p>
+<h2>三、心跳保活</h2>
+<p>连接可能断。前端每30秒发ping，后端回pong。没收到pong就重连。</p>
+<h2>四、生产部署</h2>
+<p>Nginx反向代理WebSocket要配Upgrade头。</p>
+<p>wss://加密，不能用ws://。</p>
+<p>断开自动重连。</p>
+<h2>五、常见坑</h2>
+<p>WebSocket连接数限制，单机几万要扩容。</p>
+<p>消息顺序保证。</p>
+<p>不要传太大消息，分片。</p>
+<h2>六、什么时候用轮询</h2>
+<p>实时性要求不高，5秒更新一次够，用轮询简单。实时聊天用WebSocket。</p>
+<h2>七、总结</h2>
+<p>WebSocket是双向实时通信。聊天、股价、协同编辑。心跳保活、自动重连、Nginx配置Upgrade。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

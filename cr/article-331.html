@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-331.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nginx反向代理实战 - CaesarTools</title>
+<meta name="description" content="Nginx反向代理实战 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Nginx反向代理实战</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Nginx是网站大门</h2>
+<p>用户访问先到Nginx。决定返回静态文件、转发Node、还是转发哪个实例。单机能抗5万并发。</p>
+<h2>二、静态站点</h2>
+<p>server {</p>
+<p>root /var/www/dist;</p>
+<p>location / { try_files $uri $uri/ /index.html; }</p>
+<p>}</p>
+<p>SPA路由刷新404，try_files fallback到index.html。</p>
+<h2>三、反向代理后端</h2>
+<p>location /api/ {</p>
+<p>proxy_pass http://127.0.0.1:3000;</p>
+<p>proxy_set_header Host $host;</p>
+<p>proxy_set_header X-Real-IP $remote_addr;</p>
+<p>}</p>
+<h2>四、负载均衡</h2>
+<p>upstream backend {</p>
+<p>server 127.0.0.1:3000;</p>
+<p>server 127.0.0.1:3001;</p>
+<p>}</p>
+<p>location / { proxy_pass http://backend; }</p>
+<h2>五、HTTPS</h2>
+<p>listen 443 ssl;</p>
+<p>ssl_certificate /etc/letsencrypt/.../fullchain.pem;</p>
+<p>80端口301跳HTTPS。</p>
+<h2>六、静态缓存</h2>
+<p>location ~* \.(js|css|png)$ {</p>
+<p>expires 30d;</p>
+<p>}</p>
+<h2>七、常见坑</h2>
+<p>WebSocket要Upgrade头。</p>
+<p>大文件上传client_max_body_size调大。</p>
+<p>改配置nginx -t测试再reload。</p>
+<p>后端拿真实IP要X-Forwarded-For。</p>
+<h2>八、访问日志</h2>
+<p>默认在/var/log/nginx/access.log。记录每个请求的IP、路径、状态码、耗时。排查问题先看日志。</p>
+<h2>九、总结</h2>
+<p>Nginx做反向代理、负载均衡、HTTPS、静态缓存。学会基础配置网站才算上线。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-232.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Node.js后端开发：从零写一个生产级API - CaesarTools</title>
+<meta name="description" content="Node.js后端开发：从零写一个生产级API - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Node.js后端开发：从零写一个生产级API</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Node.js是什么</h2>
+<p>Chrome V8引擎套事件循环，让JS跑在服务器上。单线程非阻塞I/O。适合I/O密集：API服务、实时应用。CPU密集不适合。</p>
+<h2>二、最小服务</h2>
+<p>const http = require('http');</p>
+<p>http.createServer((req, res) => res.end('Hello')).listen(3000);</p>
+<p>三行代码一个服务。实际用Express。</p>
+<h2>三、Express入门</h2>
+<p>npm install express</p>
+<p>const app = express();</p>
+<p>app.use(express.json());</p>
+<p>app.get('/api/users', (req, res) => {</p>
+<p>res.json([{ id: 1, name: '小明' }]);</p>
+<p>});</p>
+<p>app.post('/api/users', (req, res) => {</p>
+<p>res.status(201).json(req.body);</p>
+<p>});</p>
+<p>app.listen(3000);</p>
+<h2>四、路由拆分</h2>
+<p>routes/users.js：</p>
+<p>const router = express.Router();</p>
+<p>router.get('/', listUsers);</p>
+<p>module.exports = router;</p>
+<p>app.use('/api/users', require('./routes/users'));</p>
+<h2>五、错误处理</h2>
+<p>app.use((err, req, res, next) => {</p>
+<p>res.status(500).json({ error: err.message });</p>
+<p>});</p>
+<h2>六、连数据库</h2>
+<p>const { Pool } = require('pg');</p>
+<p>const pool = new Pool({ connectionString: process.env.DATABASE_URL });</p>
+<p>app.get('/api/users', async (req, res, next) => {</p>
+<p>try {</p>
+<p>const { rows } = await pool.query('SELECT * FROM users');</p>
+<p>res.json(rows);</p>
+<p>} catch (e) { next(e); }</p>
+<p>});</p>
+<p>参数化查询防注入。</p>
+<h2>七、JWT鉴权</h2>
+<p>function auth(req, res, next) {</p>
+<p>const token = req.headers.authorization?.split(' ')[1];</p>
+<p>try {</p>
+<p>req.user = jwt.verify(token, process.env.JWT_SECRET);</p>
+<p>next();</p>
+<p>} catch { res.status(401).json({ error: '未登录' }); }</p>
+<p>}</p>
+<p>app.use('/api/protected', auth);</p>
+<h2>八、部署</h2>
+<p>PM2进程守护。Nginx反向代理。Docker打包。</p>
+<h2>九、常见坑</h2>
+<p>坑1：同步操作阻塞事件循环。CPU密集放Worker。</p>
+<p>坑2：没处理unhandledRejection，进程崩。</p>
+<p>坑3：CORS跨域。用cors中间件。</p>
+<h2>十、Node.js和其他后端</h2>
+<p>Node.js适合I/O密集、实时应用。Java适合大型企业系统。Python适合数据科学。Go适合高并发基础设施。选择看场景，不是选语言选信仰。</p>
+<h2>十一、总结</h2>
+<p>Node.js让前端工程师写后端API。Express是最稳框架。配合PostgreSQL、Redis、PM2、Nginx，一套完整后端栈。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-31.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端测试入门：单元测试、集成测试和E2E测试 - CaesarTools</title>
+<meta name="description" content="前端测试入门：单元测试、集成测试和E2E测试 - CaesarBase 免费技术文章">
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端测试入门：单元测试、集成测试和E2E测试</h1>
+<div class="meta">CaesarTools 技术文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么要写测试</h2>
+<p>没有测试的代码，改一处不敢碰另一处。重构等于赌博。上线出bug只能靠用户反馈。测试是给代码上保险——改完跑一遍测试，知道没破坏旧功能。</p>
+<h2>二、测试金字塔</h2>
+<p>底层：单元测试，多而快，测单个函数。</p>
+<p>中层：集成测试，少而稳，测模块间配合。</p>
+<p>顶层：E2E测试，最少最慢，模拟用户操作。</p>
+<p>越往上越慢越贵。大部分测试应该是单元测试。</p>
+<h2>三、单元测试</h2>
+<p>测单个函数，不依赖外部。用Vitest（Vite原生）或Jest。</p>
+<p>function add(a, b) { return a + b; }</p>
+<p>test('1+1=2', () => {</p>
+<p>expect(add(1,1)).toBe(2);</p>
+<p>});</p>
+<p>覆盖正常情况、边界情况、异常情况。</p>
+<h2>四、组件测试</h2>
+<p>React组件用Testing Library渲染组件，模拟点击，断言输出。</p>
+<p>import { render, screen, fireEvent } from '@testing-library/react';</p>
+<p>test('点击按钮计数加一', () => {</p>
+<p>render(<Counter />);</p>
+<p>fireEvent.click(screen.getByText('+1'));</p>
+<p>expect(screen.getByText('1')).toBeInTheDocument();</p>
+<p>});</p>
+<h2>五、集成测试</h2>
+<p>测多个模块配合。比如登录流程：输入账号密码→调API→跳首页。API用MSW mock掉。</p>
+<h2>六、E2E测试</h2>
+<p>用Playwright或Cypress，真实浏览器模拟用户操作。打开网站、点击、输入、断言。慢但最接近真实。</p>
+<h2>七、覆盖率</h2>
+<p>覆盖率多少合适？80%是个参考线。不要为了覆盖率写无意义的测试。关键业务逻辑必须测。</p>
+<h2>八、CI里跑测试</h2>
+<p>push代码后GitHub Actions自动跑测试。挂了阻止合并。坏代码上不了main。</p>
+<h2>九、常见误区</h2>
+<p>坑1：不写测试。迟早还债。</p>
+<p>坑2：测试实现细节不测行为。重构测试就挂。</p>
+<p>坑3：E2E测试写太多。慢，维护成本高。</p>
+<p>坑4：mock过度。什么都mock等于没测。</p>
+<h2>十、TDD测试驱动开发</h2>
+<p>先写测试再写代码。测试定义行为，代码让测试通过。好处是代码天然可测，设计更清晰。缺点是初期慢。</p>
+<h2>十一、总结</h2>
+<p>测试是工程成熟度标志。单元测试主力，组件测试补充，E2E测关键流程。CI里自动跑。写测试不优雅，但省未来无数次救火。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>
