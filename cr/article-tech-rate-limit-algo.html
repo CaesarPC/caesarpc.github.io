@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>限流算法实战</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2>限流算法实战：高并发系统的自我保护机制</h2>
 <p>秒杀活动开始，瞬间十万请求涌来，数据库每秒只能处理几千。不限流的话系统直接被打垮。限流就是在系统入口控制请求量，超出阈值的请求直接拒绝或排队，保护后端不被冲垮。</p>
 <p>计数器是最简单的限流：单位时间内计数，超过阈值就拒绝。比如每秒最多100个请求。缺点是临界问题：前一秒最后一刻来了100个，后一秒一开始又来了100个，实际瞬间200个穿过，系统可能扛不住。</p>

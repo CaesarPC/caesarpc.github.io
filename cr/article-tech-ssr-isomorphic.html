@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>服务端渲染SSR与同构应用</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2>服务端渲染SSR与同构应用：解决SPA首屏慢和SEO问题</h2>
 <p>单页应用（SPA）体验好，但有两个痛点：首屏慢（要下载整个JS才开始渲染）、SEO不友好（初始HTML是空的，爬虫抓不到内容）。服务端渲染（SSR）解决这两个问题：服务器把页面渲染成完整HTML再发给浏览器，用户打开就看到内容，爬虫也能抓到完整页面。</p>
 <p>传统多页应用就是SSR：服务器用模板引擎（Jinja2、Thymeleaf）渲染HTML返回。现代SSR指的是React/Vue的服务端渲染：在服务器上运行React/Vue代码，把组件渲染成HTML字符串，发给浏览器。浏览器接收后hydration（注水）：把静态HTML绑定上JS事件，变成可交互的应用。</p>

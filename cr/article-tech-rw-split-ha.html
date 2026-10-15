@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>读写分离与数据库高可用</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2>读写分离与数据库高可用：让数据库不再单点故障</h2>
 <p>数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。</p>
 <p>MySQL的主从复制是基础：主库写入binlog，从库拉取binlog重放，保持数据同步。一个主库可以挂多个从库。应用配置两个数据源：写操作走主库，读操作走从库。数据库连接池或中间件（ShardingSphere、MyCat）自动路由。</p>

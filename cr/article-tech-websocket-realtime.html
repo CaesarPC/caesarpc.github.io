@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>WebSocket与实时通信</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2># WebSocket与实时通信：从轮询到全双工的演进</h2>
 <p>早期的网页是纯静态的——服务器返回HTML，浏览器渲染出来，用户看完就走。后来出现了表单提交、AJAX异步请求，网页可以动态更新内容了。但这些都是"请求-响应"模式：浏览器主动问服务器要数据，服务器才返回。如果服务器有新数据想主动推给浏览器——比如聊天消息、股票价格、实时通知、多人协作编辑——怎么办？</p>
 <p>在WebSocket出现之前，开发者用的是各种"hack"方案：短轮询（浏览器每隔几秒问一次服务器有没有新数据）、长轮询（服务器挂起请求直到有数据才返回）、Comet流。这些方案要么浪费请求，要么实现复杂。WebSocket的出现彻底改变了这个局面——它在浏览器和服务器之间建立一条持久的全双工连接，双方可以随时互发消息。</p>

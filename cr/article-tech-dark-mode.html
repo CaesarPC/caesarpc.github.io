@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>暗色模式实现</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2>暗色模式实现：让网站支持白天黑夜两种主题</h2>
 <p>暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。</p>
 <p>核心思路：所有颜色定义为CSS变量。:root里定义亮色主题的变量值，[data-theme="dark"]里定义暗色变量值。组件里用var(--color-bg)而不是写死颜色。切换主题就是切换data-theme属性，所有变量值自动切换。</p>

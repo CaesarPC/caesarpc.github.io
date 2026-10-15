@@ -35,7 +35,7 @@ a:hover{text-decoration:underline}
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
 <h1>对象存储与云存储架构原理</h1>
-<div class="meta">CaesarTools · 技术教程</div>
+<div class="meta">CaesarTools · 技术教程 📅 2026-10-15 </div>
 <p>对象存储与云存储架构原理：从文件服务器到S3的演进</p>
 <p>早期的网站存储文件，就是存在服务器本地磁盘上，通过Nginx直接对外提供下载。这种方式在单机时代没问题，但随着文件数量增长（图片、视频、用户上传的附件），单机存储的瓶颈很快暴露：扩容麻烦、备份困难、带宽有限、多机文件不一致。对象存储（Object Storage）就是为解决海量文件存储而生的架构。</p>
 <p>对象存储的核心概念是：所有文件作为"对象"存储在扁平的存储空间（Bucket）里，不是文件系统的目录树结构。每个对象有一个唯一的Key（相当于路径），通过Key读写对象。S3（Amazon Simple Storage Service）是对象存储的鼻祖和标准API，现在阿里云OSS、腾讯云COS、Cloudflare R2都兼容S3 API。</p>

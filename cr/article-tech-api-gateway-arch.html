@@ -34,7 +34,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
 <h1>API网关架构设计</h1>
-<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟 📅 2026-10-15 </div>
 <h2>API网关架构设计：微服务世界的统一入口</h2>
 <p>微服务拆成几十个服务后，客户端要直接调用几十个服务吗？手机APP要知道订单服务地址、用户服务地址、商品服务地址？后端服务地址变了、增加了新服务，APP都要发版更新？这显然不现实。API网关就是解决这个问题的：所有客户端请求统一经过网关，网关负责路由到对应的后端服务。</p>
 <p>API网关是系统的统一入口。客户端只需要知道网关的地址，不用关心后面有多少个服务。网关根据请求的路径（如/order/*路由到订单服务，/user/*路由到用户服务）把请求转发到对应的后端服务。这样后端服务数量变化、地址变化，对客户端完全透明。</p>
