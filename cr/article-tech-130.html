@@ -5,6 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
+<meta name="robots" content="index,follow">
 <meta name="description" content="微服务架构下，服务A调用服务B，服务B又调用服务C。如果服务C挂了，B的调用一直阻塞等待，B的线程被占满，B也挂了，接着A也被拖垮——这就是级联故障。像多米诺骨牌，一个组件故障导致整个系统崩溃。熔断降级就是防止这种雪崩的容错机制。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-130.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>熔断降级与容错设计 - CaesarTools</title>

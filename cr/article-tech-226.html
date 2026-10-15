@@ -5,6 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
+<meta name="robots" content="index,follow">
 <meta name="description" content="单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-226.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>分布式锁 - CaesarTools</title>

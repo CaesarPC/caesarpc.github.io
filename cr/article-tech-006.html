@@ -5,6 +5,7 @@
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
+<meta name="robots" content="index,follow">
 <meta name="description" content="在单体应用里，所有模块同步调用，代码写起来简单直接。但当系统拆分为微服务，或者面对高并发流量时，同步调用的弊端就暴露无遗：一个服务挂了，调用它的所有服务都跟着挂；一个接口慢了，整个调用链路都被拖慢；流量高峰时数据库被直接打垮。消息队列（Message Queue）是解决这些问题的核心武器。理解消息队列的工作原">
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-006.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>消息队列与分布式异步架构实践 - CaesarTools</title>
