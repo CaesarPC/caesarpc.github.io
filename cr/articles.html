@@ -26,6 +26,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;mi
 .article-item h3{font-size:15px;color:#e6e6e6;margin-bottom:4px;font-weight:600}
 .article-item p{font-size:12px;color:#6272a4;margin:0}
 .article-item .date{font-size:11px;color:#6272a4;margin-top:10px}
+.pagination{display:flex;gap:8px;justify-content:center;margin:24px 0;flex-wrap:wrap}
+.page-btn{padding:8px 14px;border-radius:8px;background:#282a36;border:1px solid #44475a;color:#e6e6e6;cursor:pointer;font-size:13px}
+.page-btn.on{background:#50fa7b;color:#1e1e2e;font-weight:bold}
+.page-btn:disabled{opacity:.3;cursor:default}
 .no-result{display:none;text-align:center;color:#6272a4;padding:40px 0;font-size:14px}
 .foot{color:#6272a4;font-size:12px;margin-top:30px;text-align:center;padding-bottom:20px}
 </style>
@@ -1138,20 +1142,40 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;mi
     <div class="article-item" onclick="location.href='article-738.html'"><h3>WebSocket实时通信实战</h3><p>技术深度文章</p><div class="date">2026-10-15</div></div>
   </div>
   <div class="no-result" id="noResult">没有找到匹配的文章</div>
+  <div class="pagination" id="pagination"></div>
   <div class="foot">CaesarTools · 免费在线工具</div>
 </div>
 <script>
-function filterArticles(){
+var PAGE_SIZE=50, curPage=1, filtered=[];
+function getItems(){return document.querySelectorAll('#articleList .article-item');}
+function applyPagination(){
   var kw=document.getElementById('searchInput').value.toLowerCase().trim();
-  var items=document.querySelectorAll('#articleList .article-item');
-  var visible=0;
-  items.forEach(function(item){
+  filtered=[];
+  getItems().forEach(function(item){
     var title=item.querySelector('h3').textContent.toLowerCase();
-    if(!kw||title.indexOf(kw)>-1){item.style.display='';visible++;}
-    else{item.style.display='none';}
+    var match=!kw||title.indexOf(kw)>-1;
+    item.style.display='none';
+    if(match)filtered.push(item);
   });
-  document.getElementById('noResult').style.display=visible?'none':'block';
+  var total=filtered.length, pages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  if(curPage>pages)curPage=pages;
+  var start=(curPage-1)*PAGE_SIZE, end=Math.min(start+PAGE_SIZE,total);
+  for(var i=start;i<end;i++)filtered[i].style.display='';
+  document.getElementById('noResult').style.display=total?'none':'block';
+  var pg=document.getElementById('pagination');pg.innerHTML='';
+  if(pages<=1){pg.innerHTML='';return;}
+  var prev=document.createElement('button');prev.className='page-btn';prev.textContent='←';prev.disabled=curPage<=1;
+  prev.onclick=function(){curPage--;applyPagination();};pg.appendChild(prev);
+  var s=Math.max(1,curPage-2),e=Math.min(pages,curPage+2);
+  for(var p=s;p<=e;p++){
+    var b=document.createElement('button');b.className='page-btn'+(p===curPage?' on':'');b.textContent=p;
+    b.onclick=function(){curPage=parseInt(this.textContent);applyPagination();};pg.appendChild(b);
+  }
+  var next=document.createElement('button');next.className='page-btn';next.textContent='→';next.disabled=curPage>=pages;
+  next.onclick=function(){curPage++;applyPagination();};pg.appendChild(next);
 }
+function filterArticles(){curPage=1;applyPagination();}
+applyPagination();
 </script>
 <script src="/cr/clip.js"></script>
 </body>
