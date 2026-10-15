@@ -11,7 +11,7 @@
 (function () {
   if (window.CrGH) return;
   var s = document.createElement('script');
-  s.src = '/cr/ghdb_v2.js?v=20261015a';
+  s.src = '/cr/ghdb_v2.js?v=20261015b';
   s.async = false;
   (document.head || document.body).appendChild(s);
 })();
@@ -372,4 +372,22 @@
       });
     });
   }
+})();
+
+/* 阅读进度条 + 返回顶部 */
+(function(){
+  var bar = document.createElement('div');
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;background:#50fa7b;z-index:999999;width:0%;transition:width .1s;box-shadow:0 0 8px #50fa7b';
+  document.body.appendChild(bar);
+  var btn = document.createElement('button');
+  btn.textContent = '↑';
+  btn.style.cssText = 'position:fixed;bottom:80px;right:18px;width:40px;height:40px;border-radius:50%;background:#1e1e2e;color:#50fa7b;border:1px solid #50fa7b;cursor:pointer;font-size:18px;display:none;z-index:99998;box-shadow:0 2px 10px rgba(0,0,0,.4)';
+  btn.onclick = function(){ window.scrollTo({top:0,behavior:'smooth'}); };
+  document.body.appendChild(btn);
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+    btn.style.display = h.scrollTop > 300 ? 'block' : 'none';
+  });
 })();
