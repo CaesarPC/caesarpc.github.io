@@ -34,5 +34,6 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <p>数据一致性是分布式电商系统最大的挑战。订单状态、库存数量、支付状态，分布在不同服务的数据库里，怎么保证一致？最终一致性是主流：通过消息队列事件驱动，每个服务订阅相关事件更新自己的数据。对账机制是兜底：每天跑对账任务，核对订单、支付、库存的数据是否一致，不一致就人工或自动修复。</p>
 <p>电商系统的架构设计，集中体现了分布式系统的所有经典问题：高并发、缓存、消息队列、分布式事务、最终一致性、限流降级。把电商链路理解透，后端架构的核心知识就掌握了大半。</p>
 </div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相关阅读</h3><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分库分表实战</a><a href="article-tech-distributed-lock.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁实现方案</a><a href="article-tech-form-best-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 表单处理最佳实践</a></div>
 </body>
 </html>

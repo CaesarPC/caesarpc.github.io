@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>在线计时器 - CaesarTools</title>
+<meta name="description" content="免费在线秒表和倒计时工具，精确到毫秒，无需安装。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/timer.html">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/icon-192.png">
+<style>
+body{background:#1e1e2e;color:#e6e6e6;font-family:Segoe UI,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;margin:0;padding:20px}
+.tabs{display:flex;gap:10px;margin:20px 0}
+.tab{padding:10px 24px;border-radius:8px;cursor:pointer;background:#282a36;border:1px solid #44475a;color:#e6e6e6;font-size:14px}
+.tab.on{background:#50fa7b;color:#1e1e2e;font-weight:bold}
+.display{font-size:72px;font-weight:bold;color:#50fa7b;font-family:'Courier New',monospace;margin:30px 0;text-shadow:0 0 20px rgba(80,250,123,.3)}
+.controls{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;justify-content:center}
+.ctrl-btn{padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:16px;font-weight:bold}
+.ctrl-start{background:#50fa7b;color:#1e1e2e}
+.ctrl-stop{background:#ff5555;color:#1e1e2e}
+.ctrl-reset{background:#44475a;color:#e6e6e6}
+.laps{margin:20px 0;max-height:200px;overflow-y:auto;width:100%;max-width:400px}
+.lap-item{display:flex;justify-content:space-between;padding:8px 16px;border-bottom:1px solid #282a36;font-family:'Courier New',monospace;font-size:14px}
+.time-input{display:flex;gap:10px;align-items:center;margin:20px 0}
+.time-input input{width:80px;padding:12px;text-align:center;font-size:24px;background:#282a36;border:1px solid #44475a;border-radius:8px;color:#50fa7b;font-family:monospace}
+.back{position:fixed;top:16px;left:16px;color:#8be9fd;text-decoration:none;font-size:14px}
+</style>
+</head>
+<body>
+<a class="back" href="/cr/index.html">← 返回工具箱</a>
+<h2 style="color:#50fa7b;margin-top:20px">⏱️ 计时器</h2>
+<div class="tabs">
+<div class="tab on" id="tab-stopwatch" onclick="switchTab('stopwatch')">秒表</div>
+<div class="tab" id="tab-countdown" onclick="switchTab('countdown')">倒计时</div>
+</div>
+
+<div id="stopwatch-mode">
+<div class="display" id="sw-display">00:00:00.00</div>
+<div class="controls">
+<button class="ctrl-btn ctrl-start" onclick="swStart()" id="sw-start">开始</button>
+<button class="ctrl-btn ctrl-stop" onclick="swStop()" style="display:none" id="sw-stop">停止</button>
+<button class="ctrl-btn ctrl-reset" onclick="swLap()" id="sw-lap" style="display:none">计次</button>
+<button class="ctrl-btn ctrl-reset" onclick="swReset()">重置</button>
+</div>
+<div class="laps" id="sw-laps"></div>
+</div>
+
+<div id="countdown-mode" style="display:none">
+<div class="time-input">
+<input type="number" id="cd-min" placeholder="分" min="0" max="999" value="5">
+<span style="font-size:24px">:</span>
+<input type="number" id="cd-sec" placeholder="秒" min="0" max="59" value="0">
+</div>
+<div class="display" id="cd-display">05:00</div>
+<div class="controls">
+<button class="ctrl-btn ctrl-start" onclick="cdStart()" id="cd-start">开始</button>
+<button class="ctrl-btn ctrl-stop" onclick="cdStop()" style="display:none" id="cd-stop">停止</button>
+<button class="ctrl-btn ctrl-reset" onclick="cdReset()">重置</button>
+</div>
+</div>
+
+<script src="/cr/clip.js"></script>
+<script>
+function switchTab(t){
+  document.getElementById('stopwatch-mode').style.display=t==='stopwatch'?'block':'none';
+  document.getElementById('countdown-mode').style.display=t==='countdown'?'block':'none';
+  document.getElementById('tab-stopwatch').classList.toggle('on',t==='stopwatch');
+  document.getElementById('tab-countdown').classList.toggle('on',t==='countdown');
+}
+// Stopwatch
+var swInt=null, swStartT=0, swElapsed=0, swCount=0;
+function swFmt(ms){
+  var m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000),cs=Math.floor(ms%1000/10);
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+'.'+String(cs).padStart(2,'0');
+}
+function swStart(){
+  swStartT=Date.now()-swElapsed; swInt=setInterval(function(){
+    swElapsed=Date.now()-swStartT;
+    document.getElementById('sw-display').textContent=swFmt(swElapsed);
+  },10);
+  document.getElementById('sw-start').style.display='none';
+  document.getElementById('sw-stop').style.display='inline';
+  document.getElementById('sw-lap').style.display='inline';
+}
+function swStop(){
+  clearInterval(swInt);
+  document.getElementById('sw-start').style.display='inline';
+  document.getElementById('sw-stop').style.display='none';
+  document.getElementById('sw-lap').style.display='none';
+}
+function swReset(){
+  swStop(); swElapsed=0; swCount=0;
+  document.getElementById('sw-display').textContent='00:00:00.00';
+  document.getElementById('sw-laps').innerHTML='';
+}
+function swLap(){
+  swCount++;
+  var d=document.createElement('div');
+  d.className='lap-item';
+  d.innerHTML='<span>#'+swCount+'</span><span>'+swFmt(swElapsed)+'</span>';
+  document.getElementById('sw-laps').prepend(d);
+}
+// Countdown
+var cdInt=null, cdTotal=0;
+function cdFmt(s){
+  var m=Math.floor(s/60),sec=s%60;
+  return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+}
+function cdStart(){
+  var m=parseInt(document.getElementById('cd-min').value)||0;
+  var s=parseInt(document.getElementById('cd-sec').value)||0;
+  cdTotal=m*60+s;
+  if(cdTotal<=0)return;
+  cdInt=setInterval(function(){
+    cdTotal--;
+    document.getElementById('cd-display').textContent=cdFmt(cdTotal);
+    if(cdTotal<=0){clearInterval(cdInt);alert('⏰ 时间到！');cdReset();}
+  },1000);
+  document.getElementById('cd-start').style.display='none';
+  document.getElementById('cd-stop').style.display='inline';
+}
+function cdStop(){clearInterval(cdInt);document.getElementById('cd-start').style.display='inline';document.getElementById('cd-stop').style.display='none';}
+function cdReset(){
+  cdStop();
+  document.getElementById('cd-display').textContent=cdFmt((parseInt(document.getElementById('cd-min').value)||0)*60+(parseInt(document.getElementById('cd-sec').value)||0));
+}
+</script>
+</body>
+</html>
