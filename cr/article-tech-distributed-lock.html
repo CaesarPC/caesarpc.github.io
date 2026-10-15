@@ -9,7 +9,7 @@
 <meta name="keywords" content="分布式锁实现方案">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-distributed-lock.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分布式锁实现方案 - CaesarTools</title>
+<title>分布式锁实现方案（2） - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -47,7 +47,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
-<h1>分布式锁实现方案</h1>
+<h1>分布式锁实现方案（2）</h1>
 <div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>分布式锁实现方案：多机环境下的并发控制</h2>
 <p>单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。</p>

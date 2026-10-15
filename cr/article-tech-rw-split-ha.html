@@ -9,7 +9,7 @@
 <meta name="keywords" content="读写分离与数据库高可用">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>读写分离与数据库高可用 - CaesarTools</title>
+<title>读写分离与数据库高可用（2） - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -47,7 +47,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
-<h1>读写分离与数据库高可用</h1>
+<h1>读写分离与数据库高可用（2）</h1>
 <div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>读写分离与数据库高可用：让数据库不再单点故障</h2>
 <p>数据库是系统中最难扩展的有状态组件。读请求远多于写请求（典型比例10:1甚至100:1），一台主库既要处理写又要处理读，很快就扛不住。读写分离是最自然的优化：主库负责写，从库负责读，把读压力分散到多台机器。</p>

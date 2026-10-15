@@ -9,7 +9,7 @@
 <meta name="keywords" content="对象存储与云存储架构原理">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-object-storage.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>对象存储与云存储架构原理 - CaesarTools</title>
+<title>对象存储与云存储架构原理（2） - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -47,7 +47,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
-<h1>对象存储与云存储架构原理</h1>
+<h1>对象存储与云存储架构原理（2）</h1>
 <div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>对象存储与云存储架构原理：从文件服务器到S3的演进</h2>
 <p>早期的网站存储文件，就是存在服务器本地磁盘上，通过Nginx直接对外提供下载。这种方式在单机时代没问题，但随着文件数量增长（图片、视频、用户上传的附件），单机存储的瓶颈很快暴露：扩容麻烦、备份困难、带宽有限、多机文件不一致。对象存储（Object Storage）就是为解决海量文件存储而生的架构。</p>

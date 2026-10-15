@@ -9,7 +9,7 @@
 <meta name="keywords" content="事件驱动架构">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-event-driven-arch.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>事件驱动架构 - CaesarTools</title>
+<title>事件驱动架构（2） - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -47,7 +47,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
-<h1>事件驱动架构</h1>
+<h1>事件驱动架构（2）</h1>
 <div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>事件驱动架构：用事件解耦系统的设计哲学</h2>
 <p>传统的系统设计是命令式的：A调用B，B调用C，同步等待结果。这种紧耦合在系统变复杂后很难维护。事件驱动架构换一种思路：系统不直接调用其他服务，而是发布事件（"订单已创建"），感兴趣的服务自己订阅事件做处理。发布者不知道谁在听，订阅者不知道谁发布的，双方完全解耦。</p>

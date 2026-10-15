@@ -9,7 +9,7 @@
 <meta name="keywords" content="CSS动画性能优化, CSS, 性能优化">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-305.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS动画性能优化 - CaesarTools</title>
+<title>CSS动画性能优化（3） - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -48,7 +48,7 @@ a:hover{text-decoration:underline}
 <body>
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
-<h1>CSS动画性能优化</h1>
+<h1>CSS动画性能优化（3）</h1>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>CSS动画性能优化</p>
 <p>CSS动画的性能关键是只触发合成层（Composite），不触发布局（Layout）和绘制（Paint）。修改width/height会触发布局，性能差；修改transform/opacity只触发合成，性能好。</p>

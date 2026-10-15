@@ -9,7 +9,7 @@
 <meta name="keywords" content="Redis缓存设计与穿透击穿雪崩防护, Redis, 缓存">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-Redis.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redis缓存设计与穿透击穿雪崩防护 - CaesarTools</title>
+<title>Redis缓存设计与穿透击穿雪崩防护（2） - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -52,7 +52,7 @@ a:hover{text-decoration:underline}
 <body>
 <div class="wrap">
 <a href="articles.html" class="back">← 返回文章列表</a>
-<h1>Redis缓存设计与穿透击穿雪崩防护</h1>
+<h1>Redis缓存设计与穿透击穿雪崩防护（2）</h1>
 <div class="meta">CaesarTools · 技术教程</div>
 <p>缓存是提升系统性能最有效的手段。数据库每秒能处理几千次查询，而Redis作为内存数据库，每秒能处理十几万次。把热点数据放到缓存里，数据库压力骤降，响应速度大幅提升。但缓存不是简单地"查不到就存"，设计不当会引发各种问题：缓存穿透、缓存击穿、缓存雪崩，任何一个都能把系统打垮。</p>
 <p>Redis的数据结构丰富，不是只能存key-value。String最简单，存缓存值；Hash适合存对象（用户信息、商品信息）；List适合做消息队列、最新列表；Set适合去重、标签；ZSet（有序集合）适合排行榜、延迟队列。根据业务场景选对数据结构，性能和代码简洁度都翻倍。</p>

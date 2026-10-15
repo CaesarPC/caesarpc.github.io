@@ -9,7 +9,7 @@
 <meta name="keywords" content="BFF层设计与实践">
 
 <link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-bff-layer.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BFF层设计与实践 - CaesarTools</title>
+<title>BFF层设计与实践（2） - CaesarTools</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
@@ -47,7 +47,7 @@ h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd
 <body>
 <div class="hd"><a href="articles.html">← 文章列表</a></div>
 <div class="container">
-<h1>BFF层设计与实践</h1>
+<h1>BFF层设计与实践（2）</h1>
 <div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
 <h2>BFF层设计：前端专属的后端聚合层</h2>
 <p>后端有十几个微服务，前端要拿一个页面的数据，需要调用用户服务、商品服务、订单服务三个接口。前端发三个请求，自己聚合数据。这有几个问题：请求多慢、前端要处理多个接口的错误、后端服务一变前端就要改。BFF（Backend For Frontend）就是为解决这个问题的中间层：为前端定制的聚合服务，一次请求返回页面需要的全部数据。</p>
