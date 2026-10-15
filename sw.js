@@ -1,5 +1,5 @@
-// CaesarBase PWA Service Worker - 离线支持 v5
-const CACHE_NAME = 'caesarbase-v6';
+// CaesarBase PWA Service Worker - 离线支持 v7
+const CACHE_NAME = 'caesarbase-v7';
 // 预缓存全部核心功能页(47项) + 访问过的页面自动实时缓存(含全部文章)
 const ASSETS = [
   '/',
