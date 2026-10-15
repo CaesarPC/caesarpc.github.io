@@ -118,5 +118,29 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Mobile Safari/537.36",
   "ref": "android-app://com.google.android.googlequicksearchbox/"
+ },
+ {
+  "id": 1792067162689,
+  "ts": 1792067162689,
+  "time": "2026-10-15 20:26",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": ""
+ },
+ {
+  "id": 1792067186649,
+  "ts": 1792067186649,
+  "time": "2026-10-15 20:26",
+  "page": "admin.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1792067262521,
+  "ts": 1792067262521,
+  "time": "2026-10-15 20:27",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/cr/index.html"
  }
 ]
