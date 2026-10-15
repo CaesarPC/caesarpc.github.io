@@ -142,7 +142,7 @@ function swLap(){document.getElementById('swLaps').textContent+=(document.getEle
 function swReset(){clearInterval(swI);swI=null;swT=0;document.getElementById('swOut').textContent='00:00.0';document.getElementById('swLaps').textContent='';}
 function calcPress(k){if(k==='C'){window._calc='';}else if(k==='='){try{window._calc=String(eval(window._calc));}catch(e){window._calc='错误';}}else{window._calc+=k;}document.getElementById('calcDisp').value=window._calc;}
 </script>
-<script src="clip.js?v=20261006c"></script>
+<script src="clip.js?v=20261015b"></script>
 <script>
 // PWA注册
 if ('serviceWorker' in navigator) {
