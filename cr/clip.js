@@ -11,7 +11,7 @@
 (function () {
   if (window.CrGH) return;
   var s = document.createElement('script');
-  s.src = '/cr/ghdb_v2.js?v=20261014c';
+  s.src = '/cr/ghdb_v2.js?v=20261015a';
   s.async = false;
   (document.head || document.body).appendChild(s);
 })();
@@ -133,9 +133,19 @@
     var crown = document.getElementById('cr-crown');
     if (u) {
       nameEl.textContent = u;
-      fab.textContent = u === 'Server' ? '👑' : '👤';
       if (u === 'Server') { crown.style.display = 'inline-block'; fab.classList.add('admin'); }
       else { crown.style.display = 'none'; fab.classList.remove('admin'); }
+      /* Load avatar */
+      get('/api/profile?token=' + encodeURIComponent(getToken()), function (j) {
+        if (j.ok && j.profile && j.profile.avatar) {
+          fab.textContent = j.profile.avatar;
+        } else {
+          fab.textContent = u === 'Server' ? '👑' : '👤';
+        }
+        if (j.ok && j.profile && j.profile.displayName) {
+          nameEl.textContent = j.profile.displayName;
+        }
+      });
       loginBtn.style.display = 'none';
       noteBtn.style.display = 'block';
       adminBtn.style.display = u === 'Server' ? 'block' : 'none';
@@ -226,11 +236,58 @@
   /* 用户设置 */
   var settingsBtn = document.getElementById('cr-settings');
   settingsBtn.onclick = function () {
+    var u = getUsername();
+    if (!u) return;
     showBox(
-      '<h3>⚙️ 设置</h3>' +
-      '<p style="color:var(--dim);font-size:13px;line-height:1.8;padding:10px 0">当前为深色模式。浅色模式正在开发中，敬请期待。</p>' +
-      '<div class="cr-row"><button class="cr-cancel" id="s-close">关闭</button></div>'
+      '<h3>⚙️ 个人设置</h3>' +
+      '<div style="text-align:center;margin:10px 0">' +
+      '<div id="p-avatar" style="width:60px;height:60px;border-radius:50%;background:#282a36;border:2px solid #50fa7b;display:inline-flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer">👤</div>' +
+      '<div style="font-size:11px;color:#6272a4;margin-top:4px">点击换头像</div>' +
+      '</div>' +
+      '<div id="avatar-picker" style="display:none;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0;padding:8px;background:#282a36;border-radius:8px">' +
+      ['😀','😎','🤖','👻','🚀','⚡','🔥','⭐','🎮','🎯','🐱','🐼','🦊','🐸','🦉','🐲','🍀','🌈','💻','📱','🎧','⚽','🏀','🎸'].map(function(e){return '<span style="font-size:24px;cursor:pointer;padding:4px" data-a="'+e+'">'+e+'</span>'}).join('') +
+      '</div>' +
+      '<label style="font-size:12px;color:#6272a4">昵称</label>' +
+      '<input id="p-name" placeholder="显示昵称" maxlength="20">' +
+      '<label style="font-size:12px;color:#6272a4">个人简介</label>' +
+      '<input id="p-bio" placeholder="介绍一下自己..." maxlength="200">' +
+      '<div class="cr-msg" id="p-msg"></div>' +
+      '<div class="cr-row">' +
+      '<button class="cr-ok" id="p-save">💾 保存</button>' +
+      '<button class="cr-cancel" id="s-close">关闭</button>' +
+      '</div>'
     );
+    /* Load profile */
+    get('/api/profile?token=' + encodeURIComponent(getToken()), function (j) {
+      if (j.ok && j.profile) {
+        if (j.profile.avatar) document.getElementById('p-avatar').textContent = j.profile.avatar;
+        if (j.profile.displayName) document.getElementById('p-name').value = j.profile.displayName;
+        if (j.profile.bio) document.getElementById('p-bio').value = j.profile.bio;
+      }
+    });
+    /* Avatar picker */
+    document.getElementById('p-avatar').onclick = function () {
+      var p = document.getElementById('avatar-picker');
+      p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
+    };
+    document.querySelectorAll('#avatar-picker span').forEach(function (s) {
+      s.onclick = function () {
+        document.getElementById('p-avatar').textContent = s.dataset.a;
+        document.getElementById('avatar-picker').style.display = 'none';
+      };
+    });
+    /* Save */
+    document.getElementById('p-save').onclick = function () {
+      post('/api/profile', {
+        token: getToken(),
+        avatar: document.getElementById('p-avatar').textContent,
+        displayName: document.getElementById('p-name').value.trim(),
+        bio: document.getElementById('p-bio').value.trim()
+      }, function (j) {
+        if (j.ok) { err('p-msg', ''); alert('✅ 已保存'); refresh(); }
+        else err('p-msg', j.msg || '保存失败');
+      });
+    };
     document.getElementById('s-close').onclick = hideBox;
   };
 

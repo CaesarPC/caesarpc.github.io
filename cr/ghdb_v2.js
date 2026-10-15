@@ -424,6 +424,36 @@
     });
   }
 
+  /* 用户资料（头像emoji、昵称、简介） */
+  function profileGet(data, cb) {
+    usernameByToken(data.token, function (username) {
+      if (!username) return cb(fail('未登录'));
+      ghRead('api_data/profiles.json', function (err, profiles) {
+        if (err) return cb(ok({ profile: {} }));
+        profiles = profiles || {};
+        cb(ok({ profile: profiles[username] || {}, username: username }));
+      });
+    });
+  }
+  function profilePost(data, cb) {
+    usernameByToken(data.token, function (username) {
+      if (!username) return cb(fail('未登录'));
+      ghRead('api_data/profiles.json', function (err, profiles) {
+        profiles = profiles || {};
+        var p = profiles[username] || {};
+        if (data.avatar) p.avatar = String(data.avatar).slice(0, 4);
+        if (data.bio !== undefined) p.bio = String(data.bio).slice(0, 200);
+        if (data.displayName !== undefined) p.displayName = String(data.displayName).slice(0, 20);
+        p.updatedAt = nowStr();
+        profiles[username] = p;
+        ghWrite('api_data/profiles.json', profiles, function (e2) {
+          if (e2) return cb(fail(e2.error));
+          cb(ok({ profile: p }));
+        });
+      });
+    });
+  }
+
   /* 意见反馈 */
   function feedbackPost(data, cb) {
     var content = String(data.content || '').slice(0, 1000);
@@ -780,6 +810,7 @@
       });
       if (p === 'wall') return wallGet(cb);
       if (p === 'note') return noteGet({ token: q.token }, cb);
+      if (p === 'profile') return profileGet({ token: q.token }, cb);
       if (p === 'projects') return projectsList({ q: q.q, cat: q.cat, mine: q.mine }, cb);
       if (p === 'report') return report(cb);
       if (p === 'version') return versionGet(cb);
@@ -796,6 +827,7 @@
       case 'login': return doLogin(data, cb);
       case 'register': return doRegister(data, cb);
       case 'note': return notePost(data, cb);
+      case 'profile': return profilePost(data, cb);
       case 'feedback': return feedbackPost(data, cb);
       case 'sponsor': return sponsorPost(data, cb);
       case 'projects': return projectCreate(data, cb);
