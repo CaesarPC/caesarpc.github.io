@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Git版本控制与团队协作工作流 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="keywords" content="Git版本控制与团队协作工作流, Git">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-103.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git版本控制与团队协作工作流 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Git版本控制与团队协作工作流 - CaesarTools">
+<meta property="og:description" content="Git版本控制与团队协作工作流 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-103.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git版本控制与团队协作工作流","description":"Git版本控制与团队协作工作流 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-103.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← Back文章列表</a>
+<h1>Git版本控制与团队协作工作流</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技术教程</div>
+<p>Git版本控制与团队协作工作流：从单人Submit到多分支协作</p>
+<p>Git是现代软件开发的标配工具。每个开发者每天都在用git add、git commit、git push，但很多人对Git的理解停留在表面，遇到冲突、回滚、变基时就慌。深入理解Git的原理和工作流，能大幅提升团队协作效率，避免代码丢失和混乱。</p>
+<p>Git的核心是一张快照链。每次commit不是存文件差异，而是存整个项目的快照（未变化的文件只存指针）。HEAD指向当前分支最新Submit。分支本质上是一个指向某次commit的可移动指针。创建分支非常轻量，只是新建一个指针，不复制文件。这就是为什么Git鼓励频繁建分支——代价极低。</p>
+<p>工作区、暂存区、仓库是Git的三个区域。工作区是你正在编辑的文件；git add把修改放到暂存区；git commit把暂存区的修改永久记录到仓库。理解这三个区域，就能理解为什么有时候改了文件但git status显示未跟踪——因为还没add。</p>
+<p>分支工作流是团队协作的核心。Git Flow是经典模型：main分支存生产代码，develop分支存开发中的代码，feature分支从develop切出做新功能，release分支准备发布，hotfix分支从main切出修紧急bug。这个模型规范但略显繁琐，适合发布周期长的项目。现在更流行GitHub Flow：main分支永远可部署，新功能从main切feature分支，开发完发Pull Request，代码审查通过后合并回main，部署。简单灵活，适合持续部署的互联网项目。</p>
+<p>代码审查（Code Review）通过Pull Request（PR）流程实现。开发者把feature分支推到远程，发起PR请求合并到主分支。同事在PR里逐行审查代码，提修改意见，Author修改后更新PR。审查通过后合并。PR不只是找bug，更是知识共享、风格统一、质量把关的环节。强制PR审查是成熟团队的标志。</p>
+<p>合并冲突是协作中不可避免的情况。两个人修改了同一个文件的同一行，Git无法自动合并，需要手动解决。理解冲突标记（<<<<<<< HEAD和>>>>>>> branch），知道要保留哪部分、合并哪部分。解决冲突后add并commit。避免冲突的最好方法是：小步Submit、频繁同步主分支、模块划分清晰减少多人改同一文件。</p>
+<p>常用操作场景：撤销最近一次commit（git reset）、查看历史（git log）、查看某次Submit改了什么（git show）、临时储藏修改（git stash）、变基整理Submit历史（git rebase）。这些操作掌握了，日常开发就不会卡壳。</p>
+<p>远程仓库的协作模型：origin是远程主仓库。git push推送到远程，git pull拉取远程更新。Fork工作流用于开源项目：你fork别人的仓库到自己账号，在自己的仓库改代码，再发PR给原仓库维护者。</p>
+<p>Git不是只会用就行，理解它的数据模型才能在出问题时从容应对。误删分支、Submit错了想撤回、历史太乱想整理——这些问题在理解原理后都有标准解法。版本控制是工程化的基础，用好Git是专业开发者和业余选手的重要区别。</p>
+<p><a href="articles.html">← Back文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-039.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 自动化测试与CI_CD流水线建设</a><a href="article-tech-107.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebAssembly与前端性能新边界</a><a href="article-tech-105.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 低代码平台技术原理解析</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-254.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redis缓存实战：让数据库抗住10倍流量 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 Redis缓存实战：让数据库抗住10倍流量 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="Redis缓存实战, 让数据库抗住10倍流量, Redis, 数据库, 缓存">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Redis缓存实战：让数据库抗住10倍流量 - CaesarTools">
+<meta property="og:description" content="Redis缓存实战：让数据库抗住10倍流量 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-254.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Redis缓存实战：让数据库抗住10倍流量","description":"← Back文章列表 Redis缓存实战：让数据库抗住10倍流量 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-254.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>Redis缓存实战：让数据库抗住10倍流量</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Redis是什么</h2>
+<p>数据放内存，读0.1毫秒。单线程，单机每秒10万读写。最常见用法是缓存热点数据。</p>
+<h2>二、基本用法</h2>
+<p>const redis = require('redis');</p>
+<p>const client = redis.createClient();</p>
+<p>await client.connect();</p>
+<p>await client.setex('article:list', 10, JSON.stringify(articles));</p>
+<p>const cached = await client.get('article:list');</p>
+<h2>三、缓存流程</h2>
+<p>先查缓存，没有查数据库，查完写回缓存。</p>
+<h2>四、三大问题</h2>
+<p>穿透：查不存在的key。缓存空结果或布隆过滤器。</p>
+<p>击穿：热点key过期。互斥锁或不过期。</p>
+<p>雪崩：大量key同时过期。TTL加随机偏移。</p>
+<h2>五、更新策略</h2>
+<p>先更新数据库，再删缓存。不要先更新缓存。</p>
+<h2>六、其他用途</h2>
+<p>排行榜用ZSet。分布式锁SET NX。消息队列用List/Stream。</p>
+<h2>七、常见坑</h2>
+<p>坑1：大key。拆分小key。</p>
+<p>坑2：没TTL，内存撑爆。</p>
+<p>坑3：公网暴露。开Password绑内网。</p>
+<p>坑4：当数据库用。缓存要能从数据库重建。</p>
+<h2>八、生产部署</h2>
+<p>开requirepassPassword、绑定内网IP、RDB+AOF持久化、内存满了配allkeys-lru淘汰。主从复制+哨兵做高可用。</p>
+<h2>九、总结</h2>
+<p>Redis缓存热点数据抗压力。处理好穿透、击穿、雪崩。生产开Password、持久化、主从高可用。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-251.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服务器入门</a><a href="article-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO优化实战</a></div>
+</body>
+</html>

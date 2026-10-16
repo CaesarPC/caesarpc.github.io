@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google-site-verification" content="ZPnecjKxFTMgFSs7RoXF1kjTIghkmRm1_d8nGRWi39I" />
+<title>CaesarBase - Free Tech Tools & Articles</title>
+<meta name="description" content="CaesarBase is a free personal tech site offering online tools, encoding conversion, domain lookup, file conversion, tech articles, and security research tools — all free.">
+<meta property="og:title" content="CaesarBase - Free Tech Tools">
+<meta property="og:description" content="Online tools, encoding conversion, tech articles, security research — all free.">
+<meta property="og:url" content="https://caesarpc.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/icon-192.png">
+<link rel="manifest" href="/manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--green:#50fa7b;--blue:#8be9fd;--purple:#bd93f9;--text:#e6e6f0;--dim:#6272a4;--gold:#ffd700}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+.topbar{background:rgba(20,20,35,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar .logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .right{display:flex;gap:10px;align-items:center}
+.user-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:8px 18px;border-radius:20px;font-size:14px;cursor:pointer;transition:all .2s}
+.user-btn:hover{border-color:var(--green)}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}
+.hero{text-align:center;margin-bottom:40px}
+.hero h1{font-size:48px;font-weight:900;background:linear-gradient(135deg,#50fa7b 0%,#8be9fd 50%,#bd93f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.hero p{color:var(--dim);margin-top:10px;font-size:15px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.big-card{background:rgba(26,26,46,.85);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;padding:28px;text-decoration:none;color:var(--text);transition:all .3s;display:flex;flex-direction:column}
+.big-card:hover{border-color:var(--green);transform:translateY(-3px)}
+.big-card .icon{font-size:32px;margin-bottom:12px}
+.big-card h3{font-size:20px;margin-bottom:6px}
+.big-card p{font-size:14px;color:var(--dim);line-height:1.6}
+.big-card .go{display:inline-block;margin-top:12px;color:var(--green);font-size:14px}
+.article-preview{margin-top:10px;padding-top:12px;border-top:1px solid var(--border)}
+.article-preview .art-item{display:block;padding:5px 0;color:var(--green);font-size:13px;text-decoration:none}
+.article-preview .more{color:var(--green);font-size:12px;margin-top:8px;display:block;text-decoration:none;font-weight:600}
+.article-preview .more:hover{color:var(--green)}
+.admin-card{border-color:var(--gold)}
+.admin-card .icon{color:var(--gold)}
+.admin-card h3{color:var(--gold)}
+.crown{color:var(--gold);margin-left:6px}
+footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:relative;z-index:1}
+.login-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:center;justify-content:center}
+.login-modal.show{display:flex}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:30px;width:320px}
+.login-box h3{margin-bottom:16px;text-align:center}
+.login-box input{width:100%;background:#0f0f1a;border:1px solid var(--border);border-radius:8px;padding:12px;margin:6px 0;color:var(--text)}
+.login-box button{width:100%;background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;margin-top:10px}
+.install-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(6px)}
+.install-box{background:#282a36;border:1px solid var(--border);border-radius:16px;padding:22px;width:90%;max-width:340px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.install-box h3{color:#50fa7b;margin:0 0 6px}
+.install-box .tip{color:var(--dim);font-size:13px;margin:0 0 16px}
+.install-box .opt{display:flex;flex-direction:column;gap:4px;align-items:center;width:100%;margin:8px 0;padding:14px;border-radius:12px;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:.2s}
+.install-box .opt small{font-size:12px;font-weight:400;opacity:.8}
+.install-box .opt.ios{background:rgba(50,200,255,.15);color:#8be9fd}
+.install-box .opt.apk{background:rgba(80,250,123,.12);color:#50fa7b}
+.install-box .opt:hover{transform:scale(1.03);filter:brightness(1.2)}
+.install-box .cancel{background:transparent;border:1px solid var(--border);color:var(--dim);width:100%;padding:10px;border-radius:10px;margin-top:10px;cursor:pointer}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .bigcard{padding:12px !important;margin-bottom:12px !important}
+  .bigcard-hd{padding:10px 12px !important}
+  .bigcard-body{padding:10px !important;gap:8px !important}
+  .mini{padding:10px !important;font-size:13px !important}
+  .mic{font-size:20px !important;margin-right:8px !important}
+  h1{font-size:22px !important}
+  h2{font-size:16px !important}
+}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"CaesarBase","url":"https://caesarpc.github.io/","description":"免费在线工具、编码转换、Tech Articles和安全研究","publisher":{"@type":"Organization","name":"CaesarBase"}}
+</script>
+<meta name="theme-color" content="#1e1e2e">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div id="offlineBar" style="display:none;position:fixed;top:0;left:0;right:0;background:#2d2d3f;color:#888;padding:4px 16px;font-size:12px;text-align:center;z-index:9999;">
+  📡 Offline · Some features unavailable
+</div>
+<canvas id="mc"></canvas>
+<div class="topbar">
+  <div class="logo">CaesarBase</div>
+  <div class="right">
+    <span id="userInfo" style="display:none;font-size:14px">Guest</span>
+    <button class="user-btn" id="installBtn" onclick="installPWA()" style="display:none">📲 Install to Desktop</button>
+  </div>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>CaesarBase</h1>
+    <p>Personal Site · Tools · Community</p>
+  </div>
+  <div class="cards" id="cardBox">
+    <a class="big-card" href="https://caesarpc.github.io/cr/index.html">
+      <div class="icon">🧰</div>
+      <h3>CaesarTools</h3>
+      <p>Domain lookup, encoding conversion, file conversion, online games, tech articles — all free.</p>
+      <span class="go">Enter Tools →</span>
+    </a>
+    <div class="big-card">
+      <div class="icon">📝</div>
+      <h3>Tech Articles</h3>
+      <p>Latest tech articles from CaesarTools.</p>
+      <div class="article-preview" id="articleList">
+        <span style="color:var(--dim);font-size:13px">Loading...</span>
+      </div>
+      <a class="more" href="https://caesarpc.github.io/cr/articles.html">Want more? Browse all in CaesarTools →</a>
+    </div>
+    <a class="big-card" href="https://caesarpc.github.io/cr/topics.html">
+      <div class="icon">🗂️</div>
+      <h3>Tech Topics Collection</h3>
+      <p>Organized by topic: Frontend/Backend/Network/AI. Learn systematically.</p>
+      <span class="go">Browse Topics →</span>
+    </a>
+    <a class="big-card" href="sponsor.html">
+      <div class="icon">📢</div>
+      <h3>Brand Partnership</h3>
+      <p>广告位招商、Brand Partnership，Submit你的站点信息。</p>
+      <span class="go">Apply Now →</span>
+    </a>
+    <div style="grid-column:1/-1;margin-top:20px;padding:10px 0;border-top:1px solid var(--border);font-size:13px;color:var(--dim);letter-spacing:2px">🛡️ Security Research Zone</div>
+    <a class="big-card" href="https://caesarpc.github.io/src-scanner-web/">
+      <div class="icon">🛡️</div>
+      <h3>SRC漏洞扫描器 <span style="font-size:11px;background:#ff4757;color:#fff;padding:2px 8px;border-radius:4px;margin-left:6px">Key Required</span></h3>
+      <p>Three-layer scan (100 shallow/150 medium/50 deep), sensitive path detection, 50 concurrent. Authorized security testing only.</p>
+      <span class="go">Enter Scanner →</span>
+    </a>
+    <a class="big-card" href="rangefield.html">
+      <div class="icon">🎯</div>
+      <h3>Practice Range</h3>
+      <p>Multiple-choice security practice. Check files you think are problematic, submit to see answers. Free.</p>
+      <span class="go">Start Practice →</span>
+    </a>
+  </div>
+</div>
+<footer>© 2026 CaesarBase · alpha 1.1 · <a href="/about.html" style="color:var(--dim)">About</a></footer>
+<script>
+const c=document.getElementById('mc'),x=c.getContext('2d');
+let meteors=[];
+function resize(){c.width=innerWidth;c.height=innerHeight}
+function spawn(){
+  const fromLeft=Math.random()<0.6;
+  let sx,sy,vx,vy;
+  if(fromLeft){sx=-30;sy=Math.random()*c.height*0.7;}
+  else{sx=Math.random()*c.width*0.8;sy=-30;}
+  const angle=(44+Math.random()*2)*Math.PI/180;
+  const speed=3+Math.random()*5;
+  vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+  meteors.push({x:sx,y:sy,vx:vx,vy:vy,size:1+speed*0.3,tail:20+speed*12,alpha:0.2+Math.random()*0.3});
+  setTimeout(spawn,200+Math.random()*400);
+}
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  meteors=meteors.filter(m=>m.x<c.width+200&&m.y<c.height+200);
+  meteors.forEach(m=>{
+    m.x+=m.vx;m.y+=m.vy;
+    const g=x.createLinearGradient(m.x,m.y,m.x-m.vx/m.vy*m.tail,m.y-m.tail);
+    g.addColorStop(0,'rgba(139,242,253,'+m.alpha+')');
+    g.addColorStop(1,'rgba(139,242,253,0)');
+    x.strokeStyle=g;x.lineWidth=m.size;
+    x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x-m.vx/m.vy*m.tail,m.y-m.tail);x.stroke();
+  });
+  requestAnimationFrame(draw);
+}
+resize();spawn();draw();addEventListener('resize',resize);
+const cbArticles=[
+  {url:'cb-article-tech-ai-agent-dev-intro.html',title:'AI Agent智能体开发入门'},
+  {url:'cb-article-tech-graphql-api.html',title:'GraphQL API设计'},
+  {url:'cb-article-tech-distributed-lock.html',title:'分布式锁实现方案'},
+  {url:'cb-article-tech-db-sharding-practice.html',title:'分库分表实战'},
+  {url:'cb-article-tech-rw-split-ha.html',title:'读写分离与数据库高可用'}
+];
+function loadArticles(){
+  const box=document.getElementById('articleList');
+  box.innerHTML='';
+  cbArticles.forEach(a=>{
+    const el=document.createElement('a');
+    el.className='art-item';
+    el.href=a.url;
+    el.textContent='📄 '+a.title;
+    box.appendChild(el);
+  });
+}
+loadArticles();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('https://caesarpc.github.io/sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW failed:', err));
+  });
+}
+let deferredPrompt = null;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+  || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  || (navigator.userAgentData && /macOS/i.test(navigator.userAgentData.platform) && navigator.maxTouchPoints > 1);
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').style.display = 'inline-block';
+});
+if (isIOS && !isStandalone) {
+  document.getElementById('installBtn').style.display = 'inline-block';
+}
+if (isStandalone) {
+  const b = document.getElementById('installBtn');
+  if (b) b.style.display = 'none';
+}
+const APK_URL = 'https://caesarpc.github.io/apk/CaesarBase.apk';
+function installPWA() {
+  window.location.href = 'install.html?v=' + Date.now();
+}
+function closeInstallModal() {
+  document.getElementById('installModal').style.display = 'none';
+}
+function installIOS() {
+  closeInstallModal();
+  alert('Install CaesarBase on iPad/iPhone:\n1. Tap the Share button at the bottom\n2. Scroll down, tap "Add to Home Screen"\n3. Tap "Add" in the top right\n\nIt will run fullscreen like a standalone app');
+}
+function installApk() {
+  closeInstallModal();
+  window.location.href = APK_URL;
+}
+</script>
+<script>
+function updateOnlineStatus() {
+  const bar = document.getElementById('offlineBar');
+  if (navigator.onLine) {
+    bar.style.display = 'none';
+  } else {
+    bar.style.display = 'block';
+  }
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+</script>
+<div class="install-modal" id="installModal" style="display:none" onclick="if(event.target===this)closeInstallModal()">
+  <div class="install-box">
+    <h3>Choose Installation Method</h3>
+    <p class="tip">Install CaesarBase as a standalone App</p>
+    <button class="opt ios" onclick="installIOS()">🍎 iOS / iPad<small>PWA 添加到主屏幕</small></button>
+    <button class="opt apk" onclick="installApk()">🤖 鸿蒙 HarmonyOS<small>下载 APK 安装包</small></button>
+    <button class="opt apk" onclick="installApk()">📱 安卓 Android<small>下载 APK 安装包</small></button>
+    <button class="cancel" onclick="closeInstallModal()">Cancel</button>
+  </div>
+</div>
+<script src="cr/ghdb_v2.js?v=20261008a"></script>
+<script>
+window.addEventListener('load',function(){
+  if(window.CrGH && window.CrGH.visitLog){
+    try{ window.CrGH.visitLog({page:'CaesarBase主站', ua:navigator.userAgent, ref:document.referrer}, function(){}); }catch(e){}
+  }
+});
+</script>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

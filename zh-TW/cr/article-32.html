@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-32.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebSocket实战：实时通信从入门到生产 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 WebSocket实战：实时通信从入门到生产 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="WebSocket实战, 实时通信从入门到生产">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="WebSocket实战：实时通信从入门到生产 - CaesarTools">
+<meta property="og:description" content="WebSocket实战：实时通信从入门到生产 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-32.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebSocket实战：实时通信从入门到生产","description":"← Back文章列表 WebSocket实战：实时通信从入门到生产 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-32.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>WebSocket实战：实时通信从入门到生产</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、HTTP和WebSocket的区别</h2>
+<p>HTTP是请求-响应模式：客户端问，服务器答，答完连接关了。服务器想主动推消息给客户端？做不到，只能靠轮询。</p>
+<p>WebSocket是全双工通信：建立连接后，客户端和服务器随时互相发消息。聊天、通知、实时数据看板都需要这个。</p>
+<h2>二、什么时候用WebSocket</h2>
+<p>- 在线聊天</p>
+<p>- 实时通知（新订单、新消息）</p>
+<p>- 多人协作（文档编辑）</p>
+<p>- 实时数据看板（股票、监控）</p>
+<h2>三、基本用法</h2>
+<p>前端：</p>
+<p>const ws = new WebSocket('wss://example.com/ws');</p>
+<p>ws.onopen = () => ws.send('hello');</p>
+<p>ws.onmessage = (e) => console.log(e.data);</p>
+<p>ws.onclose = () => reconnect();</p>
+<p>后端Node：</p>
+<p>const WebSocket = require('ws');</p>
+<p>const wss = new WebSocket.Server({ port: 8080 });</p>
+<p>wss.on('connection', (ws) => {</p>
+<p>ws.on('message', (data) => ws.send('收到: ' + data));</p>
+<p>});</p>
+<h2>四、心跳保活</h2>
+<p>连接可能被中间网关掐断（空闲30秒）。客户端每隔30秒发ping，服务器回pong。多久没收到pong就重连。</p>
+<h2>五、自动重连</h2>
+<p>连接断了自动重连，指数退避：1秒、2秒、4秒、8秒，最多30秒。不要疯狂重连打挂服务器。</p>
+<h2>六、生产注意事项</h2>
+<h3>6.1 Nginx配置</h3>
+<p>WebSocket需要Upgrade头：</p>
+<p>proxy_set_header Upgrade $http_upgrade;</p>
+<p>proxy_set_header Connection "upgrade";</p>
+<h3>6.2 鉴权</h3>
+<p>连接时带token：new WebSocket('wss://...?token=xxx')。服务器验证token。</p>
+<h3>6.3 集群</h3>
+<p>多台Node实例，用户连在不同实例上。用Redis Pub/Sub广播消息。</p>
+<h2>七、Socket.io</h2>
+<p>Socket.io封装了WebSocket，自动降级到长轮询，带重连和房间功能。新手推荐用。</p>
+<h2>八、常见坑</h2>
+<p>坑1：Nginx没配Upgrade头，连接握手失败。</p>
+<p>坑2：没心跳，连接空闲被掐。</p>
+<p>坑3：重连太频繁，雪崩。</p>
+<p>坑4：消息格式不统一，解析报错。</p>
+<h2>九、SSE和WebSocket怎么选</h2>
+<p>SSE（Server-Sent Events）是服务器单向推送，客户端用普通HTTP接收。比WebSocket简单，自动重连。适合只需要服务器推（通知、股票行情）的场景。WebSocket双向通信，适合聊天。</p>
+<h2>十、总结</h2>
+<p>WebSocket是实时通信标配。前端建立连接、心跳保活、自动重连。后端Nginx配Upgrade、集群用Redis广播。做好这几点，实时应用就稳了。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-327.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引实战</a><a href="article-319.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷贝与浅拷贝</a><a href="article-314.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a></div>
+</body>
+</html>

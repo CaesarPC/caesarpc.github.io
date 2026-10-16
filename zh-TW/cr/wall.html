@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="留言墙 - CrExclusive工具箱 - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/wall.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>留言墙 - CrExclusive工具箱</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#e6e6e6;min-height:100vh;overflow-x:hidden}
+.hd{background:#282a36;padding:18px 26px;border-bottom:2px solid #50fa7b;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.hd h1{margin:0;font-size:22px;color:#50fa7b}
+.hd a{color:#8be9fd;font-size:13px;text-decoration:none}
+.wrap{max-width:820px;margin:22px auto;padding:0 16px}
+.box{background:#282a36;border-radius:12px;padding:20px;border:1px solid #44475a;margin-bottom:18px}
+.box h2{margin:0 0 12px;font-size:16px;color:#50fa7b}
+input,textarea{width:100%;box-sizing:border-box;margin:6px 0;padding:10px;border-radius:6px;border:1px solid #44475a;background:#1e1e2e;color:#e6e6e6;font-size:14px;font-family:inherit}
+textarea{min-height:80px;resize:vertical}
+.btn{background:#50fa7b;color:#1e1e2e;border:none;padding:10px 22px;font-size:15px;font-weight:700;border-radius:8px;cursor:pointer;margin-top:6px}
+.btn:hover{background:#69ff94}
+.msg{font-size:13px;color:#ff5555;margin-top:8px;min-height:18px}
+.small{font-size:12px;color:#6272a4;margin-top:8px}
+/* 管理员控制面板 */
+.admin-panel{display:none;background:#2d2130;border:1px solid #ffd700;border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.admin-panel h3{margin:0 0 10px;font-size:14px;color:#ffd700}
+.admin-panel label{font-size:12.5px;color:#e6e6e6;margin-right:14px;cursor:pointer}
+.admin-panel select{margin-left:4px;background:#1e1e2e;color:#e6e6e6;border:1px solid #44475a;border-radius:6px;padding:4px 8px}
+/* 置顶区 */
+.pin-zone{display:none;margin-bottom:16px}
+.pin-zone .ph{font-size:13px;color:#ffd700;font-weight:bold;margin-bottom:8px}
+.pin-item{background:#2d2130;border:1px solid #ffd700;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 0 12px rgba(255,215,0,.08)}
+.pin-item .nm{font-weight:bold;color:#ffd700;font-size:14px}
+.pin-item .tm{font-size:11px;color:#6272a4;margin-left:8px}
+.pin-item .ct{margin-top:8px;font-size:15px;line-height:1.6;word-break:break-word;white-space:pre-wrap}
+.pin-item .badge{display:inline-block;background:#ffd700;color:#1e1e2e;font-size:11px;font-weight:bold;border-radius:4px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.pin-item .pin-btn{margin-left:8px;font-size:11px;color:#ff5555;cursor:pointer;background:none;border:1px solid #ff5555;border-radius:4px;padding:1px 7px}
+/* 弹幕舞台 */
+.stage{position:relative;min-height:420px;height:420px;overflow:hidden;background:#1a1a24;border-radius:12px;border:1px solid #44475a;margin-bottom:14px}
+.dm{position:absolute;left:0;top:0;white-space:nowrap;max-width:80%;overflow:hidden;text-overflow:ellipsis;font-size:15px;padding:6px 14px;border-radius:20px;background:rgba(40,42,54,.85);border:1px solid #44475a;color:#e6e6e6;will-change:transform;transition:none !important}
+.dm .nm{color:#8be9fd;font-weight:bold;margin-right:6px}
+.dm.admin{background:rgba(255,215,0,.12);border-color:#ffd700;color:#ffe97a;font-weight:bold}
+.dm.admin .nm{color:#ffd700}
+.dm.mod{background:rgba(255,215,0,.08);border-color:#ffd700;color:#f0e68c}
+.dm.mod .nm{color:#ffd700}
+.dm.bold{font-weight:bold}
+/* 留言列表(非弹幕模式备用) */
+.list{display:none}
+.item{background:#1e1e2e;border:1px solid #44475a;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.item .nm{font-weight:bold;color:#50fa7b;font-size:14px}
+.item .tm{font-size:11px;color:#6272a4;margin-left:8px}
+.item .ct{margin-top:8px;font-size:14px;line-height:1.6;word-break:break-word;white-space:pre-wrap}
+.item.admin{border-color:#ffd700;background:#2d2130}
+.item.admin .nm{color:#ffd700}
+.item.mod{border-color:#ffd700;background:#2a2530}
+.item.mod .nm{color:#ffd700}
+.badge{display:inline-block;background:#ffd700;color:#1e1e2e;font-size:11px;font-weight:bold;border-radius:4px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+.pin-btn{margin-left:8px;font-size:11px;color:#ff5555;cursor:pointer;background:none;border:1px solid #ff5555;border-radius:4px;padding:1px 7px}
+.toggle{color:#8be9fd;cursor:pointer;font-size:12.5px;text-decoration:underline;margin-left:10px}
+.empty{color:#6272a4;text-align:center;padding:40px;font-size:14px}
+/* 67 Exclusive彩蛋 */
+.egg67{background:linear-gradient(135deg,#2d1b4e,#1a1a2e);border:2px solid #ff79c6;border-radius:14px;padding:18px;margin-bottom:16px;text-align:center}
+.egg67 h3{color:#ff79c6;font-size:17px;margin-bottom:10px}
+.egg67-big{font-size:42px;font-weight:900;color:#ff79c6;text-shadow:0 0 20px rgba(255,121,198,.6),0 0 40px rgba(255,121,198,.3);letter-spacing:6px;margin-bottom:10px;animation:egg67pulse 2s ease-in-out infinite}
+@keyframes egg67pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.egg67 canvas{width:100%;max-width:800px;height:200px;border-radius:10px;background:#12121e;border:1px solid #44475a}
+.egg67-tip{color:#bd93f9;font-size:13px;margin-top:8px}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="hd">
+  <h1>💬 Public Message Wall</h1>
+  <div style="display:flex;gap:16px;align-items:center;">
+    <a href="index.html">← Back工具箱</a>
+  </div>
+</div>
+</div>
+<div class="wrap">
+  <!-- 管理员控制面板（仅 Server Login可见） -->
+  <div class="admin-panel" id="adminPanel">
+    <h3>👑 管理员控制</h3>
+    <label>弹幕模式 <select id="dmMode"><option value="on">开启</option><option value="off">Close(列表模式)</option></select></label>
+    <label>字体粗细 <select id="dmBold"><option value="normal">正常</option><option value="bold">加粗</option><option value="heavy">特粗</option></select></label>
+    <label>弹幕位置 <select id="dmPos"><option value="top">顶部</option><option value="mid">中部</option><option value="bottom">底部</option><option value="full" selected>全屏随机</option></select></label>
+    <label>弹幕速度 <select id="dmSpeed"><option value="fast">快</option><option value="mid" selected>中</option><option value="slow">慢</option></select></label>
+  </div>
+  <!-- 67 用户Exclusive彩蛋（仅用户 67 Login可见） -->
+  <div class="egg67" id="egg67" style="display:none">
+    <h3>🎉 67 Exclusive彩蛋 · 67676767</h3>
+    <div class="egg67-big">67676767</div>
+    <canvas id="egg67Canvas" width="800" height="300"></canvas>
+    <div class="egg67-tip">欢迎回来，67！这里是你的Exclusive空间 ✨</div>
+  </div>
+  <div class="box">
+    <h2>✍️ 写留言</h2>
+    <input id="w-name" placeholder="你的名字（可不填，默认匿名）" maxlength="20">
+    <textarea id="w-content" placeholder="想说点什么？留言会以弹幕形式公开显示给所有访客。（最长500字）"></textarea>
+    <div class="msg" id="w-msg"></div>
+    <button class="btn" onclick="doPost()">💬 发布留言</button>
+    <div class="small">站长 Server 发布的留言会带金色 👑 管理员标识，并可被置顶。</div>
+  </div>
+  <!-- 置顶留言区 -->
+  <div class="pin-zone" id="pinZone">
+    <div class="ph">📌 置顶公告</div>
+    <div id="pinList"></div>
+  </div>
+  <!-- 弹幕舞台 -->
+  <div class="stage" id="stage"></div>
+  <!-- 备用列表 -->
+  <div class="list" id="list"></div>
+  <div style="text-align:center;margin:6px 0"><span class="toggle" onclick="loadWall()">🔄 刷新弹幕</span></div>
+</div>
+<script>
+var apiUrl = '';   // 兼容旧变量，不再使用
+var TOKEN_KEY = 'cr_token';
+var USER_KEY = 'cr_user';
+var isAdmin = false;
+var items = [];
+var dmSeq = 0;
+
+function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+function getUsername() { return localStorage.getItem(USER_KEY) || ''; }
+function post(path, data, cb) {
+  window.CrGH && CrGH.route('POST', path, data, cb);
+}
+/* ===== 云端存储（GitHub 仓库当数据库） ===== */
+
+/* 读取云端留言列表（直连 GitHub） */
+function cloudGetWall(cb) {
+  window.CrGH && CrGH.wallGet(function (j) {
+    cb(j && j.ok ? j : { ok: true, list: [] });
+  });
+}
+
+/* 写入云端：直连 GitHub（站长关机也能用） */
+function cloudSaveWall(list, cb) {
+  window.CrGH && CrGH.wallSync({ list: list, token: getToken() }, function (j) {
+    cb(j.ok ? { ok: true } : { ok: false, msg: j.msg || '同步失败' });
+  });
+}
+function b64encode(str) {
+  if (typeof btoa === 'function') return btoa(unescape(encodeURIComponent(str)));
+  // 兜底：手动编码（UTF-8安全）
+  var bytes = new TextEncoder().encode(str);
+  var bin = '';
+  bytes.forEach(function (b) { bin += String.fromCharCode(b); });
+  return btoa(bin);
+}
+
+function get(path, cb) {
+  window.CrGH && CrGH.route('GET', path, null, cb);
+}
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* 管理员控制面板 */
+function setupAdmin() {
+  if (getUsername() === 'Server') {
+    isAdmin = true;
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminPanel').querySelector('select').value =
+      localStorage.getItem('cr_dm_mode') || 'on';
+  }
+}
+
+/* ===== 67 用户Exclusive彩蛋：67 雪花特效 ===== */
+var EGG67_FLAKES = [];
+var EGG67_COLORS = ['#ff79c6','#bd93f9','#50fa7b','#8be9fd','#ffb86c','#ff5555','#f1fa8c'];
+var EGG67_FONTS = ['Arial','Georgia','Courier New','Impact','Comic Sans MS','Trebuchet MS'];
+function egg67Spawn() {
+  var c = document.getElementById('egg67Canvas');
+  if (!c) return;
+  EGG67_FLAKES.push({
+    x: Math.random() * c.width,
+    y: -30,
+    size: 14 + Math.random() * 28,
+    speed: 0.8 + Math.random() * 2.2,
+    drift: (Math.random() - 0.5) * 1.5,
+    rot: Math.random() * 360,
+    rotSpeed: (Math.random() - 0.5) * 4,
+    color: EGG67_COLORS[Math.floor(Math.random() * EGG67_COLORS.length)],
+    font: EGG67_FONTS[Math.floor(Math.random() * EGG67_FONTS.length)],
+    bold: Math.random() > 0.5
+  });
+}
+function egg67Loop() {
+  var c = document.getElementById('egg67Canvas');
+  if (!c || c.style.display === 'none') return;
+  var ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, c.width, c.height);
+  if (Math.random() < 0.15 && EGG67_FLAKES.length < 80) egg67Spawn();
+  EGG67_FLAKES = EGG67_FLAKES.filter(function (f) { return f.y < c.height + 40; });
+  EGG67_FLAKES.forEach(function (f) {
+    f.y += f.speed;
+    f.x += f.drift;
+    f.rot += f.rotSpeed;
+    ctx.save();
+    ctx.translate(f.x, f.y);
+    ctx.rotate(f.rot * Math.PI / 180);
+    ctx.font = (f.bold ? 'bold ' : '') + f.size + 'px ' + f.font;
+    ctx.fillStyle = f.color;
+    ctx.globalAlpha = 0.85;
+    ctx.fillText('67', -f.size, 0);
+    ctx.restore();
+  });
+  requestAnimationFrame(egg67Loop);
+}
+function setupEgg67() {
+  if (getUsername() === '67') {
+    document.getElementById('egg67').style.display = 'block';
+    setTimeout(egg67Loop, 300);
+  }
+}
+
+/* 生成弹幕：rAF 一帧帧驱动，从右侧屏幕外滑到左侧，到达后循环重新从右侧进入（不再消失） */
+/* ===== 轨道制弹幕（支持循环滚动 + 动态向下扩展） ===== */
+var DM_TRACK_H = 34;       // 每条轨道高度(px)，弹幕高度约33px
+var DM_BASE_STAGE_H = 420; // 基础舞台高度
+var DM_MAX_STAGE_H = 1560; // 舞台最高可扩展到约46条轨道
+var DM_MAX_ON_SCREEN = 30; // 最多同时显示的弹幕数（性能保护）
+var DM_TRACKS = [];        // 轨道占用状态: true=占用
+var DM_PENDING = [];       // 排队中的弹幕
+var DM_SPAWNED = {};       // 已生成的弹幕id(去重，供增量刷新)
+
+function dmTrackCount() {
+  var stage = document.getElementById('stage');
+  // 优先取 style.height（同步可信），reflow 延迟时 clientHeight 可能滞后
+  var h = parseFloat(stage.style.height) || stage.clientHeight || DM_BASE_STAGE_H;
+  return Math.max(1, Math.floor(h / DM_TRACK_H));
+}
+/* 根据舞台里实际的弹幕重建轨道占用表（扩展/收缩舞台后调用，避免重叠） */
+function dmRebuildTracks() {
+  var n = dmTrackCount();
+  DM_TRACKS = new Array(n).fill(false);
+  var els = document.querySelectorAll('.dm');
+  for (var i = 0; i < els.length; i++) {
+    var t = parseInt(els[i].style.top, 10);
+    var idx = Math.floor(t / DM_TRACK_H);
+    if (idx >= 0 && idx < n) DM_TRACKS[idx] = true;
+  }
+}
+function dmFreeTrack(from, to) {
+  var n = dmTrackCount();
+  if (DM_TRACKS.length !== n) dmRebuildTracks();
+  for (var i = from; i <= to && i < n; i++) if (!DM_TRACKS[i]) return i;
+  return -1;
+}
+function dmPickRange(pos) {
+  var n = dmTrackCount();
+  if (pos === 'top') return [0, Math.floor(n * 0.3)];
+  if (pos === 'mid') return [Math.floor(n * 0.35), Math.floor(n * 0.65)];
+  if (pos === 'bottom') return [Math.floor(n * 0.7), n - 1];
+  return [0, n - 1];
+}
+function dmSpawnPending() {
+  // 轨道释放后，把排队中的弹幕按序放入空闲轨道
+  for (var k = 0; k < DM_PENDING.length; k++) {
+    var it = DM_PENDING[k];
+    var rng = dmPickRange(it._pos);
+    var idx = dmFreeTrack(rng[0], rng[1]);
+    if (idx >= 0) {
+      DM_PENDING.splice(k, 1);
+      spawnDm(it);
+      k--;
+    }
+  }
+}
+/* 弹幕太多轨道不够：先把舞台往下延伸一行区域，再试分配 */
+function dmExtendStage() {
+  var stage = document.getElementById('stage');
+  var curH = parseFloat(stage.style.height) || stage.clientHeight || DM_BASE_STAGE_H;
+  if (curH >= DM_MAX_STAGE_H) return false;      // 已到上限
+  stage.style.height = Math.min(curH + DM_TRACK_H * 4, DM_MAX_STAGE_H) + 'px';
+  dmRebuildTracks();
+  return true;
+}
+/* 舞台到上限且仍无空轨道：淘汰最旧的一条弹幕，给新弹幕让位 */
+function dmEvictOldest() {
+  var els = document.querySelectorAll('.dm');
+  if (!els.length) return;
+  var el = els[0];              // 最早生成的弹幕
+  if (el.parentNode) el.parentNode.removeChild(el);
+  dmRebuildTracks();
+}
+/* 弹幕变少时把舞台慢慢收回去（不影响正在滚动的，只回收下方空区） */
+function dmShrinkIfIdle() {
+  var stage = document.getElementById('stage');
+  var curH = parseFloat(stage.style.height) || stage.clientHeight || DM_BASE_STAGE_H;
+  if (curH <= DM_BASE_STAGE_H) return;
+  var n = dmTrackCount();
+  var used = 0;
+  DM_TRACKS.forEach(function (v) { if (v) used++; });
+  var need = Math.max(used, DM_PENDING.length + 1);
+  var target = Math.max(DM_BASE_STAGE_H, Math.min(curH, need * DM_TRACK_H + 20));
+  if (target < curH) {
+    stage.style.height = target + 'px';
+    dmRebuildTracks();
+  }
+}
+
+/* 生成弹幕：轨道分配 + rAF 平滑滚动，右进左出，到达左侧后循环重播 */
+function spawnDm(item) {
+  var stage = document.getElementById('stage');
+  if (!stage || !item) return;
+  /* 性能保护：同时显示弹幕不超过上限，超出的排队等待 */
+  var onScreen = stage.querySelectorAll('.dm').length;
+  if (onScreen >= DM_MAX_ON_SCREEN) {
+    DM_PENDING.push(item);
+    return;
+  }
+  var bold = document.getElementById('dmBold').value || 'normal';
+  var pos = document.getElementById('dmPos').value || 'full';
+  var speed = document.getElementById('dmSpeed').value || 'mid';
+  var dur = speed === 'fast' ? 6 : speed === 'slow' ? 16 : 10;
+  var rng = dmPickRange(pos);
+  var idx = dmFreeTrack(rng[0], rng[1]);
+  if (idx < 0) {
+    // 无空轨道 → 先往下扩展舞台，再试一次；仍不行就淘汰最旧的
+    if (dmExtendStage()) {
+      rng = dmPickRange(pos);
+      idx = dmFreeTrack(rng[0], rng[1]);
+    }
+    if (idx < 0) {
+      dmEvictOldest();
+      rng = dmPickRange(pos);
+      idx = dmFreeTrack(rng[0], rng[1]);
+    }
+    if (idx < 0) {
+      item._pos = pos;
+      DM_PENDING.push(item);          // 真没位置 → 排队等待
+      return;
+    }
+  }
+  DM_TRACKS[idx] = true;
+  if (item.id !== undefined) DM_SPAWNED[item.id] = true;
+
+  var el = document.createElement('div');
+  var bCls = item.admin ? 'admin' : (item.mod ? 'mod' : '');
+  if (bold === 'bold' || bold === 'heavy') bCls += ' bold';
+  el.className = 'dm ' + bCls;
+  /* 长弹幕截断显示，避免超长内容导致渲染卡顿 */
+  var displayContent = String(item.content || '');
+  if (displayContent.length > 80) displayContent = displayContent.slice(0, 80) + '…';
+  el.innerHTML = '<span class="nm">' + esc(item.name) +
+    (item.admin ? ' \uD83D\uDC51' : (item.mod ? ' \uD83E\uDD48' : '')) + '</span>' + esc(displayContent);
+  el.style.top = (idx * DM_TRACK_H + 2) + 'px';
+  el.style.willChange = 'transform';
+  el.style.backfaceVisibility = 'hidden';
+  stage.appendChild(el);
+
+  /* 每帧动态计算宽度，避免窗口/滚动条变化导致位置错乱 */
+  function getStartX() { return stage.clientWidth + 30; }
+  function getEndX() { return -el.offsetWidth - 30; }
+
+  el.style.transform = 'translateX(' + getStartX() + 'px)';
+  el.style.opacity = '0';
+  var t0 = performance.now();
+
+  function frame(now) {
+    if (!el.parentNode) return;
+    var sX = getStartX(), eX = getEndX();
+    var dist = sX - eX;
+    var pxPerMs = dist / (dur * 1000);
+    var dx = (now - t0) * pxPerMs;
+    if (dx >= dist) {
+      /* 走到左边外面后：隐藏一帧 → 瞬间放到右边外面 → 再显示 */
+      el.style.opacity = '0';
+      t0 = now;
+      /* 下一帧再显示，让浏览器先完成隐藏 */
+      requestAnimationFrame(function () {
+        if (!el.parentNode) return;
+        el.style.transform = 'translateX(' + getStartX() + 'px)';
+        el.style.opacity = '1';
+        requestAnimationFrame(frame);
+      });
+      return;
+    }
+    if (el.style.opacity === '0') el.style.opacity = '1';
+    el.style.transform = 'translateX(' + (sX - dx) + 'px)';
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+function loadWall() {
+  // 云端后端(Worker/本地)优先：读写同源，数据一致
+  get('/api/wall', function (j) {
+    if (j.ok && j.list) { renderWall(j.list); return; }
+    // 云端后端不可用 → 兜底 GitHub 云端只读数据
+    cloudGetWall(function (cj) {
+      if (cj.ok && cj.list) renderWall(cj.list);
+    });
+  });
+}
+
+function renderWall(list) {
+  items = list;
+      // 置顶区
+    var pins = items.filter(function (x) { return x.pinned; });
+    var pinZone = document.getElementById('pinZone');
+    var pinList = document.getElementById('pinList');
+    if (pins.length) {
+      pinZone.style.display = 'block';
+      var h = '';
+      pins.forEach(function (x) {
+        h += '<div class="pin-item"><span class="nm">' + esc(x.name) +
+          (x.admin ? ' <span class="badge">👑 管理员</span>' : (x.mod ? ' <span class="badge">🥈 半管理员</span>' : '')) + '</span>' +
+          '<span class="tm">' + esc(x.time) + '</span>' +
+          (isAdmin ? '<button class="pin-btn" onclick="togglePin(' + x.id + ',false)">取消置顶</button>' : '') +
+          '<div class="ct">' + esc(x.content) + '</div></div>';
+      });
+      pinList.innerHTML = h;
+    } else {
+      pinZone.style.display = 'none';
+    }
+    // 弹幕模式
+    var mode = document.getElementById('dmMode').value || 'on';
+    if (mode === 'off') {
+      document.getElementById('stage').style.display = 'none';
+      var listEl = document.getElementById('list');
+      listEl.style.display = 'block';
+      var hh = '';
+      items.forEach(function (x) {
+        hh += '<div class="item' + (x.admin ? ' admin' : (x.mod ? ' mod' : '')) + '"><span class="nm">' + esc(x.name) +
+          (x.admin ? ' <span class="badge">👑 管理员</span>' : (x.mod ? ' <span class="badge">🥈 半管理员</span>' : '')) + '</span>' +
+          '<span class="tm">' + esc(x.time) + '</span>' +
+          (isAdmin ? '<button class="pin-btn" onclick="togglePin(' + x.id + ',' + (x.pinned ? 'false' : 'true') + ')">' + (x.pinned ? '取消置顶' : '置顶') + '</button>' : '') +
+          '<div class="ct">' + esc(x.content) + '</div></div>';
+      });
+      listEl.innerHTML = hh || '<div class="empty">还没有留言，来抢沙发吧 🛋️</div>';
+      return;
+    }
+    document.getElementById('stage').style.display = 'block';
+    document.getElementById('list').style.display = 'none';
+    // 弹幕: 增量追加，只生成新出现的，不打断已在滚动的
+    var newCount = 0;
+    items.forEach(function (x) {
+      if (x.pinned) return;   // 置顶的已在 pinZone
+      if (x.id !== undefined && DM_SPAWNED[x.id]) return;  // 已生成过
+      spawnDm(x);
+      newCount++;
+    });
+    if (newCount === 0 && DM_PENDING.length === 0 && document.querySelectorAll('.dm').length === 0) {
+      // 完全没有弹幕时给个空提示
+      var st = document.getElementById('stage');
+      st.innerHTML = '<div style="color:#6272a4;text-align:center;padding-top:180px;font-size:14px">弹幕飞走啦，来发一条吧 ✈️</div>';
+    }
+}
+
+function togglePin(id, pinned) {
+  if (!isAdmin) { alert('仅管理员可操作'); return; }
+  post('/api/wall/pin', { token: getToken(), id: id, pinned: pinned }, function (j) {
+    if (j.ok) loadWall(); else alert(j.msg || '操作失败');
+  });
+}
+
+/* ---- 防攻击防护层 ---- */
+var ANTI_FLOOD_KEY = 'cr_antiflood_wall';
+var CAPTCHA_KEY = 'cr_captcha_wall';
+
+/* 频率限制：同一浏览器10秒内只能发1条 */
+function checkRateLimit() {
+  var last = parseInt(localStorage.getItem(ANTI_FLOOD_KEY) || '0', 10);
+  var now = Date.now();
+  if (now - last < 10000) {
+    var wait = Math.ceil((10000 - (now - last)) / 1000);
+    return { ok: false, msg: '操作太频繁，请 ' + wait + ' 秒后再试' };
+  }
+  return { ok: true };
+}
+function markRateLimit() { localStorage.setItem(ANTI_FLOOD_KEY, String(Date.now())); }
+
+/* 简单算术验证码：防止脚本批量攻击 */
+function genCaptcha() {
+  var a = Math.floor(Math.random() * 9) + 1;
+  var b = Math.floor(Math.random() * 9) + 1;
+  localStorage.setItem(CAPTCHA_KEY, String(a + b));
+  return a + ' + ' + b + ' = ?';
+}
+function verifyCaptcha(input) {
+  var ans = localStorage.getItem(CAPTCHA_KEY);
+  localStorage.removeItem(CAPTCHA_KEY);
+  return ans && String(input).trim() === ans;
+}
+
+/* 内容过滤：超长/重复/垃圾内容 */
+function filterContent(content) {
+  if (content.length > 500) return { ok: false, msg: '内容不能超过500字' };
+  if (/^[重复复制粘贴]+$/.test(content)) return { ok: false, msg: '内容不能全是重复字符' };
+  return { ok: true };
+}
+
+function doPost() {
+  var content = document.getElementById('w-content').value.trim();
+  if (!content) { document.getElementById('w-msg').textContent = '留言内容不能为空'; return; }
+
+  /* 防攻击检查 */
+  var rl = checkRateLimit();
+  if (!rl.ok) { document.getElementById('w-msg').textContent = rl.msg; return; }
+  var fc = filterContent(content);
+  if (!fc.ok) { document.getElementById('w-msg').textContent = fc.msg; return; }
+
+  /* 验证码 */
+  var captchaInput = prompt('请输入验证码（防机器人）：' + genCaptcha());
+  if (captchaInput === null) return;
+  if (!verifyCaptcha(captchaInput)) {
+    document.getElementById('w-msg').textContent = '验证码错误，请重试';
+    return;
+  }
+
+  markRateLimit();
+  document.getElementById('w-msg').textContent = '发布中...';
+  var name = document.getElementById('w-name').value.trim();
+  post('/api/wall', { name: name, content: content, token: getToken() }, function (j) {
+    if (j.ok) {
+      document.getElementById('w-msg').textContent = '✅ 留言成功！';
+      document.getElementById('w-content').value = '';
+      loadWall();
+    } else {
+      document.getElementById('w-msg').textContent = j.msg || '发布失败，请稍后重试';
+    }
+  });
+}
+
+
+function spawnNew(list) {
+  var stage = document.getElementById('stage');
+  if (!stage || stage.style.display === 'none') return;
+  list.forEach(function (x) {
+    if (x.pinned) return;
+    if (x.id !== undefined && DM_SPAWNED[x.id]) return;
+    spawnDm(x);
+  });
+}
+/* 自动轮询：每8秒增量刷新弹幕（不打断正在滚动的） */
+setInterval(function () {
+  if (document.getElementById('dmMode').value === 'off') { loadWall(); return; }
+  // 弹幕少了就回收舞台空区
+  dmShrinkIfIdle();
+  // 仅拉列表并增量生成新弹幕（优先云端后端，兜底GitHub只读）
+  get('/api/wall', function (j) {
+    if (!j.ok || !j.list) { cloudGetWall(function (c2) { if (c2.ok && c2.list) spawnNew(c2.list); }); return; }
+    spawnNew(j.list);
+  });
+}, 8000);
+
+/* 启动 */
+(function () {
+  if (!window.CrGH) {
+    var s = document.createElement('script');
+    s.src = 'ghdb_v2.js?v=20261006c';
+    s.onload = function () { setupAdmin(); setupEgg67(); loadWall(); };
+    s.onerror = function () { document.getElementById('w-msg').textContent = '数据层加载失败，请刷新重试'; };
+    (document.head || document.body).appendChild(s);
+    return;
+  }
+  setupAdmin();
+  setupEgg67();
+  loadWall();
+})();
+
+/* 设置变化实时生效 */
+['dmMode', 'dmBold', 'dmPos', 'dmSpeed'].forEach(function (id) {
+  document.getElementById(id).addEventListener('change', function () {
+    localStorage.setItem('cr_dm_' + id.replace('dm', '').toLowerCase(), this.value);
+    loadWall();
+  });
+});
+</script>
+<script src="clip.js?v=20261006c"></script>
+</body>
+</html>

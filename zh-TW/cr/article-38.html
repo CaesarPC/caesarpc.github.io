@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-38.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Node.js后端开发实战 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 Node.js后端开发实战 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="Node.js后端开发实战, Node.js, 后端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Node.js后端开发实战 - CaesarTools">
+<meta property="og:description" content="Node.js后端开发实战 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-38.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Node.js后端开发实战","description":"← Back文章列表 Node.js后端开发实战 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-38.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>Node.js后端开发实战</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Node.js是什么</h2>
+<p>V8引擎套事件循环，JS跑服务器。单线程非阻塞I/O。适合I/O密集API、实时应用。CPU密集不适合。</p>
+<h2>二、Express入门</h2>
+<p>const express = require('express');</p>
+<p>const app = express();</p>
+<p>app.use(express.json());</p>
+<p>app.get('/api/users', (req, res) => {</p>
+<p>res.json([{ id: 1, name: '小明' }]);</p>
+<p>});</p>
+<p>app.post('/api/users', (req, res) => {</p>
+<p>res.status(201).json(req.body);</p>
+<p>});</p>
+<p>app.listen(3000);</p>
+<h2>三、路由拆分</h2>
+<p>routes/users.js：</p>
+<p>const router = express.Router();</p>
+<p>router.get('/', listUsers);</p>
+<p>module.exports = router;</p>
+<p>app.use('/api/users', require('./routes/users'));</p>
+<h2>四、错误处理</h2>
+<p>app.use((err, req, res, next) => {</p>
+<p>res.status(500).json({ error: err.message });</p>
+<p>});</p>
+<h2>五、连数据库</h2>
+<p>const { Pool } = require('pg');</p>
+<p>const pool = new Pool({ connectionString: process.env.DATABASE_URL });</p>
+<p>app.get('/api/users', async (req, res, next) => {</p>
+<p>try {</p>
+<p>const { rows } = await pool.query('SELECT * FROM users');</p>
+<p>res.json(rows);</p>
+<p>} catch (e) { next(e); }</p>
+<p>});</p>
+<p>参数化查询防注入。</p>
+<h2>六、JWT鉴权</h2>
+<p>function auth(req, res, next) {</p>
+<p>const token = req.headers.authorization?.split(' ')[1];</p>
+<p>try {</p>
+<p>req.user = jwt.verify(token, process.env.JWT_SECRET);</p>
+<p>next();</p>
+<p>} catch { res.status(401).json({ error: '未Login' }); }</p>
+<p>}</p>
+<h2>七、部署</h2>
+<p>PM2进程守护。Nginx反向代理。Docker打包。</p>
+<h2>八、常见坑</h2>
+<p>同步阻塞事件循环，CPU密集放Worker。</p>
+<p>没处理unhandledRejection进程崩。</p>
+<p>CORS用cors中间件。</p>
+<h2>九、Node和其他后端</h2>
+<p>Node适合I/O密集、实时应用。Java适合大型企业系统。Python适合数据科学。Go适合高并发基础设施。选择看场景。</p>
+<h2>十、总结</h2>
+<p>Node.js让前端工程师写后端API。Express+PostgreSQL+Redis+PM2+Nginx一套栈。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-374.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷贝与浅拷贝</a><a href="article-384.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-387.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO优化实战</a></div>
+</body>
+</html>

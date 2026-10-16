@@ -1,0 +1,14 @@
+{
+  "name": "Cr工具站",
+  "short_name": "Cr工具站",
+  "description": "Cr工具站 - 免费在线工具集：域名查找/编码转换/文件转换/小游戏/技术文章",
+  "start_url": "/cr/index.html",
+  "scope": "/cr/",
+  "display": "standalone",
+  "background_color": "#1e1e2e",
+  "theme_color": "#1e1e2e",
+  "icons": [
+    {"src":"/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"/icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
+}

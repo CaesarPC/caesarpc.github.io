@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-26.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>浏览器渲染原理：从输入URL到页面显示的完整链路 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 浏览器渲染原理：从输入URL到页面显示的完整链路 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="浏览器渲染原理, 从输入URL到页面显示的完整链路">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="浏览器渲染原理：从输入URL到页面显示的完整链路 - CaesarTools">
+<meta property="og:description" content="浏览器渲染原理：从输入URL到页面显示的完整链路 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-26.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器渲染原理：从输入URL到页面显示的完整链路","description":"← Back文章列表 浏览器渲染原理：从输入URL到页面显示的完整链路 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-26.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>浏览器渲染原理：从输入URL到页面显示的完整链路</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么前端要懂渲染原理</h2>
+<p>很多前端工程师写了三年CSS，还在猜"为什么这个div不居中"。如果你不懂浏览器从拿到HTML到画像素这整个过程，就只能靠试。懂了原理，性能优化和布局问题都能自己推出来。</p>
+<h2>二、DNS解析</h2>
+<p>浏览器输入www.example.com，第一步查这个域名对应哪个IP。浏览器缓存→操作系统缓存→ hosts文件→本地DNS服务器→根DNS。整个过程几十毫秒。如果DNS慢，网站打开就慢。</p>
+<p><strong>生产优化：</strong>用CDN把静态资源域名分散，避免浏览器同域名并发限制。DNS预解析<link rel="dns-prefetch">。</p>
+<h2>三、TCP连接</h2>
+<p>拿到IP后，浏览器和服务器三次握手建立TCP连接。HTTPS还要TLS握手。这一步要几个RTT（往返时间），所以HTTP/2多路复用很重要——一个连接跑多个请求，不用每次重新握手。</p>
+<h2>四、服务器处理</h2>
+<p>请求到Nginx，Nginx反向代理给Node进程，Node查数据库、组装数据，BackHTML。整个过程后端耗时占大头。后端慢，前端再优化也没用。</p>
+<h2>五、浏览器解析HTML</h2>
+<p>浏览器边下载边解析，不是等全部下完才开始。</p>
+<h3>5.1 DOM树</h3>
+<p>HTMLTags解析成DOM树。遇到scriptTags会阻塞解析——JS可能改DOM。所以script放body底部，或者加defer/async。</p>
+<h3>5.2 CSSOM树</h3>
+<p>CSS文件解析成CSSOM树。CSS也是渲染阻塞——没拿到CSS不知道怎么渲染。关键CSS内联，其他异步加载。</p>
+<h3>5.3 渲染树</h3>
+<p>DOM+CSSOM合成渲染树。只包含可见元素（display:none不在渲染树里）。</p>
+<h2>六、Layout布局</h2>
+<p>浏览器算每个元素的位置和大小。width、position、float这些属性触发Layout。改一个元素的几何属性，后面所有元素都要重算。</p>
+<h2>七、Paint绘制</h2>
+<p>把元素画成像素。颜色、背景、阴影触发Paint。Paint很耗时。</p>
+<h2>八、Composite合成</h2>
+<p>把多个图层合成最终画面。transform和opacity只触发Composite，不触发Layout和Paint，所以动画用transform最丝滑。</p>
+<h2>九、为什么动画要用transform</h2>
+<p>改left：Layout→Paint→Composite，每帧都算位置画像素，掉帧。</p>
+<p>改transform：只Composite，浏览器用GPU合成，60帧。</p>
+<p>这就是为什么CSS动画推荐transform/opacity。</p>
+<h2>十、重排重绘优化</h2>
+<p>- 批量读再批量写DOM，避免强制同步布局</p>
+<p>- 动画用transform/opacity</p>
+<p>- 频繁操作的元素加will-change或者独立图层</p>
+<p>- 虚拟滚动渲染长列表</p>
+<h2>十一、预加载和预渲染</h2>
+<p>preconnect提前建立TCP连接。preload声明关键资源先加载。prefetch为下个页面预取。这些是浏览器层面的性能优化手段，配合服务器优化效果叠加。</p>
+<h2>十二、关键渲染路径指标</h2>
+<p>LCP最大内容绘制：首屏主要内容多久出现。目标2.5秒以内。</p>
+<p>INP交互到下一次绘制：点击按钮多久响应。目标200毫秒。</p>
+<p>CLS累积布局偏移：页面元素有没有突然跳动。目标0.1以内。</p>
+<p>这三个是Google Web Vitals核心指标，直接影响SEO排名。</p>
+<h2>十三、总结</h2>
+<p>输入URL到页面显示：DNS→TCP→服务器→解析HTML→DOM→CSSOM→渲染树→Layout→Paint→Composite。懂这条链路，性能优化和布局问题都有方向。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-251.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服务器入门</a><a href="article-256.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a></div>
+</body>
+</html>

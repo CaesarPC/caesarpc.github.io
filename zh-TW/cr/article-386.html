@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-386.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP缓存策略：让网站第二次访问快如闪电 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 HTTP缓存策略：让网站第二次访问快如闪电 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="HTTP缓存策略, 让网站第二次访问快如闪电, 缓存">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="HTTP缓存策略：让网站第二次访问快如闪电 - CaesarTools">
+<meta property="og:description" content="HTTP缓存策略：让网站第二次访问快如闪电 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-386.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"HTTP缓存策略：让网站第二次访问快如闪电","description":"← Back文章列表 HTTP缓存策略：让网站第二次访问快如闪电 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-386.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>HTTP缓存策略：让网站第二次访问快如闪电</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么需要缓存</h2>
+<p>用户第一次访问下载2MB资源。第二次还下载2MB？太浪费。浏览器把文件存本地，第二次直接用，不请求服务器。</p>
+<h2>二、强缓存</h2>
+<p>Cache-Control: max-age=31536000。一年内不请求，直接用本地。</p>
+<p>问题：更新了JS文件，用户还用旧的。解法：文件名带hash。app.abc123.js。内容变hash变，文件名变浏览器重新下载。Vite自动做这个。</p>
+<h2>三、协商缓存</h2>
+<p>强缓存过期后，浏览器问服务器："这个版本还新吗？"</p>
+<p>ETag: "abc123"</p>
+<p>浏览器带If-None-Match: "abc123"</p>
+<p>没变Back304，不传文件。</p>
+<h2>四、HTML怎么缓存</h2>
+<p>HTML不能强缓存——更新了要立刻拿到新版。HTML设no-cache每次走协商。</p>
+<p>JS/CSS带hash强缓存一年。HTML每次验证。这是标准搭配。</p>
+<h2>五、CDN</h2>
+<p>静态文件放CDN，用户访问最近节点。CDN也缓存，源站压力骤降。</p>
+<h2>六、常见坑</h2>
+<p>所有文件都no-cache等于没缓存。</p>
+<p>JS文件名不带hash，更新了用户还用旧版。</p>
+<p>HTML强缓存，发新版用户看不到。</p>
+<h2>七、Service Worker</h2>
+<p>PWA用Service Worker离线缓存。Workbox简化配置。</p>
+<h2>八、缓存刷新</h2>
+<p>发版后想立刻让用户拿到新文件？CDN控制台手动刷新。或者文件名hash带版本号强制更新。</p>
+<h2>九、总结</h2>
+<p>缓存是性能优化最有效手段。JS/CSS带hash强缓存，HTML协商缓存，CDN加速。配好了第二次访问秒开。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-389.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML语义化Tags实战</a><a href="article-380.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-391.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a></div>
+</body>
+</html>

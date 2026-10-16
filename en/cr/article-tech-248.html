@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<meta name="keywords" content="CSS预处理器, CSS">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-248.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS预处理器 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS预处理器 - CaesarTools">
+<meta property="og:description" content="CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-248.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS预处理器","description":"CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-248.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← Back文章列表</a>
+<h1>CSS预处理器</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技术教程</div>
+<p># 前端CSS预处理器：Sass与Less</p>
+<p>原生CSS写大项目很痛苦：没有变量、没有嵌套、没有复用。CSS预处理器扩展了CSS的能力——变量、嵌套、混入、函数——编译成普通CSS浏览器就能跑。Sass是最流行的预处理器。</p>
+<p>## 一、变量</p>
+<p>原生CSS没有变量（虽然现在CSS变量已经普及了）。Sass：
+$primary-color: #3498db;
+.button { color: $primary-color; }</p>
+<p>改主题色只改变量一处，全局生效。</p>
+<p>## 二、嵌套</p>
+<p>原生CSS选择器一层层写：.nav ul li a { }。Sass可以嵌套：
+.nav {
+  ul {
+    li {
+      a { color: blue; }
+    }
+  }
+}</p>
+<p>编译后自动展开成完整选择器。结构清晰，和HTML层级对应。</p>
+<p>## 三、混入（Mixin）</p>
+<p>复用一段样式：
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card { @include flex-center; }</p>
+<p>## 四、现代趋势</p>
+<p>现在很多项目用CSS-in-JS（Styled Components）或CSS Modules替代预处理器。Tailwind CSS更是直接用原子化class，连预处理器都不太需要了。但Sass的思想——变量、嵌套、复用——影响了所有后来者。</p>
+<p>## 五、总结</p>
+<p>CSS预处理器解决了原生CSS的复用和组织问题。新项目可以根据团队偏好选Sass或Tailwind，但理解预处理器的核心概念（变量、嵌套、混入），看任何样式方案都不会陌生。</p>
+<p><a href="articles.html">← Back文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a><a href="article-tech-253.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ FetchAPI</a><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

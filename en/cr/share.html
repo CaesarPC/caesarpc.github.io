@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Open Source Zone - CrExclusive工具箱 - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/share.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Source Zone - CrExclusive工具箱</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#e6e6e6;min-height:100vh}
+.hd{background:#282a36;padding:16px 20px;border-bottom:2px solid #50fa7b;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.hd h1{margin:0;font-size:20px;color:#50fa7b}
+.hd a{color:#8be9fd;font-size:13px;text-decoration:none}
+.wrap{max-width:900px;margin:20px auto;padding:0 16px}
+.toolbar{background:#282a36;border:1px solid #44475a;border-radius:10px;padding:14px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toolbar input,.toolbar select{background:#1e1e2e;color:#e6e6e6;border:1px solid #44475a;border-radius:6px;padding:8px 10px;font-size:13px}
+.toolbar input{flex:1;min-width:150px}
+.btn{background:#50fa7b;color:#1e1e2e;border:none;padding:9px 18px;font-size:14px;font-weight:700;border-radius:8px;cursor:pointer}
+.btn:hover{background:#69ff94}
+.btn.ghost{background:#44475a;color:#e6e6e6}
+.btn.danger{background:#ff5555;color:#fff}
+.card{background:#282a36;border:1px solid #44475a;border-radius:10px;padding:16px;margin-bottom:14px}
+.card .t{font-size:16px;font-weight:700;color:#f1fa8c;margin-bottom:4px}
+.card .meta{font-size:12px;color:#6272a4;margin-bottom:8px}
+.card .desc{font-size:13.5px;color:#e6e6e6;margin-bottom:10px}
+.card .tags span{display:inline-block;background:#44475a;color:#8be9fd;border-radius:4px;padding:2px 8px;font-size:12px;margin-right:6px}
+.card .lnk{display:inline-block;color:#8be9fd;text-decoration:none;font-size:13px;margin:4px 0}
+.card .op{text-align:right;margin-top:8px}
+.cat-tag{display:inline-block;background:#50fa7b22;color:#50fa7b;border:1px solid #50fa7b55;border-radius:4px;padding:2px 8px;font-size:12px;margin-left:6px}
+/* Comments区 */
+.cmt{margin-top:12px;border-top:1px solid #44475a;padding-top:10px}
+.cmt .c-row{font-size:12.5px;margin-bottom:6px}
+.cmt .c-name{color:#8be9fd;font-weight:700}
+.cmt .c-time{color:#6272a4;margin-left:8px}
+.cmt .c-text{color:#e6e6e6;margin-left:4px}
+.cmt .c-input{display:flex;gap:8px;margin-top:10px}
+.cmt .c-input input{flex:1;background:#1e1e2e;color:#e6e6e6;border:1px solid #44475a;border-radius:6px;padding:8px 10px;font-size:13px}
+/* 发布弹窗 */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.modal{background:#282a36;border:1px solid #44475a;border-radius:12px;padding:22px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal h3{margin:0 0 14px;color:#50fa7b;font-size:17px}
+.modal label{display:block;font-size:12.5px;color:#6272a4;margin:10px 0 4px}
+.modal input,.modal textarea,.modal select{width:100%;background:#1e1e2e;color:#e6e6e6;border:1px solid #44475a;border-radius:6px;padding:9px 10px;font-size:13px;font-family:inherit}
+.modal textarea{min-height:70px;resize:vertical}
+.modal .row{display:flex;gap:10px;margin-top:16px}
+.modal .row .btn{flex:1}
+.msg{font-size:13px;color:#ff5555;margin-top:8px;min-height:16px}
+.empty{text-align:center;color:#6272a4;padding:30px 0;font-size:14px}
+.uinfo{font-size:12.5px;color:#8be9fd}
+.notice{background:#2d2130;border:1px solid #ffd70055;color:#ffd700;border-radius:8px;padding:10px 14px;font-size:12.5px;margin-bottom:14px}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="hd">
+  <h1>📦 Open Source Zone</h1>
+  <div>
+    <span class="uinfo" id="uinfo">未Login</span>
+    <a href="javascript:;" id="loginLink" style="margin-left:10px">Login</a>
+    <a href="index.html" style="margin-left:14px">← Back工具箱</a>
+  </div>
+</div>
+<div class="wrap">
+  <div class="notice">📢 这里是 Cr 社区的Share广场：发布你的作品（存档、脚本、工具、创意），或给别人的项目Comments交流。<b>发布和Comments需要Login</b>，浏览无需Login。数据存云端，站长关机也能用。</div>
+
+  <div class="toolbar">
+    <input id="q" placeholder="🔍 Search标题/描述/Tags...">
+    <select id="cat">
+      <option value="">全部Category</option>
+      <option>游戏</option>
+      <option>编程</option>
+      <option>工具</option>
+      <option>创意</option>
+      <option>其他</option>
+    </select>
+    <button class="btn" onclick="doSearch()">Search</button>
+    <button class="btn ghost" onclick="openPublish()">✏️ 发布作品</button>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<!-- 发布弹窗 -->
+<div class="ov" id="pubOv">
+  <div class="modal">
+    <h3>✏️ 发布作品</h3>
+    <label>标题（必填）</label>
+    <input id="p-title" placeholder="例如：红石刷铁机存档 v2">
+    <label>一句话简介</label>
+    <input id="p-desc" placeholder="这是什么，适合谁">
+    <label>详细内容</label>
+    <textarea id="p-content" placeholder="使用说明 / 玩法介绍 / 代码..."></textarea>
+    <label>下载/Share链接（可选）</label>
+    <input id="p-link" placeholder="https://...">
+    <label>上传文件（可选，单文件≤1MB，支持 zip/mcworld/js/txt 等）</label>
+    <input type="file" id="p-file" style="padding:6px;font-size:12px">
+    <div id="p-file-info" style="font-size:12px;color:#6272a4;margin-top:4px"></div>
+    <label>Tags（逗号分隔）</label>
+    <input id="p-tags" placeholder="红石,生存,存档">
+    <label>Category</label>
+    <select id="p-cat">
+      <option>游戏</option>
+      <option>编程</option>
+      <option>工具</option>
+      <option>创意</option>
+      <option>其他</option>
+    </select>
+    <div class="msg" id="pubMsg"></div>
+    <div class="row">
+      <button class="btn" id="pubGo">发布</button>
+      <button class="btn ghost" onclick="closePub()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Login弹窗 -->
+<div class="ov" id="loginOv">
+  <div class="modal" style="max-width:380px">
+    <h3 id="loginTitle">🔑 Login</h3>
+    <input id="lg-user" placeholder="用户名" autocomplete="off">
+    <input id="lg-pass" type="password" placeholder="Password" autocomplete="off">
+    <div id="lg-msg" class="msg"></div>
+    <div class="row">
+      <button class="btn" id="lgGo">Login</button>
+      <button class="btn ghost" id="lgToReg">Register新账号</button>
+      <button class="btn ghost" onclick="closeLogin()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var apiUrl = '';   // 兼容旧变量，不再使用
+var TOKEN_KEY = 'cr_token';
+var USER_KEY = 'cr_user';
+var curUser = localStorage.getItem(USER_KEY) || '';
+var projects = [];
+
+function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
+function post(path, data, cb) {
+  window.CrGH && CrGH.route('POST', path, data, cb);
+}
+function get(path, cb) {
+  window.CrGH && CrGH.route('GET', path, null, cb);
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+/* 安全URL：只允许 http/https，防止 javascript: 等协议 */
+function safeUrl(u) {
+  u = String(u || '').trim();
+  if (!u) return '';
+  if (/^https?:\/\//i.test(u)) return esc(u);
+  return '#';
+}
+function updUserUI() {
+  var u = localStorage.getItem(USER_KEY) || '';
+  curUser = u;
+  document.getElementById('uinfo').textContent = u ? '👤 ' + u + (u === 'Server' ? ' 👑' : '') : '未Login';
+  document.getElementById('loginLink').textContent = u ? 'Logout' : 'Login';
+}
+
+/* ---- 独立Login/Register弹窗（不依赖 clip.js） ---- */
+function openLogin() { document.getElementById('loginOv').classList.add('on'); setLoginMode(true); }
+function closeLogin() { document.getElementById('loginOv').classList.remove('on'); }
+function setLoginMode(isLogin) {
+  document.getElementById('loginTitle').textContent = isLogin ? '🔑 Login' : '📝 Register新账号';
+  document.getElementById('lg-msg').textContent = '';
+  document.getElementById('lg-pass').value = '';
+  document.getElementById('lgGo').textContent = isLogin ? 'Login' : 'Register';
+  document.getElementById('lgToReg').textContent = isLogin ? 'Register新账号' : '← BackLogin';
+}
+document.getElementById('lgToReg').onclick = function () {
+  var isLogin = document.getElementById('loginTitle').textContent.indexOf('Login') >= 0;
+  setLoginMode(!isLogin);
+};
+document.getElementById('lgGo').onclick = function () {
+  var u = document.getElementById('lg-user').value.trim();
+  var p = document.getElementById('lg-pass').value;
+  var isLogin = document.getElementById('loginTitle').textContent.indexOf('Login') >= 0;
+  if (!u || !p) { document.getElementById('lg-msg').textContent = '请输入用户名和Password'; return; }
+  post('/api/' + (isLogin ? 'login' : 'register'), { username: u, password: p }, function (j) {
+    if (j.ok) {
+      localStorage.setItem(TOKEN_KEY, j.token);
+      localStorage.setItem(USER_KEY, j.username);
+      closeLogin(); updUserUI(); loadList();
+    } else document.getElementById('lg-msg').textContent = j.msg || '操作失败';
+  });
+};
+
+function loadList() {
+  var q = encodeURIComponent(document.getElementById('q').value.trim());
+  var cat = document.getElementById('cat').value;
+  var url = '/api/projects?q=' + q + '&cat=' + encodeURIComponent(cat);
+  get(url, function (j) {
+    var el = document.getElementById('list');
+    if (!j.ok || !j.list) { el.innerHTML = '<div class="empty">加载失败：' + esc(j.msg || '') + '<br>（需要先部署云端后端）</div>'; return; }
+    projects = j.list;
+    if (!projects.length) { el.innerHTML = '<div class="empty">还没有作品，来发布第一个吧！🚀</div>'; return; }
+    var h = '';
+    projects.forEach(function (p) {
+      h += '<div class="card">' +
+        '<div class="t">' + esc(p.title) + '<span class="cat-tag">' + esc(p.category) + '</span></div>' +
+        '<div class="meta">👤 ' + esc(p.author) + (p.author === 'Server' ? ' 👑' : '') + ' · 🕐 ' + esc(p.created) + '</div>' +
+        (p.desc ? '<div class="desc">' + esc(p.desc) + '</div>' : '') +
+        (p.tags ? '<div class="tags">' + p.tags.split(/[,，]/).map(function (t) { return t.trim(); }).filter(Boolean).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>' : '') +
+        (p.link ? '<a class="lnk" href="' + safeUrl(p.link) + '" target="_blank" rel="noopener">🔗 ' + esc(p.link) + '</a>' : '') +
+        (p.fileUrl ? '<a class="lnk" href="' + esc(p.fileUrl) + '" download="' + esc(p.fileName || 'download') + '" style="margin-left:10px;background:#50fa7b22;padding:4px 10px;border-radius:6px">📥 下载 ' + esc(p.fileName || '文件') + '</a>' : '') +
+        (p.content ? '<details style="margin-top:8px"><summary style="font-size:13px;color:#8be9fd;cursor:pointer">展开详情</summary><div style="font-size:13px;color:#e6e6e6;white-space:pre-wrap;margin-top:8px">' + esc(p.content) + '</div></details>' : '') +
+        '<div class="cmt">' +
+        '<div style="font-size:13px;color:#6272a4;margin-bottom:8px">💬 Comments（' + (p.comments || []).length + '）</div>' +
+        (p.comments || []).map(function (c) {
+          return '<div class="c-row"><span class="c-name">' + esc(c.user) + (c.user === 'Server' ? ' 👑' : '') + '</span><span class="c-time">' + esc(c.time) + '</span><span class="c-text">' + esc(c.text) + '</span></div>';
+        }).join('') +
+        '<div class="c-input">' +
+        '<input id="cm-' + p.id + '" placeholder="' + (curUser ? '说点什么...' : 'Login后才能Comments') + '" ' + (curUser ? '' : 'disabled') + '>' +
+        '<button class="btn ghost" style="padding:8px 14px" onclick="doComment(' + p.id + ')">Comments</button>' +
+        '</div></div>' +
+        '<div class="op">' +
+        (p.author === curUser || curUser === 'Server' ? '<button class="btn danger" style="padding:6px 12px;font-size:12px" onclick="delProject(' + p.id + ')">🗑 删除</button>' : '') +
+        '</div>' +
+        '</div>';
+    });
+    el.innerHTML = h;
+  });
+}
+
+function doSearch() { loadList(); }
+
+function openPublish() {
+  if (!curUser) { alert('发布必须Login，请先Login'); return; }
+  document.getElementById('pubOv').classList.add('on');
+  document.getElementById('pubMsg').textContent = '';
+}
+function closePub() { document.getElementById('pubOv').classList.remove('on'); }
+
+/* ---- 防攻击防护层 ---- */
+var SHARE_ANTI_FLOOD_KEY = 'cr_antiflood_share';
+var SHARE_CAPTCHA_KEY = 'cr_captcha_share';
+function shareCheckRate() {
+  var last = parseInt(localStorage.getItem(SHARE_ANTI_FLOOD_KEY) || '0', 10);
+  var now = Date.now();
+  if (now - last < 15000) return { ok: false, msg: '操作太频繁，请 ' + Math.ceil((15000 - (now - last)) / 1000) + ' 秒后再试' };
+  return { ok: true };
+}
+function shareMarkRate() { localStorage.setItem(SHARE_ANTI_FLOOD_KEY, String(Date.now())); }
+function shareGenCaptcha() {
+  var a = Math.floor(Math.random() * 9) + 1, b = Math.floor(Math.random() * 9) + 1;
+  localStorage.setItem(SHARE_CAPTCHA_KEY, String(a + b));
+  return a + ' + ' + b + ' = ?';
+}
+function shareVerifyCaptcha(input) {
+  var ans = localStorage.getItem(SHARE_CAPTCHA_KEY);
+  localStorage.removeItem(SHARE_CAPTCHA_KEY);
+  return ans && String(input).trim() === ans;
+}
+
+function doPublish() {
+  var title = document.getElementById('p-title').value.trim();
+  var desc = document.getElementById('p-desc').value.trim();
+  var content = document.getElementById('p-content').value.trim();
+  var link = document.getElementById('p-link').value.trim();
+  var tags = document.getElementById('p-tags').value.trim();
+  var cat = document.getElementById('p-cat').value;
+  var fileInput = document.getElementById('p-file');
+  var file = fileInput.files && fileInput.files[0];
+  if (!title) { document.getElementById('pubMsg').textContent = '标题不能为空'; return; }
+  if (file && file.size > 1024 * 1024) { document.getElementById('pubMsg').textContent = '文件不能超过 1MB'; return; }
+
+  /* 防攻击检查 */
+  var rl = shareCheckRate();
+  if (!rl.ok) { document.getElementById('pubMsg').textContent = rl.msg; return; }
+  var captchaInput = prompt('请输入验证码（防机器人）：' + shareGenCaptcha());
+  if (captchaInput === null) return;
+  if (!shareVerifyCaptcha(captchaInput)) {
+    document.getElementById('pubMsg').textContent = '验证码错误，请重试';
+    return;
+  }
+  shareMarkRate();
+
+  function createProject(extra) {
+    var data = { token: getToken(), title: title, desc: desc, content: content, link: link, tags: tags, category: cat };
+    if (extra) for (var k in extra) data[k] = extra[k];
+    post('/api/projects', data, function (j) {
+      if (j.ok) {
+        document.getElementById('pubMsg').textContent = '✅ ' + j.msg;
+        ['p-title', 'p-desc', 'p-content', 'p-link', 'p-tags'].forEach(function (i) { document.getElementById(i).value = ''; });
+        fileInput.value = '';
+        document.getElementById('p-file-info').textContent = '';
+        setTimeout(closePub, 800);
+        loadList();
+      } else {
+        document.getElementById('pubMsg').textContent = j.msg || '发布失败';
+      }
+    });
+  }
+
+  if (file) {
+    document.getElementById('pubMsg').textContent = '上传文件中...';
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var base64 = e.target.result.split(',')[1];
+      window.CrGH.uploadFile(file.name, base64, function (err, result) {
+        if (err) { document.getElementById('pubMsg').textContent = '文件上传失败：' + (err.error || ''); return; }
+        createProject({ fileUrl: result.url, fileName: result.name });
+      });
+    };
+    reader.onerror = function () { document.getElementById('pubMsg').textContent = '文件读取失败'; };
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('pubMsg').textContent = '发布中...';
+    createProject();
+  }
+}
+
+function doComment(id) {
+  if (!curUser) { alert('Login后才能Comments'); return; }
+  var inp = document.getElementById('cm-' + id);
+  var text = inp.value.trim();
+  if (!text) return;
+  post('/api/projects/comment', { token: getToken(), id: id, text: text }, function (j) {
+    if (j.ok) { inp.value = ''; loadList(); }
+    else alert(j.msg || 'Comments失败');
+  });
+}
+
+function delProject(id) {
+  if (!confirm('确定删除这个作品？')) return;
+  post('/api/projects/del', { token: getToken(), id: id }, function (j) {
+    if (j.ok) { loadList(); }
+    else alert(j.msg || '删除失败');
+  });
+}
+
+/* Login入口 */
+document.getElementById('loginLink').onclick = function () {
+  if (curUser) { localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); updUserUI(); loadList(); return; }
+  openLogin();
+};
+
+/* 启动：直接走 GitHub 数据层 */
+(function () {
+  if (!window.CrGH) {
+    var s = document.createElement('script');
+    s.src = 'ghdb_v2.js?v=20261006c';
+    s.onload = function () { updUserUI(); loadList(); };
+    s.onerror = function () { updUserUI(); };
+    (document.head || document.body).appendChild(s);
+    return;
+  }
+  updUserUI();
+  loadList();
+})();
+
+document.getElementById('pubGo').onclick = doPublish;
+document.getElementById('q').addEventListener('keydown', function (e) { if (e.key === 'Enter') doSearch(); });
+</script>
+<script src="clip.js?v=20261006c"></script>
+</body>
+</html>

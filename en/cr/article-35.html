@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-35.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TypeScript从入门到实战 - CaesarTools</title>
+<meta name="description" content="← Back文章列表 TypeScript从入门到实战 CaesarTools Tech Articles · 2026-10-15">
+<meta name="keywords" content="TypeScript从入门到实战">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="TypeScript从入门到实战 - CaesarTools">
+<meta property="og:description" content="TypeScript从入门到实战 - CaesarBase 免费Tech Articles">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-35.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"TypeScript从入门到实战","description":"← Back文章列表 TypeScript从入门到实战 CaesarTools Tech Articles · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-35.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>TypeScript从入门到实战</h1>
+<div class="meta">CaesarTools Tech Articles · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么要用TypeScript</h2>
+<p>JavaScript是动态类型语言，没有编译期检查。你写了一个函数，传参时传错类型，代码跑到一半才报undefined is not a function。而且编辑器没有类型提示，打一半不知道对象有哪些属性，全靠记忆和文档。</p>
+<p>TypeScript在JS之上加了一层静态类型系统。写代码时编辑器实时告诉你这里应该传什么类型，编译时把所有类型错误抓出来，最后编译成普通JS跑在浏览器和Node上。2024年React和Vue官方新项目默认用TS，大型公司招前端JD上基本都要求TS。学它不是选择题，是必做题。</p>
+<h2>二、基本类型注解</h2>
+<p>let name: string = "小明";</p>
+<p>let age: number = 12;</p>
+<p>let isActive: boolean = true;</p>
+<p>let hobbies: string[] = ["投球", "笛子"];</p>
+<p>let nothing: null = null;</p>
+<p>联合类型表示一个值可以是几种类型之一：</p>
+<p>let id: string | number;</p>
+<p>id = "abc";</p>
+<p>id = 123;</p>
+<p>类型别名：</p>
+<p>type ID = string | number;</p>
+<p>let uid: ID;</p>
+<h2>三、接口和类型</h2>
+<p>interface User {</p>
+<p>id: number;</p>
+<p>name: string;</p>
+<p>email?: string; // 可选属性</p>
+<p>readonly createdAt: Date; // 只读</p>
+<p>}</p>
+<p>function createUser(name: string): User {</p>
+<p>return {</p>
+<p>id: 1,</p>
+<p>name,</p>
+<p>createdAt: new Date()</p>
+<p>};</p>
+<p>}</p>
+<p>interface可以扩展：</p>
+<p>interface Admin extends User {</p>
+<p>permissions: string[];</p>
+<p>}</p>
+<p>type和interface区别：type能定义联合类型和交叉类型，interface能继承和声明合并。实际项目大部分场景两个都行。</p>
+<h2>四、函数类型</h2>
+<p>函数参数和Back值都要标类型：</p>
+<p>function add(a: number, b: number): number {</p>
+<p>return a + b;</p>
+<p>}</p>
+<p>函数类型本身：</p>
+<p>type AddFn = (a: number, b: number) => number;</p>
+<p>回调函数：</p>
+<p>function fetchUser(id: number, callback: (user: User) => void): void {</p>
+<p>// ...</p>
+<p>}</p>
+<h2>五、泛型</h2>
+<p>泛型让函数可以处理多种类型同时保持类型安全：</p>
+<p>function first<T>(arr: T[]): T | undefined {</p>
+<p>return arr[0];</p>
+<p>}</p>
+<p>const n = first<number>([1, 2, 3]); // n是number</p>
+<p>泛型在React的useState、API响应数据里到处用：</p>
+<p>const [user, setUser] = useState<User | null>(null);</p>
+<h2>六、从JS迁移到TS</h2>
+<p>老项目迁移不要一步到位。分步骤：先tsc --init开strict，把新写的模块用TS，老JS文件保留。用// @ts-check在JS文件里获得类型提示渐进迁移。不要一上来就写any，any等于没写类型。</p>
+<h2>七、常见坑</h2>
+<p>坑1：滥用any。一时爽，类型检查形同虚设。用unknown代替，它是类型安全的any。</p>
+<p>坑2：类型断言as。先判断再断言，不要直接as User。</p>
+<p>坑3：开了strictNullChecks，所有可能为null的值要写判空。</p>
+<p>坑4：第三方库没类型声明，装@types/xxx，或者自己写d.ts。</p>
+<h2>八、工具类型</h2>
+<p>Partial<User>所有属性变可选。</p>
+<p>Required<User>所有属性必填。</p>
+<p>Pick<User, "id" | "name">选几个属性。</p>
+<p>Omit<User, "email">排除某个属性。</p>
+<h2>九、总结</h2>
+<p>TS是JS的超集，加了静态类型。从基本类型、接口、函数、泛型开始学，开strict模式，渐进迁移老项目。它会让你写代码慢一点，但bug少一半，长期省时间。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-358.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-359.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-340.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a></div>
+</body>
+</html>

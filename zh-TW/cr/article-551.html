@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-551.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS Flexbox完全指南（2） - CaesarTools</title>
+<meta name="description" content="← Back文章列表 CSS Flexbox完全指南 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="CSS, Flexbox完全指南">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS Flexbox完全指南 - CaesarTools">
+<meta property="og:description" content="CSS Flexbox完全指南 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-551.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS Flexbox完全指南（2）","description":"← Back文章列表 CSS Flexbox完全指南 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-551.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>CSS Flexbox完全指南（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Flexbox解决了什么</h2>
+<p>早年三栏布局float、清浮动、负margin。垂直居中面试必考。Flexbox把容器和子元素关系标准化。</p>
+<h2>二、核心概念</h2>
+<p>父元素display:flex。两条轴：主轴和交叉轴。justify-content管主轴，align-items管交叉轴。</p>
+<h2>三、容器属性</h2>
+<p>flex-direction决定主轴方向。</p>
+<p>justify-content主轴对齐。</p>
+<p>align-items交叉轴对齐。</p>
+<p>flex-wrap换行。</p>
+<p>gap间距。</p>
+<h2>四、子元素属性</h2>
+<p>flex-grow放大比例。</p>
+<p>flex-shrink收缩比例。</p>
+<p>flex-basis初始大小。</p>
+<p>flex:1是简写。</p>
+<p>align-self单个覆盖。</p>
+<p>order视觉排序。</p>
+<h2>五、实战</h2>
+<p>居中：display:flex; justify-content:center; align-items:center。</p>
+<p>导航栏：justify-content:space-between。</p>
+<p>卡片墙：flex-wrap:wrap + gap。</p>
+<h2>六、常见坑</h2>
+<p>flex子元素内容溢出加min-width:0。</p>
+<p>嵌套flex每层单独设方向。</p>
+<p>gap老浏览器2024年基本无碍。</p>
+<h2>七、Flex和Grid</h2>
+<p>Flexbox一维，Grid二维。一行一列用Flex，行列交叉用Grid。</p>
+<h2>八、主轴交叉轴</h2>
+<p>flex-direction:row主轴横向。column主轴纵向。改方向，justify-content和align-items作用方向跟着变。</p>
+<h2>九、总结</h2>
+<p>Flexbox一维布局。居中、导航、卡片排列。和Grid配合是现代标配。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-546.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-544.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS变量与主题切换</a><a href="article-550.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷贝与浅拷贝</a></div>
+</body>
+</html>

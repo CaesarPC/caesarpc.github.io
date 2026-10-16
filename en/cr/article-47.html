@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-47.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微服务和单体架构怎么选（2） - CaesarTools</title>
+<meta name="description" content="← Back文章列表 微服务和单体架构怎么选 CaesarTools Tech Articles · 2026-10-15">
+<meta name="keywords" content="微服务和单体架构怎么选, 架构, 微服务">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="微服务和单体架构怎么选 - CaesarTools">
+<meta property="og:description" content="微服务和单体架构怎么选 - CaesarBase 免费Tech Articles">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-47.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"微服务和单体架构怎么选（2）","description":"← Back文章列表 微服务和单体架构怎么选 CaesarTools Tech Articles · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-47.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>微服务和单体架构怎么选（2）</h1>
+<div class="meta">CaesarTools Tech Articles · 2026-10-15</div>
+<div class="content">
+<h2>一、两种架构的本质区别</h2>
+<p>单体架构：所有业务模块打包在一个进程里，一个代码仓库，一个数据库，一个部署包。改一个模块要重新部署整个应用。</p>
+<p>微服务架构：按业务边界把系统拆成多个独立服务。每个服务自己管代码、数据库、部署。服务之间用HTTP或gRPC通信。一个服务挂了不影响其他服务。</p>
+<h2>二、单体架构的优点</h2>
+<p>开发简单：一个IDE打开整个项目，调试跑一个进程。</p>
+<p>部署简单：一个Docker镜像，一个进程。</p>
+<p>事务简单：所有操作在一个数据库里，ACID天然支持。</p>
+<p>沟通成本低：一个团队负责一个应用。</p>
+<h2>三、单体架构的缺点</h2>
+<p>代码膨胀：几十个人写五年，仓库几十万行，新人入职一个月才敢改代码。</p>
+<p>部署耦合：改一个小功能要全量部署，全量部署出问题全站挂。</p>
+<p>技术栈锁定：所有模块用同一种语言，不能局部换技术栈。</p>
+<p>扩展受限：要扩容只能整个应用扩容，不能只扩热点模块。</p>
+<h2>四、微服务架构的优点</h2>
+<p>独立部署：订单服务改了只部署订单服务，不影响用户服务。</p>
+<p>技术栈自由：订单用Go高并发，AI推荐用Python，数据统计用Java。</p>
+<p>故障隔离：一个服务挂了，其他服务还能跑。</p>
+<p>按业务边界扩展：热点服务独立扩容。</p>
+<h2>五、微服务的代价</h2>
+<p>分布式复杂度：一个下单操作要调用户服务、库存服务、支付服务，网络请求串行，延迟高。</p>
+<p>分布式事务：跨服务数据一致性很难搞。本地事务在A服务成功，B服务失败怎么办？</p>
+<p>运维成本爆炸：10个服务要监控10个，日志要聚合，链路追踪要花钱搭。</p>
+<p>调试难：一个请求跨5个服务，出问题要翻5个日志。</p>
+<h2>六、什么时候用单体</h2>
+<p>初创团队3到5人，业务方向还在摸索。单体最快。</p>
+<p>业务还没验证，先跑通再说。</p>
+<p>项目周期短，几个月就要上线。</p>
+<h2>七、什么时候拆微服务</h2>
+<p>团队大了，一个仓库多个团队互相等。</p>
+<p>不同模块发展速度不一样，热点模块要独立扩容。</p>
+<p>有强隔离需求，一个模块挂了不能全站挂。</p>
+<p>不同模块技术栈差异大。</p>
+<h2>八、正确演进路径</h2>
+<p>从单体开始。业务跑通，团队大了，先拆出最独立的模块。不要一开始就上微服务。Netflix那种每秒几万QPS才需要微服务。一个月一万访问量的网站用单体绰绰有余。</p>
+<h2>九、常见误区</h2>
+<p>误区1：听说微服务高级就拆。拆完发现事务都搞不定。</p>
+<p>误区2：拆太细。10个服务干5个服务的事，通信开销比业务逻辑还多。</p>
+<p>误区3：每个服务一个数据库。数据冗余，同步成本高。</p>
+<h2>十、总结</h2>
+<p>架构没有好坏，只有合不合适。小团队单体，大团队微服务。能不拆就不拆，拆了就要扛住分布式复杂度。从单体开始，按需拆分。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-469.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-474.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS动画与过渡实战</a><a href="article-476.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a></div>
+</body>
+</html>

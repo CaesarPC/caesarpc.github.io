@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="浏览器跨Tags页通信 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="keywords" content="浏览器跨Tags页通信">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-cross-tab-comm.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浏览器跨Tags页通信（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="浏览器跨Tags页通信 - CaesarTools">
+<meta property="og:description" content="浏览器跨Tags页通信 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-cross-tab-comm.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器跨Tags页通信（2）","description":"浏览器跨Tags页通信 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-cross-tab-comm.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>浏览器跨Tags页通信（2）</h1>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<h2>浏览器跨Tags页通信：多个Tags页之间怎么传数据</h2>
+<p>用户开了两个Tags页，一个在购物车页，一个在商品页。商品页加了商品，购物车Tags页要实时更新数量——这就是跨Tags页通信。不同Tags页是独立的浏览器进程，怎么通信？</p>
+<p>BroadcastChannel是最简单的方式。同一个域名下的Tags页，创建同一个Channel，一个Tags页发消息，其他所有Tags页都能收到。API简单，兼容性好。</p>
+<p>Storage事件是另一种方式。localStorage变化时，其他Tags页会触发storage事件（注意：修改的那个Tags页不触发，其他的触发）。利用这个特性可以跨页传消息。缺点是只能传字符串、触发时机和容量有限制。</p>
+<p>SharedWorker是更底层的方案：多个Tags页共享一个Web Worker，通过它做消息中转。适合复杂场景，但实现复杂。</p>
+<p>WebSocket配合：所有Tags页都连同一个WebSocket服务，服务器广播消息，所有Tags页都收到。这其实是跨设备通信了，不只是跨Tags页。</p>
+<p>常见场景：多Tags页同步Login状态（一个Tags页Logout，其他也Logout）；购物车数量实时更新；多Tags页协同操作（一个Tags页操作，另一个显示结果）。</p>
+<p>实际项目中，BroadcastChannel足够解决大多数跨Tags页需求。理解这个能力，遇到多Tags页同步场景就知道怎么做。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分库分表实战</a><a href="article-tech-css-layout-history.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS布局进化史</a><a href="article-tech-clean-arch-hexagonal.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

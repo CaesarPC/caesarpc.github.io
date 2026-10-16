@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-683.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git团队协作规范（2） - CaesarTools</title>
+<meta name="description" content="Git团队协作规范 - CaesarBase 免费技術文章">
+<meta name="keywords" content="Git团队协作规范, Git">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Git团队协作规范 - CaesarTools">
+<meta property="og:description" content="Git团队协作规范 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-683.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git团队协作规范（2）","description":"Git团队协作规范 - CaesarBase 免费技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-683.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>Git团队协作规范（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Git为什么是标配</h2>
+<p>多人协作没有版本控制就是灾难。你覆盖我的改动，我删你的文件，改坏了找不回。Git是分布式版本控制系统，每台电脑有完整历史，离线也能Submit。GitHub和GitLab是远程仓库托管平台。</p>
+<h2>二、分支工作流</h2>
+<p>main分支永远可部署。新功能开feature分支：git checkout -b feature/user-login。开发完发Pull Request，同事Review代码后合并到main。不要直接在main上改。</p>
+<h2>三、Submit信息规范</h2>
+<p>feat: 新功能</p>
+<p>fix: 修bug</p>
+<p>docs: 文档</p>
+<p>refactor: 重构</p>
+<p>test: 测试</p>
+<p>写清楚做了什么，不要写"更新"。半年后没人知道改了啥。</p>
+<h2>四、冲突解决</h2>
+<p>两个人改了同一行代码，git merge冲突：</p>
+<p><<<<<<< HEAD</p>
+<p>你的改动</p>
+<p>=======</p>
+<p>别人的改动</p>
+<p>>>>>>>> branch-name</p>
+<p>手动保留正确的部分，删掉标记，git add再commit。预防方法：小步Submit、经常pull、分支别活太久。</p>
+<h2>五、撤销操作</h2>
+<p>git checkout -- file 撤销未暂存的修改</p>
+<p>git reset HEAD file 取消暂存</p>
+<p>git revert abc123 安全撤销某个Submit</p>
+<p>git reset --hard abc123 强制回退（危险，别在共享分支用）</p>
+<h2>六、暂存</h2>
+<p>git stash把未Submit改动收起来，切分支干别的，回来git stash pop恢复。</p>
+<h2>七、.gitignore</h2>
+<p>node_modules、.env、dist、.DS_Store不要Submit。</p>
+<h2>八、大文件</h2>
+<p>视频、模型权重不要直接git add，仓库越搞越大，clone要半小时。用Git LFS或者对象存储。</p>
+<h2>九、密钥泄露</h2>
+<p>API KeySubmit到公开仓库，立刻删、换密钥、改历史。GitHub会自动扫到常见密钥格式。</p>
+<h2>十、代码Review</h2>
+<p>PR不是走形式。看逻辑对不对、有没有测试、命名清不清楚。被Review不要觉得被针对，是互相提高。</p>
+<h2>十一、回滚生产</h2>
+<p>git revert上个坏Submit，push，自动重新部署回滚。不要force push共享分支。</p>
+<h2>十二、变基vs合并</h2>
+<p>main更新了，feature分支同步：merge产生合并Submit，历史分叉。rebase把Submit挪到main最新后，历史直线。rebase历史干净，但不要在共享分支用。</p>
+<h2>十三、GitHub Flow</h2>
+<p>小团队推荐简化流程：main永远可部署，新功能开feature分支，开发完发PR，Review通过合并main，main自动部署。hotfix直接在main上修。大项目用Git Flow：develop开发分支、release预发布分支、hotfix修复分支。</p>
+<h2>十四、总结</h2>
+<p>Git是工程师基本功。分支工作流、规范Submit信息、冲突解决、.gitignore、PR Review。工具简单，难的是养成规范习惯。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-680.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服务器入门</a><a href="article-68.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO优化实战</a><a href="article-685.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a></div>
+</body>
+</html>

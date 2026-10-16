@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-713.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BFF层：前后端之间的中间层（2） - CaesarTools</title>
+<meta name="description" content="← Back文章列表 BFF层：前后端之间的中间层 CaesarTools Tech Articles · 2026-10-15">
+<meta name="keywords" content="BFF层, 前后端之间的中间层, 后端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="BFF层：前后端之间的中间层 - CaesarTools">
+<meta property="og:description" content="BFF层：前后端之间的中间层 - CaesarBase 免费Tech Articles">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-713.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"BFF层：前后端之间的中间层（2）","description":"← Back文章列表 BFF层：前后端之间的中间层 CaesarTools Tech Articles · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-713.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>BFF层：前后端之间的中间层（2）</h1>
+<div class="meta">CaesarTools Tech Articles · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么需要BFF</h2>
+<p>前端开发经常遇到这种情况：Home要显示用户信息、最近订单、购物车数量、推荐商品。这四个数据分别来自四个后端服务。前端要发四个请求，等最慢的那个Back，页面才能渲染。</p>
+<p>BFF（Backend For Frontend）就是站在前端和后端服务之间的一层，专门给前端服务。前端只发一个请求到BFF，BFF去调用四个后端服务，聚合数据，组装成前端需要的格式，一次Back。</p>
+<h2>二、BFF做什么</h2>
+<p>聚合多个后端接口。前端发一次请求，BFF并行调用多个后端服务，一次Back全部数据。</p>
+<p>裁剪字段。后端Back用户10个字段，前端只要3个，BFF把多余字段去掉。</p>
+<p>协议转换。后端用gRPC，前端用HTTP，BFF做转换。</p>
+<p>做缓存。重复请求直接命中BFF缓存，不打后端。</p>
+<p>适配不同端。手机端字段少，桌面端字段多，BFF按设备Back不同数据。</p>
+<h2>三、怎么实现</h2>
+<p>用Node.js写一个服务：</p>
+<p>const express = require('express');</p>
+<p>const app = express();</p>
+<p>app.get('/api/home', async (req, res) => {</p>
+<p>const [user, orders, cart] = await Promise.all([</p>
+<p>userService.getUser(),</p>
+<p>orderService.getRecent(),</p>
+<p>cartService.getCount()</p>
+<p>]);</p>
+<p>res.json({ user, orders, cart });</p>
+<p>});</p>
+<p>app.listen(3001);</p>
+<p>前端请求http://api.example.com/api/home，一次拿到Home全部数据。</p>
+<h2>四、BFF和GraphQL</h2>
+<p>GraphQL本质就是标准化的BFF查询语言。前端声明需要哪些字段，BFF（GraphQL Server）去后端取，只Back那些字段。</p>
+<h2>五、什么时候不要BFF</h2>
+<p>简单项目，一个后端服务就能搞定所有接口。不要为了用技术而用技术。BFF加了一层，也多了一个要维护的服务。</p>
+<h2>六、BFF的职责边界</h2>
+<p>BFF只做数据聚合和裁剪，不要写业务逻辑。业务逻辑在后端服务。BFF不要直接操作数据库，它只是个转发层。</p>
+<h2>七、常见坑</h2>
+<p>坑1：BFF写了业务逻辑，和后端服务重复。</p>
+<p>坑2：BFF缓存没失效，数据和后端不一致。</p>
+<p>坑3：BFF挂了，前端全站挂。要做高可用。</p>
+<h2>八、总结</h2>
+<p>BFF让前端掌控数据组装，减少请求次数，适配不同端。复杂项目值得加一层，简单项目别过度设计。它是前后端协作的润滑剂，不是银弹。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-717.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS响应式设计实战</a><a href="article-708.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript this指向完全指南</a><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储：Cookie、LocalStorage、IndexedDB怎么选</a></div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="安装 CaesarBase - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/install.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安装 CaesarBase</title>
+<style>
+  :root{--bg:#1e1e2e;--card:#282a36;--green:#50fa7b;--blue:#8be9fd;--orange:#ffb86c;--text:#f8f8f2;--dim:#6272a4;--border:#44475a}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:32px 16px}
+  .wrap{width:100%;max-width:480px}
+  h1{font-size:26px;margin-bottom:4px;background:linear-gradient(135deg,var(--green),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--dim);font-size:14px;margin-bottom:28px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+  .card h2{font-size:18px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .card.ios h2{color:var(--blue)}
+  .card.apk h2{color:var(--green)}
+  .card.win h2{color:#f1fa8c}
+  .card p{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px}
+  .card .steps{font-size:13px;color:var(--dim);line-height:1.8;margin-bottom:14px}
+  .btn{display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:.2s}
+  .btn.download{background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a}
+  .btn.download:hover{filter:brightness(1.15);transform:scale(1.02)}
+  .back{margin-top:12px;color:var(--dim);text-decoration:none;font-size:14px;text-align:center;display:block}
+  .back:hover{color:var(--green)}
+  .tip{font-size:12px;color:var(--dim);margin-top:10px;text-align:center}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<meta property="og:title" content="安装 CaesarBase">
+<meta property="og:description" content="安装 CaesarBase - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/install.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+  <h1>安装 CaesarBase</h1>
+  <p class="sub">选择你的设备，装成独立 App</p>
+
+  <!-- iOS -->
+  <div class="card ios">
+    <h2>🍎 iOS / iPad</h2>
+    <p>用 Safari 把 CaesarBase 添加到主屏幕，像独立 App 一样全屏运行。</p>
+    <div class="steps">
+      1. 打开本页用的浏览器必须是 <b>Safari</b><br>
+      2. 点底部中间的「<b>Share</b>」按钮（⬆️ 方框箭头）<br>
+      3. 向下滑，点「<b>添加到主屏幕</b>」<br>
+      4. 点右上角「<b>添加</b>」即可
+    </div>
+  </div>
+
+  <!-- 鸿蒙 -->
+  <div class="card apk">
+    <h2>🤖 鸿蒙 HarmonyOS</h2>
+    <p>下载 APK 安装包，安装后是独立 App。</p>
+    <a class="btn download" href="https://caesarpc.github.io/apk/CaesarBase.apk" download>⬇️ 下载 APK 安装包</a>
+  </div>
+
+  <!-- 安卓 -->
+  <div class="card apk">
+    <h2>📱 安卓 Android</h2>
+    <p>和鸿蒙用同一个 APK，安装后是独立 App。</p>
+    <a class="btn download" href="https://caesarpc.github.io/apk/CaesarBase.apk" download>⬇️ 下载 APK 安装包</a>
+  </div>
+
+    <!-- Windows -->
+  <div class="card win">
+    <h2>🪟 Windows</h2>
+    <p>Windows 桌面版：解压后双击 <b>CaesarBase.exe</b> 即可运行，带Exclusive图标。</p>
+    <a class="btn download" href="https://github.com/CaesarPC/caesarpc.github.io/releases/download/v1.0.0/CaesarBase-Windows.zip">⬇️ 下载 Windows 版 (zip)</a>
+  </div>
+
+<p class="tip">鸿蒙/安卓安装时若提示"未知来源应用"，请允许安装。</p>
+  <a class="back" href="https://caesarpc.github.io/">← Back CaesarBase 主站</a>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-708.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript this指向完全指南（2） - CaesarTools</title>
+<meta name="description" content="← Back文章列表 JavaScript this指向完全指南 CaesarTools Tech Articles · 2026-10-15">
+<meta name="keywords" content="JavaScript, this指向完全指南, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript this指向完全指南 - CaesarTools">
+<meta property="og:description" content="JavaScript this指向完全指南 - CaesarBase 免费Tech Articles">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-708.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript this指向完全指南（2）","description":"← Back文章列表 JavaScript this指向完全指南 CaesarTools Tech Articles · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-708.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>JavaScript this指向完全指南（2）</h1>
+<div class="meta">CaesarTools Tech Articles · 2026-10-15</div>
+<div class="content">
+<h2>一、this为什么难搞</h2>
+<p>同一个函数，调用方式不同，this完全不同：</p>
+<p>function say() { console.log(this.name); }</p>
+<p>const obj = { name: '小明', say };</p>
+<p>obj.say(); // 小明</p>
+<p>say(); // undefined（严格模式）</p>
+<p>this不是在定义时绑定的，是在调用时确定的。这就是它难的原因。</p>
+<h2>二、四条规则按优先级</h2>
+<p>判断this指向，按这个顺序查：new绑定 > 显式绑定 > 隐式绑定 > 默认绑定。从高到低，谁命中用谁。</p>
+<h2>三、逐个拆开看</h2>
+<h3>3.1 默认绑定</h3>
+<p>function fn() { console.log(this); }</p>
+<p>fn(); // 浏览器里window，严格模式undefined</p>
+<p>最普通的调用。</p>
+<h3>3.2 隐式绑定</h3>
+<p>const obj = { name: '小明', say: function() { console.log(this.name); } };</p>
+<p>obj.say(); // 小明</p>
+<p>调用时前面有对象，this就是这个对象。</p>
+<p>坑：把方法赋值给变量再调用</p>
+<p>const fn = obj.say;</p>
+<p>fn(); // undefined 因为这是默认绑定</p>
+<h3>3.3 显式绑定</h3>
+<p>function say(greeting) { console.log(greeting + this.name); }</p>
+<p>const obj = { name: '小明' };</p>
+<p>say.call(obj, '你好'); // 你好小明</p>
+<p>say.apply(obj, ['你好']); // apply参数是数组</p>
+<p>const bound = say.bind(obj, '你好');</p>
+<p>bound(); // 永久绑定this</p>
+<p>call和apply立刻执行，bindBack新函数永久绑定。</p>
+<h3>3.4 new绑定</h3>
+<p>function Person(name) { this.name = name; }</p>
+<p>const p = new Person('小明');</p>
+<p>// new时this指向新创建的p</p>
+<p>new优先级最高，即使函数之前bind过，new也能覆盖。</p>
+<h2>四、箭头函数：没有自己的this</h2>
+<p>箭头函数不创建自己的this，它继承定义时外层的this。</p>
+<p>const obj = {</p>
+<p>name: '小明',</p>
+<p>say: function() {</p>
+<p>const inner = () => console.log(this.name);</p>
+<p>inner();</p>
+<p>}</p>
+<p>};</p>
+<p>obj.say(); // 小明</p>
+<p>inner是箭头函数，this继承say的this（也就是obj）。这就是React类组件事件处理要用箭头函数bind的原因。</p>
+<h2>五、高频实战</h2>
+<p>回调函数this丢失：setTimeout(obj.say, 1000)，this是window。解法：setTimeout(() => obj.say(), 1000) 或 obj.say.bind(obj)。</p>
+<p>数组方法里this：[1,2,3].forEach(function() { console.log(this); }, obj)。第二个参数指定this。</p>
+<h2>六、判断this的口诀</h2>
+<p>看函数是怎么调用的：new fn()就是新对象；fn.call(obj)就是obj；obj.fn()就是obj；fn()就是全局。箭头函数继承外层。</p>
+<h2>七、常见坑</h2>
+<p>坑1：箭头函数当对象方法，this不是对象。因为箭头函数继承外层模块作用域。</p>
+<p>坑2：回调函数里this容易丢，用箭头函数或bind。</p>
+<p>坑3：setTimeout里this不是你以为的那个。</p>
+<h2>八、总结</h2>
+<p>this不是看函数定义，是看函数调用。记住四条优先级规则，再记住箭头函数没有自己的this，this问题就解决了八九成。写React类组件时用箭头函数属性，Vue里用箭头函数回调，都是this规则的实际应用。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-716.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端状态管理：为什么要用Redux/Zustand</a><a href="article-717.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS响应式设计实战</a><a href="article-705.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型链完全指南</a></div>
+</body>
+</html>

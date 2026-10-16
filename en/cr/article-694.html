@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-694.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS动画性能优化 - CaesarTools</title>
+<meta name="description" content="CSS动画性能优化 - CaesarBase 免费Tech Articles">
+<meta name="keywords" content="CSS动画性能优化, CSS, 性能优化">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS动画性能优化 - CaesarTools">
+<meta property="og:description" content="CSS动画性能优化 - CaesarBase 免费Tech Articles">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-694.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS动画性能优化","description":"CSS动画性能优化 - CaesarBase 免费Tech Articles","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-694.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>CSS动画性能优化</h1>
+<div class="meta">CaesarTools Tech Articles · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么动画会卡</h2>
+<p>屏幕每秒刷新60次，每帧16.7毫秒。一帧里浏览器要做Layout、Paint、Composite。超过16毫秒就掉帧。</p>
+<p>动画改width或left，每帧都触发Layout加Paint，手机上必卡。动画改transform和opacity，只触发Composite，GPU加速，60帧丝滑。</p>
+<h2>二、触发浏览器工作的三种属性</h2>
+<p>Layout重排：width、height、margin、padding、left、top、position、font-size。改这些浏览器要重新算每个元素位置。</p>
+<p>Paint重绘：color、background、border、box-shadow、outline。改这些要重新画像素。</p>
+<p>Composite合成：transform、opacity。改这些浏览器用GPU直接合成图层，不触发前两步。</p>
+<h2>三、transform动画</h2>
+<p>@keyframes slide {</p>
+<p>from { transform: translateX(-100%); }</p>
+<p>to { transform: translateX(0); }</p>
+<p>}</p>
+<p>.animate { animation: slide 0.5s ease; }</p>
+<p>不影响布局，GPU合成。</p>
+<h2>四、will-change提前优化</h2>
+<p>提前告诉浏览器这个元素要动画：</p>
+<p>.will-animate { will-change: transform; }</p>
+<p>浏览器提前优化，不滥用，每个will-change占额外显存。</p>
+<h2>五、requestAnimationFrame</h2>
+<p>JS动画用requestAnimationFrame，跟着浏览器刷新节奏。setInterval不准，可能掉帧。</p>
+<p>function animate() {</p>
+<p>element.style.transform = `translateX(${x}px)`;</p>
+<p>requestAnimationFrame(animate);</p>
+<p>}</p>
+<h2>六、长列表滚动</h2>
+<p>大数据列表不要全部渲染。虚拟滚动：只渲染可视区域，滚动时动态替换内容。</p>
+<h2>七、图片懒加载</h2>
+<p><img loading="lazy">原生懒加载。图片进视口才下载。首屏加载快。</p>
+<h2>八、常见坑</h2>
+<p>动画改left/width掉帧。</p>
+<p>will-change到处加，显存爆。</p>
+<p>阴影加动画同时Paint太贵。</p>
+<p>同时太多动画，主线程忙不过来。</p>
+<h2>九、DevTools检查</h2>
+<p>Performance面板录一次动画。紫色块是Paint，太长就是Paint开销大。绿色块Layout。FPS Meter看帧率。</p>
+<h2>十、硬件加速</h2>
+<p>transform和opacity让浏览器给元素单独开GPU图层。过多图层增加合成开销。只有需要动画的元素才开。</p>
+<h2>十一、总结</h2>
+<p>CSS动画性能核心：只动transform和opacity，GPU合成。JS动画用requestAnimationFrame。虚拟滚动处理长列表。做好这几点，动画丝滑不卡。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-688.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-697.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML语义化Tags实战</a><a href="article-696.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a></div>
+</body>
+</html>

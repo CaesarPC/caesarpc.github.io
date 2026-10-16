@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-584.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript Promise完全指南（2） - CaesarTools</title>
+<meta name="description" content="← Back文章列表 JavaScript Promise完全指南 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript, Promise完全指南, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript Promise完全指南 - CaesarTools">
+<meta property="og:description" content="JavaScript Promise完全指南 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-584.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript Promise完全指南（2）","description":"← Back文章列表 JavaScript Promise完全指南 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-584.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>JavaScript Promise完全指南（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么需要Promise</h2>
+<p>回调嵌套三层就是回调地狱。Promise把异步包成对象，链式调用，错误统一处理。</p>
+<h2>二、三种状态</h2>
+<p>pending进行中。fulfilled成功。rejected失败。状态不可逆。</p>
+<h2>三、基本用法</h2>
+<p>new Promise((resolve, reject) => {</p>
+<p>setTimeout(() => resolve('ok'), 1000);</p>
+<p>})</p>
+<p>.then(data => console.log(data))</p>
+<p>.catch(err => console.error(err))</p>
+<p>.finally(() => console.log('结束'));</p>
+<h2>四、链式调用</h2>
+<p>fetchUser(1)</p>
+<p>.then(user => fetchOrders(user.id))</p>
+<p>.then(orders => render(orders))</p>
+<p>.catch(err => showError(err));</p>
+<p>纵向代码，可读。</p>
+<h2>五、四个静态方法</h2>
+<p>Promise.all全部成功才成功。</p>
+<p>Promise.race谁快用谁。</p>
+<p>Promise.allSettled等全部完成。</p>
+<p>Promise.any取第一个成功。</p>
+<h2>六、async/await</h2>
+<p>async function load() {</p>
+<p>try {</p>
+<p>const user = await fetchUser(1);</p>
+<p>const orders = await fetchOrders(user.id);</p>
+<p>} catch (e) { showError(e); }</p>
+<p>}</p>
+<p>写起来像同步。</p>
+<h2>七、常见坑</h2>
+<p>await忘了加得到Promise对象。</p>
+<p>串行await比并行慢，用Promise.all。</p>
+<p>unhandledrejection没人catch，全局监听兜底。</p>
+<h2>八、Promise和事件循环</h2>
+<p>Promise.then是微任务，优先级高于setTimeout宏任务。</p>
+<h2>九、超时控制</h2>
+<p>Promise.race([fetchData, timeout(5000)])。防止请求无限等待。</p>
+<h2>十、总结</h2>
+<p>Promise是异步编程基石。async/await语法糖。掌握then/catch/finally和四个静态方法。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-575.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a><a href="article-582.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-580.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引实战</a></div>
+</body>
+</html>

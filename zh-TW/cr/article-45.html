@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-45.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI推理服务部署：从模型加载到高并发API - CaesarTools</title>
+<meta name="description" content="← Back文章列表 AI推理服务部署：从模型加载到高并发API CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="AI推理服务部署, 从模型加载到高并发API, API">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="AI推理服务部署：从模型加载到高并发API - CaesarTools">
+<meta property="og:description" content="AI推理服务部署：从模型加载到高并发API - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-45.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI推理服务部署：从模型加载到高并发API","description":"← Back文章列表 AI推理服务部署：从模型加载到高并发API CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-45.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>AI推理服务部署：从模型加载到高并发API</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、模型部署的挑战</h2>
+<p>训练好的模型是文件，用户没法直接用。部署就是把它包成API：发一张图，Back识别结果；发一段文字，Back生成内容。和普通后端区别：推理吃GPU显存，延迟敏感，流量忽高忽低。</p>
+<h2>二、基础方案：FastAPI</h2>
+<p>from fastapi import FastAPI</p>
+<p>from transformers import pipeline</p>
+<p>app = FastAPI()</p>
+<p>classifier = pipeline("sentiment-analysis")</p>
+<p>@app.post("/predict")</p>
+<p>def predict(text: str):</p>
+<p>return classifier(text)[0]</p>
+<p>uvicorn main:app --port 8000</p>
+<p>简单但并发低。一个请求推理时，其他请求排队。</p>
+<h2>三、高并发：vLLM</h2>
+<p>7B以上模型，原生transformers每秒几个请求。vLLM用PagedAttention，吞吐量提升10-20倍，显存利用率从20%到90%。</p>
+<p>python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen2-7B</p>
+<p>直接暴露OpenAI兼容接口，前端改个base_url就能用。</p>
+<h2>四、量化</h2>
+<p>7B FP16要14GB显存。INT4量化只要4GB，一张4090就能跑。</p>
+<p>BitsAndBytesConfig(load_in_4bit=True)。精度略降，多数场景无感。</p>
+<h2>五、GPU选择</h2>
+<p>7B INT4：RTX 4090 24GB。</p>
+<p>7B FP16：A10G 24GB。</p>
+<p>70B INT4：A100 80GB。</p>
+<p>云租：AutoDL、阿里云、AWS。测试用4090，生产用A10。</p>
+<h2>六、常见坑</h2>
+<p>坑1：模型加载慢。第一次加载几十亿参数要1-2分钟。启动后预热一个请求。</p>
+<p>坑2：显存OOM。长文本+大batch爆。限制max_tokens，开vLLM连续批处理。</p>
+<p>坑3：并发低。原生transformers一次一个请求。用vLLM。</p>
+<p>坑4：同步阻塞。用FastAPI异步，不要Flask。</p>
+<h2>七、和业务后端配合</h2>
+<p>AI服务独立部署在GPU机器，业务后端HTTP调AI服务。不要把模型塞进业务后端进程。</p>
+<h2>八、监控</h2>
+<p>GPU利用率、显存、推理延迟P99、QPS。Prometheus+Grafana。GPU利用率长期低于30%就是浪费钱。</p>
+<h2>九、模型版本管理</h2>
+<p>训练多个版本，用环境变量MODEL_VERSION切换权重文件。A/B测试同时跑两个版本，按流量比例分流。</p>
+<h2>十、总结</h2>
+<p>AI部署：选vLLM高并发、量化压显存、独立部署、监控GPU。个人一张4090跑7B，企业A100跑70B。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-458.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-446.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-442.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO优化实战</a></div>
+</body>
+</html>

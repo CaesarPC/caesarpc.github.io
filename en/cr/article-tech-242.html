@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<meta name="keywords" content="环境变量与配置管理">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-242.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>环境变量与配置管理 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="环境变量与配置管理 - CaesarTools">
+<meta property="og:description" content="环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-242.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"环境变量与配置管理","description":"环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-242.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← Back文章列表</a>
+<h1>环境变量与配置管理</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技术教程</div>
+<p># 环境变量与配置管理：12 Factor App实践</p>
+<p>同一个项目，开发环境连本地数据库，测试环境连测试数据库，生产环境连线上数据库。数据库Password、API密钥、第三方服务地址——这些不能硬编码在代码里。环境变量就是解决这个问题的标准方案。</p>
+<p>## 一、为什么需要环境变量</p>
+<p>代码Submit到Git仓库后，如果Password写在代码里，任何人都能看到。而且开发、测试、生产三套环境的配置不同——你不可能改一次代码部署一个环境就改一次配置。</p>
+<p>环境变量的思路：配置不写在代码里，从运行环境读取。同一份代码，在不同环境启动时注入不同的环境变量，自动连接对应的数据库、使用对应的密钥。</p>
+<p>## 二、怎么用</p>
+<p>Node.js：process.env.DATABASE_URL读取环境变量。
+前端：Vite用import.meta.env.VITE_XXX。注意：前端代码里的环境变量会被打包进JS，任何人都能看到——不要在前端放敏感密钥。敏感配置只放后端。</p>
+<p>## 三、.env文件</p>
+<p>本地开发时，用.env文件存环境变量：
+DATABASE_URL=mongodb://localhost:27017/dev
+API_KEY=secret123</p>
+<p>.env文件加入.gitignore，不Submit到仓库。仓库里放一个.env.example，列出需要哪些变量但不给值。新成员clone项目后，复制.env.example为.env，填上自己的值。</p>
+<p>## 四、生产环境</p>
+<p>生产环境的环境变量通过部署平台注入——Docker run -e、云平台的环境变量配置、K8s的Secret。不要把生产密钥放在代码仓库里。</p>
+<p>## 五、总结</p>
+<p>环境变量是配置管理的标准做法：代码不变，环境变量变，同一份代码跑在不同环境。敏感信息不进Git，通过部署平台注入。这是12 Factor App的核心理念之一。</p>
+<p><a href="articles.html">← Back文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-243.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a><a href="article-tech-248.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS预处理器</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

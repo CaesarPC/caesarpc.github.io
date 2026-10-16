@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="番茄钟 | CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/pomodoro.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>番茄钟 | CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+.hd{background:#282a36;width:100%;padding:16px;display:flex;align-items:center;gap:12px;border-bottom:2px solid #50fa7b}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+.hd h1{font-size:18px;color:#50fa7b}
+.card{background:#282a36;border:1px solid #44475a;border-radius:16px;padding:30px;margin:30px auto;max-width:400px;width:90%;text-align:center}
+.timer{font-size:72px;font-weight:900;color:#50fa7b;letter-spacing:2px;margin:20px 0;font-variant-numeric:tabular-nums}
+.mode{font-size:14px;color:#6272a4;margin-bottom:10px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btns button{border:none;border-radius:10px;padding:12px 24px;font-size:15px;cursor:pointer;font-weight:bold;transition:.15s}
+.btns button:active{transform:scale(.95)}
+#start{background:#50fa7b;color:#1e1e2e}
+#reset{background:#44475a;color:#e6e6e6}
+#skip{background:#ffb86c;color:#1e1e2e}
+.settings{display:flex;gap:16px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.set{font-size:12px;color:#6272a4}
+.set input{width:60px;padding:6px;border-radius:6px;border:1px solid #44475a;background:#1e1e2e;color:#e6e6e6;text-align:center}
+.stats{margin-top:20px;font-size:13px;color:#bdc3c7}
+.stats b{color:#50fa7b}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<!-- 离线提示顶栏 -->
+<div id="offlineBar" style="display:none;position:fixed;top:0;left:0;right:0;background:#2d2d3f;color:#888;padding:4px 16px;font-size:12px;text-align:center;z-index:9999;">
+  📡 離線 · 部分功能無法使用
+</div>
+<div class="hd">
+  <a href="index.html">← Home</a>
+  <h1>🍅 番茄钟</h1>
+</div>
+<div class="card">
+  <div class="mode" id="modeText">Focus时间</div>
+  <div class="timer" id="timer">25:00</div>
+  <div class="btns">
+    <button id="start">▶ 开始</button>
+    <button id="reset">🔄 重置</button>
+    <button id="skip">⏭ 跳过</button>
+  </div>
+  <div class="settings">
+    <div class="set">Focus(分钟)<br><input type="number" id="workMin" value="25" min="1" max="120"></div>
+    <div class="set">短休息<br><input type="number" id="shortMin" value="5" min="1" max="30"></div>
+    <div class="set">长休息<br><input type="number" id="longMin" value="15" min="1" max="60"></div>
+  </div>
+  <div class="stats">已完成番茄：<b id="count">0</b> 个</div>
+</div>
+<script>
+var total = 25*60, remaining = total, timerId = null, running = false, phase = 'work', cycles = 0;
+function fmt(s){var m=Math.floor(s/60),sec=s%60;return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec;}
+function render(){
+  document.getElementById('timer').textContent = fmt(remaining);
+  var mt = {work:'🍅 Focus时间',short:'☕ 短休息',long:'🌴 长休息'}[phase];
+  document.getElementById('modeText').textContent = mt;
+  document.title = fmt(remaining) + ' - ' + (phase==='work'?'Focus':'休息');
+}
+function setPhase(p){
+  phase = p;
+  var mins = p==='work' ? parseInt(document.getElementById('workMin').value)||25
+    : p==='short' ? parseInt(document.getElementById('shortMin').value)||5
+    : parseInt(document.getElementById('longMin').value)||15;
+  total = mins*60; remaining = total; render();
+}
+document.getElementById('start').onclick = function(){
+  if(running){clearInterval(timerId);running=false;this.textContent='▶ 继续';return;}
+  running=true;this.textContent='⏸ 暂停';
+  timerId=setInterval(function(){
+    remaining--;render();
+    if(remaining<=0){
+      clearInterval(timerId);running=false;
+      document.getElementById('start').textContent='▶ 开始';
+      if(phase==='work'){
+        cycles++;document.getElementById('count').textContent=cycles;
+        setPhase(cycles%4===0?'long':'short');
+      } else { setPhase('work'); }
+    }
+  },1000);
+};
+document.getElementById('reset').onclick=function(){clearInterval(timerId);running=false;document.getElementById('start').textContent='▶ 开始';remaining=total;render();};
+document.getElementById('skip').onclick=function(){clearInterval(timerId);running=false;document.getElementById('start').textContent='▶ 开始';if(phase==='work'){cycles++;document.getElementById('count').textContent=cycles;setPhase(cycles%4===0?'long':'short');}else{setPhase('work');}};
+render();
+</script>
+<script src="clip.js?v=20261006c"></script>
+<script>
+// PWARegister
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW failed:', err));
+  });
+}
+// 离线检测
+function updateOnlineStatus() {
+  const bar = document.getElementById('offlineBar');
+  if (bar) bar.style.display = navigator.onLine ? 'none' : 'block';
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+</script>
+</body>
+</html>

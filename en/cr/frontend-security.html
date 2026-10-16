@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="前端安全进阶：CSP、Cookie和JWT - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、Tech Articles和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/cr/frontend-security.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端安全进阶：CSP、Cookie和JWT - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:26px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15.5px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+/* 模块小标题：左侧绿色竖杠 */
+.section{margin:32px 0 16px 0;padding:12px 0 12px 16px;border-left:4px solid #50fa7b}
+.section h2{font-size:18px;color:#50fa7b;margin:0 0 4px 0;font-weight:600;line-height:1.4}
+.section p{font-size:13px;color:#6272a4;margin:0;text-indent:0;line-height:1.5}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- Language Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 Language: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← Back文章列表</a>
+<h1>前端安全进阶：CSP、Cookie和JWT</h1>
+<div class="meta">CaesarTools · 技术教程</div>
+<p>做网站只考虑功能不考虑安全，等于没锁门。前端安全有几个核心概念必须懂。</p>
+<p>CSP内容安全策略，就是服务器Back一个HTTP头，告诉浏览器这个网页允许加载哪些来源的脚本、样式、图片。这样即使被注入了恶意脚本，也执行不了。</p>
+<p>Cookie安全，设置HttpOnly属性让JS读不到Cookie，设置Secure属性只在HTTPS下传输，设置SameSite属性防止CSRF攻击。很多人Cookie随便存，结果XSS一攻就偷了。</p>
+<p>JWT是现在最流行的认证方案。用户Login后服务器发一个Token，以后每次请求带上这个Token，服务器验证通过就放行。JWT要注意设置过期时间，不要泄露密钥。</p>
+<p>安全是持久战，没有绝对安全的网站，但基础防护做到位，能挡住90%的常见攻击。</p>
+<p><a href="articles.html">← Back文章列表</a></p>
+</div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

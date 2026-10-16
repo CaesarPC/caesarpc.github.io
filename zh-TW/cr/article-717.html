@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-717.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS响应式设计实战（2） - CaesarTools</title>
+<meta name="description" content="CSS响应式设计实战 - CaesarBase 免费技術文章">
+<meta name="keywords" content="CSS响应式设计实战, CSS">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS响应式设计实战 - CaesarTools">
+<meta property="og:description" content="CSS响应式设计实战 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-717.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS响应式设计实战（2）","description":"CSS响应式设计实战 - CaesarBase 免费技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-717.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>CSS响应式设计实战（2）</h1>
+
+<div class="breadcrumb" style="font-size:13px;color:#6272a4;margin-bottom:16px">
+  <a href="index.html" style="color:#50fa7b">Home</a> / 
+  <a href="articles.html" style="color:#50fa7b">Articles & Tutorials</a> / 
+  <span>CSS响应式设计实战</span>
+</div>
+
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、为什么要响应式</h2>
+<p>你的网站在Mac上好好的，在手机上挤成一团。用户从手机来的占一半，不做响应式等于丢掉一半用户。</p>
+<h2>二、移动优先</h2>
+<p>先写手机样式，再用min-width媒体查询加桌面样式。手机样式是基础，桌面是增强。</p>
+<h2>三、媒体查询</h2>
+<p>@media (min-width: 768px) {</p>
+<p>.container { grid-template-columns: repeat(2, 1fr); }</p>
+<p>}</p>
+<p>@media (min-width: 1200px) {</p>
+<p>.container { grid-template-columns: repeat(4, 1fr); }</p>
+<p>}</p>
+<h2>四、相对单位</h2>
+<p>用rem和%，不用px。字体1rem=16px（默认）。容器宽度用%或vw。</p>
+<h2>五、Grid自适应</h2>
+<p>grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));</p>
+<p>容器多宽就自动排几列，不用写媒体查询。</p>
+<h2>六、图片响应式</h2>
+<p><img src="small.jpg" srcset="small.jpg 480w, large.jpg 1080w" sizes="(max-width: 600px) 480px, 1080px"></p>
+<p>手机下小图，桌面下大图。</p>
+<h2>七、常见断点</h2>
+<p>手机<768px。平板768-1024px。桌面>1024px。大屏>1440px。</p>
+<h2>八、常见坑</h2>
+<p>媒体查询写反方向，从大到小要改写法。</p>
+<p>固定px宽度，小屏溢出。</p>
+<p>字体用px，用户改浏览器字体无效。</p>
+<h2>九、总结</h2>
+<p>响应式设计让网站在手机、平板、桌面都好看。移动优先、相对单位、Grid自适应、图片响应式。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-724.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI模型部署实战：从模型文件到高并发API</a><a href="article-718.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket实时通信实战</a><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储：Cookie、LocalStorage、IndexedDB怎么选</a></div>
+</body>
+</html>

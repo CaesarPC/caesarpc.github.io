@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="AI应用产品设计原则 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="keywords" content="AI应用产品设计原则">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-157.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI应用产品设计原则 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="AI应用产品设计原则 - CaesarTools">
+<meta property="og:description" content="AI应用产品设计原则 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-157.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI应用产品设计原则","description":"AI应用产品设计原则 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-157.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← Back文章列表</a>
+<h1>AI应用产品设计原则</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技术教程</div>
+<p>AI应用产品设计原则：让AI功能真正有用而不是噱头</p>
+<p>很多产品加了AI功能但用户不用——因为它是噱头，不是真需求。AI功能要解决真实痛点，而不是为了"有AI"而加AI。设计AI应用有几个核心原则。</p>
+<p>原则一：AI解决特定痛点，不是万能助手。不要做"什么都能聊"的通用机器人，要做"帮你写周报"、"帮你读合同"这种垂直场景。场景越具体，价值越清晰。</p>
+<p>原则二：人机协作，不是全自动。AI生成的内容要让用户能编辑、能Confirm。比如AI写文案，用户可以改；AI做总结，用户可以追问。不要黑盒输出，要透明可控。</p>
+<p>原则三：降低使用门槛。用户不需要学写提示词。产品内部帮用户构造好提示，用户只需要输入自然语言需求。好的AI产品是用户感觉不到"在写提示词"，只是正常对话。</p>
+<p>原则四：处理好错误。大模型会一本正经地胡说。产品设计要：标注AI生成内容、提供来源引用（RAG场景）、允许用户反馈错误、关键操作人工Confirm。不要假装AI永远正确。</p>
+<p>原则五：性能和延迟。AI生成要等几秒，用户体验会差。流式输出（逐字显示）让等待感觉更短；后台预加载常用结果；简单问题走快速模型。延迟感知比实际延迟更重要。</p>
+<p>原则六：隐私和信任。用户会输入敏感信息。明确告知数据怎么用、是否用于训练、能不能删除。本地化处理或私有化部署是高敏感场景的选择。</p>
+<p>成功的AI产品不是"加了聊天框"，而是把AI能力融入工作流，让用户更快完成原本要花很久的事。判断标准：这个AI功能省了用户多少时间？如果省不了多少，就是噱头。</p>
+<p><a href="articles.html">← Back文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上传与大文件分片</a><a href="article-tech-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本编辑器原理</a><a href="article-tech-158.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 表单处理最佳实践</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

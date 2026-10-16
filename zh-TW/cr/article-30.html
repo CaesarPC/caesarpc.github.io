@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-30.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL和PostgreSQL怎么选：2024年的决策指南 - CaesarTools</title>
+<meta name="description" content="MySQL和PostgreSQL怎么选：2024年的决策指南 - CaesarBase 免费技術文章">
+<meta name="keywords" content="MySQL和PostgreSQL怎么选, 2024年的决策指南, MySQL, SQL">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="MySQL和PostgreSQL怎么选：2024年的决策指南 - CaesarTools">
+<meta property="og:description" content="MySQL和PostgreSQL怎么选：2024年的决策指南 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-30.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"MySQL和PostgreSQL怎么选：2024年的决策指南","description":"MySQL和PostgreSQL怎么选：2024年的决策指南 - CaesarBase 免费技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-30.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>MySQL和PostgreSQL怎么选：2024年的决策指南</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、两个都是好数据库</h2>
+<p>MySQL全球市占率最高，PostgreSQL功能最强。没有绝对好坏，只有适不适合。这篇帮你根据场景选。</p>
+<h2>二、MySQL的优势</h2>
+<h3>2.1 生态成熟</h3>
+<p>互联网公司用了十几年，教程多，DBA好找。WordPress、Laravel默认MySQL。</p>
+<h3>2.2 读性能强</h3>
+<p>主从复制、读写分离方案成熟。读多写少的场景（博客、电商商品页）MySQL很稳。</p>
+<h3>2.3 云服务支持好</h3>
+<p>阿里云、AWS都有托管MySQL，开箱即用。</p>
+<h2>三、PostgreSQL的优势</h2>
+<h3>3.1 功能全面</h3>
+<p>JSONB、全文Search、PostGIS地理空间、pgvector向量检索、窗口函数、CTE。一个数据库顶好几个。</p>
+<h3>3.2 复杂查询强</h3>
+<p>多表JOIN、子查询、复杂聚合，PostgreSQL优化器更聪明。</p>
+<h3>3.3 数据完整性</h3>
+<p>约束、事务、外键严格。金融级数据一致性选PostgreSQL。</p>
+<h2>四、什么时候选MySQL</h2>
+<p>- 简单CRUD网站，团队只会MySQL</p>
+<p>- 读多写少，需要读写分离</p>
+<p>- 用WordPress/Laravel等默认MySQL的框架</p>
+<p>- 追求部署简单、招人容易</p>
+<h2>五、什么时候选PostgreSQL</h2>
+<p>- 需要JSONB存半结构化数据</p>
+<p>- 需要全文Search、地理位置、向量检索</p>
+<p>- 复杂查询和分析</p>
+<p>- 对数据一致性要求高</p>
+<p>- 一个数据库想搞定多种需求</p>
+<h2>六、性能对比</h2>
+<p>简单读写：MySQL略快。</p>
+<p>复杂查询：PostgreSQL快。</p>
+<p>JSON操作：PostgreSQL的JSONB比MySQL的JSON强很多。</p>
+<h2>七、2024年趋势</h2>
+<p>PostgreSQL市占率持续上升。新项目越来越多选PostgreSQL，因为它功能全，不用再额外装MongoDB、Elasticsearch。Supabase、Neon都是基于PostgreSQL。</p>
+<h2>八、迁移成本</h2>
+<p>MySQL迁PostgreSQL不是改个连接串。数据类型、SQL方言、自增主键都要改。新项目直接选，老项目迁移要评估。</p>
+<h2>九、云托管对比</h2>
+<p>AWS RDS、阿里云都同时支持MySQL和PostgreSQL。Neon、Supabase是新兴的Serverless PostgreSQL，按用量付费，个人项目免费额度够用。</p>
+<h2>十、总结</h2>
+<p>简单网站选MySQL，功能复杂选PostgreSQL。2024年新项目我倾向PostgreSQL——它能覆盖更多场景，减少技术栈复杂度。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-296.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-301.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML语义化Tags实战</a><a href="article-298.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能优化：从加载到交互的全链路</a></div>
+</body>
+</html>

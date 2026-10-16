@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="ElasticsearchSearch引擎实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="keywords" content="ElasticsearchSearch引擎实战">
+
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-elasticsearch-search.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElasticsearchSearch引擎实战（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="ElasticsearchSearch引擎实战 - CaesarTools">
+<meta property="og:description" content="ElasticsearchSearch引擎实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-elasticsearch-search.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"ElasticsearchSearch引擎实战（2）","description":"ElasticsearchSearch引擎实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-elasticsearch-search.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>ElasticsearchSearch引擎实战（2）</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 约2000字 · 阅读约8分钟</div>
+<p>ElasticsearchSearch引擎实战：从模糊查询到全文检索的技术升级</p>
+<p>数据库的LIKE '%关键词%'查询性能差、功能弱（不支持分词、相关性排序、中文分词麻烦）。当需要做Search功能（商品Search、文章Search、日志查询），就该上专门的Search引擎。Elasticsearch是最流行的开源Search引擎。</p>
+<p>Elasticsearch的核心是倒排索引。传统索引是"文档→词"，倒排索引是"词→哪些文档包含这个词"。Search时根据关键词直接找到包含它的文档，速度极快。这和数据库的B+树索引不同，ES是为全文Search设计的。</p>
+<p>基本概念：Index（索引，相当于数据库）、Type（已废弃）、Document（文档，相当于行）、Field（字段）。数据以JSON文档形式存入ES。写入文档时，ES自动分词建立倒排索引。</p>
+<p>中文分词是关键。英文按空格分词，中文要专门的分词器。IK分词器支持中文细粒度和粗粒度分词，是中文Search的标配。配置好分词器，"南京市长江大桥"才能正确分成"南京市/长江大桥"而不是"南京市长/江大桥"。</p>
+<p>Search能力：全文检索（关键词匹配）、多字段Search（同时搜标题和内容）、过滤（Category、价格范围）、排序（按相关度、时间）、聚合统计（按类别分组统计数量）。这些组合起来，能实现电商网站那种复杂Search：按关键词搜、按价格筛选、按Category过滤、按销量排序。</p>
+<p>数据同步是ES和数据库配合的核心问题。数据存在MySQL，Search用ES，两边数据要保持同步。方案：双写（业务代码同时写MySQL和ES，但不一致风险高）；_binlog同步（Canal监听MySQL binlog，自动同步到ES，推荐方案）；消息队列异步同步（数据库变更发MQ，消费者更新ES）。</p>
+<p>ES不适合做事务查询和精准统计（它是最终一致，不适合强事务）。它的定位是Search引擎，不是主数据库。主数据在MySQL，ES做索引副本，查询从ES走。</p>
+<p>实际应用场景：电商商品Search、站内文章Search、日志检索（ELK栈的L就是Logstash收集日志到ES，Kibana查询）、企业内部Search。</p>
+<p>性能注意：ES是内存密集型，JVM堆内存要合理配置；分片数规划好（太多小分片浪费，太少大分片难迁移）；不用的索引定期删除或归档。</p>
+<p>Search引擎是网站从"能看"到"好用"的关键组件。好的Search体验让用户快速找到想要的内容，ES是实现这一点的标准工具。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-data-masking-privacy.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a><a href="article-tech-event-driven-arch.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-elk-log-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志收集体系ELK</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/cr/article-320.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git团队协作规范 - CaesarTools</title>
+<meta name="description" content="Git团队协作规范 - CaesarBase 免费技術文章">
+<meta name="keywords" content="Git团队协作规范, Git">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Git团队协作规范 - CaesarTools">
+<meta property="og:description" content="Git团队协作规范 - CaesarBase 免费技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/cr/article-320.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git团队协作规范","description":"Git团队协作规范 - CaesarBase 免费技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-320.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+
+<!-- 語言 Switcher -->
+<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
+  🌐 語言: 
+  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
+  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
+  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
+</div>
+<script>
+function switchLang(target){
+  var path = location.pathname;
+  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
+  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
+}
+</script>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← Back文章列表</a>
+<h1>Git团队协作规范</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Git为什么重要</h2>
+<p>多人协作没有版本控制就是灾难。Git分布式，每台电脑完整历史，离线也能Submit。</p>
+<h2>二、分支工作流</h2>
+<p>main永远可部署。新功能开feature分支。开发完发PR，Review后合并。不直接push main。</p>
+<h2>三、Submit信息</h2>
+<p>feat新功能、fix修bug、docs文档、refactor重构。写清楚做了什么，不要写"更新"。</p>
+<h2>四、冲突解决</h2>
+<p>两人改同一行，手动保留正确部分，删标记，add再commit。预防：小步Submit、经常pull。</p>
+<h2>五、撤销操作</h2>
+<p>git checkout -- file撤销修改。</p>
+<p>git reset HEAD file取消暂存。</p>
+<p>git revert abc安全撤销。</p>
+<p>git reset --hard强制回退（危险）。</p>
+<h2>六、暂存</h2>
+<p>git stash收起来，切分支干别的，pop恢复。</p>
+<h2>七、.gitignore</h2>
+<p>node_modules、.env、dist不Submit。</p>
+<h2>八、常见坑</h2>
+<p>大文件不要git add。用LFS。</p>
+<p>密钥Submit到公开仓库，立刻换。</p>
+<p>force push共享分支。</p>
+<h2>九、代码Review</h2>
+<p>PR不是走形式。看逻辑、测试、命名。被Review不要觉得被针对。</p>
+<h2>十、回滚</h2>
+<p>git revert坏Submit，push，自动重新部署。</p>
+<h2>十一、变基vs合并</h2>
+<p>main更新了，feature分支同步：merge产生合并Submit，历史分叉。rebase把Submit挪到main后，历史直线。rebase历史干净，但不要在共享分支用。</p>
+<h2>十二、总结</h2>
+<p>Git是工程师基本功。分支工作流、规范Submit、冲突解决、PR Review。工具简单，难在习惯。</p>
+
+</div>
+<div class="foot">CaesarTools · 免费技术站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-326.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控实战</a><a href="article-314.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-311.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js进程管理PM2</a></div>
+</body>
+</html>

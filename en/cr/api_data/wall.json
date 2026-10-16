@@ -1,0 +1,35 @@
+[
+ {
+  "id": 1791214605933,
+  "ts": 1791214605933,
+  "who": "Server",
+  "name": "匿名",
+  "content": "登陆账号：67；密码：67；有惊喜",
+  "time": "2026-10-05 23:36",
+  "admin": true,
+  "mod": false,
+  "pinned": true
+ },
+ {
+  "id": 1791214499420,
+  "ts": 1791214499419,
+  "who": "Server",
+  "name": "Server",
+  "content": "欢迎留言！",
+  "time": "2026-10-05 23:34",
+  "admin": true,
+  "mod": false,
+  "pinned": true
+ },
+ {
+  "id": 1791194458512,
+  "ts": 1791194458512,
+  "who": "Server",
+  "name": "匿名",
+  "content": "hello",
+  "time": "2026-10-05 18:00",
+  "admin": true,
+  "mod": false,
+  "pinned": false
+ }
+]
