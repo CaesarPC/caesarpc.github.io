@@ -310,5 +310,13 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
   "ref": "https://www.google.com/"
+ },
+ {
+  "id": 1792151104244,
+  "ts": 1792151104244,
+  "time": "2026-10-16 19:45",
+  "page": "sponsor.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+  "ref": "https://caesarpc.github.io/"
  }
 ]
