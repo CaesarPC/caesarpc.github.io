@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>远程控制入口</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+.box{text-align:center;padding:24px}
+.spin{width:40px;height:40px;border:3px solid #333;border-top-color:#0a84ff;border-radius:50%;margin:0 auto 20px;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+.err{color:#ff453a}
+</style>
+</head>
+<body>
+<div class="box">
+  <div id="spin" class="spin"></div>
+  <div id="msg">正在获取远程地址…</div>
+</div>
+<script>
+// 固定入口：读取 remote/url.json 后自动跳转到当前隧道
+fetch('remote/url.json?ts=' + Date.now())
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d.url){ throw new Error('empty'); }
+    // 检查更新时间（超过2小时提示可能未开机）
+    document.getElementById('msg').textContent = '正在连接电脑…';
+    window.location.replace(d.url);
+  })
+  .catch(function(e){
+    document.getElementById('spin').style.display='none';
+    document.getElementById('msg').innerHTML = '<span class="err">电脑未在线，或地址获取失败。</span><br><br>请确认对方电脑已启动「一键公网」服务。<br><br><button onclick="location.reload()" style="padding:10px 24px;background:#0a84ff;color:#fff;border:none;border-radius:10px;font-size:16px">重试</button>';
+  });
+</script>
+</body>
+</html>
