@@ -366,5 +366,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
   "ref": "https://www.google.com/"
+ },
+ {
+  "id": 1792232975802,
+  "ts": 1792232975802,
+  "time": "2026-10-17 18:29",
+  "page": "sponsor.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+  "ref": "https://caesarpc.github.io/"
  }
 ]
