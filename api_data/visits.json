@@ -342,5 +342,29 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.52 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
   "ref": ""
+ },
+ {
+  "id": 1792151126262,
+  "ts": 1792151126262,
+  "time": "2026-10-16 19:45",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+  "ref": "https://caesarpc.github.io/sponsor.html"
+ },
+ {
+  "id": 1792151173107,
+  "ts": 1792151173107,
+  "time": "2026-10-16 19:46",
+  "page": "admin.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+  "ref": "https://caesarpc.github.io/index.html"
+ },
+ {
+  "id": 1792232891941,
+  "ts": 1792232891941,
+  "time": "2026-10-17 18:28",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+  "ref": "https://www.google.com/"
  }
 ]
