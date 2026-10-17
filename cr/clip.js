@@ -391,3 +391,19 @@
     btn.style.display = h.scrollTop > 300 ? 'block' : 'none';
   });
 })();
+
+// === 自动添加语言切换条 ===
+(function(){
+  if(document.querySelector('[data-lang-switcher]')) return;
+  var isEn = location.pathname.startsWith('/en/');
+  var isTw = location.pathname.startsWith('/zh-TW/');
+  var bar = document.createElement('div');
+  bar.setAttribute('data-lang-switcher', '1');
+  bar.style.cssText = 'background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;';
+  var zh = isEn || isTw ? '<a href="javascript:void(0)" onclick="location.pathname=location.pathname.replace(/^\/en\//,\'/\').replace(/^\/zh-TW\//,\'/\')" style="color:#8be9fd;margin:0 8px;text-decoration:none">简体中文</a>' : '<span style="color:#50fa7b;margin:0 8px;font-weight:bold">简体中文</span>';
+  var en = isEn ? '<span style="color:#50fa7b;margin:0 8px;font-weight:bold">English</span>' : '<a href="javascript:void(0)" onclick="location.pathname='/en'+location.pathname" style="color:#8be9fd;margin:0 8px;text-decoration:none">English</a>';
+  var tw = isTw ? '<span style="color:#50fa7b;margin:0 8px;font-weight:bold">繁體中文</span>' : '<a href="javascript:void(0)" onclick="location.pathname='/zh-TW'+location.pathname" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>';
+  bar.innerHTML = '🌐 ' + (isTw ? '語言' : 'Language') + ': ' + zh + ' | ' + en + ' | ' + tw;
+  document.body.insertBefore(bar, document.body.firstChild);
+})();
+// === 语言切换条结束 ===
