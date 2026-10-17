@@ -1,3 +1,9 @@
+// Force update - clear all caches
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.map(key => caches.delete(key))))
+  );
+});
 // CaesarBase PWA Service Worker - 离线支持 v7
 const CACHE_NAME = 'caesarbase-v7';
 // 预缓存全部核心功能页(47项) + 访问过的页面自动实时缓存(含全部文章)
