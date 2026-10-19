@@ -438,5 +438,13 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
   "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1792438332684,
+  "ts": 1792438332684,
+  "time": "2026-10-20 03:32",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; HD1900 Build/QKQ1.190716.003; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/75.0.3770.156 Mobile Safari/537.36  aweme_230400 JsSdk/1.0 NetType/WIFI  AppName/aweme app_version/23.4.0 ByteLocale/zh-CN Region/CN AppSkin/white AppTheme/light BytedanceWebvi",
+  "ref": ""
  }
 ]
