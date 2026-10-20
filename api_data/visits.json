@@ -542,5 +542,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.300 Mobile Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1792507808813,
+  "ts": 1792507808813,
+  "time": "2026-10-20 22:50",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Linux; Android 11; V2055A) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Mobile Safari/537.36",
+  "ref": ""
  }
 ]
