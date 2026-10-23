@@ -145,6 +145,7 @@ var POOL=[
 var round=[];
 function pick(arr,n){return arr.slice().sort(function(){return Math.random()-0.5}).slice(0,n)}
 function newRound(){
+  if(proxyOn) renderProxy(); // 每出一题自动换IP
   document.getElementById('quizInner').innerHTML='';
   var vuln=pick(POOL.filter(function(v){return v.sev!=='safe'}),4);
   var safe=pick(POOL.filter(function(v){return v.sev==='safe'}),2);

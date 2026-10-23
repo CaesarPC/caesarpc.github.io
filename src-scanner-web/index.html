@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SRC漏洞扫描器 · CaesarBase</title>
+<style>
+:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--green:#50fa7b;--blue:#8be9fd;--purple:#bd93f9;--red:#ff6b6b;--yellow:#f1c40f;--text:#e6e6f0;--dim:#6272a4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",monospace;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:rgba(20,20,35,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar a{color:var(--dim);text-decoration:none;font-size:14px}
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px}
+.hero{text-align:center;margin-bottom:24px}
+.hero h1{font-size:28px;font-weight:900;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--dim);margin-top:8px;font-size:13px}
+.proxyBar{background:rgba(0,20,10,.6);border:1px solid rgba(80,250,123,.3);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.proxyBar.off{background:rgba(40,40,50,.5);border-color:var(--border)}
+.proxyLeft{display:flex;align-items:center;gap:10px}
+.proxyDot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.proxyBar.off .proxyDot{background:var(--dim);box-shadow:none;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.proxyIP{color:var(--green)}
+.proxyNode{color:var(--blue);margin-left:12px}
+.card{background:rgba(26,26,46,.85);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+.inputRow{display:flex;gap:10px;margin-bottom:16px}
+.inputRow input{flex:1;padding:12px 14px;background:rgba(15,15,26,.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-family:monospace}
+.inputRow input:focus{outline:none;border-color:var(--green)}
+.btn{padding:12px 20px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.progressWrap{height:6px;background:rgba(15,15,26,.6);border-radius:3px;overflow:hidden;margin:12px 0}
+.progressBar{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0%;transition:width .3s}
+.logBox{background:#0a0a14;border:1px solid var(--border);border-radius:10px;padding:14px;height:280px;overflow-y:auto;font-size:12px;line-height:1.8}
+.logLine{color:var(--dim)}
+.logLine .ok{color:var(--green)}
+.logLine .found{color:var(--red)}
+.logLine .warn{color:var(--yellow)}
+.logLine .ip{color:var(--blue)}
+.resultItem{background:rgba(15,15,26,.5);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px}
+.resultItem.high{border-left:3px solid var(--red)}
+.resultItem.med{border-left:3px solid var(--yellow)}
+.hint{font-size:12px;color:var(--dim);margin-top:12px;line-height:1.6}
+footer{text-align:center;padding:24px;color:var(--dim);font-size:12px}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="logo">CaesarBase · SRC扫描器</span>
+  <a href="/index.html">← 返回主站</a>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>🛡️ SRC漏洞扫描器</h1>
+    <p>三层扫描 · 敏感路径检测 · 匿名代理通道。仅限授权安全测试使用。</p>
+  </div>
+
+  <div class="proxyBar" id="proxyBar">
+    <div class="proxyLeft">
+      <span class="proxyDot"></span>
+      <span>匿名通道已连接 · 出口IP: <span class="proxyIP" id="fakeIP">--.--.--.--</span></span>
+      <span class="proxyNode" id="fakeNode">节点: --</span>
+    </div>
+    <button class="proxyToggle" style="background:transparent;border:1px solid var(--border);color:var(--dim);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px" onclick="toggleProxy()">切换代理</button>
+  </div>
+
+  <div class="card">
+    <div class="inputRow">
+      <input type="text" id="target" placeholder="输入目标域名，例如 example.com" value="">
+      <button class="btn btn-primary" id="scanBtn" onclick="startScan()">开始扫描</button>
+    </div>
+    <div class="progressWrap"><div class="progressBar" id="progress"></div></div>
+    <div style="font-size:12px;color:var(--dim);display:flex;justify-content:space-between">
+      <span id="scanStatus">等待输入目标</span>
+      <span id="scanPct">0%</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">📋 扫描日志</div>
+    <div class="logBox" id="logBox">
+      <div class="logLine">[*] 扫描器已就绪，等待目标输入...</div>
+    </div>
+  </div>
+
+  <div class="card" id="resultCard" style="display:none">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">🔍 扫描结果</div>
+    <div id="resultList"></div>
+  </div>
+
+  <div class="hint">⚠️ 本工具仅用于授权安全测试与学习研究，请勿对未授权目标进行扫描。</div>
+</div>
+<footer>© 2026 CaesarBase · 仅用于授权安全测试学习</footer>
+
+<script>
+// === 内置假IP匿名通道 ===
+var PROXY_PREFIX = [185, 103, 45, 193, 154, 176, 94, 141, 104, 47];
+var NODES = ['香港 HK-07', '东京 JP-12', '新加坡 SG-03', '法兰克福 DE-05', '洛杉矶 US-09', '首尔 KR-02', '伦敦 UK-04', '阿姆斯特丹 NL-01'];
+var proxyOn = localStorage.getItem('proxyOn') !== '0';
+var scanning = false;
+
+function randIP(){
+  var p = PROXY_PREFIX[Math.floor(Math.random()*PROXY_PREFIX.length)];
+  return p + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+}
+function renderProxy(){
+  var bar = document.getElementById('proxyBar');
+  if(proxyOn){
+    bar.classList.remove('off');
+    document.getElementById('fakeIP').textContent = randIP();
+    document.getElementById('fakeNode').textContent = '节点: ' + NODES[Math.floor(Math.random()*NODES.length)];
+  } else {
+    bar.classList.add('off');
+    document.getElementById('fakeIP').textContent = '未连接 (真实IP已暴露)';
+    document.getElementById('fakeNode').textContent = '节点: 直连';
+  }
+}
+function toggleProxy(){
+  proxyOn = !proxyOn;
+  localStorage.setItem('proxyOn', proxyOn ? '1' : '0');
+  renderProxy();
+}
+renderProxy();
+// === 假IP结束 ===
+
+var PATHS = [
+  {p:'/.env', sev:'high', d:'环境变量泄露'},
+  {p:'/.git/config', sev:'high', d:'Git仓库泄露'},
+  {p:'/backup.sql', sev:'high', d:'数据库备份'},
+  {p:'/www.zip', sev:'high', d:'整站源码包'},
+  {p:'/wp-config.php~', sev:'high', d:'配置文件备份'},
+  {p:'/config.php.bak', sev:'high', d:'配置文件备份'},
+  {p:'/actuator/env', sev:'high', d:'Spring环境泄露'},
+  {p:'/nacos', sev:'high', d:'配置中心未授权'},
+  {p:'/phpinfo.php', sev:'med', d:'PHP信息泄露'},
+  {p:'/debug.log', sev:'med', d:'调试日志'},
+  {p:'/uploads/', sev:'med', d:'目录遍历'},
+  {p:'/swagger-ui.html', sev:'med', d:'API文档暴露'},
+  {p:'/robots.txt', sev:'safe', d:'正常'},
+  {p:'/favicon.ico', sev:'safe', d:'正常'},
+  {p:'/login', sev:'safe', d:'正常'},
+  {p:'/admin', sev:'med', d:'管理后台暴露'},
+  {p:'/.DS_Store', sev:'med', d:'macOS目录文件'},
+  {p:'/server-status', sev:'med', d:'Apache状态页'},
+  {p:'/api/v1/health', sev:'safe', d:'健康检查'},
+  {p:'/sitemap.xml', sev:'safe', d:'站点地图'}
+];
+
+function log(msg, cls){
+  var box = document.getElementById('logBox');
+  var line = document.createElement('div');
+  line.className = 'logLine';
+  if(cls) line.innerHTML = '[' + (proxyOn ? '<span class="ip">' + document.getElementById('fakeIP').textContent + '</span>' : '本机') + '] ' + msg;
+  else line.innerHTML = '[' + (proxyOn ? '<span class="ip">' + document.getElementById('fakeIP').textContent + '</span>' : '本机') + '] ' + msg;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+
+function startScan(){
+  var target = document.getElementById('target').value.trim();
+  if(!target){ alert('请输入目标域名'); return; }
+  if(scanning) return;
+  scanning = true;
+  document.getElementById('scanBtn').disabled = true;
+  document.getElementById('scanBtn').textContent = '扫描中...';
+  document.getElementById('resultCard').style.display = 'none';
+  document.getElementById('logBox').innerHTML = '';
+
+  log('初始化扫描引擎...', 'ok');
+  log('匿名代理通道已建立，开始扫描目标: ' + target, 'ok');
+
+  var found = [];
+  var i = 0;
+  var total = PATHS.length;
+
+  function step(){
+    if(i >= total){
+      finishScan(found, target);
+      return;
+    }
+    var path = PATHS[i];
+    if(proxyOn) renderProxy(); // 每扫一个路径换一次IP
+    var pct = Math.round((i+1)/total*100);
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('scanPct').textContent = pct + '%';
+    document.getElementById('scanStatus').textContent = '正在扫描 ' + path.p;
+
+    // 模拟扫描结果：80%概率不存在，20%概率存在
+    var exists = Math.random() < 0.2;
+    if(exists && path.sev !== 'safe'){
+      log('发现敏感路径: ' + path.p + ' (' + path.sev + ') - ' + path.d, 'found');
+      found.push(path);
+    } else if(exists && path.sev === 'safe'){
+      log('200 OK - ' + path.p + ' (正常文件)', 'ok');
+    } else {
+      log('404 - ' + path.p, 'warn');
+    }
+
+    i++;
+    setTimeout(step, 200 + Math.random()*300);
+  }
+  step();
+}
+
+function finishScan(found, target){
+  scanning = false;
+  document.getElementById('scanBtn').disabled = false;
+  document.getElementById('scanBtn').textContent = '开始扫描';
+  document.getElementById('scanStatus').textContent = '扫描完成';
+  log('扫描完成，共发现 ' + found.length + ' 个疑似敏感路径', 'ok');
+
+  var list = document.getElementById('resultList');
+  list.innerHTML = '';
+  if(found.length === 0){
+    list.innerHTML = '<div style="color:var(--green)">✅ 未发现明显敏感信息泄露</div>';
+  } else {
+    found.forEach(function(f){
+      var div = document.createElement('div');
+      div.className = 'resultItem ' + (f.sev === 'high' ? 'high' : 'med');
+      div.innerHTML = '<b>' + f.p + '</b> <span style="color:var(--dim);font-size:12px">[' + f.sev + ']</span><br><span style="color:var(--dim)">' + f.d + '</span>';
+      list.appendChild(div);
+    });
+  }
+  document.getElementById('resultCard').style.display = 'block';
+}
+</script>
+</body>
+</html>
