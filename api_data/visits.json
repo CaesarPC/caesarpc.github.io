@@ -6,5 +6,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/153.0.8010.36 Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1792741445225,
+  "ts": 1792741445225,
+  "time": "2026-10-23 15:44",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/cr/index.html"
  }
 ]
