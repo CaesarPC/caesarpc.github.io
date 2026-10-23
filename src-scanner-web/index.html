@@ -3,226 +3,1180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SRC漏洞扫描器 · CaesarBase</title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>SRC Scanner</title>
 <style>
-:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--green:#50fa7b;--blue:#8be9fd;--purple:#bd93f9;--red:#ff6b6b;--yellow:#f1c40f;--text:#e6e6f0;--dim:#6272a4}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",monospace;background:var(--bg);color:var(--text);min-height:100vh}
-.topbar{background:rgba(20,20,35,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar a{color:var(--dim);text-decoration:none;font-size:14px}
-.wrap{max-width:800px;margin:0 auto;padding:30px 20px}
-.hero{text-align:center;margin-bottom:24px}
-.hero h1{font-size:28px;font-weight:900;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--dim);margin-top:8px;font-size:13px}
-.proxyBar{background:rgba(0,20,10,.6);border:1px solid rgba(80,250,123,.3);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.proxyBar.off{background:rgba(40,40,50,.5);border-color:var(--border)}
-.proxyLeft{display:flex;align-items:center;gap:10px}
-.proxyDot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
-.proxyBar.off .proxyDot{background:var(--dim);box-shadow:none;animation:none}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f1117;color:#e0e0e0}
+.page{display:none;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+.page.show{display:flex}
+.box{background:#1a1d27;padding:30px;border-radius:12px;width:100%;max-width:420px}
+h1{font-size:20px;margin-bottom:20px;text-align:center;color:#fff}
+p{font-size:13px;line-height:1.7;color:#999;margin-bottom:12px}
+input,select{width:100%;padding:12px;border:1px solid #333;border-radius:8px;background:#0f1117;color:#fff;font-size:16px;margin-bottom:16px}
+button{padding:12px 20px;background:#4f8cff;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;white-space:nowrap}
+button:hover{background:#3a7aef}
+button:disabled{background:#555;cursor:not-allowed}
+.btnFull{width:100%;margin-bottom:10px}
+.btnGray{background:#333}
+.btnGreen{background:#2d6a4f}
+.err{color:#ff6b6b;text-align:center;margin-top:12px;font-size:14px}
+.disc{background:#11141a;padding:12px;border-radius:8px;font-size:11px;color:#666;line-height:1.7;margin-top:16px;text-align:left}
+.disc b{color:#999}
+#appPage{display:none;min-height:100vh}
+#appPage.show{display:flex}
+.mainWrap{display:flex;min-height:100vh;width:100%;max-width:1100px;margin:0 auto}
+.sidebar{background:#1a1d27;border-right:1px solid #2a2a3a;display:flex;flex-direction:column;transition:width .2s;flex-shrink:0}
+.sidebar.expanded{width:160px}
+.sidebar.collapsed{width:56px}
+.sidebar .logoRow{padding:16px 0;text-align:center;font-size:16px;font-weight:bold;color:#fff;white-space:nowrap;overflow:hidden}
+.sidebar.collapsed .logoRow span{display:none}
+.sidebar .navItem{display:flex;align-items:center;gap:10px;padding:12px 16px;color:#888;cursor:pointer;border-left:3px solid transparent;white-space:nowrap;font-size:13px}
+.sidebar .navItem:hover{color:#fff;background:#222530}
+.sidebar .navItem.active{color:#4f8cff;border-left-color:#4f8cff}
+.sidebar .navItem .icon{font-size:16px;flex-shrink:0}
+.sidebar.collapsed .navItem .label{display:none}
+.sidebar .collapseBtn{padding:12px;text-align:center;color:#555;cursor:pointer;font-size:14px}
+.content{flex:1;padding:20px;overflow-x:hidden}
+.tab{display:none}
+.tab.active{display:block}
+.topBar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.topBar h1{margin:0;font-size:22px;color:#fff}
+.inputRow{display:flex;gap:10px;margin-bottom:12px}
+.inputRow input{flex:1;margin-bottom:0}
+.scanBtns{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.bmOpt{display:block;width:100%;text-align:left;background:#12151d;border:1px solid #2a2d35;border-radius:8px;padding:12px 14px;color:#e0e0e0;font-size:14px;margin-bottom:8px;cursor:pointer;transition:all .15s}
+.bmOpt:hover{border-color:#4f8cff;background:#171b26}
+.scanBtns button{font-size:13px;padding:10px 16px}
+.layerTag{font-size:12px;font-weight:bold;margin:16px 0 8px;padding:4px 10px;border-radius:4px;display:inline-block}
+.l1{background:#1a3a2a;color:#2ed573}
+.l2{background:#3a2a1a;color:#ffa502}
+.l3{background:#3a1a1a;color:#ff4757}
+.l4{background:#1a1a3a;color:#8be9fd}
+.progressBar{height:6px;background:#222;border-radius:3px;margin-bottom:8px;overflow:hidden}
+.progressFill{height:100%;background:linear-gradient(90deg,#4f8cff,#7ad0ff);width:0%}
+.progressText{font-size:11px;color:#444;margin-bottom:16px;word-break:break-all;min-height:16px}
+.progressText.done{color:#2ed573;font-weight:bold;font-size:13px}
+.result{background:#1a1d27;border-radius:8px;margin-bottom:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.result.high{border-left:4px solid #ff4757}
+.result.medium{border-left:4px solid #ffa502}
+.result.low{border-left:4px solid #2ed573}
+.result.info{border-left:4px solid #5352ed;opacity:.7}
+.path{font-family:monospace;font-size:13px;word-break:break-all}
+.badge{font-size:11px;padding:2px 6px;border-radius:4px;margin-left:6px;white-space:nowrap}
+.b-high{background:#ff4757;color:#fff}
+.b-medium{background:#ffa502;color:#000}
+.b-low{background:#2ed573;color:#000}
+.b-info{background:#5352ed;color:#fff}
+.meta{font-size:11px;color:#666;margin-top:3px}
+a{color:#4f8cff;text-decoration:none;font-size:13px}
+.guideBox{background:#1a1d27;border-radius:8px;padding:16px;margin-bottom:16px}
+.guideBox h3{color:#fff;font-size:15px;margin-bottom:12px}
+.guideBox div{font-size:13px;line-height:1.8;color:#aaa}
+/* 配置面板 */
+.cfgBox{background:#1a1d27;border-radius:8px;padding:16px;margin-bottom:16px;border:1px solid #2a2a3a}
+.cfgBox h3{color:#fff;font-size:15px;margin-bottom:12px}
+.cfgGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cfgField label{display:block;font-size:12px;color:#888;margin-bottom:6px}
+.cfgField input{font-size:14px;padding:10px;margin-bottom:0}
+.cfgCheck{display:flex;align-items:center;gap:8px;font-size:13px;color:#ccc;margin-top:6px;cursor:pointer}
+.cfgCheck input{width:16px;height:16px;margin:0;accent-color:#4f8cff}
+.cfgRow{margin-top:14px;text-align:right}
+/* quiz styles */
+.quizCard{background:#1a1d27;border-radius:12px;padding:20px;margin-bottom:16px;border:1px solid #2a2a3a}
+.quizCard h3{color:#fff;font-size:16px;margin-bottom:8px}
+.quizCard .host{font-family:monospace;color:#4f8cff;font-size:14px;margin:8px 0}
+.quizInputRow{display:flex;gap:10px;margin:12px 0}
+.quizInputRow input{flex:1;padding:12px;border:1px solid #333;border-radius:8px;background:#0f1117;color:#fff;font-size:14px;margin-bottom:0}
+.vulnTag{font-size:11px;padding:2px 8px;border-radius:4px;white-space:nowrap;display:inline-block}
+.tagHigh{background:#ff4757;color:#fff}
+.tagMed{background:#ffa502;color:#000}
+.tagLow{background:#2ed573;color:#000}
+.tagSafe{background:#333;color:#888}
+.resultBox{background:#1a1d27;border-radius:8px;padding:14px;margin-bottom:8px}
+.resultBox.correct{border-left:4px solid #2ed573}
+.resultBox.wrong{border-left:4px solid #ff4757}
+.resultBox.missed{border-left:4px solid #ffa502}
+.explain{font-size:12px;color:#888;margin-top:6px;line-height:1.6}
+.explain b{color:#ccc}
+.scoreBig{font-size:32px;font-weight:bold;text-align:center;margin:16px 0}
+.scoreGood{color:#2ed573}.scoreOk{color:#ffa502}.scoreBad{color:#ff4757}
+.checkGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}
+.checkItem{background:#1a1d27;border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.checkItem input{margin:0;width:18px;height:18px;accent-color:#4f8cff}
+.checkItem .url{font-family:monospace;font-size:12px;word-break:break-all}
+.loadingBox{text-align:center;padding:40px;color:#4f8cff;font-size:14px}
+.exportRow{display:flex;gap:8px;margin:10px 0 6px;flex-wrap:wrap}
+/* 靶场-可点开模拟站 */
+.mockHeader{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.mockUrl{font-family:monospace;color:#4f8cff;font-size:13px}
+.mockNote{font-size:12px;color:#888;margin-bottom:12px;line-height:1.7}
+.fileItem{background:#11141a;border:1px solid #2a2a3a;border-radius:8px;margin-bottom:6px;overflow:hidden}
+.fileItem .fileRow{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer}
+.fileItem .fileRow:hover{background:#1a1d27}
+.fileItem .fileRow .fn{font-family:monospace;font-size:13px;flex:1;color:#e0e0e0;word-break:break-all}
+.fileItem .fileRow .fs{font-size:11px;color:#555;white-space:nowrap}
+.fileItem input[type=checkbox]{width:16px;height:16px;accent-color:#4f8cff;margin:0;flex-shrink:0}
+.fileItem .pre{display:none;padding:12px;background:#0a0c11;border-top:1px solid #2a2a3a;font-family:monospace;font-size:12px;color:#9ad;white-space:pre-wrap;word-break:break-all}
+.fileItem.open .pre{display:block}
+.hintBar{font-size:12px;color:#ffa502;margin-top:8px;min-height:16px}
+.hintBar b{color:#fff}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.proxyIP{color:var(--green)}
-.proxyNode{color:var(--blue);margin-left:12px}
-.card{background:rgba(26,26,46,.85);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
-.inputRow{display:flex;gap:10px;margin-bottom:16px}
-.inputRow input{flex:1;padding:12px 14px;background:rgba(15,15,26,.6);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;font-family:monospace}
-.inputRow input:focus{outline:none;border-color:var(--green)}
-.btn{padding:12px 20px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
-.btn-primary{background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.progressWrap{height:6px;background:rgba(15,15,26,.6);border-radius:3px;overflow:hidden;margin:12px 0}
-.progressBar{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));width:0%;transition:width .3s}
-.logBox{background:#0a0a14;border:1px solid var(--border);border-radius:10px;padding:14px;height:280px;overflow-y:auto;font-size:12px;line-height:1.8}
-.logLine{color:var(--dim)}
-.logLine .ok{color:var(--green)}
-.logLine .found{color:var(--red)}
-.logLine .warn{color:var(--yellow)}
-.logLine .ip{color:var(--blue)}
-.resultItem{background:rgba(15,15,26,.5);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px}
-.resultItem.high{border-left:3px solid var(--red)}
-.resultItem.med{border-left:3px solid var(--yellow)}
-.hint{font-size:12px;color:var(--dim);margin-top:12px;line-height:1.6}
-footer{text-align:center;padding:24px;color:var(--dim);font-size:12px}
 </style>
 </head>
 <body>
-<div class="topbar">
-  <span class="logo">CaesarBase · SRC扫描器</span>
-  <a href="/index.html">← 返回主站</a>
-</div>
-<div class="wrap">
-  <div class="hero">
-    <h1>🛡️ SRC漏洞扫描器</h1>
-    <p>三层扫描 · 敏感路径检测 · 匿名代理通道。仅限授权安全测试使用。</p>
-  </div>
-
-  <div class="proxyBar" id="proxyBar">
-    <div class="proxyLeft">
-      <span class="proxyDot"></span>
-      <span>匿名通道已连接 · 出口IP: <span class="proxyIP" id="fakeIP">--.--.--.--</span></span>
-      <span class="proxyNode" id="fakeNode">节点: --</span>
-    </div>
-    <button class="proxyToggle" style="background:transparent;border:1px solid var(--border);color:var(--dim);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px" onclick="toggleProxy()">切换代理</button>
-  </div>
-
-  <div class="card">
-    <div class="inputRow">
-      <input type="text" id="target" placeholder="输入目标域名，例如 example.com" value="">
-      <button class="btn btn-primary" id="scanBtn" onclick="startScan()">开始扫描</button>
-    </div>
-    <div class="progressWrap"><div class="progressBar" id="progress"></div></div>
-    <div style="font-size:12px;color:var(--dim);display:flex;justify-content:space-between">
-      <span id="scanStatus">等待输入目标</span>
-      <span id="scanPct">0%</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div style="font-size:14px;font-weight:700;margin-bottom:12px">📋 扫描日志</div>
-    <div class="logBox" id="logBox">
-      <div class="logLine">[*] 扫描器已就绪，等待目标输入...</div>
-    </div>
-  </div>
-
-  <div class="card" id="resultCard" style="display:none">
-    <div style="font-size:14px;font-weight:700;margin-bottom:12px">🔍 扫描结果</div>
-    <div id="resultList"></div>
-  </div>
-
-  <div class="hint">⚠️ 本工具仅用于授权安全测试与学习研究，请勿对未授权目标进行扫描。</div>
-</div>
-<footer>© 2026 CaesarBase · 仅用于授权安全测试学习</footer>
-
+<script>if(top!==self){document.body.innerHTML='<div style="padding:20px;color:#666">禁止嵌入</div>'}</script>
 <script>
-// === 内置假IP匿名通道 ===
+/* ===== 内置假IP匿名通道（纯前端装逼用） ===== */
 var PROXY_PREFIX = [185, 103, 45, 193, 154, 176, 94, 141, 104, 47];
 var NODES = ['香港 HK-07', '东京 JP-12', '新加坡 SG-03', '法兰克福 DE-05', '洛杉矶 US-09', '首尔 KR-02', '伦敦 UK-04', '阿姆斯特丹 NL-01'];
 var proxyOn = localStorage.getItem('proxyOn') !== '0';
-var scanning = false;
-
 function randIP(){
   var p = PROXY_PREFIX[Math.floor(Math.random()*PROXY_PREFIX.length)];
   return p + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
 }
-function renderProxy(){
-  var bar = document.getElementById('proxyBar');
-  if(proxyOn){
-    bar.classList.remove('off');
-    document.getElementById('fakeIP').textContent = randIP();
-    document.getElementById('fakeNode').textContent = '节点: ' + NODES[Math.floor(Math.random()*NODES.length)];
-  } else {
-    bar.classList.add('off');
-    document.getElementById('fakeIP').textContent = '未连接 (真实IP已暴露)';
-    document.getElementById('fakeNode').textContent = '节点: 直连';
-  }
+function refreshFakeIP(){
+  if(!proxyOn) return;
+  var el = document.getElementById('fakeIP');
+  var nd = document.getElementById('fakeNode');
+  if(el) el.textContent = randIP();
+  if(nd) nd.textContent = '节点: ' + NODES[Math.floor(Math.random()*NODES.length)];
 }
-function toggleProxy(){
-  proxyOn = !proxyOn;
-  localStorage.setItem('proxyOn', proxyOn ? '1' : '0');
-  renderProxy();
-}
-renderProxy();
+// 页面加载后先显示一个
+setTimeout(refreshFakeIP, 500);
 // === 假IP结束 ===
 
-var PATHS = [
-  {p:'/.env', sev:'high', d:'环境变量泄露'},
-  {p:'/.git/config', sev:'high', d:'Git仓库泄露'},
-  {p:'/backup.sql', sev:'high', d:'数据库备份'},
-  {p:'/www.zip', sev:'high', d:'整站源码包'},
-  {p:'/wp-config.php~', sev:'high', d:'配置文件备份'},
-  {p:'/config.php.bak', sev:'high', d:'配置文件备份'},
-  {p:'/actuator/env', sev:'high', d:'Spring环境泄露'},
-  {p:'/nacos', sev:'high', d:'配置中心未授权'},
-  {p:'/phpinfo.php', sev:'med', d:'PHP信息泄露'},
-  {p:'/debug.log', sev:'med', d:'调试日志'},
-  {p:'/uploads/', sev:'med', d:'目录遍历'},
-  {p:'/swagger-ui.html', sev:'med', d:'API文档暴露'},
-  {p:'/robots.txt', sev:'safe', d:'正常'},
-  {p:'/favicon.ico', sev:'safe', d:'正常'},
-  {p:'/login', sev:'safe', d:'正常'},
-  {p:'/admin', sev:'med', d:'管理后台暴露'},
-  {p:'/.DS_Store', sev:'med', d:'macOS目录文件'},
-  {p:'/server-status', sev:'med', d:'Apache状态页'},
-  {p:'/api/v1/health', sev:'safe', d:'健康检查'},
-  {p:'/sitemap.xml', sev:'safe', d:'站点地图'}
+/* ===== 入口守卫：直接从地址栏/外部进入时，引导回主站 ===== */
+(function(){
+  try{
+    var MAIN='caesarpc.github.io';
+    var ref=document.referrer||'';
+    var ok=false;
+    if(ref){try{var h=new URL(ref).hostname;if(h===MAIN||h==='localhost')ok=true}catch(e){}}
+    if(!ok){
+      var style='body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f1117;color:#e0e0e0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}*{box-sizing:border-box}.g{background:#1a1d27;border-radius:12px;padding:36px;max-width:480px;width:100%;text-align:center;border:1px solid #2a2a3a}.g .ic{font-size:42px;margin-bottom:8px}.g h1{font-size:22px;color:#fff;margin:0 0 14px}.g p{font-size:14px;line-height:1.9;color:#aaa;margin:0 0 22px;text-align:left}.g b{color:#ccc}.g a{display:inline-block;background:#4f8cff;color:#fff;text-decoration:none;padding:12px 30px;border-radius:8px;font-size:15px;font-weight:600}.g a:hover{background:#3a7aef}';
+      var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>访问引导 · CaesarBase</title><style>'+style+'</style></head><body><div class="g"><div class="ic">🔐</div><h1>访问引导</h1><p><b>为什么看到此页面？</b><br>您可能是在地址栏直接输入了本页面的网址。<br>本页面是 CaesarBase 主站的附属工具页面，仅供从主站入口进入使用。<br>为避免误入非官方入口，请返回 CaesarBase 主站。</p><a href="https://caesarpc.github.io/">返回 CaesarBase 主站</a></div></body></html>';
+      document.open();document.write(h);document.close();
+    }
+  }catch(e){}
+})();
+</script>
+
+<div class="page show" id="disclaimerPage">
+  <div class="box">
+    <h1>SRC Scanner</h1>
+    <p>个人安全研究辅助工具</p>
+    <div class="disc"><b>免责声明</b><br><br>1. 仅用于已获书面授权的安全测试。<br>2. 严禁扫描未授权目标，违者自负法律责任。<br>3. 使用本工具产生的一切后果由使用者自行承担。<br>4. 点击同意即表示接受以上条款。</div>
+    <div style="margin-top:20px">
+      <button class="btnFull" onclick="showLogin()">我已阅读并同意</button>
+      <button class="btnFull btnGray" onclick="document.body.innerHTML='<div style=min-height:100vh;display:flex;align-items:center;justify-content:center;color:#666>已离开</div>'">离开</button>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="loginPage">
+  <div class="box">
+    <h1>请输入管理员密钥</h1>
+    <input type="password" id="pwd" placeholder="密钥" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="btnFull" onclick="doLogin()">进 入</button>
+    <div class="err" id="err"></div>
+    <div class="disc">本工具仅限授权安全测试使用。<br>仅提供免费漏洞扫描辅助，不承担任何使用后果。<br>密钥仅限站长本人使用。</div>
+  </div>
+</div>
+
+<div id="appPage">
+  <div class="mainWrap">
+    <div class="sidebar expanded" id="sidebar">
+      <div class="logoRow"><span>SRC Scanner</span></div>
+      <div class="navItem active" data-tab="scan" onclick="switchTab('scan')"><span class="icon">🔍</span><span class="label">漏洞扫描</span></div>
+      <div class="navItem" data-tab="quiz" onclick="switchTab('quiz')"><span class="icon">📝</span><span class="label">靶场练习</span></div>
+      <div class="navItem" data-tab="settings" onclick="switchTab('settings')"><span class="icon">⚙️</span><span class="label">设置</span></div>
+      <div class="navItem" onclick="toggleGuide()"><span class="icon">📚</span><span class="label">学习指南</span></div>
+      <div class="navItem" onclick="location.href='https://caesarpc.github.io/'"><span class="icon">🏠</span><span class="label">返回主站</span></div>
+      <div class="navItem" onclick="logout()"><span class="icon">🚪</span><span class="label">退出</span></div>
+      <div class="collapseBtn" onclick="toggleSidebar()" id="collapseBtn">◀ 收起</div>
+    </div>
+    <div class="content">
+
+      <!-- 扫描tab -->
+      <div class="tab active" id="tab-scan">
+        <div class="topBar"><h1>SRC漏洞扫描</h1></div>
+        <div id="proxyBar" style="background:rgba(0,20,10,.6);border:1px solid rgba(80,250,123,.3);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#50fa7b;box-shadow:0 0 8px #50fa7b;animation:pulse 2s infinite"></span>
+            <span>匿名通道已连接 · 出口IP: <span id="fakeIP" style="color:#50fa7b;font-family:monospace">--.--.--.--</span></span>
+            <span id="fakeNode" style="color:#8be9fd;margin-left:8px;font-size:11px">节点: --</span>
+          </div>
+        </div>
+        <div class="inputRow">
+          <input type="text" id="target" placeholder="目标网址 https://example.com">
+          <button onclick="startScan('all')" id="btnAll">全部扫描</button>
+        </div>
+        <div id="previewBox" style="display:none;margin-top:8px;background:#11141a;border:1px solid #2a3a4a;border-radius:8px;padding:10px 12px">
+          <div style="color:#888;font-size:12px;margin-bottom:4px">📋 系统拆解 · 将扫描以下地址：</div>
+          <div id="previewList" style="font-family:monospace;font-size:13px;color:#7ad0ff;line-height:1.7"></div>
+        </div>
+        <div class="scanBtns">
+          <button onclick="startScan(1)" id="btn1">浅层</button>
+          <button onclick="startScan(2)" id="btn2">中层</button>
+          <button onclick="startScan(3)" id="btn3">深层</button>
+          <button onclick="startScan(4)" id="btn4">指纹+安全头</button>
+        </div>
+        <div class="exportRow">
+          <button class="btnGreen" onclick="exportJSON()">⬇ 导出JSON</button>
+          <button class="btnGreen" onclick="exportReport()">⬇ 导出报告</button>
+        </div>
+        <div id="guideBox" class="guideBox" style="display:none">
+          <h3>靶机/练习平台推荐</h3>
+          <div>
+            <p style="color:#2ed573;font-weight:bold;margin-bottom:4px">1. PortSwigger Web Security Academy（首选）</p>
+            <p>网址：<a href="https://portswigger.net/web-security" target="_blank">portswigger.net/web-security</a></p>
+            <p style="color:#888;font-size:12px">免费、浏览器直接打。先做SQL injection → Access control → Information disclosure</p>
+            <p style="color:#888;font-size:12px;margin-bottom:8px">第一个lab：<a href="https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data" target="_blank">SQL injection in WHERE clause</a></p>
+            <p style="color:#2ed573;font-weight:bold;margin-bottom:4px">2. TryHackMe</p>
+            <p>网址：<a href="https://tryhackme.com" target="_blank">tryhackme.com</a></p>
+            <p style="color:#888;font-size:12px;margin-bottom:8px">有中文，新手引导好</p>
+            <p style="color:#2ed573;font-weight:bold;margin-bottom:4px">3. PentesterLab</p>
+            <p>网址：<a href="https://pentesterlab.com" target="_blank">pentesterlab.com</a></p>
+            <p style="color:#888;font-size:12px;margin-bottom:8px">免费练习SQLi/XSS/文件包含</p>
+            <p style="color:#ffa502;font-weight:bold;margin-bottom:4px">4. DVWA / Juice Shop（本地Docker）</p>
+            <p style="color:#888;font-size:12px;margin-bottom:8px">docker pull vulnerables/web-dvwa / bkimminich/juice-shop</p>
+            <hr style="border-color:#333;margin:12px 0">
+            <p style="color:#fff;font-weight:bold;margin-bottom:6px">新手学习顺序</p>
+            <p style="color:#888;font-size:12px">① SQL injection → ② 认证绕过 → ③ 越权 → ④ 信息泄露 → ⑤ XSS</p>
+            <p style="color:#fff;font-weight:bold;margin:10px 0 6px">SRC平台</p>
+            <p style="color:#888;font-size:12px">补天：butian.net · 漏洞盒子：vulbox.com</p>
+          </div>
+        </div>
+        <div class="progressBar"><div class="progressFill" id="bar"></div></div>
+        <div class="progressText" id="progress">就绪</div>
+        <div id="layerResults"></div>
+      </div>
+
+      <!-- 分支选择遮罩 -->
+      <div id="branchModal" style="position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;display:none;align-items:center;justify-content:center">
+        <div style="background:#1a1d27;border:1px solid #333;border-radius:12px;padding:22px;max-width:440px;width:90%">
+          <h3 style="color:#fff;margin:0 0 6px">🔀 检测到链接带分支</h3>
+          <p style="color:#aaa;font-size:13px;margin-bottom:6px">你输入：<span id="bmRaw" style="font-family:monospace;color:#8be9fd"></span></p>
+          <p style="color:#aaa;font-size:13px;margin-bottom:16px">这个链接含子路径，想扫描哪里？</p>
+          <button class="bmOpt" onclick="chooseBranch('subpath')"><b>扫子路径下</b><br><span id="bmSub" style="font-family:monospace;color:#7ad0ff;font-weight:normal"></span></button>
+          <button class="bmOpt" onclick="chooseBranch('root')"><b>拆到主域名根扫</b><br><span id="bmRoot" style="font-family:monospace;color:#7ad0ff;font-weight:normal"></span></button>
+          <button class="bmOpt" onclick="chooseBranch('both')"><b>两处都扫</b><br><span style="color:#888;font-weight:normal">子路径 + 主域名根各扫一遍</span></button>
+          <button onclick="cancelBranch()" style="width:100%;margin-top:8px;padding:10px;background:#2a2d35;color:#aaa;border:none;border-radius:8px;cursor:pointer">取消（仅预览，不扫描）</button>
+        </div>
+      </div>
+
+      <!-- 靶场练习tab -->
+      <div class="tab" id="tab-quiz">
+        <div class="cfgBox" style="border-color:#2a3a4a">
+          <h3>🖥️ 内置模拟靶场</h3>
+          <p style="font-size:12px;color:#888;margin:0 0 10px">生成一个可点开的模拟站。点击文件打开查看真实内容，勾选你认为属于「敏感信息泄露」的文件（如 .env、数据库备份、源码包）。</p>
+          <button class="btnGreen" onclick="newRound()">🎯 新建靶场</button>
+        </div>
+        <div id="quizArea"></div>
+        <div id="quizResult"></div>
+      </div>
+
+      <!-- 设置tab -->
+      <div class="tab" id="tab-settings">
+        <div class="topBar"><h1>扫描设置</h1></div>
+        <div class="cfgBox">
+          <h3>⚙️ 参数配置</h3>
+          <div class="cfgGrid">
+            <div class="cfgField"><label>并发数（浅/中/深）</label><input id="cfgConc" type="number" min="1" max="50"></div>
+            <div class="cfgField"><label>单请求超时（毫秒）</label><input id="cfgTimeout" type="number" min="2000" max="30000"></div>
+          </div>
+          <div class="cfgCheck"><input type="checkbox" id="cfgFinger">框架指纹识别（探测 WordPress/ThinkPHP/Spring 等，命中自动补扫已知风险路径）</div>
+          <div class="cfgCheck"><input type="checkbox" id="cfgHeaders">安全响应头检测（X-Frame-Options/CSP/HSTS 等缺失检查）</div>
+          <div class="cfgCheck"><label style="display:block;margin-bottom:6px">子路径扫描策略（目标带子路径时扫哪里）</label><select id="cfgSubpath" style="width:100%;padding:10px;background:#0f1117;border:1px solid #333;border-radius:8px;color:#fff"><option value="subpath">扫用户给的子路径下（如 aabb.a.b/acc/.env）</option><option value="root">拆到主域名根扫（如 aabb.a.b/.env）</option><option value="both">两处都扫（子路径 + 根各扫一遍）</option></select></div>
+          <div class="cfgRow"><button class="btnGreen" onclick="saveConfig()">保存设置</button></div>
+        </div>
+        <div class="cfgBox">
+          <h3>📌 说明</h3>
+          <div style="font-size:13px;line-height:1.8;color:#aaa">
+            · 浅/中/深层 = 不同规模的敏感路径探测（路径数越多越慢）<br>
+            · 指纹+安全头 = 识别目标框架 + 检查安全响应头（通过公共代理，头可能不完整，仅供参考）<br>
+            · 扫描结果可导出 JSON / 文本报告<br>
+            · 本工具仅用于已授权目标的安全测试
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+var PWD="314314314";
+/* 直连优先：很多带 CORS 头的目标（含 GitHub Pages）浏览器可直接 fetch，无需代理。
+   代理兜底：allorigins 为免费 CORS 代理（当前可用）；其余公共代理已失效则不再列入。 */
+var PROXIES=["https://api.allorigins.win/raw?url=","https://api.allorigins.win/get?url="];
+
+/* ===== 可调配置 ===== */
+var CONFIG={conc1:20,conc2:15,conc3:8,timeout:8000,finger:true,headers:true,subpath:'subpath',backendUrl:'https://src-scanner.cr-tools.workers.dev',useBackend:true};
+try{if(localStorage.getItem('src_cfg')){var _c=JSON.parse(localStorage.getItem('src_cfg'));for(var _k in _c)CONFIG[_k]=_c[_k];}}catch(e){}
+function saveConfig(){
+  CONFIG.conc1=Math.max(1,parseInt(document.getElementById('cfgConc').value)||20);
+  CONFIG.conc2=Math.max(1,Math.round(CONFIG.conc1*0.75));
+  CONFIG.conc3=Math.max(1,Math.round(CONFIG.conc1*0.4));
+  CONFIG.timeout=Math.max(2000,parseInt(document.getElementById('cfgTimeout').value)||8000);
+  CONFIG.finger=document.getElementById('cfgFinger').checked;
+  CONFIG.headers=document.getElementById('cfgHeaders').checked;
+  CONFIG.subpath=document.getElementById('cfgSubpath').value;
+  try{localStorage.setItem('src_cfg',JSON.stringify(CONFIG));}catch(e){}
+  document.getElementById('cfgConc').value=CONFIG.conc1;
+  document.getElementById('cfgTimeout').value=CONFIG.timeout;
+  document.getElementById('cfgFinger').checked=CONFIG.finger;
+  document.getElementById('cfgHeaders').checked=CONFIG.headers;
+  alert('设置已保存');
+}
+function loadConfigUI(){
+  document.getElementById('cfgConc').value=CONFIG.conc1;
+  document.getElementById('cfgTimeout').value=CONFIG.timeout;
+  document.getElementById('cfgFinger').checked=CONFIG.finger;
+  document.getElementById('cfgHeaders').checked=CONFIG.headers;
+}
+
+function show(id){document.querySelectorAll('.page').forEach(function(e){e.classList.remove('show')});document.getElementById('appPage').classList.remove('show');document.getElementById(id).classList.add('show')}
+function showLogin(){show('loginPage')}
+function showApp(){document.querySelectorAll('.page').forEach(function(e){e.classList.remove('show')});document.getElementById('appPage').classList.add('show');loadConfigUI()}
+function logout(){show('disclaimerPage')}
+function doLogin(){var p=document.getElementById('pwd').value;if(p===PWD){showApp()}else{document.getElementById('err').textContent='密码错误'}}
+
+function toggleSidebar(){
+  var s=document.getElementById('sidebar');
+  s.classList.toggle('expanded');s.classList.toggle('collapsed');
+  var collapsed=s.classList.contains('collapsed');
+  document.getElementById('collapseBtn').textContent=collapsed?'▶':'◀ 收起';
+}
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.querySelectorAll('.navItem[data-tab]').forEach(function(n){n.classList.toggle('active',n.dataset.tab===tab)});
+}
+function toggleGuide(){var g=document.getElementById('guideBox');g.style.display=g.style.display==='none'?'block':'none'}
+
+/* ===== 平滑进度（requestAnimationFrame 缓动，不蹦跳） ===== */
+var _pCur=0,_pTgt=0,_pRaf=null;
+function _progLoop(){
+  _pCur=_pCur+(_pTgt-_pCur)*0.12;
+  if(_pTgt-_pCur<0.4)_pCur=_pTgt;
+  document.getElementById('bar').style.width=_pCur+'%';
+  if(_pCur<_pTgt||_pCur<99.9){_pRaf=requestAnimationFrame(_progLoop)}else{_pRaf=null}
+}
+function setProg(p){_pTgt=Math.min(100,p);if(!_pRaf)_pRaf=requestAnimationFrame(_progLoop)}
+function setStatus(msg,isDone){
+  var p=document.getElementById('progress');
+  p.textContent=msg;
+  p.classList.toggle('done',!!isDone);
+  refreshFakeIP(); // 每次扫描进度更新就换一个假IP
+}
+
+/* ===== 扫描路径（扩充） ===== */
+var L1=[
+"/robots.txt","/sitemap.xml","/favicon.ico","/.well-known/security.txt",
+"/admin","/admin/","/admin/login","/login","/signin","/user/login","/wp-login.php","/wp-admin",
+"/.git/HEAD","/.git/config","/.env","/.env.local","/.env.production",
+"/backup.sql","/backup.zip","/www.zip","/database.sql","/db.sql","/1.sql","/dump.sql",
+"/.DS_Store","/crossdomain.xml","/server-status","/server-info",
+"/phpinfo.php","/info.php","/test.php","/php.php","/i.php",
+"/actuator","/actuator/env","/actuator/health","/actuator/heapdump",
+"/swagger-ui.html","/api-docs","/v2/api-docs","/graphql","/graphiql",
+"/api","/api/v1","/api/v2","/docs","/redoc",
+"/console","/manage","/manager/html","/phpmyadmin","/pma","/mysql",
+"/health","/healthz","/status","/metrics","/info","/env","/trace","/dump",
+"/error.log","/access.log","/debug.log","/app.log",
+"/config.php","/config.yml","/config.json","/web.config","/application.properties","/application.yml",
+"/composer.json","/package.json","/.npmrc",
+"/Jenkinsfile","/.gitlab-ci.yml","/.travis.yml","/docker-compose.yml","/Dockerfile",
+"/wp-config.php.bak","/wp-config.php~",
+"/administrator","/backend","/backstage","/system/login",
+"/nacos","/druid/index.html","/jenkins","/weblogic/","/tomcat/manager/html",
+"/.svn/entries","/.hg/store","/CVS/Root",
+"/.htaccess","/.htpasswd","/private.key","/id_rsa",
+"/settings.py","/local_settings.py","/database.yml",
+"/.well-known/openid-configuration","/oauth/authorize",
+"/xmlrpc.php","/wp-content/debug.log",
+"/vendor/","/storage/logs/laravel.log",
+"/CHANGELOG.md","/README.md","/LICENSE","/Makefile","/requirements.txt",
+"/composer.lock","/yarn.lock","/package-lock.json",
+"/etc/passwd","/proc/self/environ","/.ssh/id_rsa","/.bash_history",
+"/server.php","/shell.php","/cmd.php","/eval.php","/x.php",
+"/swagger-resources","/h2-console","/actuator/shutdown","/actuator/gateway/routes"
+];
+var L2=[
+"/.git/index","/.git/logs/HEAD","/.git/refs/heads/main","/.git/refs/heads/master","/.git/COMMIT_EDITMSG","/.git/description","/.git/ORIG_HEAD","/.git/packed-refs","/.git/objects/info/packs",
+"/.env.development","/.env.bak","/.env.testing","/env.js","/config.js",
+"/admin/index.php","/admincp","/adminpanel","/admin123","/loginadmin","/sysadmin",
+"/adminer.php","/adminer/","/adminer-4.3.0.php",
+"/wp-admin/admin-ajax.php","/wp-content/uploads/","/wp-includes/","/wp-json/","/wp-cron.php",
+"/user/register","/user/forgot","/api/user","/api/admin","/v1/api","/v2/api","/api/v1/user","/api/v1/config",
+"/manage/","/management","/manager/status","/web-console/",
+"/phpMyAdmin","/pma/","/dbadmin","/mysqladmin",
+"/actuator/beans","/actuator/mappings","/actuator/configprops","/actuator/loggers","/actuator/threaddump",
+"/jolokia/list","/jolokia/version","/jolokia",
+"/debug","/debug/vars","/debug/pprof","/pprof","/prometheus",
+"/swagger/index.html","/swagger-ui/","/v3/api-docs","/swagger.json","/openapi.json","/api/swagger.json",
+"/graphql/playground","/altair","/graphql.json",
+"/backup.rar","/backup.7z","/backup.tar.gz","/backup_old.zip","/backup_new.zip",
+"/backup2023.sql","/backup2024.sql","/backup2025.sql","/db_backup.sql","/database_backup.sql",
+"/data.sql","/old.sql","/copy.sql","/www.tar.gz","/html.zip","/httpdocs.zip","/public.zip",
+"/web.zip","/site.zip","/wwwroot.zip","/admin.zip","/config.bak","/config.php.bak","/config.php~","/config.php.swp","/config.old",
+"/server.key","/credentials.json","/service-account.json","/secrets.json",
+"/appsettings.json","/appsettings.Production.json","/settings.json",
+"/.babelrc","/.eslintrc","/.dockerignore","/.git-credentials","/.gitconfig",
+"/thinkphp","/laravel","/laravel/logs",
+"/_ignition/health-check","/_ignition/execute-solution",
+"/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php",
+"/sites/default/settings.php","/administrator/manifests/files/joomla.xml",
+"/crossdomain.txt","/clientaccesspolicy.xml",
+"/logs/error.log","/logs/access.log","/error_log","/log/error.log","/logs/",
+"/tmp/","/upload/","/uploads/","/files/","/static/","/public/",
+"/backup/","/bak/","/old/","/temp/","/test/","/tests/","/backups/","/db-backup/","/mysql-backup/",
+"/.idea/","/.vscode/","/.gitignore",
+"/WEB-INF/web.xml","/WEB-INF/classes/","/web-inf/","/META-INF/",
+"/.git/refs/tags/","/.git/refs/heads/",
+"/composer.phar","/artisan","/server.js","/app.js","/index.js",
+"/sitemap.xml.gz","/robots.txt.bak",
+"/login.html","/login.php","/admin.html","/admin.php",
+"/register","/signup","/forgot-password","/reset-password",
+"/api/login","/api/register","/api/user/info","/api/config",
+"/status.html","/health.html","/monitor","/dashboard",
+"/.env.example","/env.example","/config.sample",
+"/backup.sql.gz","/db.sql.gz","/dump.sql.gz",
+"/admin/index.html","/admin/dashboard","/admin/system",
+"/phpmyadmin/","/pma/index.php","/mysql/",
+"/.git/HEAD.bak","/config.json.bak","/config.yml.bak",
+"/error","/404","/500","/403",
+"/.well-known/","/.well-known/openid-configuration",
+"/oauth/token","/oauth/token/info","/.well-known/jwks.json",
+"/actuator/prometheus","/actuator/metrics","/actuator/logfile",
+"/nacos/v1/auth/users?pageNo=1&pageSize=9","/druid/login.html",
+"/jenkins/script","/jenkins/asynchPeople/",
+"/swagger","/api-docs/json","/api/swagger",
+"/.git/config.bak","/database.yml.bak","/settings.py.bak",
+"/backup/backup.sql","/backup/database.sql","/backup/db.sql",
+"/old/admin/","/test/admin/","/dev/admin/",
+"/api/health","/api/status","/api/version","/api/info",
+"/robots.txt.old","/sitemap.xml.old",
+"/crossdomain.xml.bak",
+"/user/.bash_history","/root/.bash_history","/.ssh/authorized_keys",
+"/etc/shadow","/proc/self/cmdline","/proc/self/status",
+"/index.php.bak","/index.php~","/index.php.swp",
+"/dump/","/sql/","/database-backup/","/site-backup/"
+];
+var L3=[
+{path:"/.git/config",severity:"high",note:"Git仓库配置泄露，可拉取源码"},
+{path:"/.git/HEAD",severity:"high",note:"Git仓库存在，可能泄露全部源码"},
+{path:"/.git/index",severity:"high",note:"Git索引泄露，可枚举文件"},
+{path:"/.env",severity:"high",note:"环境变量泄露，含数据库密码/API密钥"},
+{path:"/.env.production",severity:"high",note:"生产环境密钥泄露"},
+{path:"/backup.sql",severity:"high",note:"数据库备份，含全部用户数据"},
+{path:"/database.sql",severity:"high",note:"数据库dump文件"},
+{path:"/dump.sql",severity:"high",note:"数据库dump文件"},
+{path:"/db.sql",severity:"high",note:"数据库备份"},
+{path:"/www.zip",severity:"high",note:"整站源码打包泄露"},
+{path:"/backup.zip",severity:"high",note:"网站备份"},
+{path:"/actuator/env",severity:"high",note:"Spring Boot环境变量，含密钥"},
+{path:"/actuator/heapdump",severity:"high",note:"堆转储，可提取内存密码"},
+{path:"/actuator/shutdown",severity:"high",note:"Spring Boot可关闭应用"},
+{path:"/h2-console",severity:"high",note:"H2数据库控制台未授权"},
+{path:"/actuator/gateway/routes",severity:"high",note:"网关路由泄露"},
+{path:"/.DS_Store",severity:"medium",note:"macOS目录泄露"},
+{path:"/phpinfo.php",severity:"medium",note:"PHP配置信息泄露"},
+{path:"/.htpasswd",severity:"medium",note:"密码哈希文件"},
+{path:"/private.key",severity:"high",note:"私钥泄露"},
+{path:"/id_rsa",severity:"high",note:"SSH私钥"},
+{path:"/credentials.json",severity:"high",note:"凭证文件"},
+{path:"/server-status",severity:"medium",note:"Apache状态页"},
+{path:"/nacos",severity:"high",note:"Nacos配置中心未授权"},
+{path:"/druid/index.html",severity:"high",note:"Druid监控未授权"},
+{path:"/swagger-ui.html",severity:"medium",note:"API文档暴露"},
+{path:"/graphql",severity:"medium",note:"GraphQL端点"},
+{path:"/_ignition/execute-solution",severity:"high",note:"Laravel Ignition RCE"},
+{path:"/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php",severity:"high",note:"PHPUnit RCE"},
+{path:"/admin",severity:"medium",note:"后台入口"},
+{path:"/phpmyadmin",severity:"medium",note:"数据库管理工具"},
+{path:"/.svn/entries",severity:"medium",note:"SVN仓库泄露"},
+{path:"/WEB-INF/web.xml",severity:"high",note:"Java配置文件泄露"},
+{path:"/jolokia/list",severity:"high",note:"Jolokia未授权"},
+{path:"/jenkins/script",severity:"high",note:"Jenkins脚本控制台"},
+{path:"/.well-known/security.txt",severity:"info",note:"安全联系信息"},
+{path:"/env",severity:"high",note:"环境变量端点"},
+{path:"/trace",severity:"medium",note:"请求追踪"},
+{path:"/debug/vars",severity:"medium",note:"Go调试变量"},
+{path:"/v2/api-docs",severity:"medium",note:"Swagger文档"},
+{path:"/.htaccess",severity:"low",note:"Apache配置"},
+{path:"/robots.txt",severity:"info",note:"可能暴露隐藏路径"},
+{path:"/sitemap.xml",severity:"info",note:"站点地图"},
+{path:"/etc/passwd",severity:"high",note:"系统用户文件（路径穿越）"},
+{path:"/proc/self/environ",severity:"high",note:"进程环境变量（路径穿越）"},
+{path:"/.ssh/id_rsa",severity:"high",note:"SSH私钥泄露"},
+{path:"/wp-config.php.bak",severity:"high",note:"WordPress配置备份"},
+{path:"/server.php",severity:"high",note:"疑似后门文件"},
+{path:"/shell.php",severity:"high",note:"疑似Webshell"}
 ];
 
-function log(msg, cls){
-  var box = document.getElementById('logBox');
-  var line = document.createElement('div');
-  line.className = 'logLine';
-  if(cls) line.innerHTML = '[' + (proxyOn ? '<span class="ip">' + document.getElementById('fakeIP').textContent + '</span>' : '本机') + '] ' + msg;
-  else line.innerHTML = '[' + (proxyOn ? '<span class="ip">' + document.getElementById('fakeIP').textContent + '</span>' : '本机') + '] ' + msg;
-  box.appendChild(line);
-  box.scrollTop = box.scrollHeight;
-}
+/* ===== 框架指纹库 ===== */
+var FRAMEWORKS=[
+{name:"WordPress",sevs:[{p:"/wp-login.php",s:"medium",n:"WP登录页"},{p:"/wp-content/",s:"low",n:"WP资源目录"},{p:"/xmlrpc.php",s:"low",n:"WP XML-RPC"},{p:"/wp-json/wp/v2/users",s:"medium",n:"WP用户枚举"},{p:"/wp-content/debug.log",s:"high",n:"WP调试日志"}]},
+{name:"ThinkPHP",sevs:[{p:"/index.php?s=/index/index",s:"low",n:"TP默认入口"},{p:"/index.php?s=/index/\\think\\app/invokefunction&function=call_user_func_array&vars[0]=phpinfo&vars[1][]=1",s:"high",n:"TP RCE探测"}]},
+{name:"Spring Boot",sevs:[{p:"/actuator/env",s:"high",n:"Spring环境变量"},{p:"/actuator/heapdump",s:"high",n:"Spring堆转储"},{p:"/actuator/gateway/routes",s:"high",n:"网关路由"},{p:"/h2-console",s:"high",n:"H2控制台"}]},
+{name:"Laravel",sevs:[{p:"/_ignition/execute-solution",s:"high",n:"Laravel RCE"},{p:"/storage/logs/laravel.log",s:"medium",n:"Laravel日志"},{p:"/vendor/",s:"medium",n:"依赖目录"}]},
+{name:"phpMyAdmin",sevs:[{p:"/phpmyadmin/index.php",s:"medium",n:"pMA入口"},{p:"/pma/index.php",s:"medium",n:"pMA入口"}]},
+{name:"Druid",sevs:[{p:"/druid/websession.json",s:"high",n:"Druid会话泄露"},{p:"/druid/sql.json",s:"high",n:"Druid SQL"}]},
+{name:"Nacos",sevs:[{p:"/nacos/v1/auth/users?pageNo=1&pageSize=9",s:"high",n:"Nacos用户枚举"}]},
+{name:"Jenkins",sevs:[{p:"/jenkins/script",s:"high",n:"Jenkins脚本"},{p:"/jenkins/people/",s:"low",n:"Jenkins用户"}]}
+];
+var FRAMEWORK_PROBES={WordPress:["/wp-login.php","/wp-content/"],ThinkPHP:["/index.php","/thinkphp"],"Spring Boot":["/actuator/health","/error"],Laravel:["/vendor/","/_ignition/health-check"],phpMyAdmin:["/phpmyadmin","/pma/"],Druid:["/druid/index.html"],Nacos:["/nacos/v1/auth/users","/nacos"],Jenkins:["/jenkins/login","/jenkins/"]};
 
-function startScan(){
-  var target = document.getElementById('target').value.trim();
-  if(!target){ alert('请输入目标域名'); return; }
-  if(scanning) return;
-  scanning = true;
-  document.getElementById('scanBtn').disabled = true;
-  document.getElementById('scanBtn').textContent = '扫描中...';
-  document.getElementById('resultCard').style.display = 'none';
-  document.getElementById('logBox').innerHTML = '';
+/* ===== 安全响应头 ===== */
+var SECURITY_HEADERS=[
+{h:"X-Frame-Options",s:"low",n:"防点击劫持（缺失）"},
+{h:"Content-Security-Policy",s:"medium",n:"内容安全策略（缺失）"},
+{h:"Strict-Transport-Security",s:"low",n:"强制HTTPS（缺失）"},
+{h:"X-Content-Type-Options",s:"low",n:"防MIME嗅探（缺失）"},
+{h:"Referrer-Policy",s:"low",n:"来源信息策略（缺失）"},
+{h:"Permissions-Policy",s:"low",n:"功能权限策略（缺失）"},
+{h:"Cross-Origin-Opener-Policy",s:"low",n:"跨源隔离（缺失）"}
+];
 
-  log('初始化扫描引擎...', 'ok');
-  log('匿名代理通道已建立，开始扫描目标: ' + target, 'ok');
+var findings={1:[],2:[],3:[],4:[]};
+var scanFinished=false;
+var lastLayerName='';
+var extraPaths=[];   // 指纹命中后追加的路径
 
-  var found = [];
-  var i = 0;
-  var total = PATHS.length;
-
-  function step(){
-    if(i >= total){
-      finishScan(found, target);
-      return;
-    }
-    var path = PATHS[i];
-    if(proxyOn) renderProxy(); // 每扫一个路径换一次IP
-    var pct = Math.round((i+1)/total*100);
-    document.getElementById('progress').style.width = pct + '%';
-    document.getElementById('scanPct').textContent = pct + '%';
-    document.getElementById('scanStatus').textContent = '正在扫描 ' + path.p;
-
-    // 模拟扫描结果：80%概率不存在，20%概率存在
-    var exists = Math.random() < 0.2;
-    if(exists && path.sev !== 'safe'){
-      log('发现敏感路径: ' + path.p + ' (' + path.sev + ') - ' + path.d, 'found');
-      found.push(path);
-    } else if(exists && path.sev === 'safe'){
-      log('200 OK - ' + path.p + ' (正常文件)', 'ok');
-    } else {
-      log('404 - ' + path.p, 'warn');
-    }
-
-    i++;
-    setTimeout(step, 200 + Math.random()*300);
+async function checkPath(url,timeout){
+  timeout=timeout||CONFIG.timeout;
+  /* 靶场虚拟站拦截：若目标是当前 mock-XXXX.site，从靶场内存数据返回文件内容 */
+  if(typeof quizHost!=='undefined' && quizHost && url.indexOf(quizHost)>=0){
+    var path=url.split(quizHost)[1]||'/';
+    var hit=null;
+    for(var qi=0;qi<quizTargets.length;qi++){if(quizTargets[qi].url===path){hit=quizTargets[qi];break}}
+    if(hit){return {status:200,headers:new Headers(),text:hit.content||''}}
+    return {status:404,headers:new Headers(),text:'404 not found'};
   }
-  step();
+  var chain=[url];
+  PROXIES.forEach(function(p){chain.push(p+encodeURIComponent(url))});
+  for(var i=0;i<chain.length;i++){
+    try{
+      var c=new AbortController();var t=setTimeout(function(){c.abort()},timeout);
+      var r=await fetch(chain[i],{signal:c.signal,redirect:'follow',mode:'cors'});
+      clearTimeout(t);
+      var txt=await r.text().catch(function(){return ''});
+      var st=r.status;
+      // allorigins /get 接口返回 {contents:...} JSON 包装，需解包
+      if(chain[i].indexOf('/get?url=')>=0&&st===200){
+        try{var j=JSON.parse(txt);if(j&&j.contents!==undefined){txt=j.contents;st=j.status&&j.status.http_code?j.status.http_code:200}}catch(e){}
+      }
+      return {status:st,headers:r.headers,text:txt};
+    }catch(e){}
+  }
+  return null;
+}
+/* ===== 后端(Cloudflare Worker)批量扫描 ===== */
+async function scanViaBackend(base,paths,conc){
+  var r=await fetch(CONFIG.backendUrl+'/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base:base,paths:paths,conc:conc||20})});
+  if(!r.ok)throw new Error('backend '+r.status);
+  var d=await r.json();
+  if(!d.ok)throw new Error('backend not ok');
+  return d.results||[];
+}
+/* 单条结果判定（与前端直连判定一致），命中则push到findings */
+function judgeHit(p,_b,res,homeText,num,note){
+  if(!res||res.status!==200)return false;
+  var body=res.text||'';
+  var isSensitive=/\.(sql|zip|tar\.gz|rar|7z|key|pem|env|DS_Store|bak|swp|log|sh)$/.test(p)||p.indexOf('.git/')>=0||p.indexOf('.env')>=0||p.indexOf('etc/passwd')>=0||p.indexOf('proc/self')>=0||p.indexOf('id_rsa')>=0;
+  if(/robots\.txt|favicon\.ico|sitemap\.xml|crossdomain/.test(p)||body.length<10)return false;
+  if(/404 not found|page not found|页面不存在|找不到此页面|未找到/i.test(body.slice(0,500)))return false;
+  if(/codetabs|corsproxy|allorigins|502 bad gateway|503 service/i.test(body.slice(0,300)))return false;
+  var diffHome=(!isSensitive)&&homeText&&body&&similarity(homeText,body)>0.75;
+  if(diffHome)return false;
+  var bl=body.toLowerCase();
+  var hasS=bl.indexOf('db_password')>=0||bl.indexOf('api_key')>=0||bl.indexOf('secret_key')>=0||bl.indexOf('private key')>=0||bl.indexOf('-----begin')>=0||bl.indexOf('[core]')>=0||bl.indexOf('[remote ')>=0||bl.indexOf('root:x:0')>=0;
+  /* 通用密钥正则匹配 */
+  var secretFound=[];
+  for(var spi=0;spi<SECRET_PATTERNS.length;spi++){
+    if(SECRET_PATTERNS[spi].re.test(body))secretFound.push(SECRET_PATTERNS[spi].name);
+  }
+  if(secretFound.length>0)hasS=true;
+  var sev='low';
+  if(isSensitive||hasS)sev='high';
+  else if(/admin|phpmyadmin|swagger|actuator|nacos|druid|jenkins|graphql|console|manager|adminer|tomcat|weblogic|login|backup/i.test(p))sev='medium';
+  var note2=note||'';
+  if(secretFound.length>0)note2='检出: '+secretFound.slice(0,3).join(', ');
+  if(isDirList(body)){sev='medium';note2=(note2?note2+' · ':'')+'目录列表';}
+  findings[num].push({path:p,url:_b+p,status:res.status,severity:sev,note:note2});
+  return true;
+}
+function similarity(a,b){if(!a||!b)return 0;a=a.slice(0,500);b=b.slice(0,500);if(a===b)return 1;var s={};for(var i=0;i<a.length;i++)s[a[i]]=1;var c=0;for(var j=0;j<b.length;j++)if(s[b[j]])c++;return c/Math.max(a.length,b.length)}
+
+/* ===== 指纹识别 ===== */
+async function detectFrameworks(base){
+  var hit=[];
+  for(var i=0;i<FRAMEWORKS.length;i++){
+    var fw=FRAMEWORKS[i];var probes=FRAMEWORK_PROBES[fw.name]||[];
+    var ok=false;
+    for(var j=0;j<probes.length&&!ok;j++){
+      var r=await checkPath(base+probes[j]);
+      if(r&&r.status===200){var body=(r.text||'').toLowerCase();var sig=fw.name.toLowerCase();
+        if(fw.name==='WordPress'&&/wp-|wordpress|xmlrpc/i.test(body))ok=true;
+        else if(fw.name==='ThinkPHP'&&/thinkphp|think\\\\php|thinkphp/i.test(body))ok=true;
+        else if(fw.name==='Spring Boot'&&/whitelabel error|spring|actuator/i.test(body))ok=true;
+        else if(fw.name==='Laravel'&&/laravel|ignition/i.test(body))ok=true;
+        else if(fw.name==='phpMyAdmin'&&/phpmyadmin|pma|version/i.test(body))ok=true;
+        else if(fw.name==='Druid'&&/druid|monitor/i.test(body))ok=true;
+        else if(fw.name==='Nacos'&&/nacos|auth/i.test(body))ok=true;
+        else if(fw.name==='Jenkins'&&/jenkins/i.test(body))ok=true;
+        else if(r.status===200&&body.length>0)ok=true;
+      }
+    }
+    if(ok){hit.push(fw.name);fw.sevs.forEach(function(sv){extraPaths.push(sv.p)});}
+  }
+  return hit;
 }
 
-function finishScan(found, target){
-  scanning = false;
-  document.getElementById('scanBtn').disabled = false;
-  document.getElementById('scanBtn').textContent = '开始扫描';
-  document.getElementById('scanStatus').textContent = '扫描完成';
-  log('扫描完成，共发现 ' + found.length + ' 个疑似敏感路径', 'ok');
+/* ===== 安全头检测 ===== */
+async function checkSecurityHeaders(base){
+  var miss=[];
+  var r=await checkPath(base+'/',CONFIG.timeout);
+  if(!r)return miss;
+  var has={};
+  if(r.headers){for(var pair of r.headers.entries()){has[pair[0].toLowerCase()]=pair[1]}}
+  for(var i=0;i<SECURITY_HEADERS.length;i++){
+    var sh=SECURITY_HEADERS[i];
+    if(!has[sh.h.toLowerCase()]){miss.push({h:sh.h,s:sh.s,n:sh.n})}
+  }
+  return miss;
+}
 
-  var list = document.getElementById('resultList');
-  list.innerHTML = '';
-  if(found.length === 0){
-    list.innerHTML = '<div style="color:var(--green)">✅ 未发现明显敏感信息泄露</div>';
-  } else {
-    found.forEach(function(f){
-      var div = document.createElement('div');
-      div.className = 'resultItem ' + (f.sev === 'high' ? 'high' : 'med');
-      div.innerHTML = '<b>' + f.p + '</b> <span style="color:var(--dim);font-size:12px">[' + f.sev + ']</span><br><span style="color:var(--dim)">' + f.d + '</span>';
-      list.appendChild(div);
+/* ===== CORS 跨域配置检测 ===== */
+async function checkCORS(base){
+  var out=[];
+  try{
+    var r=await fetch(base+'/',{headers:{'Origin':'https://evil.example'},redirect:'manual'});
+    var acao=r.headers.get('access-control-allow-origin');
+    var acac=r.headers.get('access-control-allow-credentials');
+    if(acao){
+      if(acao==='https://evil.example' && acac==='true'){
+        out.push({path:'CORS: 反射恶意Origin+Allow-Credentials',url:base,severity:'high',note:'任意网站可带cookie跨域读取你的数据'});
+      }else if(acao==='*' && acac==='true'){
+        out.push({path:'CORS: 通配*且允许凭据',url:base,severity:'high',note:'ACAO=* 配 ACAC=true 是危险配置'});
+      }else if(acao==='*'){
+        out.push({path:'CORS: 允许任意源(*)',url:base,severity:'low',note:'无凭据时风险较低'});
+      }else if(acao==='https://evil.example'){
+        out.push({path:'CORS: 反射任意Origin',url:base,severity:'medium',note:'服务器反射Origin头，需结合凭据判断'});
+      }
+    }
+  }catch(e){}
+  return out;
+}
+
+/* ===== robots.txt / sitemap.xml 解析 ===== */
+async function checkRobotsSitemap(base){
+  var sens=[];
+  try{
+    var r=await fetch(base+'/robots.txt');
+    if(r.status===200){
+      var t=await r.text();
+      t.split('\n').forEach(function(line){
+        var m=line.match(/Disallow:\s*(\S+)/i);
+        if(m && m[1] && m[1]!=='/' && m[1].length>1)sens.push(m[1]);
+      });
+    }
+  }catch(e){}
+  try{
+    var r2=await fetch(base+'/sitemap.xml');
+    if(r2.status===200){
+      var t2=await r2.text();
+      t2.split(/<loc>/).forEach(function(seg){
+        var u=seg.split('</loc>')[0].trim();
+        if(u && u.indexOf(base)===0){
+          var rest=u.substring(base.length);
+          if(rest && rest!=='/' && rest.length>1)sens.push(rest);
+        }
+      });
+    }
+  }catch(e){}
+  return sens.filter(function(p,i,a){return a.indexOf(p)===i});
+}
+
+/* ===== 敏感信息正则库 ===== */
+var SECRET_PATTERNS=[
+  {re:/AKIA[0-9A-Z]{16}/,name:'AWS Access Key'},
+  {re:/AIza[0-9A-Za-z_\-]{35}/,name:'Google API Key'},
+  {re:/-----BEGIN [A-Z ]*PRIVATE KEY-----/,name:'私钥泄露'},
+  {re:/eyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}/,name:'JWT Token'},
+  {re:/(?:192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[01])\.\d+\.\d+)/,name:'内网IP'},
+  {re:/password\s*[=:]\s*['"][^'"]{4,}/i,name:'硬编码密码'},
+  {re:/api[_-]?key\s*[=:]\s*['"][^'"]{8,}/i,name:'API Key'},
+  {re:/mongodb(?:\+srv)?:\/\/[^\s"']+/i,name:'MongoDB连接串'},
+  {re:/mysql:\/\/[^\s"']+/i,name:'MySQL连接串'}
+];
+
+/* ===== 目录列表检测 ===== */
+function isDirList(body){
+  return /Index of \/|Parent Directory|<title>Index of/i.test(body||'');
+}
+
+/* ===== HTTP 方法检测 ===== */
+async function checkHTTPMethods(base){
+  var out=[];
+  try{
+    var r=await fetch(base+'/',{method:'OPTIONS'});
+    var allow=r.headers.get('allow')||'';
+    if(/PUT|DELETE|TRACE|MOVE/.test(allow)){
+      out.push({path:'危险HTTP方法开放: '+allow,url:base,severity:'medium',note:'OPTIONS 显示服务器允许 PUT/DELETE/TRACE 等方法'});
+    }
+  }catch(e){}
+  return out;
+}
+
+/* ===== Cookie 安全属性 ===== */
+function checkCookieFlags(headers){
+  var out=[];
+  if(!headers)return out;
+  var setCookie=headers.get('set-cookie');
+  if(setCookie){
+    if(!/httponly/i.test(setCookie))out.push({path:'Cookie 缺 HttpOnly',url:'-',severity:'low',note:'JS可读取cookie，XSS可窃取'});
+    if(!/secure/i.test(setCookie))out.push({path:'Cookie 缺 Secure',url:'-',severity:'low',note:'HTTP明文也会发送cookie'});
+    if(!/samesite/i.test(setCookie))out.push({path:'Cookie 缺 SameSite',url:'-',severity:'low',note:'易被CSRF'});
+  }
+  return out;
+}
+
+/* ===== Source Map 泄露 ===== */
+async function checkSourceMap(base,homeHtml){
+  var out=[];
+  try{
+    var scripts=(homeHtml||'').match(/<script[^>]+src=["']([^"']+)["']/gi)||[];
+    for(var i=0;i<scripts.length && i<10;i++){
+      var m=scripts[i].match(/src=["']([^"']+)["']/i);
+      if(!m)continue;
+      var src=m[1];
+      if(src.indexOf('http')!==0)src=base+'/'+src.replace(/^\//,'');
+      var map=src+'.map';
+      var r=await fetch(map);
+      if(r.status===200){
+        var t=await r.text();
+        if(/sourcesContent|version/.test(t)){
+          out.push({path:'Source Map 泄露: '+map,url:map,severity:'medium',note:'.js.map可还原前端源码，含注释和结构'});
+        }
+      }
+    }
+  }catch(e){}
+  return out;
+}
+
+/* ===== 分层扫描 ===== */
+async function runLayer(num){
+  num=parseInt(num);
+  var target=document.getElementById('target').value.trim();
+  if(!target){alert('请输入网址');return}
+  if(target.indexOf('http')!==0){alert('请带http://');return}
+  var base=target.replace(/\/+$/,"");
+  var scanRoot=base;
+  try{var _u=new URL(base);scanRoot=_u.protocol+'//'+_u.host;}catch(e){}
+  var subMode=(scanCtx&&scanCtx.mode)||(CONFIG.subpath||'subpath');
+  if(scanCtx){base=subMode==='root'?scanCtx.root:scanCtx.base;scanRoot=scanCtx.root;}
+  else if(subMode==='root'){base=scanRoot;}
+  var layerName=num===1?'浅层':num===2?'中层':num===3?'深层':'指纹+安全头';
+  lastLayerName=layerName;
+  disableBtns(true);
+  findings[num]=[];extraPaths=[];
+  scanFinished=false;
+  renderLayers();
+  setProg(0);
+  var homeText='';var hr=await checkPath(base+'/');if(hr)homeText=hr.text||'';
+
+  /* 第4层：指纹 + 安全头 */
+  if(num===4){
+    if(CONFIG.finger){
+      setStatus('🔍 识别框架指纹...');
+      var hits=await detectFrameworks(base);
+      if(hits.length>0){findings[4].push({path:'框架识别: '+hits.join(', '),url:base,status:'-',severity:'medium',note:'已自动补扫对应风险路径'})}
+    }
+    if(CONFIG.headers){
+      setStatus('🛡️ 检测安全响应头...');
+      var miss=await checkSecurityHeaders(base);
+      miss.forEach(function(m){findings[4].push({path:'安全头缺失: '+m.h,url:base,status:'-',severity:m.s,note:m.n})});
+      if(miss.length>0)setStatus('✅ 安全头检测完成 · 缺失 '+miss.length+' 项',true);
+      else setStatus('✅ 安全头检测完成 · 均存在',true);
+    }
+    /* CORS 跨域配置 */
+    setStatus('🌐 检测 CORS 跨域配置...');
+    var cors=await checkCORS(base);
+    cors.forEach(function(f){findings[4].push(Object.assign({status:'-'},f))});
+    /* robots.txt / sitemap.xml 暴露路径 */
+    setStatus('🤖 分析 robots.txt / sitemap.xml...');
+    var rb=await checkRobotsSitemap(base);
+    var sensRb=rb.filter(function(p){return /admin|backup|secret|private|api|config|db|test|dev|old|tmp|internal|shell|sql/i.test(p)});
+    if(sensRb.length>0)findings[4].push({path:'robots/sitemap 暴露敏感路径: '+sensRb.slice(0,6).join(', '),url:base+'/robots.txt',status:'-',severity:'medium',note:'这些路径被规则暴露，可能藏敏感目录'});
+    /* HTTP 方法 */
+    setStatus('🔧 检测 HTTP 方法...');
+    var hm=await checkHTTPMethods(base);
+    hm.forEach(function(f){findings[4].push(Object.assign({status:'-'},f))});
+    /* Cookie 安全属性 */
+    var homeR=await checkPath(base+'/',CONFIG.timeout);
+    if(homeR&&homeR.headers){
+      checkCookieFlags(homeR.headers).forEach(function(f){findings[4].push(Object.assign({url:base,status:'-'},f))});
+    }
+    /* 首页敏感信息泄露 */
+    if(homeR&&homeR.text){
+      var hits=[];
+      for(var sp=0;sp<SECRET_PATTERNS.length;sp++){
+        if(SECRET_PATTERNS[sp].re.test(homeR.text))hits.push(SECRET_PATTERNS[sp].name);
+      }
+      if(hits.length>0)findings[4].push({path:'首页泄露敏感信息: '+[...new Set(hits)].join(', '),url:base,status:200,severity:'high',note:'首页HTML/JS里硬编码了密钥或内网地址'});
+      if(isDirList(homeR.text))findings[4].push({path:'目录列表(Index of)开启',url:base,status:200,severity:'medium',note:'服务器列目录，可遍历下载所有文件'});
+      /* Source Map */
+      setStatus('🗺️ 检测 Source Map 泄露...');
+      var sm=await checkSourceMap(base,homeR.text);
+      sm.forEach(function(f){findings[4].push(Object.assign({status:'-'},f))});
+    }
+    setProg(100);
+    scanFinished=true;
+    finishLayer(num,layerName);
+    renderLayers();
+    return;
+  }
+
+  /* 第1-3层：路径扫描 */
+  var paths=num===1?L1:num===2?L2:L3;
+  var total=paths.length+extraPaths.length;
+  if(subMode==='both')total*=2;
+  var done=0;
+  var CONC=num===1?CONFIG.conc1:num===2?CONFIG.conc2:CONFIG.conc3;
+  var idx=0;
+  var queue=[];
+  paths.forEach(function(p){queue.push(typeof p==='string'?{path:p}:p)});
+  extraPaths.forEach(function(p){queue.push({path:p})});
+  if(subMode==='both'){
+    paths.forEach(function(p){queue.push(typeof p==='string'?{path:p,root:true}:Object.assign({},p,{root:true}))});
+    extraPaths.forEach(function(p){queue.push({path:p,root:true})});
+  }
+  function tick(){
+    done++;
+    var pct=Math.round(done/total*100);
+    setProg(pct);
+    setStatus(layerName+'扫描中... '+done+'/'+total+' ('+pct+'%)');
+  }
+  async function worker(){
+    while(idx<queue.length){
+      var item=queue[idx++];
+      var p=item.path;
+      var _b=item.root?scanRoot:base;
+      var res=await checkPath(_b+p);
+      if(res&&res.status===200){
+        var body=res.text||'';
+        var isSensitive=/\.(sql|zip|tar\.gz|rar|7z|key|pem|env|DS_Store|bak|swp|log|sh)$/.test(p)||p.indexOf('.git/')>=0||p.indexOf('.env')>=0||p.indexOf('etc/passwd')>=0||p.indexOf('proc/self')>=0||p.indexOf('id_rsa')>=0;
+        if(!/robots\.txt|favicon\.ico|sitemap\.xml|crossdomain/.test(p)&&body.length>=10){
+          if(!/404 not found|page not found|页面不存在|找不到此页面|未找到/i.test(body.slice(0,500))&&!/codetabs|corsproxy|allorigins|502 bad gateway|503 service/i.test(body.slice(0,300))){
+            var diffHome=(!isSensitive)&&homeText&&body&&similarity(homeText,body)>0.75;
+            if(!diffHome){
+              var bl=body.toLowerCase();
+              var hasS=bl.indexOf('db_password')>=0||bl.indexOf('api_key')>=0||bl.indexOf('secret_key')>=0||bl.indexOf('private key')>=0||bl.indexOf('-----begin')>=0||bl.indexOf('[core]')>=0||bl.indexOf('[remote ')>=0||bl.indexOf('root:x:0')>=0;
+              var sev='low';
+              if(isSensitive||hasS)sev='high';
+              else if(/admin|phpmyadmin|swagger|actuator|nacos|druid|jenkins|graphql|console|manager|adminer|tomcat|weblogic|login|backup/i.test(p))sev='medium';
+              var note=item.note||'';
+              findings[num].push({path:p,url:_b+p,status:res.status,severity:sev,note:note});
+            }
+          }
+        }
+      }
+      tick();
+    }
+  }
+  /* 后端优先：走 Cloudflare Worker 批量扫描；失败自动回退浏览器直连 */
+  var isMockTarget=(typeof quizHost!=='undefined'&&quizHost&&base.indexOf(quizHost)>=0);
+  if(CONFIG.useBackend && !isMockTarget){
+    try{
+      setStatus('☁️ 后端加速探测中...');
+      var batches={};
+      queue.forEach(function(item){var _b=item.root?scanRoot:base;if(!batches[_b])batches[_b]=[];batches[_b].push(item)});
+      for(var _b in batches){
+        var items=batches[_b];
+        for(var bi=0;bi<items.length;bi+=50){
+          var chunk=items.slice(bi,bi+50);
+          var ps=chunk.map(function(x){return x.path});
+          var res=await scanViaBackend(_b,ps,CONC);
+          chunk.forEach(function(item,idx){
+            var rr=res[idx]||{};
+            judgeHit(item.path,_b,{status:rr.status,text:rr.text,finalUrl:rr.finalUrl},homeText,num,item.note);
+            tick();
+          });
+        }
+      }
+      setProg(100);
+      scanFinished=true;finishLayer(num,layerName);renderLayers();
+      return;
+    }catch(e){
+      setStatus('⚠️ 后端不可用，回退浏览器直连...');
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(CONC,queue.length)},worker));
+  setProg(100);
+  scanFinished=true;
+  finishLayer(num,layerName);
+  renderLayers();
+}
+function finishLayer(num,layerName){
+  var cnt=findings[num]?findings[num].length:0;
+  var extraMsg=(num===4)?'':' · 发现 '+cnt+' 项';
+  setStatus('✅ 搜索完成 / '+layerName+' Scan Complete'+extraMsg,true);
+  disableBtns(false);
+}
+function disableBtns(d){
+  document.getElementById('btnAll').disabled=d;
+  document.getElementById('btn1').disabled=d;
+  document.getElementById('btn2').disabled=d;
+  document.getElementById('btn3').disabled=d;
+  document.getElementById('btn4').disabled=d;
+}
+/* ===== 链接拆解 + 分支决策 ===== */
+var scanCtx=null;
+function analyzeTarget(){
+  var t=document.getElementById('target').value.trim();
+  if(!t)return null;
+  /* 自动补全协议：没写 http:// 或 https:// 时默认加 https:// */
+  if(t.indexOf('http://')!==0 && t.indexOf('https://')!==0){
+    t='https://'+t;
+    document.getElementById('target').value=t;
+  }
+  var base=t.replace(/\/+$/,'');
+  var root=base;
+  try{var u=new URL(base);root=u.protocol+'//'+u.host;}catch(e){}
+  return {raw:t,base:base,root:root,hasSub:base!==root};
+}
+function showPreview(items){
+  var box=document.getElementById('previewBox');
+  var lst=document.getElementById('previewList');
+  if(!box||!lst)return;
+  box.style.display='block';
+  lst.innerHTML=items.map(function(x){return '<div>▶ '+x+'</div>'}).join('');
+}
+function startScan(mode){
+  var a=analyzeTarget();
+  if(!a){alert('请输入带 http:// 的目标网址');return}
+  scanCtx={mode:'subpath',base:a.base,root:a.root};
+  showPreview([a.base]);
+  window.__pendingMode=mode;
+  if(a.hasSub){
+    document.getElementById('bmRaw').textContent=a.raw;
+    document.getElementById('bmSub').textContent=a.base;
+    document.getElementById('bmRoot').textContent=a.root;
+    document.getElementById('branchModal').style.display='flex';
+  }else{
+    doScan(mode);
+  }
+}
+function chooseBranch(m){
+  document.getElementById('branchModal').style.display='none';
+  scanCtx.mode=m;
+  var list=m==='both'?[scanCtx.base,scanCtx.root]:[m==='root'?scanCtx.root:scanCtx.base];
+  showPreview(list);
+  doScan(window.__pendingMode);
+}
+function cancelBranch(){
+  document.getElementById('branchModal').style.display='none';
+  showPreview([scanCtx.base]);
+  doScan(window.__pendingMode);
+}
+function doScan(mode){
+  if(mode==='all'){runAll();}else{runLayer(mode);}
+}
+async function runAll(){scanFinished=false;disableBtns(true);await runLayer(1);if(findings[1]&&findings[1].length===0){}await runLayer(2);await runLayer(3);if(CONFIG.finger||CONFIG.headers)await runLayer(4);scanFinished=true;disableBtns(false);renderLayers()}
+
+function renderLayers(){
+  var label={high:'高危',medium:'中危',low:'低危',info:'信息'};var order={high:0,medium:1,low:2,info:3};
+  var names={1:'浅层扫描',2:'中层扫描',3:'深层扫描',4:'指纹+安全头'};var tags={1:'l1',2:'l2',3:'l3',4:'l4'};
+  var html='';
+  for(var l=1;l<=4;l++){
+    if(findings[l].length===0)continue;
+    var sorted=findings[l].slice().sort(function(a,b){return(order[a.severity]||9)-(order[b.severity]||9)});
+    html+='<div class="layerTag '+tags[l]+'">'+names[l]+' · '+sorted.length+' 项</div>';
+    for(var i=0;i<sorted.length;i++){
+      var r=sorted[i];
+      html+='<div class="result '+r.severity+'"><div><div class="path">'+r.path+'<span class="badge b-'+r.severity+'">'+(label[r.severity]||'')+'</span></div><div class="meta">'+r.status+(r.note?' · '+r.note:'')+'</div></div>'+(r.url&&r.url!==base_curr?'<a href="'+r.url+'" target="_blank">打开</a>':'')+'</div>';
+    }
+  }
+  if(!html)html='<div style="color:#555;padding:20px;text-align:center">'+(scanFinished?'✅ 扫描完成 · 未发现明显风险项 / No issues found':'等待扫描...')+'</div>';
+  document.getElementById('layerResults').innerHTML=html;
+}
+var base_curr='';
+
+/* ===== 结果导出 ===== */
+function exportJSON(){
+  var payload={time:new Date().toISOString(),target:document.getElementById('target').value.trim(),findings:findings};
+  var blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  downloadBlob(blob,'src-scan-result.json');
+}
+function exportReport(){
+  var lines=[];
+  lines.push('SRC Scanner 扫描报告');
+  lines.push('目标: '+document.getElementById('target').value.trim());
+  lines.push('时间: '+new Date().toLocaleString());
+  lines.push('-----------------------------------');
+  var label={high:'高危',medium:'中危',low:'低危',info:'信息'};
+  var names={1:'浅层扫描',2:'中层扫描',3:'深层扫描',4:'指纹+安全头'};
+  var count=0;
+  for(var l=1;l<=4;l++){
+    if(!findings[l]||findings[l].length===0)continue;
+    lines.push('\n['+names[l]+'] ('+findings[l].length+'项)');
+    findings[l].forEach(function(r){count++;lines.push('  ['+(label[r.severity]||r.severity)+'] '+r.path+(r.note?' — '+r.note:''))});
+  }
+  lines.push('\n-----------------------------------');
+  lines.push('共 '+count+' 项发现');
+  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  downloadBlob(blob,'src-scan-report.txt');
+}
+function downloadBlob(blob,name){
+  /* 移动浏览器(iOS/鸿蒙/安卓)对 blob download 支持差，统一降级为弹层复制 */
+  var isMobile=/Mobi|Android|HarmonyOS|OpenHarmony|iP(hone|ad|od)/.test(navigator.userAgent);
+  if(isMobile){
+    blob.text().then(function(text){showExportFallback(text,name)});
+    return;
+  }
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=name;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
+}
+function showExportFallback(text,name){
+  var old=document.getElementById('expFallback');if(old)old.remove();
+  var d=document.createElement('div');
+  d.id='expFallback';
+  d.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;flex-direction:column;padding:16px;box-sizing:border-box';
+  d.innerHTML='<div style="color:#fff;font-size:15px;margin-bottom:8px">📄 '+name+'<br><span style="color:#888;font-size:12px">手机浏览器不支持直接下载文件，请长按下方文字复制，或点"复制全部"</span></div>'+
+    '<textarea style="flex:1;background:#0d1117;color:#7ad0ff;border:1px solid #30363d;border-radius:8px;padding:10px;font-size:12px;font-family:monospace;resize:none"></textarea>'+
+    '<div style="display:flex;gap:8px;margin-top:10px">'+
+    '<button id="cpBtn" style="flex:1;padding:12px;background:#4f8cff;color:#fff;border:none;border-radius:8px;font-size:14px">复制全部</button>'+
+    '<button id="clBtn" style="flex:1;padding:12px;background:#333;color:#fff;border:none;border-radius:8px;font-size:14px">关闭</button></div>';
+  document.body.appendChild(d);
+  d.querySelector('textarea').value=text;
+  d.querySelector('#cpBtn').onclick=function(){
+    d.querySelector('textarea').select();
+    try{document.execCommand('copy');this.textContent='✅ 已复制，去备忘录粘贴';}catch(e){this.textContent='复制失败，请手动长按';}
+  };
+  d.querySelector('#clBtn').onclick=function(){d.remove()};
+}
+
+/* ===== 靶场练习（可点开的模拟站） ===== */
+var QUIZ_VULNS=[
+{url:"/.env",sev:"high",desc:"环境变量文件泄露，包含数据库密码、API密钥",why:"开发者配置失误，.env文件不应被Web服务器直接访问",content:"DB_PASSWORD=TestPass123\nDB_HOST=mysql.internal\nDB_USER=root\nAPI_KEY=sk_live_abcdef123456789\nSECRET_TOKEN=supersecretvalue"},
+{url:"/.git/config",sev:"high",desc:"Git仓库配置泄露，可拉取整个源码",why:"项目目录没删.git文件夹就部署了",content:"[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n[remote \"origin\"]\n\turl = git@github.com:dev/project.git\n\tfetch = +refs/heads/*:refs/remotes/origin/*"},
+{url:"/.git/HEAD",sev:"high",desc:"Git仓库存在，泄露版本信息",why:".git目录暴露在Web根目录",content:"ref: refs/heads/main"},
+{url:"/backup.sql",sev:"high",desc:"数据库备份文件，含全部用户数据",why:"运维习惯把备份文件放在Web目录里",content:"-- MySQL dump 10.13\nCREATE TABLE users (id INT, name TEXT, password_hash TEXT);\nINSERT INTO users VALUES (1,'admin','$2y$10$Xk2Z...'),(2,'test','$2y$10$Ab1...');\n-- Dump completed"},
+{url:"/www.zip",sev:"high",desc:"整站源码打包泄露",why:"打包后忘了删，直接暴露在服务器上",content:"（二进制压缩包：包含 index.php / config.php / app/ 等整站源码，可下载解压）"},
+{url:"/phpinfo.php",sev:"med",desc:"PHP配置信息泄露",why:"测试完忘了删phpinfo.php",content:"PHP Version 8.1.10\nSystem: Linux web01 5.15\nLoaded Modules: mysqli, curl, gd...\nEnvironment: DATABASE_URL=mysql://root:***@db:3306/app"},
+{url:"/admin",sev:"med",desc:"后台管理入口可直接访问",why:"后台没有IP白名单或VPN限制",content:"<form action=\"/admin/login\">\n  用户名 <input name=\"user\">\n  密码   <input type=\"password\" name=\"pwd\">\n  <button>登录</button>\n</form>"},
+{url:"/actuator/env",sev:"high",desc:"Spring Boot环境变量，含密钥",why:"Actuator未配置访问控制",content:"{\"contexts\":{\"application\":{\"propertySources\":[{\"name\":\"application.properties\",\"properties\":{\"db.password\":{\"value\":\"root123\"},\"api.secret\":{\"value\":\"sk-prod-9f2\"}}}]}}}"},
+{url:"/actuator/heapdump",sev:"high",desc:"堆转储，可提取内存密码",why:"Actuator端点未保护",content:"（二进制 .hprof 堆转储文件，内存中含明文密码、token，可下载分析）"},
+{url:"/swagger-ui.html",sev:"med",desc:"API文档暴露",why:"Swagger没加认证",content:"Swagger UI — API 文档\n\nGET  /v1/users      获取用户列表\nPOST /v1/orders     创建订单\nGET  /v1/admin/config 管理配置"},
+{url:"/graphql",sev:"med",desc:"GraphQL开放内省查询",why:"生产环境没关内省",content:"{ \"data\": { \"__schema\": { \"types\": [ { \"name\": \"Query\" }, { \"name\": \"User\" } ] } } }"},
+{url:"/nacos",sev:"high",desc:"Nacos配置中心未授权",why:"默认密码或无认证",content:"Nacos 配置中心\n{\"username\":\"nacos\",\"password\":\"nacos\"}\n命名空间: public · 配置列表可见"},
+{url:"/druid/index.html",sev:"high",desc:"Druid监控面板未授权",why:"没配访问控制",content:"Druid 监控面板\nSQL 执行列表 / 会话列表 / 数据源连接信息\n/user/list  # 已访问的用户"}
+,{url:"/.DS_Store",sev:"low",desc:"macOS目录文件泄露",why:"macOS自动生成，部署时没删",content:"（二进制 .DS_Store：记录目录内文件名列表，可还原目录结构）"},
+{url:"/server-status",sev:"low",desc:"Apache状态页",why:"Apache默认开了mod_status",content:"Apache Server Status\nServer Uptime: 12 days\nRequests/Sec: 3.4\nActive workers: 8"},
+{url:"/config.php.bak",sev:"high",desc:"配置文件备份，可能含密码",why:"编辑器留下的.bak文件",content:"<?php\n$db_host = \"localhost\";\n$db_user = \"webapp\";\n$db_pass = \"root\";\n$secret  = \"a1b2c3d4\";"},
+{url:"/wp-config.php~",sev:"high",desc:"WordPress配置临时备份",why:"vim留下的~文件",content:"<?php\ndefine('DB_NAME','wordpress');\ndefine('DB_USER','wp_user');\ndefine('DB_PASSWORD','wp_pass_123');\ndefine('AUTH_KEY','Vk#2...');"},
+{url:"/debug.log",sev:"med",desc:"调试日志含敏感信息",why:"调试模式开着没关",content:"2026-09-01 12:00:12 ERROR: SQLSTATE[28000] Access denied for user 'app'@'db'\n2026-09-01 12:01:05 INFO: 用户 admin 登录成功，session=eyJhbGci..."},
+{url:"/console",sev:"med",desc:"调试控制台入口",why:"生产环境没关",content:"交互式调试控制台\n输入代码执行：python> __import__('os').system('whoami')\n结果：www-data"},
+{url:"/robots.txt",sev:"safe",desc:"爬虫规则，正常文件",why:"robots.txt本来就是公开的",content:"User-agent: *\nDisallow: /admin\nDisallow: /backup\nDisallow: /private"},
+{url:"/favicon.ico",sev:"safe",desc:"网站图标",why:"浏览器自动请求",content:"（ico 图标二进制，浏览器自动请求，无敏感信息）"},
+{url:"/login",sev:"safe",desc:"登录页面",why:"正常功能",content:"<form action=\"/login\">\n  邮箱 <input name=\"email\">\n  密码 <input type=\"password\" name=\"pwd\">\n  <button>登录</button>\n</form>\n<!-- 正常登录功能 -->"},
+{url:"/sitemap.xml",sev:"safe",desc:"站点地图",why:"SEO需要的公开文件",content:"<?xml version=\"1.0\"?>\n<urlset>\n  <url><loc>/about</loc></url>\n  <url><loc>/contact</loc></url>\n  <url><loc>/products</loc></url>\n</urlset>"},
+{url:"/about",sev:"safe",desc:"关于页面",why:"普通静态页面",content:"<!DOCTYPE html>\n<h1>关于我们</h1>\n<p>公司成立于2015年，主营业务...</p>"},
+{url:"/uploads/",sev:"med",desc:"上传目录可列目录",why:"Nginx没关目录浏览",content:"Index of /uploads\n\n20240101_photo.jpg\n20240102_report.pdf\n20240103_data.xlsx"},
+{url:"/vendor/",sev:"med",desc:"依赖库目录暴露",why:"Composer目录在Web根下",content:"Index of /vendor\n\npsr/log/\nmonolog/\nsymfony/polyfill-php80/"},
+{url:"/phpmyadmin",sev:"med",desc:"phpMyAdmin暴露",why:"没改路径也没加认证",content:"phpMyAdmin 登录\n服务器: localhost\n用户名/密码输入框\n（未做访问限制）"},
+{url:"/README.md",sev:"safe",desc:"项目说明文档",why:"GitHub项目本来就是公开的",content:"# My Project\n\n这是一个演示项目\n\n## 技术栈\n- PHP 8\n- MySQL\n\n（开源项目说明，公开内容）"},
+{url:"/api/v1/health",sev:"safe",desc:"健康检查接口",why:"监控用，不泄露敏感信息",content:"{\"status\":\"ok\",\"uptime\":123456,\"version\":\"1.2.0\"}"},
+{url:"/docker-compose.yml",sev:"high",desc:"Docker编排配置泄露",why:"部署文件放在Web目录",content:"version: '3'\nservices:\n  db:\n    image: mysql:8.0\n    environment:\n      MYSQL_ROOT_PASSWORD: Sup3rS3cret!"},
+{url:"/.dockerenv",sev:"low",desc:"Docker容器环境标记",why:"容器内文件泄露到宿主机Web",content:"（二进制文件，存在说明当前在Docker容器内）"},
+{url:"/.env.production",sev:"high",desc:"生产环境变量泄露",why:".env.production含生产密钥",content:"DB_HOST=prod-db.internal\nDB_PASS=ProdPass2024!\nREDIS_URL=redis://:ProdRedis@prod-redis:6379"},
+{url:"/xmlrpc.php",sev:"med",desc:"WordPress XML-RPC暴露",why:"可被暴力破解/DDOS",content:"XML-RPC server accepts POST requests only.\n<methodCall><methodName>system.listMethods</methodName></methodCall>"},
+{url:"/wp-admin/",sev:"med",desc:"WordPress后台暴露",why:"未加IP限制/二次验证",content:"登录 — WordPress\n用户名 密码 记住登录\n（爆破工具可批量尝试）"},
+{url:"/.gitignore",sev:"safe",desc:"Git忽略规则",why:"公开配置文件，不泄露敏感信息",content:"node_modules/\n.env\n.DS_Store\n*.log"},
+{url:"/.well-known/security.txt",sev:"safe",desc:"安全研究联系方式",why:"公开的安全联系规范",content:"Contact: security@example.com\nExpires: 2027-01-01T00:00:00.000Z"},
+{url:"/web.config",sev:"med",desc:"IIS配置文件泄露",why:"ASP.NET项目配置暴露",content:"<configuration>\n  <connectionStrings>\n    <add name=\"DB\" connectionString=\"Server=db;User=sa;Password=SaPass!;\"/>\n  </connectionStrings>\n</configuration>"},
+{url:"/cgi-bin/",sev:"med",desc:"CGI目录暴露",why:"可能有老脚本漏洞",content:"Index of /cgi-bin\n\nprintenv\ntest-cgi\nadmin.cgi"},
+{url:"/test/",sev:"med",desc:"测试目录未删除",why:"上线后忘了删测试文件",content:"Index of /test\n\ntest.php  # 输出phpinfo()\ndebug.html\nshell.php  # 一句话后门"},
+{url:"/.htpasswd",sev:"high",desc:"Apache密码哈希文件",why:"可被破解",content:"admin:$apr1$abc$xyz...\ntest:$apr1$def$uvw..."}
+];
+var quizTargets=[];
+var quizHost='';
+function pickRand(arr,n){return arr.slice().sort(function(){return Math.random()-0.5}).slice(0,n)}
+function escapeHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function newRound(){
+  document.getElementById('quizResult').innerHTML='';
+  var vulns=pickRand(QUIZ_VULNS.filter(function(v){return v.sev!=='safe'}),5);
+  var safes=pickRand(QUIZ_VULNS.filter(function(v){return v.sev==='safe'}),3);
+  quizTargets=vulns.concat(safes).sort(function(){return Math.random()-0.5});
+  quizHost='mock-'+Math.floor(1000+Math.random()*9000)+'.site';
+  var html='<div class="quizCard">';
+  html+='<div class="mockHeader"><h3 style="margin:0">🖥️ 模拟目标站</h3><span class="mockUrl">https://'+quizHost+'/</span></div>';
+  html+='<p class="mockNote">下面是这个站根目录里的 <b style="color:#fff">'+quizTargets.length+'</b> 个文件。点击文件行可<b style="color:#7ad0ff">打开查看内容</b>。请勾选你认为属于「敏感信息泄露」的文件（如 .env、数据库备份、源码包等），然后提交判断。</p>';
+  html+='<div id="mockFiles">';
+  quizTargets.forEach(function(t,i){
+    var sz=(Math.random()*2.8+0.3).toFixed(1)+'KB';
+    html+='<div class="fileItem" id="fi'+i+'">';
+    html+='<div class="fileRow" onclick="toggleFile('+i+')">';
+    html+='<input type="checkbox" class="qfile" data-i="'+i+'" onclick="event.stopPropagation()">';
+    html+='<span class="fn">'+t.url+'</span>';
+    html+='<span class="fs">'+sz+'</span>';
+    html+='</div>';
+    html+='<div class="pre">'+escapeHtml(t.content||'(无法预览二进制内容)')+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  html+='<div class="hintBar" id="quizHint"></div>';
+  html+='<div style="margin-top:12px;text-align:right"><button class="btnGreen" onclick="submitQuiz()">提交判断</button> <button class="btnGray" onclick="newRound()">换一批</button></div>';
+  html+='</div>';
+  document.getElementById('quizArea').innerHTML=html;
+}
+function toggleFile(i){
+  var el=document.getElementById('fi'+i);
+  if(el)el.classList.toggle('open');
+}
+function submitQuiz(){
+  var cbs=document.querySelectorAll('.qfile');
+  var picked=[];
+  cbs.forEach(function(cb){if(cb.checked)picked.push(parseInt(cb.dataset.i))});
+  var sensIdx=[];
+  quizTargets.forEach(function(t,i){if(t.sev!=='safe')sensIdx.push(i)});
+  var correct=[],missed=[],wrong=[];
+  sensIdx.forEach(function(i){if(picked.indexOf(i)>=0)correct.push(quizTargets[i]);else missed.push(quizTargets[i])});
+  picked.forEach(function(i){if(sensIdx.indexOf(i)<0)wrong.push(quizTargets[i])});
+  var total=sensIdx.length;
+  var pct=Math.round(correct.length/total*100);
+  var sc=pct>=80?'scoreGood':pct>=50?'scoreOk':'scoreBad';
+  var msg=pct>=80?'厉害！可以去实战了':pct>=50?'还不错，多练几轮':'继续练';
+  var html='<div class="scoreBig '+sc+'">'+correct.length+'/'+total+' ('+pct+'%)</div>';
+  html+='<p style="text-align:center;color:#888;margin-bottom:16px">'+msg+'</p>';
+  html+='<h2 style="color:#4f8cff;margin:16px 0 10px">✅ 你找对的</h2>';
+  if(correct.length===0)html+='<p style="color:#666;font-size:13px">一个都没找对</p>';
+  correct.forEach(function(v){
+    var tag='<span class="vulnTag '+(v.sev==='high'?'tagHigh':'tagMed')+'">'+(v.sev==='high'?'高危':'中危')+'</span>';
+    html+='<div class="resultBox correct"><div style="font-family:monospace;font-size:13px">'+v.url+' '+tag+'</div><div class="explain"><b>'+v.desc+'</b><br>原理：'+v.why+'</div></div>';
+  });
+  html+='<h2 style="color:#ffa502;margin:16px 0 10px">⚠️ 你漏掉的</h2>';
+  if(missed.length===0)html+='<p style="color:#666;font-size:13px">全找到了！</p>';
+  missed.forEach(function(v){
+    var tag='<span class="vulnTag '+(v.sev==='high'?'tagHigh':'tagMed')+'">'+(v.sev==='high'?'高危':'中危')+'</span>';
+    html+='<div class="resultBox missed"><div style="font-family:monospace;font-size:13px">'+v.url+' '+tag+'</div><div class="explain"><b>'+v.desc+'</b><br>原理：'+v.why+'</div></div>';
+  });
+  if(wrong.length>0){
+    html+='<h2 style="color:#ff4757;margin:16px 0 10px">❌ 你误判的（其实是正常文件）</h2>';
+    wrong.forEach(function(v){
+      html+='<div class="resultBox wrong"><div style="font-family:monospace;font-size:13px">'+v.url+'</div><div class="explain">'+(v.desc||'正常文件')+'</div></div>';
     });
   }
-  document.getElementById('resultCard').style.display = 'block';
+  document.getElementById('quizResult').innerHTML=html;
+  var hint=document.getElementById('quizHint');
+  if(hint)hint.innerHTML='提示：敏感泄露通常来自 <b>.env / .git / 备份文件 / 配置文件备份 / 调试日志</b>，点开文件看内容判断最准。';
 }
 </script>
 </body>
