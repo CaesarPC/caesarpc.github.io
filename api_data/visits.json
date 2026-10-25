@@ -62,5 +62,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (iPad; CPU OS 17_7_11 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 doubao_15.4.0 JsSdk/2.0 NetType/MOBILE Channel/App Store Rifle_15.4.0 WKWebView/1 Bullet/1 doubao/15.4.0 BulletTag/27607EE1-1A34-45F2-A1D7-480915C57A20 FalconTag/D1F87334-942A-4E6C-B585-497D7727CA",
   "ref": "https://caesarpc.github.io/welcome.html?webview_progress_bar=1&show_loading=0&push_animated=1&theme=light"
+ },
+ {
+  "id": 1792935412981,
+  "ts": 1792935412981,
+  "time": "2026-10-25 21:36",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/src-scanner-web/"
  }
 ]
