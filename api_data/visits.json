@@ -70,5 +70,29 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
   "ref": "https://caesarpc.github.io/src-scanner-web/"
+ },
+ {
+  "id": 1792290810835,
+  "ts": 1792290810835,
+  "time": "2026-10-18 10:33",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+  "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1792979214675,
+  "ts": 1792979214675,
+  "time": "2026-10-26 09:46",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+  "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1792979218698,
+  "ts": 1792979218698,
+  "time": "2026-10-26 09:46",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+  "ref": "https://caesarpc.github.io/cr/index.html"
  }
 ]
