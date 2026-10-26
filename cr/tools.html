@@ -97,6 +97,14 @@ tools.forEach(function(t){
   b.onclick=function(){togglePanel(t);};
   grid.appendChild(b);
 });
+
+// 自动根据URL参数打开对应工具
+var urlParams = new URLSearchParams(window.location.search);
+var autoTool = urlParams.get('tool');
+if(autoTool){
+  var t = tools.find(function(x){return x.id === autoTool;});
+  if(t) setTimeout(function(){togglePanel(t);}, 100);
+}
 function togglePanel(t){
   var ex=openPanels.find(function(p){return p.id===t.id;});
   if(ex){closePanel(ex);return;}
