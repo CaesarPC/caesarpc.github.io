@@ -93,14 +93,14 @@ footer{text-align:center;padding:30px;color:var(--dim);font-size:12px;position:r
   <div class="logo">CaesarBase</div>
   <div class="right">
     <span id="userInfo" style="display:none;font-size:14px">游客</span>
-    <div style="position:relative;display:inline-block;margin-right:10px;">
-  <button onclick="document.getElementById('langMenu').style.display=document.getElementById('langMenu').style.display=='block'?'none':'block'" style="background:transparent;border:1px solid #3a3a5a;color:#8be9fd;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:13px;">🌐 语言 ▾</button>
-  <div id="langMenu" style="display:none;position:absolute;right:0;top:35px;background:#22223a;border:1px solid #3a3a5a;border-radius:6px;padding:8px;min-width:120px;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-    <a href="/" style="display:block;padding:6px 10px;color:#50fa7b;text-decoration:none;border-radius:4px;font-weight:bold;">✅ 简体中文</a>
-    <a href="/en/" style="display:block;padding:6px 10px;color:#ccc;text-decoration:none;border-radius:4px;">English</a>
-    <a href="/zh-TW/" style="display:block;padding:6px 10px;color:#ccc;text-decoration:none;border-radius:4px;">繁體中文</a>
-  </div>
-</div>
+    <div id="langSwitch" style="position:relative;">
+      <button id="langBtn" style="background:#44475a;color:#bdc3c7;border:1px solid #6272a4;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;">简体中文 ▾</button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:42px;background:#282a36;border:1px solid #44475a;border-radius:8px;min-width:140px;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.5);">
+        <div class="lang-item" data-lang="cn" style="padding:12px 16px;cursor:pointer;font-size:13px;color:#bdc3c7;">简体中文</div>
+        <div class="lang-item" data-lang="zh-TW" style="padding:12px 16px;cursor:pointer;font-size:13px;color:#bdc3c7;border-top:1px solid #44475a;">繁體中文</div>
+        <div class="lang-item" data-lang="en" style="padding:12px 16px;cursor:pointer;font-size:13px;color:#bdc3c7;border-top:1px solid #44475a;">English</div>
+      </div>
+    </div>
 <button class="user-btn" id="installBtn" onclick="installPWA()" style="display:none">📲 安装到桌面</button>
   </div>
 </div>
@@ -275,5 +275,26 @@ window.addEventListener('load',function(){
 });
 </script>
 <script src="/cr/clip.js"></script>
+<script>
+var langBtn = document.getElementById('langBtn');
+var langMenu = document.getElementById('langMenu');
+langBtn.onclick = function(e) {
+  e.stopPropagation();
+  langMenu.style.display = langMenu.style.display === 'block' ? 'none' : 'block';
+};
+document.querySelectorAll('.lang-item').forEach(function(item) {
+  item.onclick = function() {
+    var lang = this.getAttribute('data-lang');
+    langMenu.style.display = 'none';
+    localStorage.setItem('cb_lang', lang);
+    if(lang === 'cn') window.location.href = '/';
+    if(lang === 'zh-TW') window.location.href = '/zh-TW/';
+    if(lang === 'en') window.location.href = '/en/';
+  };
+});
+document.onclick = function() {
+  langMenu.style.display = 'none';
+};
+</script>
 </body>
 </html>
