@@ -130,7 +130,7 @@ function buildTool(id,el){
   else if(id==='finder')el.innerHTML='<iframe src="finder.html" style="width:100%;height:500px;border:none;border-radius:8px;background:#282a36"></iframe>';
   else if(id==='combiner')el.innerHTML='<iframe src="combiner.html" style="width:100%;height:500px;border:none;border-radius:8px;background:#282a36"></iframe>';
   else if(id==='codec')el.innerHTML='<iframe src="codec.html" style="width:100%;height:500px;border:none;border-radius:8px;background:#282a36"></iframe>';
-  else if(id==='fileconv')el.innerHTML='<iframe src="file-convert.html" style="width:100%;height:500px;border:none;border-radius:8px;background:#282a36"></iframe>';}
+  else if(id==='fileconv')el.innerHTML='<iframe src="file-convert.html" style="width:100%;height:500px;border:none;border-radius:8px;background:#282a36"></iframe>';
 }
 function qrGen(){var v=document.getElementById('qrInput').value.trim();if(!v)return;document.getElementById('qrOut').innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(v)+'" style="width:200px;height:200px;border-radius:8px">';}
 function pwdGen(){var len=parseInt(document.getElementById('pwdLen').value)||16;var chars='';if(document.getElementById('pwdUpper').checked)chars+='ABCDEFGHJKLMNPQRSTUVWXYZ';if(document.getElementById('pwdLower').checked)chars+='abcdefghijkmnpqrstuvwxyz';if(document.getElementById('pwdNum').checked)chars+='23456789';if(document.getElementById('pwdSym').checked)chars+='!@#$%^&*';if(!chars)chars='abcdefgh';var arr=new Uint32Array(len);crypto.getRandomValues(arr);var pwd='';for(var i=0;i<len;i++)pwd+=chars[arr[i]%chars.length];document.getElementById('pwdOut').textContent=pwd;}
