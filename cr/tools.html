@@ -98,12 +98,24 @@ tools.forEach(function(t){
   grid.appendChild(b);
 });
 
-// 自动根据URL参数打开对应工具
+// 自动根据URL参数打开对应工具（全屏模式，不弹窗）
 var urlParams = new URLSearchParams(window.location.search);
 var autoTool = urlParams.get('tool');
 if(autoTool){
   var t = tools.find(function(x){return x.id === autoTool;});
-  if(t) setTimeout(function(){togglePanel(t);}, 100);
+  if(t) {
+    // 隐藏上面的按钮列表
+    document.getElementById('btnGrid').style.display = 'none';
+    // 直接在主区域全屏渲染工具内容
+    var mainEl = document.getElementById('panels');
+    mainEl.innerHTML = '';
+    var p = document.createElement('div');
+    p.className = 'panel';
+    p.style.cssText = 'position:static;max-width:100%;margin:0;box-shadow:none;';
+    p.innerHTML = '<div class="p-hd"><span class="t">'+t.icon+' '+t.name+'</span></div><div class="p-body"></div>';
+    mainEl.appendChild(p);
+    buildTool(t.id, p.querySelector('.p-body'));
+  }
 }
 function togglePanel(t){
   var ex=openPanels.find(function(p){return p.id===t.id;});
