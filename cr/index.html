@@ -87,6 +87,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background:#1e1e2e;color:#
   <div><h1>🛠️ CaesarTools <span id="verTag" style="font-size:12px;color:#6272a4;font-weight:normal;background:#44475a;padding:2px 8px;border-radius:8px;vertical-align:middle">valpha-1.0</span></h1><div class="st" id="msg">免费在线工具站 · 工具 / 休闲 / 社区</div></div>
   <div style="display:flex;align-items:center;gap:12px;">
     <a href="https://caesarpc.github.io/" class="back-to-cb">← 返回CaesarBase</a>
+    <div id="langSwitch" style="position:relative;">
+      <button id="langBtn" style="background:#44475a;color:#bdc3c7;border:1px solid #6272a4;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px;">简体中文 ▾</button>
+      <div id="langMenu" style="display:none;position:absolute;right:0;top:42px;background:#282a36;border:1px solid #44475a;border-radius:8px;min-width:140px;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.5);">
+        <div class="lang-item" data-lang="cn" style="padding:10px 14px;cursor:pointer;font-size:13px;color:#bdc3c7;">简体中文</div>
+        <div class="lang-item" data-lang="zh-TW" style="padding:10px 14px;cursor:pointer;font-size:13px;color:#bdc3c7;border-top:1px solid #44475a;">繁體中文</div>
+        <div class="lang-item" data-lang="en" style="padding:10px 14px;cursor:pointer;font-size:13px;color:#bdc3c7;border-top:1px solid #44475a;">English</div>
+      </div>
+    </div>
     <div id="userBar" style="font-size:13px;color:#bdc3c7"></div>
   </div>
 </div>
@@ -278,6 +286,28 @@ function updateOnlineStatus() {
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
 updateOnlineStatus();
+
+// 语言切换逻辑
+var langBtn = document.getElementById('langBtn');
+var langMenu = document.getElementById('langMenu');
+langBtn.onclick = function(e) {
+  e.stopPropagation();
+  langMenu.style.display = langMenu.style.display === 'block' ? 'none' : 'block';
+};
+document.querySelectorAll('.lang-item').forEach(function(item) {
+  item.onclick = function() {
+    var lang = this.getAttribute('data-lang');
+    langMenu.style.display = 'none';
+    langBtn.textContent = this.textContent + ' ▾';
+    // 保存语言选择
+    localStorage.setItem('cr_lang', lang);
+    // 跳转到对应语言版本（现在先留空，后面做对应目录）
+    // window.location.href = lang === 'cn' ? 'index.html' : lang + '/index.html';
+  };
+});
+document.onclick = function() {
+  langMenu.style.display = 'none';
+};
 </script>
 </body>
 </html>
