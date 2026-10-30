@@ -174,5 +174,13 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1793338943924,
+  "ts": 1793338943924,
+  "time": "2026-10-30 13:42",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
+  "ref": "https://caesarpc.github.io/zh-TW/cr/file-convert.html"
  }
 ]
