@@ -182,5 +182,21 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
   "ref": "https://caesarpc.github.io/zh-TW/cr/file-convert.html"
+ },
+ {
+  "id": 1793338949923,
+  "ts": 1793338949923,
+  "time": "2026-10-30 13:42",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/zh-TW/cr/index.html"
+ },
+ {
+  "id": 1793339142959,
+  "ts": 1793339142959,
+  "time": "2026-10-30 13:45",
+  "page": "sponsor.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/"
  }
 ]
