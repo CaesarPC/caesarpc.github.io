@@ -222,5 +222,21 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Linux; Android 10; HUAWEI P30 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1793433107564,
+  "ts": 1793433107564,
+  "time": "2026-10-31 15:51",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.301 Mobile Safari/537.36",
+  "ref": ""
+ },
+ {
+  "id": 1793450853843,
+  "ts": 1793450853843,
+  "time": "2026-10-31 20:47",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.301 Mobile Safari/537.36",
+  "ref": "https://caesarpc.github.io/cr/software.html"
  }
 ]
