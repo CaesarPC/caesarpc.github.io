@@ -214,5 +214,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.301 Mobile Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1793434256335,
+  "ts": 1793434256335,
+  "time": "2026-10-31 16:10",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; HUAWEI P30 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36",
+  "ref": ""
  }
 ]
