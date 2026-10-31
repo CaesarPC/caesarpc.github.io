@@ -198,5 +198,21 @@
   "page": "sponsor.html",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
   "ref": "https://caesarpc.github.io/"
+ },
+ {
+  "id": 1792502581376,
+  "ts": 1792502581376,
+  "time": "2026-10-20 21:23",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.300 Mobile Safari/537.36",
+  "ref": ""
+ },
+ {
+  "id": 1793433107542,
+  "ts": 1793433107542,
+  "time": "2026-10-31 15:51",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 12; HarmonyOS; ADA-AL00; HMSCore 6.16.4.362) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.79 HuaweiBrowser/17.9.2.301 Mobile Safari/537.36",
+  "ref": ""
  }
 ]
