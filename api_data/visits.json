@@ -278,5 +278,13 @@
   "page": "CaesarBase主站",
   "ua": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.52 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
   "ref": ""
+ },
+ {
+  "id": 1793686164891,
+  "ts": 1793686164892,
+  "time": "2026-11-02 22:09",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/153.0.8010.36 Safari/537.36",
+  "ref": ""
  }
 ]
