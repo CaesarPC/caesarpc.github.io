@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>文楷版首页 · CaesarBase</title>
+<style>
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.7.0/style.css');
+</style>
+<style>
+:root{
+  --bg:#1e1e2e; --card:rgba(26,26,46,.85); --border:#44475a;
+  --text:#f8f8f2; --dim:#6272a4; --green:#50fa7b;
+  --serif:"LXGW WenKai Lite","LXGW WenKai","Kaiti SC",serif;
+  --sans:"LXGW WenKai Lite","LXGW WenKai","Kaiti SC",serif;
+  --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;cursor:default;-webkit-font-smoothing:antialiased}
+a{pointer-events:none;text-decoration:none;color:inherit}
+canvas{position:fixed;inset:0;z-index:0;opacity:.45}
+
+.topbar{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 32px;border-bottom:1px solid var(--border)}
+.logo{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--dim);text-transform:uppercase}
+.langbtn{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--dim);border:1px solid var(--border);padding:7px 12px}
+
+.wrap{max-width:1060px;margin:0 auto;padding:76px 32px 48px;position:relative;z-index:1}
+
+.hero{margin-bottom:64px}
+.hero h1{font-family:var(--serif);font-size:clamp(46px,9.5vw,88px);font-weight:600;letter-spacing:.01em;line-height:1.04;color:var(--text)}
+.hero p{font-family:var(--mono);font-size:12px;color:var(--dim);letter-spacing:.22em;margin-top:20px}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.big-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:26px;display:flex;flex-direction:column}
+.icon{font-size:28px;margin-bottom:14px;opacity:.9}
+.big-card h3{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.01em;line-height:1.35;margin-bottom:10px}
+.big-card p{font-family:var(--sans);font-size:15px;color:var(--dim);line-height:1.95;font-weight:400}
+.go{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--green);margin-top:16px}
+.more{font-family:var(--sans);font-size:13px;color:var(--dim);margin-top:8px;border-bottom:1px dashed var(--border);padding-bottom:2px}
+
+.preview span{font-family:var(--sans);font-size:13px;color:var(--dim)}
+
+.sect{grid-column:1/-1;margin-top:22px;padding-top:14px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--dim)}
+
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;background:#ff4757;color:#fff;padding:2px 7px;margin-left:8px;vertical-align:middle}
+
+footer{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:26px 32px 60px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim)}
+</style>
+</head>
+<body>
+<canvas id="mc"></canvas>
+
+<div class="topbar">
+  <div class="logo">CaesarBase</div>
+  <button class="langbtn">简体中文 ▾</button>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>CaesarBase</h1>
+    <p>个人主站 · 导流 · 社区 · 合作</p>
+  </div>
+
+  <div class="cards">
+    <a class="big-card">
+      <div class="icon">🧰</div>
+      <h3>CaesarTools</h3>
+      <p>域名查找、编码转换、文件转换、在线小游戏、技术文章，全部免费使用。</p>
+      <span class="go">进入工具站 →</span>
+    </a>
+
+    <div class="big-card">
+      <div class="icon">📝</div>
+      <h3>技术文章</h3>
+      <p>同步 CaesarTools 最新技术文章。</p>
+      <div class="preview"><span>加载中...</span></div>
+      <span class="more">想看更多文章？进入 CaesarTools 浏览全部 →</span>
+    </div>
+
+    <a class="big-card">
+      <div class="icon">🗂️</div>
+      <h3>技术专题合集</h3>
+      <p>按专题分类整理，前端 / 后端 / 网络 / AI，系统学习不迷路。</p>
+      <span class="go">浏览专题合集 →</span>
+    </a>
+
+    <a class="big-card">
+      <div class="icon">📢</div>
+      <h3>品牌导流合作</h3>
+      <p>广告位招商、品牌导流合作，提交你的站点信息。</p>
+      <span class="go">填写合作申请 →</span>
+    </a>
+
+    <div class="sect">安全研究专区（暂时关闭）</div>
+
+    <a class="big-card">
+      <div class="icon">🛡️</div>
+      <h3>SRC 功能维护中，暂时关闭<span class="tag">需密钥</span></h3>
+      <p>三层扫描（浅层 100 项 / 中层 150 项 / 深层 50 项），敏感路径自动检测，50 并发。仅限授权安全测试使用。</p>
+      <span class="go">进入扫描器 →</span>
+    </a>
+
+    <a class="big-card">
+      <div class="icon">🎯</div>
+      <h3>靶场练习</h3>
+      <p>选择题式安全练习，勾选你认为有问题的文件，提交看答案和原理。免费开放，练熟了再实战。</p>
+      <span class="go">开始练习 →</span>
+    </a>
+  </div>
+</div>
+
+<footer>© 2026 CaesarBase · alpha 1.1 · 关于本站</footer>
+
+<script>
+const c=document.getElementById('mc'),x=c.getContext('2d');
+let meteors=[];
+function resize(){c.width=innerWidth;c.height=innerHeight}
+function spawn(){
+  const fromLeft=Math.random()<0.6;
+  let sx,sy,vx,vy;
+  if(fromLeft){sx=-30;sy=Math.random()*c.height*0.7;}
+  else{sx=Math.random()*c.width*0.8;sy=-30;}
+  const angle=(44+Math.random()*2)*Math.PI/180;
+  const speed=3+Math.random()*5;
+  vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+  meteors.push({x:sx,y:sy,vx:vx,vy:vy,size:1+speed*0.3,tail:20+speed*12,alpha:0.2+Math.random()*0.3});
+  setTimeout(spawn,200+Math.random()*400);
+}
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  meteors=meteors.filter(m=>m.x<c.width+200&&m.y<c.height+200);
+  meteors.forEach(m=>{
+    m.x+=m.vx;m.y+=m.vy;
+    const g=x.createLinearGradient(m.x,m.y,m.x-m.vx/m.vy*m.tail,m.y-m.tail);
+    g.addColorStop(0,'rgba(139,242,253,'+m.alpha+')');
+    g.addColorStop(1,'rgba(139,242,253,0)');
+    x.strokeStyle=g;x.lineWidth=m.size;
+    x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x-m.vx/m.vy*m.tail,m.y-m.tail);x.stroke();
+  });
+  requestAnimationFrame(draw);
+}
+resize();addEventListener('resize',resize);spawn();draw();
+</script>
+</body>
+</html>
