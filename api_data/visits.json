@@ -302,5 +302,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
   "ref": ""
+ },
+ {
+  "id": 1794047028515,
+  "ts": 1794047028515,
+  "time": "2026-11-07 18:23",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
+  "ref": ""
  }
 ]
