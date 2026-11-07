@@ -7,7 +7,7 @@
 <title>SRC Scanner</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f1117;color:#e0e0e0}
+body{font-family:"LXGW WenKai Lite","LXGW WenKai","Kaiti SC",-apple-system,sans-serif;background:#0f1117;color:#e0e0e0}
 .page{display:none;min-height:100vh;align-items:center;justify-content:center;padding:20px}
 .page.show{display:flex}
 .box{background:#1a1d27;padding:30px;border-radius:12px;width:100%;max-width:420px}
@@ -123,6 +123,7 @@ a{color:#4f8cff;text-decoration:none;font-size:13px}
 .hintBar b{color:#fff}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 </style>
+<link rel="stylesheet" href="/fonts/lxgw-wenkai-lite/lxgw-wenkai-lite.css">
 </head>
 <body>
 <script>if(top!==self){document.body.innerHTML='<div style="padding:20px;color:#666">禁止嵌入</div>'}</script>
@@ -154,7 +155,7 @@ setTimeout(refreshFakeIP, 500);
     var ok=false;
     if(ref){try{var h=new URL(ref).hostname;if(h===MAIN||h==='localhost')ok=true}catch(e){}}
     if(!ok){
-      var style='body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f1117;color:#e0e0e0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}*{box-sizing:border-box}.g{background:#1a1d27;border-radius:12px;padding:36px;max-width:480px;width:100%;text-align:center;border:1px solid #2a2a3a}.g .ic{font-size:42px;margin-bottom:8px}.g h1{font-size:22px;color:#fff;margin:0 0 14px}.g p{font-size:14px;line-height:1.9;color:#aaa;margin:0 0 22px;text-align:left}.g b{color:#ccc}.g a{display:inline-block;background:#4f8cff;color:#fff;text-decoration:none;padding:12px 30px;border-radius:8px;font-size:15px;font-weight:600}.g a:hover{background:#3a7aef}';
+      var style='body{margin:0;font-family:"LXGW WenKai Lite","LXGW WenKai","Kaiti SC",-apple-system,sans-serif;background:#0f1117;color:#e0e0e0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}*{box-sizing:border-box}.g{background:#1a1d27;border-radius:12px;padding:36px;max-width:480px;width:100%;text-align:center;border:1px solid #2a2a3a}.g .ic{font-size:42px;margin-bottom:8px}.g h1{font-size:22px;color:#fff;margin:0 0 14px}.g p{font-size:14px;line-height:1.9;color:#aaa;margin:0 0 22px;text-align:left}.g b{color:#ccc}.g a{display:inline-block;background:#4f8cff;color:#fff;text-decoration:none;padding:12px 30px;border-radius:8px;font-size:15px;font-weight:600}.g a:hover{background:#3a7aef}';
       var h='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>访问引导 · CaesarBase</title><style>'+style+'</style></head><body><div class="g"><div class="ic">🔐</div><h1>访问引导</h1><p><b>为什么看到此页面？</b><br>您可能是在地址栏直接输入了本页面的网址。<br>本页面是 CaesarBase 主站的附属工具页面，仅供从主站入口进入使用。<br>为避免误入非官方入口，请返回 CaesarBase 主站。</p><a href="https://caesarpc.github.io/">返回 CaesarBase 主站</a></div></body></html>';
       document.open();document.write(h);document.close();
     }
