@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="正则表达式 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="正则表达式">
+<meta name="description" content="正則表達式 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="正則表達式">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-230.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>正则表达式 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-230.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-230.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-230.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-230.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>正則表達式 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,80 +34,65 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="正则表达式 - CaesarTools">
-<meta property="og:description" content="正则表达式 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-230.html">
+<meta property="og:title" content="正則表達式 - CaesarTools">
+<meta property="og:description" content="正則表達式 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-230.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"正则表达式","description":"正则表达式 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-230.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"正則表達式","description":"正則表達式 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-230.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>正则表达式</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>正則表達式</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 正则表达式：文本处理的瑞士军刀</p>
-<p>正则表达式是程序员最该掌握的工具之一。校验邮箱、提取URL、替换文本格式、从日志中Search特定模式——凡是涉及字符串模式匹配的工作，正则都能几行代码搞定。但很多人看到一堆\w\d+就头大，觉得正则看不懂。其实正则的语法很简单，花半小时掌握基础，能省你几天的手动字符串处理。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 正則表達式：文本處理的瑞士軍刀</p>
+<p>正則表達式是程序員最該掌握的工具之一。校驗郵箱、提取URL、替換文本格式、從日誌中搜索特定模式——凡是涉及字符串模式匹配的工作，正則都能幾行代碼搞定。但很多人看到一堆\w\d+就頭大，覺得正則看不懂。其實正則的語法很簡單，花半小時掌握基礎，能省你幾天的手動字符串處理。</p>
 <p>## 一、基本匹配</p>
-<p>正则就是一个模式字符串，用来描述你要找的文本长什么样。</p>
+<p>正則就是一個模式字符串，用來描述你要找的文本長什麼樣。</p>
 <p>/hello/ 匹配包含"hello"的文本。
 /hello world/ 匹配"hello world"。
-加g标志匹配所有（默认只匹配第一个）：/hello/g。
-加i标志忽略大小写：/Hello/i 匹配hello、Hello、HELLO。</p>
+加g標誌匹配所有（默認只匹配第一個）：/hello/g。
+加i標誌忽略大小寫：/Hello/i 匹配hello、Hello、HELLO。</p>
 <p>## 二、常用元字符</p>
-<p>\d 匹配数字（0-9）
-\w 匹配字母数字下划线
-\s 匹配空白字符（空格、tab、换行）
-. 匹配任意字符（除了换行）
-^ 匹配字符串开头
-$ 匹配字符串结尾
-* 前面的元素出现0次或多次
-+ 前面的元素出现1次或多次
-? 前面的元素出现0次或1次
-{n} 前面的元素出现n次
-{n,m} 前面的元素出现n到m次
+<p>\d 匹配數字（0-9）
+\w 匹配字母數字下劃線
+\s 匹配空白字符（空格、tab、換行）
+. 匹配任意字符（除了換行）
+^ 匹配字符串開頭
+$ 匹配字符串結尾
+* 前面的元素出現0次或多次
++ 前面的元素出現1次或多次
+? 前面的元素出現0次或1次
+{n} 前面的元素出現n次
+{n,m} 前面的元素出現n到m次
 [] 字符集，[abc]匹配a或b或c
 [^abc] 不在字符集中
 | 或，a|b匹配a或b
-() 分组</p>
-<p>## 三、实用例子</p>
-<p>校验手机号：/^1[3-9]\d{9}$/
-1开头，第二位3-9，后面9位数字，整体匹配（^和$确保从头到尾完全匹配）。</p>
-<p>校验邮箱：/^[\w.-]+@[\w.-]+\.\w+$/
-简单版邮箱匹配。</p>
+() 分組</p>
+<p>## 三、實用例子</p>
+<p>校驗手機號：/^1[3-9]\d{9}$/
+1開頭，第二位3-9，後面9位數字，整體匹配（^和$確保從頭到尾完全匹配）。</p>
+<p>校驗郵箱：/^[\w.-]+@[\w.-]+\.\w+$/
+簡單版郵箱匹配。</p>
 <p>提取URL：/https?:\/\/[^\s]+/g
-匹配http或https开头的URL。</p>
-<p>替换多余空格：text.replace(/\s+/g, ' ')
-多个连续空格替换成一个。</p>
-<p>## 四、贪婪与非贪婪</p>
-<p>.* 是贪婪匹配——尽可能多匹配。/.+/ 匹配"abc def"会匹配整个字符串。
-.*? 是非贪婪匹配——尽可能少匹配。/.+? / 匹配"abc def"只匹配"abc "。</p>
-<p>这个区别很重要。比如提取HTMLTags内容，贪婪和非贪婪结果完全不同。</p>
-<p>## 五、总结</p>
-<p>正则不需要一次背完。记住\d\w\s*+?这几个常用元字符，能应对80%的场景。复杂的正则现写现查，不需要死记。但至少要能读懂别人写的正则，知道它在匹配什么模式。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+匹配http或https開頭的URL。</p>
+<p>替換多餘空格：text.replace(/\s+/g, ' ')
+多個連續空格替換成一個。</p>
+<p>## 四、貪婪與非貪婪</p>
+<p>.* 是貪婪匹配——儘可能多匹配。/.+/ 匹配"abc def"會匹配整個字符串。
+.*? 是非貪婪匹配——儘可能少匹配。/.+? / 匹配"abc def"只匹配"abc "。</p>
+<p>這個區別很重要。比如提取HTML標籤內容，貪婪和非貪婪結果完全不同。</p>
+<p>## 五、總結</p>
+<p>正則不需要一次背完。記住\d\w\s*+?這幾個常用元字符，能應對80%的場景。複雜的正則現寫現查，不需要死記。但至少要能讀懂別人寫的正則，知道它在匹配什麼模式。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-225.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 幂等性设计</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控</a><a href="article-tech-225.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 冪等性設計</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR與SSG</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

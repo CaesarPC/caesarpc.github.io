@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="数据库事务ACID - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="数据库事务ACID, 数据库">
+<meta name="description" content="數據庫事務ACID - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="數據庫事務ACID, 數據庫">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-235.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数据库事务ACID - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-235.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-235.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-235.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-235.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數據庫事務ACID - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,62 +34,47 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="数据库事务ACID - CaesarTools">
-<meta property="og:description" content="数据库事务ACID - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-235.html">
+<meta property="og:title" content="數據庫事務ACID - CaesarTools">
+<meta property="og:description" content="數據庫事務ACID - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-235.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"数据库事务ACID","description":"数据库事务ACID - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-235.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"數據庫事務ACID","description":"數據庫事務ACID - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-235.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>数据库事务ACID</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>數據庫事務ACID</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 数据库事务：ACID与并发控制的核心</p>
-<p>转账的时候，A扣100块，B加100块。这两个操作要么都成功，要么都失败——不能扣了A的钱B没收到。这就是数据库事务要解决的问题。事务是数据库区别于文件系统的核心特性，理解ACID和隔离级别，是后端开发的基本功。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 數據庫事務：ACID與併發控制的核心</p>
+<p>轉賬的時候，A扣100塊，B加100塊。這兩個操作要麼都成功，要麼都失敗——不能扣了A的錢B沒收到。這就是數據庫事務要解決的問題。事務是數據庫區別於文件系統的核心特性，理解ACID和隔離級別，是後端開發的基本功。</p>
 <p>## 一、ACID四大特性</p>
-<p>原子性（Atomicity）：事务是不可分割的最小单位。里面的操作要么全部成功，要么全部失败回滚。转账：扣钱和加钱必须同时成功或同时失败。</p>
-<p>一致性（Consistency）：事务执行前后，数据库从一个一致状态到另一个一致状态。转账前后总金额不变。</p>
-<p>隔离性（Isolation）：多个并发事务之间互不干扰。一个事务的中间状态对其他事务不可见。</p>
-<p>持久性（Durability）：事务Submit后，结果永久保存。即使数据库崩溃，重启后数据还在。</p>
-<p>## 二、并发问题</p>
-<p>多个事务同时操作数据时，会出现几种问题：</p>
-<p>脏读：事务A读到了事务B还没Submit的数据。B回滚了，A读到的就是无效数据。</p>
-<p>不可重复读：事务A两次读同一行数据，中间事务B修改了这行并Submit，A两次读到的不一样。</p>
-<p>幻读：事务A两次查询范围，中间事务B插入了新行，A第二次多看到了几行。</p>
-<p>## 三、隔离级别</p>
-<p>读未Submit：最低级别，上面三种问题都可能发生。
-读已Submit：只读到已Submit的数据，解决脏读。大多数数据库默认级别。
-可重复读：同一事务内多次读同一行结果一致，解决不可重复读。MySQL默认级别。
-串行化：最高级别，事务串行执行，解决所有问题但性能最差。</p>
-<p>## 四、实际应用</p>
-<p>大部分业务用默认隔离级别就够了。只有转账、库存扣减这类要求强一致的场景，才需要仔细考虑隔离级别和锁。不要盲目调高级别——隔离级别越高并发性能越差。</p>
-<p>## 五、总结</p>
-<p>事务保证了一组数据库操作的原子性。ACID是理想，隔离级别是权衡——越高越安全但越慢。理解脏读、不可重复读、幻读三种问题，知道默认级别能挡住哪些，就够日常开发用了。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>原子性（Atomicity）：事務是不可分割的最小單位。裡面的操作要麼全部成功，要麼全部失敗回滾。轉賬：扣錢和加錢必須同時成功或同時失敗。</p>
+<p>一致性（Consistency）：事務執行前後，數據庫從一個一致狀態到另一個一致狀態。轉賬前後總金額不變。</p>
+<p>隔離性（Isolation）：多個併發事務之間互不干擾。一個事務的中間狀態對其他事務不可見。</p>
+<p>持久性（Durability）：事務提交後，結果永久保存。即使數據庫崩潰，重啟後數據還在。</p>
+<p>## 二、併發問題</p>
+<p>多個事務同時操作數據時，會出現幾種問題：</p>
+<p>髒讀：事務A讀到了事務B還沒提交的數據。B回滾了，A讀到的就是無效數據。</p>
+<p>不可重複讀：事務A兩次讀同一行數據，中間事務B修改了這行並提交，A兩次讀到的不一樣。</p>
+<p>幻讀：事務A兩次查詢範圍，中間事務B插入了新行，A第二次多看到了幾行。</p>
+<p>## 三、隔離級別</p>
+<p>讀未提交：最低級別，上面三種問題都可能發生。
+讀已提交：只讀到已提交的數據，解決髒讀。大多數數據庫默認級別。
+可重複讀：同一事務內多次讀同一行結果一致，解決不可重複讀。MySQL默認級別。
+串行化：最高級別，事務串行執行，解決所有問題但性能最差。</p>
+<p>## 四、實際應用</p>
+<p>大部分業務用默認隔離級別就夠了。只有轉賬、庫存扣減這類要求強一致的場景，才需要仔細考慮隔離級別和鎖。不要盲目調高級別——隔離級別越高併發性能越差。</p>
+<p>## 五、總結</p>
+<p>事務保證了一組數據庫操作的原子性。ACID是理想，隔離級別是權衡——越高越安全但越慢。理解髒讀、不可重複讀、幻讀三種問題，知道默認級別能擋住哪些，就夠日常開發用了。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-228.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能优化清单</a><a href="article-tech-229.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 响应式设计</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-228.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能優化清單</a><a href="article-tech-229.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 響應式設計</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR與SSG</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

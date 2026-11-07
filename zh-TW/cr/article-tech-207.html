@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="浏览器渲染原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="浏览器渲染原理">
+<meta name="description" content="瀏覽器渲染原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="瀏覽器渲染原理">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-207.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器渲染原理 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-207.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-207.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-207.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-207.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀏覽器渲染原理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,62 +34,47 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="浏览器渲染原理 - CaesarTools">
-<meta property="og:description" content="浏览器渲染原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-207.html">
+<meta property="og:title" content="瀏覽器渲染原理 - CaesarTools">
+<meta property="og:description" content="瀏覽器渲染原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-207.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器渲染原理","description":"浏览器渲染原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-207.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"瀏覽器渲染原理","description":"瀏覽器渲染原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-207.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>浏览器渲染原理</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>瀏覽器渲染原理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 浏览器渲染原理：从输入URL到页面呈现的全过程</p>
-<p>当你在浏览器地址栏输入一个网址按下回车，到页面完整渲染出来，背后发生了一连串精密的工作：DNS解析、TCP连接、HTTP请求、服务器处理、HTML解析、CSS计算、布局绘制、图层合成。整个过程通常在几百毫秒内完成，但每一步都可能成为性能瓶颈。理解浏览器渲染原理，不是为了背面试题，而是为了知道你的代码为什么慢、该怎么优化。</p>
-<p>## 一、DOM树与CSSOM树</p>
-<p>浏览器拿到HTML之后，从上到下解析HTMLTags，构建DOM树——一个节点树，每个HTMLTags对应一个节点。遇到CSS文件或者styleTags，解析CSS规则，构建CSSOM树——描述每个选择器对应哪些样式属性。</p>
-<p>DOM树和CSSOM树是两棵独立的树。DOM描述页面结构，CSSOM描述样式规则。它们合在一起，就生成了渲染树（Render Tree）——每个可见DOM节点加上它计算后的样式。注意是"可见"——headTags、display:none的元素不在渲染树里，因为它们不需要绘制。</p>
-<p>关键性能点：CSSOM的构建是阻塞渲染的。浏览器必须等CSS全部下载并解析完，才能构建渲染树开始绘制。这就是为什么CSS要放在head里尽早加载——如果CSS放在body底部，浏览器前面解析了一堆HTML，到CSS加载完之前都白屏等着。而JS更狠——解析到scriptTags时，DOM构建会暂停，因为JS可能会修改DOM和CSSOM。这就是为什么普通的scriptTags要放底部或者加defer/async。</p>
-<p>## 二、布局与绘制</p>
-<p>渲染树构建好之后，浏览器进入布局阶段（Layout）：计算每个节点在屏幕上的确切位置和大小。这一步也叫Reflow。浏览器从根节点开始遍历，算出每个元素的坐标、尺寸。</p>
-<p>布局之后是绘制（Paint）：把每个节点的像素画出来——颜色、文字、图片、边框、阴影。绘制不是一步画完全部，浏览器会把页面分成多个图层，每个图层单独绘制。</p>
-<p>最后是合成（Composite）：把多个绘制好的图层按照正确的顺序叠在一起，显示到屏幕上。这一步由GPU加速处理，非常快。</p>
-<p>关键性能点：修改不同的CSS属性，触发的渲染步骤不同。修改width、height、left、top这些几何属性，会触发Layout（重排），然后Paint，然后Composite——最贵。修改color、background-color，不需要Layout，只需要Paint和Composite——中等。修改transform和opacity，只需要Composite——最便宜，因为元素的位置和大小没变，只需要把合成图层变换一下位置或者透明度。</p>
-<p>这就是为什么高性能动画推荐用transform做位移动画而不是改left/top——改left/top每帧都触发重排，性能极差；用transform只触发合成，GPU处理，丝般顺滑。</p>
-<p>## 三、节流与渲染帧</p>
-<p>浏览器每秒大概刷新60次屏幕，也就是每16.7毫秒要完成一帧的渲染。如果你的JS执行时间超过了16毫秒，就会掉帧——页面卡顿。</p>
-<p>requestAnimationFrame是和浏览器渲染节奏对齐的API。你把动画更新的逻辑放在requestAnimationFrame回调里，浏览器会在每次重绘前调用它，保证动画流畅。不要用setTimeout做动画——setTimeout的时间线和浏览器渲染不同步，容易丢帧。</p>
-<p>## 四、重排与重绘优化</p>
-<p>减少重排是前端性能优化的核心原则之一。以下操作会触发重排：修改元素尺寸位置、修改字体、添加删除样式、窗口大小变化、读取offsetWidth等布局属性。</p>
-<p>一个经典优化技巧：批量修改DOM。不要一次次修改元素样式然后读布局属性——每次修改都触发一次重排。正确做法是：先把元素display:none（脱离渲染树），然后批量修改它的所有样式，再显示回来。这样只触发两次重排（隐藏和显示），而不是每次修改都触发。</p>
-<p>读取布局属性也要小心。如果你连续修改样式然后读offsetWidth，浏览器为了给你正确的值，会强制同步刷新布局——本来可以批量优化的重排被你拆成了一个个独立的。最好把所有读操作放在前面，写完再统一读。</p>
-<p>## 五、总结</p>
-<p>浏览器渲染是一个流水线：解析HTML/CSS→构建渲染树→布局→绘制→合成。每一步都有性能开销，理解每一步什么操作最贵，就能写出性能更好的代码。记住三个层级：改几何属性最贵（重排+重绘+合成），改颜色居中（重绘+合成），改transform/opacity最便宜（只合成）。高性能动画永远走合成层，避免每帧重排。这就是浏览器渲染原理给前端开发者最实用的指导。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 瀏覽器渲染原理：從輸入URL到頁面呈現的全過程</p>
+<p>當你在瀏覽器地址欄輸入一個網址按下回車，到頁面完整渲染出來，背後發生了一連串精密的工作：DNS解析、TCP連接、HTTP請求、服務器處理、HTML解析、CSS計算、佈局繪製、圖層合成。整個過程通常在幾百毫秒內完成，但每一步都可能成為性能瓶頸。理解瀏覽器渲染原理，不是為了背面試題，而是為了知道你的代碼為什麼慢、該怎麼優化。</p>
+<p>## 一、DOM樹與CSSOM樹</p>
+<p>瀏覽器拿到HTML之後，從上到下解析HTML標籤，構建DOM樹——一個節點樹，每個HTML標籤對應一個節點。遇到CSS文件或者style標籤，解析CSS規則，構建CSSOM樹——描述每個選擇器對應哪些樣式屬性。</p>
+<p>DOM樹和CSSOM樹是兩棵獨立的樹。DOM描述頁面結構，CSSOM描述樣式規則。它們合在一起，就生成了渲染樹（Render Tree）——每個可見DOM節點加上它計算後的樣式。注意是"可見"——head標籤、display:none的元素不在渲染樹裡，因為它們不需要繪製。</p>
+<p>關鍵性能點：CSSOM的構建是阻塞渲染的。瀏覽器必須等CSS全部下載並解析完，才能構建渲染樹開始繪製。這就是為什麼CSS要放在head裡儘早加載——如果CSS放在body底部，瀏覽器前面解析了一堆HTML，到CSS加載完之前都白屏等着。而JS更狠——解析到script標籤時，DOM構建會暫停，因為JS可能會修改DOM和CSSOM。這就是為什麼普通的script標籤要放底部或者加defer/async。</p>
+<p>## 二、佈局與繪製</p>
+<p>渲染樹構建好之後，瀏覽器進入佈局階段（Layout）：計算每個節點在屏幕上的確切位置和大小。這一步也叫Reflow。瀏覽器從根節點開始遍歷，算出每個元素的坐標、尺寸。</p>
+<p>佈局之後是繪製（Paint）：把每個節點的像素畫出來——顏色、文字、圖片、邊框、陰影。繪製不是一步畫完全部，瀏覽器會把頁面分成多個圖層，每個圖層單獨繪製。</p>
+<p>最後是合成（Composite）：把多個繪製好的圖層按照正確的順序疊在一起，顯示到屏幕上。這一步由GPU加速處理，非常快。</p>
+<p>關鍵性能點：修改不同的CSS屬性，觸發的渲染步驟不同。修改width、height、left、top這些幾何屬性，會觸發Layout（重排），然後Paint，然後Composite——最貴。修改color、background-color，不需要Layout，只需要Paint和Composite——中等。修改transform和opacity，只需要Composite——最便宜，因為元素的位置和大小沒變，只需要把合成圖層變換一下位置或者透明度。</p>
+<p>這就是為什麼高性能動畫推薦用transform做位移動畫而不是改left/top——改left/top每幀都觸發重排，性能極差；用transform只觸發合成，GPU處理，絲般順滑。</p>
+<p>## 三、節流與渲染幀</p>
+<p>瀏覽器每秒大概刷新60次屏幕，也就是每16.7毫秒要完成一幀的渲染。如果你的JS執行時間超過了16毫秒，就會掉幀——頁面卡頓。</p>
+<p>requestAnimationFrame是和瀏覽器渲染節奏對齊的API。你把動畫更新的邏輯放在requestAnimationFrame回調裡，瀏覽器會在每次重繪前調用它，保證動畫流暢。不要用setTimeout做動畫——setTimeout的時間線和瀏覽器渲染不同步，容易丟幀。</p>
+<p>## 四、重排與重繪優化</p>
+<p>減少重排是前端性能優化的核心原則之一。以下操作會觸發重排：修改元素尺寸位置、修改字體、添加刪除樣式、窗口大小變化、讀取offsetWidth等佈局屬性。</p>
+<p>一個經典優化技巧：批量修改DOM。不要一次次修改元素樣式然後讀佈局屬性——每次修改都觸發一次重排。正確做法是：先把元素display:none（脫離渲染樹），然後批量修改它的所有樣式，再顯示回來。這樣只觸發兩次重排（隱藏和顯示），而不是每次修改都觸發。</p>
+<p>讀取佈局屬性也要小心。如果你連續修改樣式然後讀offsetWidth，瀏覽器為了給你正確的值，會強制同步刷新佈局——本來可以批量優化的重排被你拆成了一個個獨立的。最好把所有讀操作放在前面，寫完再統一讀。</p>
+<p>## 五、總結</p>
+<p>瀏覽器渲染是一個流水線：解析HTML/CSS→構建渲染樹→佈局→繪製→合成。每一步都有性能開銷，理解每一步什麼操作最貴，就能寫出性能更好的代碼。記住三個層級：改幾何屬性最貴（重排+重繪+合成），改顏色居中（重繪+合成），改transform/opacity最便宜（只合成）。高性能動畫永遠走合成層，避免每幀重排。這就是瀏覽器渲染原理給前端開發者最實用的指導。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-217.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器事件循环</a><a href="article-tech-210.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS与TLS加密原理</a><a href="article-tech-208.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 递归与动态规划</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-217.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器事件循環</a><a href="article-tech-210.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS與TLS加密原理</a><a href="article-tech-208.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 遞歸與動態規劃</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

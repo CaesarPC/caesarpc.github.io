@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="JavaScript事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="JavaScript事件委托, JavaScript, Java">
+<meta name="description" content="JavaScript事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="JavaScript事件委託, JavaScript, Java">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-287.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript事件委托 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-287.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-287.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-287.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-287.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript事件委託 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,46 +34,31 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="JavaScript事件委托 - CaesarTools">
-<meta property="og:description" content="JavaScript事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-287.html">
+<meta property="og:title" content="JavaScript事件委託 - CaesarTools">
+<meta property="og:description" content="JavaScript事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-287.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件委托","description":"JavaScript事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-287.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件委託","description":"JavaScript事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-287.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>JavaScript事件委托</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>JavaScript事件委託</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>JavaScript事件委托：利用冒泡减少监听器数量</p>
-<p>列表有100个按钮，每个都绑点击事件性能差。事件委托利用事件冒泡，在父元素上绑一个监听器，通过event.target判断是哪个子元素被点击。这样只需要一个监听器，而不是100个。</p>
-<p>原理：事件触发后会从目标元素冒泡到父元素。在父元素上监听click，通过event.target找到实际点击的元素。新增的子元素自动享受委托，不需要重新绑定。</p>
-<p>优势：减少监听器数量（性能好）；动态添加的元素自动绑定（不需要重新bind）；内存占用低。</p>
-<p>实现：父元素.addEventListener('click', e => { if (e.target.matches('.item')) { ... } })。用matches判断点击的是不是目标元素。这是前端优化的常用技巧。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>JavaScript事件委託：利用冒泡減少監聽器數量</p>
+<p>列表有100個按鈕，每個都綁點擊事件性能差。事件委託利用事件冒泡，在父元素上綁一個監聽器，通過event.target判斷是哪個子元素被點擊。這樣只需要一個監聽器，而不是100個。</p>
+<p>原理：事件觸發後會從目標元素冒泡到父元素。在父元素上監聽click，通過event.target找到實際點擊的元素。新增的子元素自動享受委託，不需要重新綁定。</p>
+<p>優勢：減少監聽器數量（性能好）；動態添加的元素自動綁定（不需要重新bind）；內存佔用低。</p>
+<p>實現：父元素.addEventListener('click', e => { if (e.target.matches('.item')) { ... } })。用matches判斷點擊的是不是目標元素。這是前端優化的常用技巧。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-274.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JWT刷新令牌</a><a href="article-tech-301.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Grid布局实战</a><a href="article-tech-293.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型链继承</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-274.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JWT刷新令牌</a><a href="article-tech-301.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_Grid佈局實戰</a><a href="article-tech-293.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型鏈繼承</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="JavaScript事件循环深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="JavaScript事件循环深入, JavaScript, Java">
+<meta name="description" content="JavaScript事件循環深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="JavaScript事件循環深入, JavaScript, Java">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-169.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript事件循环深入 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-169.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-169.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-169.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-169.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript事件循環深入 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,49 +34,34 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="JavaScript事件循环深入 - CaesarTools">
-<meta property="og:description" content="JavaScript事件循环深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-169.html">
+<meta property="og:title" content="JavaScript事件循環深入 - CaesarTools">
+<meta property="og:description" content="JavaScript事件循環深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-169.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件循环深入","description":"JavaScript事件循环深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-169.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件循環深入","description":"JavaScript事件循環深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-169.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>JavaScript事件循环深入</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>JavaScript事件循環深入</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>JavaScript事件循环深入：宏任务微任务与渲染时机</p>
-<p>JavaScript单线程的奥秘在事件循环（Event Loop）。理解事件循环，才能搞懂为什么setTimeout比Promise慢、为什么UI渲染在特定时机发生。这是JS面试和实战的核心知识点。</p>
-<p>事件循环的执行顺序：调用栈清空后，先执行所有微任务（Promise.then、MutationObserver、queueMicrotask），然后做渲染（如果需要），再取一个宏任务（setTimeout、setInterval、I/O）执行。这个循环不断重复。</p>
-<p>宏任务和微任务的区别：宏任务是每次事件循环的主要任务（script整体代码、setTimeout、setInterval、I/O、UI渲染）；微任务是当前任务结束后立刻执行的任务，在下次渲染之前。微任务优先级高于宏任务。</p>
-<p>执行顺序举例：console.log('1'); setTimeout(() => console.log('2'), 0); Promise.resolve().then(() => console.log('3')); console.log('4'); 输出顺序是1、4、3、2。因为同步代码先执行（1、4），然后微任务（3），最后宏任务（2）。</p>
-<p>渲染时机：浏览器在微任务清空后、下一个宏任务之前做渲染。这就是为什么在微任务里修改DOM，浏览器能一次性渲染，不会闪多次。而如果在宏任务里连续修改DOM，中间可能插入渲染。</p>
-<p>requestAnimationFrame的回调在渲染前执行，适合做动画。它的回调会在下次重绘前调用，保证动画流畅。</p>
-<p>理解事件循环，才能解释各种"诡异"的执行顺序问题。比如为什么await后面的代码比setTimeout先执行——因为await是微任务，setTimeout是宏任务。这不是玄学，是事件循环的规则。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>JavaScript事件循環深入：宏任務微任務與渲染時機</p>
+<p>JavaScript單線程的奧祕在事件循環（Event Loop）。理解事件循環，才能搞懂為什麼setTimeout比Promise慢、為什麼UI渲染在特定時機發生。這是JS面試和實戰的核心知識點。</p>
+<p>事件循環的執行順序：調用棧清空後，先執行所有微任務（Promise.then、MutationObserver、queueMicrotask），然後做渲染（如果需要），再取一個宏任務（setTimeout、setInterval、I/O）執行。這個循環不斷重複。</p>
+<p>宏任務和微任務的區別：宏任務是每次事件循環的主要任務（script整體代碼、setTimeout、setInterval、I/O、UI渲染）；微任務是當前任務結束後立刻執行的任務，在下次渲染之前。微任務優先級高於宏任務。</p>
+<p>執行順序舉例：console.log('1'); setTimeout(() => console.log('2'), 0); Promise.resolve().then(() => console.log('3')); console.log('4'); 輸出順序是1、4、3、2。因為同步代碼先執行（1、4），然後微任務（3），最後宏任務（2）。</p>
+<p>渲染時機：瀏覽器在微任務清空後、下一個宏任務之前做渲染。這就是為什麼在微任務裡修改DOM，瀏覽器能一次性渲染，不會閃多次。而如果在宏任務裡連續修改DOM，中間可能插入渲染。</p>
+<p>requestAnimationFrame的回調在渲染前執行，適合做動畫。它的回調會在下次重繪前調用，保證動畫流暢。</p>
+<p>理解事件循環，才能解釋各種"詭異"的執行順序問題。比如為什麼await後面的代碼比setTimeout先執行——因為await是微任務，setTimeout是宏任務。這不是玄學，是事件循環的規則。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-164.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系统设计方法论</a><a href="article-tech-178.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖与节流</a><a href="article-tech-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本编辑器原理</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-164.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系統設計方法論</a><a href="article-tech-178.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-tech-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本編輯器原理</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

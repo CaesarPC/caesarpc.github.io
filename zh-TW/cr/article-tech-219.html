@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="限流与熔断降级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="限流与熔断降级">
+<meta name="description" content="限流與熔斷降級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="限流與熔斷降級">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-219.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>限流与熔断降级 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-219.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-219.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-219.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-219.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>限流與熔斷降級 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,60 +34,45 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="限流与熔断降级 - CaesarTools">
-<meta property="og:description" content="限流与熔断降级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-219.html">
+<meta property="og:title" content="限流與熔斷降級 - CaesarTools">
+<meta property="og:description" content="限流與熔斷降級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-219.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"限流与熔断降级","description":"限流与熔断降级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-219.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"限流與熔斷降級","description":"限流與熔斷降級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-219.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>限流与熔断降级</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>限流與熔斷降級</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 限流与熔断：高并发系统的自保机制</p>
-<p>当你的系统突然遭遇十倍于平时的流量——可能是上了热搜、可能是被恶意攻击——系统会怎样？如果不做任何保护，数据库连接池被打满、CPU跑满、内存耗尽，整个系统彻底崩溃。限流和熔断就是系统在高压下的自保机制：宁可拒绝一部分请求，也不让整个系统挂掉。</p>
-<p>## 一、为什么需要限流</p>
-<p>一个系统的处理能力是有上限的。一台服务器每秒能处理500个请求，突然来了5000个，怎么办？全部接进来处理，结果每个都处理得慢，5000个全部超时，系统也崩了。正确做法是：只处理500个，剩下的4500个快速拒绝（Back"系统繁忙，请稍后重试"）。这样500个请求正常处理，系统稳定运行，用户至少知道要重试。</p>
-<p>限流的本质是：保护系统不被超出能力的流量压垮。</p>
-<p>## 二、常见限流算法</p>
-<p>计数器法：单位时间内计数，超过阈值就拒绝。简单粗暴，但有临界问题——前一秒最后一刻来100个请求，后一秒第一刻又来100个，实际一瞬间过了200个。</p>
-<p>漏桶算法：请求像水一样倒进一个漏桶，桶以固定速率流出（处理）。桶满了就拒绝。特点是输出速率恒定，不管输入多 burst。适合保护下游系统——不管流量多不均匀，后端看到的都是平稳的请求。</p>
-<p>令牌桶算法：以固定速率往桶里放令牌，每个请求要拿一个令牌才能处理。桶里最多存N个令牌。特点是允许一定程度的突发——桶里攒了令牌，突然来一波请求可以快速处理。这是最常用的限流算法。</p>
-<p>## 三、熔断：故障的自我保护</p>
-<p>限流是保护自己不被过多请求压垮，熔断是保护自己不被下游服务拖垮。</p>
-<p>场景：你的订单服务要调用用户服务查用户信息。用户服务突然挂了，每次调用都要等3秒超时才Back。你的订单服务有20个线程，都卡在等用户服务响应上——新的订单请求没线程处理了，订单服务也跟着挂了。这就是故障雪崩：一个下游服务挂了，把整个链路都拖垮。</p>
-<p>熔断的思路：如果调用下游服务失败率太高（比如10次调用8次超时），就"熔断"——不再真正调用下游，直接快速Back降级结果。过一段时间（比如30秒），放一小部分请求进去试试，如果成功了就Close熔断恢复正常。</p>
-<p>这就像电路里的保险丝——电流太大自动断开，保护电器。下游服务挂了，你的服务自动断开对它的调用，用降级数据撑着，等下游恢复了再接通。</p>
-<p>## 四、降级：保底策略</p>
-<p>熔断之后Back什么？Back降级数据。比如商品详情页调用Comments服务失败了，Comments区域显示"Comments加载失败，请稍后再试"，而不是整个页面白屏。核心功能（商品信息）正常用，非核心功能（Comments）降级。</p>
-<p>降级的原则是：保证核心链路可用，牺牲非核心功能。电商大促时，推荐算法、个性化推荐这些非核心功能可以先关掉，保证下单支付链路畅通。</p>
-<p>## 五、总结</p>
-<p>限流、熔断、降级是高可用系统的三板斧。限流控制进入系统的流量不超过处理能力，熔断在下流出问题时切断故障传播，降级在功能受损时提供保底体验。没有这三层保护，系统在高压下只会崩溃；有了它们，系统能扛住远超日常的流量冲击，故障时也能优雅降级而不是直接宕机。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 限流與熔斷：高併發系統的自保機制</p>
+<p>當你的系統突然遭遇十倍於平時的流量——可能是上了熱搜、可能是被惡意攻擊——系統會怎樣？如果不做任何保護，數據庫連接池被打滿、CPU跑滿、內存耗盡，整個系統徹底崩潰。限流和熔斷就是系統在高壓下的自保機制：寧可拒絕一部分請求，也不讓整個系統掛掉。</p>
+<p>## 一、為什麼需要限流</p>
+<p>一個系統的處理能力是有上限的。一臺服務器每秒能處理500個請求，突然來了5000個，怎麼辦？全部接進來處理，結果每個都處理得慢，5000個全部超時，系統也崩了。正確做法是：只處理500個，剩下的4500個快速拒絕（返回"系統繁忙，請稍後重試"）。這樣500個請求正常處理，系統穩定運行，用戶至少知道要重試。</p>
+<p>限流的本質是：保護系統不被超出能力的流量壓垮。</p>
+<p>## 二、常見限流算法</p>
+<p>計數器法：單位時間內計數，超過閾值就拒絕。簡單粗暴，但有臨界問題——前一秒最後一刻來100個請求，後一秒第一刻又來100個，實際一瞬間過了200個。</p>
+<p>漏桶算法：請求像水一樣倒進一個漏桶，桶以固定速率流出（處理）。桶滿了就拒絕。特點是輸出速率恆定，不管輸入多 burst。適合保護下游系統——不管流量多不均勻，後端看到的都是平穩的請求。</p>
+<p>令牌桶算法：以固定速率往桶裡放令牌，每個請求要拿一個令牌才能處理。桶裡最多存N個令牌。特點是允許一定程度的突發——桶裡攢了令牌，突然來一波請求可以快速處理。這是最常用的限流算法。</p>
+<p>## 三、熔斷：故障的自我保護</p>
+<p>限流是保護自己不被過多請求壓垮，熔斷是保護自己不被下游服務拖垮。</p>
+<p>場景：你的訂單服務要調用用戶服務查用戶信息。用戶服務突然掛了，每次調用都要等3秒超時才返回。你的訂單服務有20個線程，都卡在等用戶服務響應上——新的訂單請求沒線程處理了，訂單服務也跟着掛了。這就是故障雪崩：一個下游服務掛了，把整個鏈路都拖垮。</p>
+<p>熔斷的思路：如果調用下游服務失敗率太高（比如10次調用8次超時），就"熔斷"——不再真正調用下游，直接快速返回降級結果。過一段時間（比如30秒），放一小部分請求進去試試，如果成功了就關閉熔斷恢復正常。</p>
+<p>這就像電路里的保險絲——電流太大自動斷開，保護電器。下游服務掛了，你的服務自動斷開對它的調用，用降級數據撐着，等下游恢復了再接通。</p>
+<p>## 四、降級：保底策略</p>
+<p>熔斷之後返回什麼？返回降級數據。比如商品詳情頁調用評論服務失敗了，評論區域顯示"評論加載失敗，請稍後再試"，而不是整個頁面白屏。核心功能（商品信息）正常用，非核心功能（評論）降級。</p>
+<p>降級的原則是：保證核心鏈路可用，犧牲非核心功能。電商大促時，推薦算法、個性化推薦這些非核心功能可以先關掉，保證下單支付鏈路暢通。</p>
+<p>## 五、總結</p>
+<p>限流、熔斷、降級是高可用系統的三板斧。限流控制進入系統的流量不超過處理能力，熔斷在下流出問題時切斷故障傳播，降級在功能受損時提供保底體驗。沒有這三層保護，系統在高壓下只會崩潰；有了它們，系統能扛住遠超日常的流量衝擊，故障時也能優雅降級而不是直接宕機。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全过程</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全過程</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虛擬列表與長列表優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="浏览器渲染管线 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="浏览器渲染管线">
+<meta name="description" content="瀏覽器渲染管線 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="瀏覽器渲染管線">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-176.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器渲染管线 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-176.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-176.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-176.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-176.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀏覽器渲染管線 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,48 +34,33 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="浏览器渲染管线 - CaesarTools">
-<meta property="og:description" content="浏览器渲染管线 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-176.html">
+<meta property="og:title" content="瀏覽器渲染管線 - CaesarTools">
+<meta property="og:description" content="瀏覽器渲染管線 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-176.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器渲染管线","description":"浏览器渲染管线 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-176.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"瀏覽器渲染管線","description":"瀏覽器渲染管線 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-176.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>浏览器渲染管线</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>瀏覽器渲染管線</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>浏览器渲染管线：从HTML到像素的完整过程</p>
-<p>浏览器拿到HTML后，要经过一系列步骤才能把页面画到屏幕上。理解渲染管线，才能做性能优化。步骤是：解析HTML构建DOM树、解析CSS构建CSSOM树、合成渲染树、布局（Layout）、绘制（Paint）、合成（Composite）。</p>
-<p>第一步解析：HTML解析器把字节流转成DOM树；CSS解析器把样式转成CSSOM树。两者合并成渲染树——只包含需要显示的节点（display:none的不渲染）。</p>
-<p>第二步布局（Layout/Reflow）：计算每个节点在屏幕上的确切位置和大小。这是最昂贵的步骤，因为要重新计算整个树的几何信息。</p>
-<p>第三步绘制（Paint）：填充像素——颜色、文字、图片。把渲染树画成图层。</p>
-<p>第四步合成（Composite）：把多个图层合并成最终画面。只触发合成的属性（transform、opacity）性能最好，因为不需要重新布局和绘制。</p>
-<p>性能优化的核心：减少重排（Layout）。修改width/height会触发布局，修改transform/opacity只触发合成。动画用transform，不要用top/left。这是前端性能优化的基本原则。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>瀏覽器渲染管線：從HTML到像素的完整過程</p>
+<p>瀏覽器拿到HTML後，要經過一系列步驟才能把頁面畫到屏幕上。理解渲染管線，才能做性能優化。步驟是：解析HTML構建DOM樹、解析CSS構建CSSOM樹、合成渲染樹、佈局（Layout）、繪製（Paint）、合成（Composite）。</p>
+<p>第一步解析：HTML解析器把字節流轉成DOM樹；CSS解析器把樣式轉成CSSOM樹。兩者合併成渲染樹——只包含需要顯示的節點（display:none的不渲染）。</p>
+<p>第二步佈局（Layout/Reflow）：計算每個節點在屏幕上的確切位置和大小。這是最昂貴的步驟，因為要重新計算整個樹的幾何信息。</p>
+<p>第三步繪製（Paint）：填充像素——顏色、文字、圖片。把渲染樹畫成圖層。</p>
+<p>第四步合成（Composite）：把多個圖層合併成最終畫面。只觸發合成的屬性（transform、opacity）性能最好，因為不需要重新佈局和繪製。</p>
+<p>性能優化的核心：減少重排（Layout）。修改width/height會觸發佈局，修改transform/opacity只觸發合成。動畫用transform，不要用top/left。這是前端性能優化的基本原則。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 边缘渲染与下一代Web架构</a><a href="article-tech-182.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端工程化与现代框架深度解析</a><a href="article-tech-185.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库索引与查询优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣渲染與下一代Web架構</a><a href="article-tech-182.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端工程化與現代框架深度解析</a><a href="article-tech-185.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫索引與查詢優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

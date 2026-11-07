@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="EdgeFunctions - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="EdgeFunctions - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="EdgeFunctions">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-267.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-267.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-267.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-267.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-267.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EdgeFunctions - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,54 +35,39 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="EdgeFunctions - CaesarTools">
-<meta property="og:description" content="EdgeFunctions - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-267.html">
+<meta property="og:description" content="EdgeFunctions - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-267.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"EdgeFunctions","description":"EdgeFunctions - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-267.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"EdgeFunctions","description":"EdgeFunctions - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-267.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>EdgeFunctions</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是Edge Functions：在CDN边缘跑代码</p>
-<p>传统的后端代码跑在中心服务器上。Edge Functions把代码部署到CDN的边缘节点上——离用户最近的地方执行。</p>
-<p>## 一、好处</p>
-<p>延迟极低：代码跑在离用户几百毫秒的边缘节点，不用回源到中心服务器。
-全球分布：用户在日本，代码在日本边缘节点跑；用户在德国，在德国节点跑。
-自动扩展：平台管理，不用管服务器。</p>
-<p>## 二、局限</p>
-<p>运行时间短（几十毫秒），不适合长时间计算。
-本地文件系统有限。
-和传统服务器不完全兼容。</p>
-<p>## 三、适合场景</p>
-<p>API路由、鉴权处理、A/B测试、重定向、边缘渲染。轻量级、低延迟的逻辑。</p>
-<p>## 四、总结</p>
-<p>Edge Functions是Serverless在CDN边缘的延伸。把轻量逻辑放到离用户最近的地方执行，低延迟全球分发。重计算还是回中心服务器。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是Edge Functions：在CDN邊緣跑代碼</p>
+<p>傳統的後端代碼跑在中心服務器上。Edge Functions把代碼部署到CDN的邊緣節點上——離用戶最近的地方執行。</p>
+<p>## 一、好處</p>
+<p>延遲極低：代碼跑在離用戶幾百毫秒的邊緣節點，不用回源到中心服務器。
+全球分佈：用戶在日本，代碼在日本邊緣節點跑；用戶在德國，在德國節點跑。
+自動擴展：平臺管理，不用管服務器。</p>
+<p>## 二、侷限</p>
+<p>運行時間短（幾十毫秒），不適合長時間計算。
+本地文件系統有限。
+和傳統服務器不完全兼容。</p>
+<p>## 三、適合場景</p>
+<p>API路由、鑑權處理、A/B測試、重定向、邊緣渲染。輕量級、低延遲的邏輯。</p>
+<p>## 四、總結</p>
+<p>Edge Functions是Serverless在CDN邊緣的延伸。把輕量邏輯放到離用戶最近的地方執行，低延遲全球分發。重計算還是回中心服務器。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-271.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-260.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-271.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-260.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

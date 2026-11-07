@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="数据库分库分表 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="数据库分库分表, 数据库">
+<meta name="description" content="數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="數據庫分庫分表, 數據庫">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-200.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数据库分库分表 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-200.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-200.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-200.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-200.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數據庫分庫分表 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,71 +34,56 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="数据库分库分表 - CaesarTools">
-<meta property="og:description" content="数据库分库分表 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-200.html">
+<meta property="og:title" content="數據庫分庫分表 - CaesarTools">
+<meta property="og:description" content="數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-200.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"数据库分库分表","description":"数据库分库分表 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-200.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"數據庫分庫分表","description":"數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-200.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>数据库分库分表</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>數據庫分庫分表</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 数据库分库分表：当单表数据量突破千万级</p>
-<p>数据库是业务系统最核心的组件，也是最容易成为瓶颈的组件。早期项目，一张MySQL表存个几百万条数据，加上索引和缓存，跑得好好的。但随着业务增长，单表数据量突破千万、甚至上亿的时候，你会发现查询越来越慢、写入越来越卡、加索引要锁表半天、备份恢复要十几个小时。这时候就到了分库分表的阶段。分库分表不是什么高深的架构，但它是一个"一旦做了就回不去"的决策——数据拆了之后，跨表查询、分页排序、事务一致性全都是问题。所以做之前要想清楚：真的到了必须拆的时候吗？</p>
-<p>## 一、什么时候该拆：不要过早优化</p>
-<p>很多团队听说大厂都在分库分表，自己项目才几十万条数据就急着拆。这完全是过度优化。分库分表带来的复杂度，在数据量小的时候远远大于收益。</p>
-<p>单表多大需要拆？经验值是单表数据量超过千万级、或者单表文件大小超过几十GB，并且经过了索引优化、读写分离、缓存等手段还是解决不了性能问题，这时候再考虑分表。</p>
-<p>拆之前先Confirm你已经做过了所有不需要分表就能做的优化：索引是否合理、慢查询是否已经优化、读写是否分离（主库写、从库读）、热点数据是否加了缓存。很多时候加个索引、加个缓存就能解决的问题，完全不需要走到分库分表这一步。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 數據庫分庫分表：當單表數據量突破千萬級</p>
+<p>數據庫是業務系統最核心的組件，也是最容易成為瓶頸的組件。早期項目，一張MySQL表存個幾百萬條數據，加上索引和緩存，跑得好好的。但隨着業務增長，單表數據量突破千萬、甚至上億的時候，你會發現查詢越來越慢、寫入越來越卡、加索引要鎖表半天、備份恢復要十幾個小時。這時候就到了分庫分表的階段。分庫分表不是什麼高深的架構，但它是一個"一旦做了就回不去"的決策——數據拆了之後，跨表查詢、分頁排序、事務一致性全都是問題。所以做之前要想清楚：真的到了必須拆的時候嗎？</p>
+<p>## 一、什麼時候該拆：不要過早優化</p>
+<p>很多團隊聽說大廠都在分庫分表，自己項目才幾十萬條數據就急着拆。這完全是過度優化。分庫分錶帶來的複雜度，在數據量小的時候遠遠大於收益。</p>
+<p>單表多大需要拆？經驗值是單表數據量超過千萬級、或者單表文件大小超過幾十GB，並且經過了索引優化、讀寫分離、緩存等手段還是解決不了性能問題，這時候再考慮分表。</p>
+<p>拆之前先確認你已經做過了所有不需要分表就能做的優化：索引是否合理、慢查詢是否已經優化、讀寫是否分離（主庫寫、從庫讀）、熱點數據是否加了緩存。很多時候加個索引、加個緩存就能解決的問題，完全不需要走到分庫分表這一步。</p>
 <p>## 二、垂直拆分 vs 水平拆分</p>
-<p>数据库拆分有两种方向。垂直拆分是按照业务模块拆分——把用户相关的表放到一个库，订单相关的表放到另一个库，商品相关的表再放一个库。这其实就是微服务在数据层的体现，每个服务有自己独立的数据库。垂直拆分的好处是业务解耦，不同模块的数据库互相不影响。</p>
-<p>水平拆分是同一张表的数据，按照某种规则分散到多个库或者多个表里。比如订单表有一亿条数据，按用户ID取模，分到16张表里，每张表大概六百多万条。水平拆分解决的是单表数据量过大的问题。</p>
-<p>实际项目中通常是先垂直拆分（按业务分库），再对单表数据量特别大的表做水平拆分（分表）。</p>
-<p>## 三、分表策略：按什么规则拆</p>
-<p>水平拆分的核心是分片键（Sharding Key）的选择——按照哪个字段把数据分散到不同的表上。</p>
-<p>最常见的是取模分片：user_id % N，N是分片数量。同一个用户的数据永远落在同一张表里。好处是数据分布均匀。缺点是扩容麻烦——从4张表扩到8张表，所有数据的取模结果都变了，需要全部迁移。</p>
-<p>范围分片：按时间区间或者ID区间分表。比如2025年的订单放一张表，2026年的订单放另一张表。好处是扩容简单——新加一年的表就行，老数据不用动。缺点是热点问题——新数据都写在最新的那张表里，老表没人访问，数据分布不均匀。</p>
-<p>实际项目中，订单表经常按时间范围分表（因为订单天然按时间查询，新订单是热点），用户表按用户ID取模（因为用户数据要均匀分布）。选分片键的原则是：大多数查询都能带上这个分片键，这样查询只需要访问一张表，不用扫描所有分片。</p>
-<p>## 四、分表后的麻烦事</p>
-<p>分表不是把一张表拆成N张表就完事了，它会带来一系列新问题。</p>
-<p>跨分片查询是最头疼的。如果查询条件不带分片键，比如"查询所有状态为已完成的订单"，这个查询需要扫描所有分片的表，然后在应用层合并结果。性能比单表差得多。解决办法是尽量让查询都带分片键，或者用冗余表/Search引擎做跨分片查询。</p>
-<p>分布式ID是第二个问题。单表用自增主键就行，分表之后每张表都自增会产生重复ID。需要一个全局唯一ID生成方案。雪花算法（Snowflake）是常用方案——用时间戳+机器ID+序列号生成趋势递增的唯一ID。</p>
-<p>跨分片事务是第三个问题。单表一个数据库事务搞定的事情，分表之后涉及到两个分片的数据就不能用本地事务了。需要用分布式事务方案（比如最终一致性+消息队列），或者在设计上尽量让一个业务操作只涉及一个分片。</p>
-<p>## 五、读写分离：分表之前的第一步</p>
-<p>在分表之前，通常先做读写分离。主库负责写操作，多个从库负责读操作。写操作走主库，读操作走从库，主从之间自动同步数据。</p>
-<p>读写分离适合读多写少的场景——大部分操作是查询，写操作相对少。它的好处是不需要拆表，配置简单，扩容加从库就行。但读写分离有主从延迟的问题——写入主库之后，立刻去从库读，可能读不到刚写的数据。对于一致性要求高的操作（比如刚下单就查订单状态），需要强制走主库读。</p>
-<p>## 六、分库分表中间件</p>
-<p>自己写分库分表的逻辑很麻烦——路由到哪个表、聚合多个表的结果、处理分布式ID。很多中间件帮你做了这些事情。</p>
-<p>ShardingSphere是国内最流行的分库分表中间件。它以代理或者JDBC层的形式介入，对应用透明——你还是写原来的SQL，中间件自动帮你路由到正确的分片、合并结果。这样业务代码几乎不用改，就实现了分表。</p>
-<p>但中间件不是万能的。跨分片的join、分布式事务、复杂子查询，中间件处理起来都有限制。而且引入中间件本身增加了运维复杂度。很多大公司最终还是选择在业务层做分片逻辑，虽然代码侵入性强，但可控性更高。</p>
-<p>## 七、总结</p>
-<p>分库分表是数据库架构演进的必经之路，但它是一步"过河拆桥"的棋——拆了之后再想合并回来非常困难。所以做之前一定要Confirm：数据量真的到了瓶颈吗？所有不拆表的优化手段都试过了吗？未来的查询模式是什么样的？分片键选对了吗？</p>
-<p>对于大多数中小项目，单表加索引、加缓存、读写分离，撑到千万级数据完全没问题。不要为了"大厂都这么做"而过早拆分。但如果你已经到了那个临界点，了解分库分表的原理和常见坑，能帮你少走很多弯路。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>數據庫拆分有兩種方向。垂直拆分是按照業務模塊拆分——把用戶相關的表放到一個庫，訂單相關的表放到另一個庫，商品相關的表再放一個庫。這其實就是微服務在數據層的體現，每個服務有自己獨立的數據庫。垂直拆分的好處是業務解耦，不同模塊的數據庫互相不影響。</p>
+<p>水平拆分是同一張表的數據，按照某種規則分散到多個庫或者多個表裡。比如訂單表有一億條數據，按用戶ID取模，分到16張表裡，每張表大概六百多萬條。水平拆分解決的是單表數據量過大的問題。</p>
+<p>實際項目中通常是先垂直拆分（按業務分庫），再對單表數據量特別大的表做水平拆分（分表）。</p>
+<p>## 三、分表策略：按什麼規則拆</p>
+<p>水平拆分的核心是分片鍵（Sharding Key）的選擇——按照哪個字段把數據分散到不同的表上。</p>
+<p>最常見的是取模分片：user_id % N，N是分片數量。同一個用戶的數據永遠落在同一張表裡。好處是數據分佈均勻。缺點是擴容麻煩——從4張表擴到8張表，所有數據的取模結果都變了，需要全部遷移。</p>
+<p>範圍分片：按時間區間或者ID區間分表。比如2025年的訂單放一張表，2026年的訂單放另一張表。好處是擴容簡單——新加一年的表就行，老數據不用動。缺點是熱點問題——新數據都寫在最新的那張表裡，老表沒人訪問，數據分佈不均勻。</p>
+<p>實際項目中，訂單表經常按時間範圍分表（因為訂單天然按時間查詢，新訂單是熱點），用戶表按用戶ID取模（因為用戶數據要均勻分佈）。選分片鍵的原則是：大多數查詢都能帶上這個分片鍵，這樣查詢只需要訪問一張表，不用掃描所有分片。</p>
+<p>## 四、分表後的麻煩事</p>
+<p>分表不是把一張表拆成N張表就完事了，它會帶來一系列新問題。</p>
+<p>跨分片查詢是最頭疼的。如果查詢條件不帶分片鍵，比如"查詢所有狀態為已完成的訂單"，這個查詢需要掃描所有分片的表，然後在應用層合併結果。性能比單表差得多。解決辦法是儘量讓查詢都帶分片鍵，或者用冗餘表/搜索引擎做跨分片查詢。</p>
+<p>分佈式ID是第二個問題。單表用自增主鍵就行，分表之後每張表都自增會產生重複ID。需要一個全局唯一ID生成方案。雪花算法（Snowflake）是常用方案——用時間戳+機器ID+序列號生成趨勢遞增的唯一ID。</p>
+<p>跨分片事務是第三個問題。單表一個數據庫事務搞定的事情，分表之後涉及到兩個分片的數據就不能用本地事務了。需要用分佈式事務方案（比如最終一致性+消息隊列），或者在設計上儘量讓一個業務操作只涉及一個分片。</p>
+<p>## 五、讀寫分離：分表之前的第一步</p>
+<p>在分表之前，通常先做讀寫分離。主庫負責寫操作，多個從庫負責讀操作。寫操作走主庫，讀操作走從庫，主從之間自動同步數據。</p>
+<p>讀寫分離適合讀多寫少的場景——大部分操作是查詢，寫操作相對少。它的好處是不需要拆表，配置簡單，擴容加從庫就行。但讀寫分離有主從延遲的問題——寫入主庫之後，立刻去從庫讀，可能讀不到剛寫的數據。對於一致性要求高的操作（比如剛下單就查訂單狀態），需要強制走主庫讀。</p>
+<p>## 六、分庫分表中間件</p>
+<p>自己寫分庫分表的邏輯很麻煩——路由到哪個表、聚合多個表的結果、處理分佈式ID。很多中間件幫你做了這些事情。</p>
+<p>ShardingSphere是國內最流行的分庫分表中間件。它以代理或者JDBC層的形式介入，對應用透明——你還是寫原來的SQL，中間件自動幫你路由到正確的分片、合併結果。這樣業務代碼幾乎不用改，就實現了分表。</p>
+<p>但中間件不是萬能的。跨分片的join、分佈式事務、複雜子查詢，中間件處理起來都有限制。而且引入中間件本身增加了運維複雜度。很多大公司最終還是選擇在業務層做分片邏輯，雖然代碼侵入性強，但可控性更高。</p>
+<p>## 七、總結</p>
+<p>分庫分表是數據庫架構演進的必經之路，但它是一步"過河拆橋"的棋——拆了之後再想合並回來非常困難。所以做之前一定要確認：數據量真的到了瓶頸嗎？所有不拆表的優化手段都試過了嗎？未來的查詢模式是什麼樣的？分片鍵選對了嗎？</p>
+<p>對於大多數中小項目，單表加索引、加緩存、讀寫分離，撐到千萬級數據完全沒問題。不要為了"大廠都這麼做"而過早拆分。但如果你已經到了那個臨界點，瞭解分庫分表的原理和常見坑，能幫你少走很多彎路。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-203.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 程序员的技术成长路径</a><a href="article-tech-192.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服务架构拆解</a><a href="article-tech-199.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket与实时通信</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-203.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 程序員的技術成長路徑</a><a href="article-tech-192.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服務架構拆解</a><a href="article-tech-199.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket與實時通信</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

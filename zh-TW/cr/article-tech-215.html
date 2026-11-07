@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="栈与队列 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="栈与队列">
+<meta name="description" content="棧與隊列 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="棧與隊列">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-215.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>栈与队列 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-215.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-215.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-215.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-215.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>棧與隊列 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,59 +34,44 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="栈与队列 - CaesarTools">
-<meta property="og:description" content="栈与队列 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-215.html">
+<meta property="og:title" content="棧與隊列 - CaesarTools">
+<meta property="og:description" content="棧與隊列 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-215.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"栈与队列","description":"栈与队列 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-215.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"棧與隊列","description":"棧與隊列 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-215.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>栈与队列</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>棧與隊列</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 栈与队列：最基础也最常用的数据结构</p>
-<p>在所有数据结构中，栈和队列是最简单的两个。但简单不代表不重要——它们是无数算法和系统的底层基石。函数调用栈、浏览器历史记录、消息队列、任务调度，背后都是栈和队列的思想。理解它们的特性和适用场景，是编程基本功。</p>
-<p>## 一、栈：后进先出</p>
-<p>栈就像一叠盘子——你只能从最上面放盘子、取盘子。最后放上去的盘子最先被取走。这就是LIFO（Last In First Out，后进先出）。</p>
-<p>栈只有两个核心操作：push（压栈，放一个元素到顶部）和pop（弹栈，从顶部取走一个元素）。栈顶是唯一可以操作的位置，不能直接访问中间的元素。</p>
-<p>栈在编程中无处不在。函数调用栈：你调用函数A，A调用B，B调用C。C执行完BackB，B执行完BackA，A执行完回到主程序——后调用的先Back，就是栈。浏览器的前进后退：你访问页面1→2→3，点后退回到2→1，后访问的先退回。括号匹配：左括号压栈，遇到右括号弹栈匹配，最后栈空说明括号配对正确。</p>
-<p>## 二、队列：先进先出</p>
-<p>队列就像排队买饭——先到的人先买到，后到的后买。FIFO（First In First Out，先进先出）。</p>
-<p>队列也只有两个核心操作：enqueue（入队，从尾部加元素）和dequeue（出队，从头部取元素）。</p>
-<p>队列在编程中同样无处不在。消息队列：先发的消息先被消费。任务队列：服务器收到的请求排队处理。Print队列：先Submit的文档先Print。BFS广度优先Search：按层遍历节点，用队列记录下一层要访问的节点。</p>
-<p>## 三、两者对比</p>
-<p>栈是后进先出，队列是先进先出。看似相反，但它们解决的问题不同。</p>
-<p>你要处理"最近的、最新的"事情——用栈。浏览器历史、函数调用、撤销操作（Ctrl+Z）——都是栈。</p>
-<p>你要处理"先来先服务"的事情——用队列。请求处理、消息分发、任务调度——都是队列。</p>
-<p>## 四、实际应用：浏览器的前进后退</p>
-<p>浏览器的前进后退就是两个栈。你访问新页面，压入前进栈。点后退，从前进栈弹出，压入后退栈。点前进，从后退栈弹出，压入前进栈。这个经典设计就是栈的完美应用。</p>
-<p>## 五、总结</p>
-<p>栈和队列看似简单，但它们定义了数据访问的顺序规则。选择栈还是队列，取决于你要"后进先出"还是"先进先出"。理解这两个简单结构，能帮你在很多场景下选择正确的数据组织方式。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 棧與隊列：最基礎也最常用的數據結構</p>
+<p>在所有數據結構中，棧和隊列是最簡單的兩個。但簡單不代表不重要——它們是無數算法和系統的底層基石。函數調用棧、瀏覽器歷史記錄、消息隊列、任務調度，背後都是棧和隊列的思想。理解它們的特性和適用場景，是編程基本功。</p>
+<p>## 一、棧：後進先出</p>
+<p>棧就像一疊盤子——你只能從最上面放盤子、取盤子。最後放上去的盤子最先被取走。這就是LIFO（Last In First Out，後進先出）。</p>
+<p>棧只有兩個核心操作：push（壓棧，放一個元素到頂部）和pop（彈棧，從頂部取走一個元素）。棧頂是唯一可以操作的位置，不能直接訪問中間的元素。</p>
+<p>棧在編程中無處不在。函數調用棧：你調用函數A，A調用B，B調用C。C執行完返回B，B執行完返回A，A執行完回到主程序——後調用的先返回，就是棧。瀏覽器的前進後退：你訪問頁面1→2→3，點後退回到2→1，後訪問的先退回。括號匹配：左括號壓棧，遇到右括號彈棧匹配，最後棧空說明括號配對正確。</p>
+<p>## 二、隊列：先進先出</p>
+<p>隊列就像排隊買飯——先到的人先買到，後到的後買。FIFO（First In First Out，先進先出）。</p>
+<p>隊列也只有兩個核心操作：enqueue（入隊，從尾部加元素）和dequeue（出隊，從頭部取元素）。</p>
+<p>隊列在編程中同樣無處不在。消息隊列：先發的消息先被消費。任務隊列：服務器收到的請求排隊處理。打印隊列：先提交的文檔先打印。BFS廣度優先搜索：按層遍歷節點，用隊列記錄下一層要訪問的節點。</p>
+<p>## 三、兩者對比</p>
+<p>棧是後進先出，隊列是先進先出。看似相反，但它們解決的問題不同。</p>
+<p>你要處理"最近的、最新的"事情——用棧。瀏覽器歷史、函數調用、撤銷操作（Ctrl+Z）——都是棧。</p>
+<p>你要處理"先來先服務"的事情——用隊列。請求處理、消息分發、任務調度——都是隊列。</p>
+<p>## 四、實際應用：瀏覽器的前進後退</p>
+<p>瀏覽器的前進後退就是兩個棧。你訪問新頁面，壓入前進棧。點後退，從前進棧彈出，壓入後退棧。點前進，從後退棧彈出，壓入前進棧。這個經典設計就是棧的完美應用。</p>
+<p>## 五、總結</p>
+<p>棧和隊列看似簡單，但它們定義了數據訪問的順序規則。選擇棧還是隊列，取決於你要"後進先出"還是"先進先出"。理解這兩個簡單結構，能幫你在很多場景下選擇正確的數據組織方式。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-218.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS布局Flex与Grid</a><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 树与二叉树</a><a href="article-tech-217.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器事件循环</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-218.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS佈局Flex與Grid</a><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 樹與二叉樹</a><a href="article-tech-217.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器事件循環</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

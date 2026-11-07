@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="CSS_BFC块级格式化上下文 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="CSS_BFC块级格式化上下文, CSS">
+<meta name="description" content="CSS_BFC塊級格式化上下文 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CSS_BFC塊級格式化上下文, CSS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-014.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS_BFC块级格式化上下文 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-014.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-014.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-014.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-014.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS_BFC塊級格式化上下文 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,46 +34,31 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="CSS_BFC块级格式化上下文 - CaesarTools">
-<meta property="og:description" content="CSS_BFC块级格式化上下文 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-014.html">
+<meta property="og:title" content="CSS_BFC塊級格式化上下文 - CaesarTools">
+<meta property="og:description" content="CSS_BFC塊級格式化上下文 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-014.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS_BFC块级格式化上下文","description":"CSS_BFC块级格式化上下文 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-014.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS_BFC塊級格式化上下文","description":"CSS_BFC塊級格式化上下文 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-014.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>CSS_BFC块级格式化上下文</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CSS_BFC塊級格式化上下文</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>CSS BFC块级格式化上下文</p>
-<p>BFC（Block Formatting Context）是CSS的一个渲染区域，决定块级盒子如何布局。它有几个特性：内部的盒子在垂直方向一个接一个排列；属于同一个BFC的两个相邻盒子的margin会重叠；BFC区域不会与浮动元素重叠；计算BFC高度时，浮动元素也参与计算。</p>
-<p>BFC的触发方式：overflow不为visible（auto、scroll、hidden）；display为flow-root、inline-block、table-cell；position为absolute或fixed；float不为none。</p>
-<p>BFC的常见用途：清除浮动（父元素触发BFC，高度包含浮动子元素）；防止margin重叠（两个相邻块的margin会合并，用BFC隔离）；防止文字环绕（BFC区域不与浮动元素重叠）。</p>
-<p>理解BFC，就能解决很多奇怪的布局问题。比如父元素高度塌陷（子元素浮动），给父元素触发BFC就能包含浮动子元素的高度。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>CSS BFC塊級格式化上下文</p>
+<p>BFC（Block Formatting Context）是CSS的一個渲染區域，決定塊級盒子如何佈局。它有幾個特性：內部的盒子在垂直方向一個接一個排列；屬於同一個BFC的兩個相鄰盒子的margin會重疊；BFC區域不會與浮動元素重疊；計算BFC高度時，浮動元素也參與計算。</p>
+<p>BFC的觸發方式：overflow不為visible（auto、scroll、hidden）；display為flow-root、inline-block、table-cell；position為absolute或fixed；float不為none。</p>
+<p>BFC的常見用途：清除浮動（父元素觸發BFC，高度包含浮動子元素）；防止margin重疊（兩個相鄰塊的margin會合並，用BFC隔離）；防止文字環繞（BFC區域不與浮動元素重疊）。</p>
+<p>理解BFC，就能解決很多奇怪的佈局問題。比如父元素高度塌陷（子元素浮動），給父元素觸發BFC就能包含浮動子元素的高度。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-001.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器渲染原理与前端性能优化实战</a><a href="article-tech-094.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis缓存设计与穿透击穿雪崩防护</a><a href="article-tech-002.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库索引原理与SQL优化实战指南</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-001.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器渲染原理與前端性能優化實戰</a><a href="article-tech-094.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis緩存設計與穿透擊穿雪崩防護</a><a href="article-tech-002.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫索引原理與SQL優化實戰指南</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="Git分支策略 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="Git分支策略 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="Git分支策略, Git">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-241.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-241.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-241.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-241.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-241.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Git分支策略 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,60 +35,45 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Git分支策略 - CaesarTools">
-<meta property="og:description" content="Git分支策略 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-241.html">
+<meta property="og:description" content="Git分支策略 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-241.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git分支策略","description":"Git分支策略 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-241.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git分支策略","description":"Git分支策略 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-241.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Git分支策略</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># Git分支策略：从个人项目到团队协作</p>
-<p>前面讲过Git基础，这次专门聊聊分支策略。个人项目可能就一个main分支随便搞，但团队协作时，分支怎么管理、代码怎么合并、发布怎么切，直接影响开发效率。</p>
-<p>## 一、main分支永远可发布</p>
-<p>最基本的原则：main（或master）分支永远保持可发布状态。不要把没测试过的、半完成的代码直接合进main。main上的代码任何时候都能部署上线。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># Git分支策略：從個人項目到團隊協作</p>
+<p>前面講過Git基礎，這次專門聊聊分支策略。個人項目可能就一個main分支隨便搞，但團隊協作時，分支怎麼管理、代碼怎麼合併、發佈怎麼切，直接影響開發效率。</p>
+<p>## 一、main分支永遠可發佈</p>
+<p>最基本的原則：main（或master）分支永遠保持可發佈狀態。不要把沒測試過的、半完成的代碼直接合進main。main上的代碼任何時候都能部署上線。</p>
 <p>## 二、功能分支</p>
-<p>每个新功能开一个feature分支：feature/user-login。从main拉出来，开发完提PR（Pull Request），代码审查通过后合并回main。</p>
-<p>分支要小、要短——一个分支一两天就合并。不要一个feature分支开两周还不合，到时候合并冲突解决到崩溃。</p>
+<p>每個新功能開一個feature分支：feature/user-login。從main拉出來，開發完提PR（Pull Request），代碼審查通過後合併回main。</p>
+<p>分支要小、要短——一個分支一兩天就合併。不要一個feature分支開兩週還不合，到時候合併衝突解決到崩潰。</p>
 <p>## 三、Pull Request工作流</p>
-<p>PR不只是"合并代码"的入口，它是代码审查的场所。SubmitPR后，团队成员看代码、提意见、Author修改，直到大家满意才合并。这是保证代码质量的重要环节。</p>
-<p>PR描述要写清楚：做了什么、为什么做、怎么测试的。reviewer不用去猜这个PR干了啥。</p>
-<p>## 四、发布分支</p>
-<p>要发布新版本时，从main切一个release分支：release/1.2.0。这个分支只修BUG，不加新功能。测试通过后打tag发布。发布后发现的紧急BUG在release分支上修，然后合并回main。</p>
-<p>## 五、Hotfix紧急修复</p>
-<p>线上出紧急BUG，从main切hotfix分支：hotfix/payment-bug。修复后合并回main，同时也合并到当前release分支。紧急修复走快速通道，不用等正常发布周期。</p>
+<p>PR不只是"合併代碼"的入口，它是代碼審查的場所。提交PR後，團隊成員看代碼、提意見、作者修改，直到大家滿意才合併。這是保證代碼質量的重要環節。</p>
+<p>PR描述要寫清楚：做了什麼、為什麼做、怎麼測試的。reviewer不用去猜這個PR幹了啥。</p>
+<p>## 四、發佈分支</p>
+<p>要發佈新版本時，從main切一個release分支：release/1.2.0。這個分支只修BUG，不加新功能。測試通過後打tag發佈。發佈後發現的緊急BUG在release分支上修，然後合併回main。</p>
+<p>## 五、Hotfix緊急修復</p>
+<p>線上出緊急BUG，從main切hotfix分支：hotfix/payment-bug。修復後合併回main，同時也合併到當前release分支。緊急修復走快速通道，不用等正常發佈週期。</p>
 <p>## 六、Trunk Based vs GitFlow</p>
-<p>GitFlow是上面这套完整流程：main + develop + feature + release + hotfix。适合发布周期长的产品（App）。</p>
-<p>现代趋势是Trunk Based：大家直接往mainSubmit小改动，feature分支生命周期很短（一两天）。需要发布就从main打tag。简单直接，配合CI/CD自动化。</p>
-<p>小团队推荐Trunk Based——简单，不要搞太多分支。</p>
-<p>## 七、总结</p>
-<p>分支策略不是越复杂越好。核心原则：main永远可发布、功能分支小而短、PR做代码审查、发布打tag。适合团队规模的策略就是最好的策略。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>GitFlow是上面這套完整流程：main + develop + feature + release + hotfix。適合發佈週期長的產品（App）。</p>
+<p>現代趨勢是Trunk Based：大家直接往main提交小改動，feature分支生命週期很短（一兩天）。需要發佈就從main打tag。簡單直接，配合CI/CD自動化。</p>
+<p>小團隊推薦Trunk Based——簡單，不要搞太多分支。</p>
+<p>## 七、總結</p>
+<p>分支策略不是越複雜越好。核心原則：main永遠可發佈、功能分支小而短、PR做代碼審查、發佈打tag。適合團隊規模的策略就是最好的策略。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-242.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 环境变量与配置管理</a><a href="article-tech-236.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis高级数据结构</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-242.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 環境變量與配置管理</a><a href="article-tech-236.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis高級數據結構</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端組件設計</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

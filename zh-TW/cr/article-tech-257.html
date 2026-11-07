@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="Webhook - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="Webhook - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="Webhook">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-257.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-257.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-257.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-257.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-257.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Webhook - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,53 +35,38 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Webhook - CaesarTools">
-<meta property="og:description" content="Webhook - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-257.html">
+<meta property="og:description" content="Webhook - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-257.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook","description":"Webhook - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-257.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Webhook","description":"Webhook - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-257.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Webhook</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是Webhook：事件推送的反向API</p>
-<p>你调用API是主动请求别人的数据。Webhook反过来——别人在事件发生时主动把数据推给你。它就是一个"反向API"。</p>
-<p>## 一、怎么工作</p>
-<p>你在GitHub上配置一个WebhookURL：当有人给你的项目提Issue时，GitHub自动向这个URL发一个POST请求，带上Issue的数据。你的服务器收到后做处理——比如自动创建内部任务、发通知到群里。</p>
-<p>你不需要轮询GitHub"有没有新Issue"，GitHub主动推给你。省请求、实时性高。</p>
-<p>## 二、常见用途</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是Webhook：事件推送的反向API</p>
+<p>你調用API是主動請求別人的數據。Webhook反過來——別人在事件發生時主動把數據推給你。它就是一個"反向API"。</p>
+<p>## 一、怎麼工作</p>
+<p>你在GitHub上配置一個WebhookURL：當有人給你的項目提Issue時，GitHub自動向這個URL發一個POST請求，帶上Issue的數據。你的服務器收到後做處理——比如自動創建內部任務、發通知到群裡。</p>
+<p>你不需要輪詢GitHub"有沒有新Issue"，GitHub主動推給你。省請求、實時性高。</p>
+<p>## 二、常見用途</p>
 <p>GitHub/GitLab事件通知。
-支付平台回调：用户付款成功后，支付平台主动通知你的服务器。
+支付平臺回調：用戶付款成功後，支付平臺主動通知你的服務器。
 第三方集成：Stripe、Slack、微信支付都用Webhook。</p>
 <p>## 三、安全</p>
-<p>Webhook接收端要验证请求确实来自合法平台——用签名验证。平台给你一个Secret，请求带签名头，你用Secret验证签名对不对。防止有人伪造请求打你的Webhook端点。</p>
-<p>## 四、总结</p>
-<p>Webhook是事件驱动架构的基础。与其轮询，不如让对方在事件发生时推给你。简单高效，但要做好签名验证和重试处理。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>Webhook接收端要驗證請求確實來自合法平臺——用簽名驗證。平臺給你一個Secret，請求帶簽名頭，你用Secret驗證簽名對不對。防止有人僞造請求打你的Webhook端點。</p>
+<p>## 四、總結</p>
+<p>Webhook是事件驅動架構的基礎。與其輪詢，不如讓對方在事件發生時推給你。簡單高效，但要做好籤名驗證和重試處理。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-254.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful简明指南</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS与Cookie</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-254.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful簡明指南</a><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS與Cookie</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

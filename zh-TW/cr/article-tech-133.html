@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="日志收集体系ELK - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="日志收集体系ELK">
+<meta name="description" content="日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="日誌收集體系ELK">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-133.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日志收集体系ELK - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-133.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-133.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-133.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-133.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日誌收集體系ELK - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="日志收集体系ELK - CaesarTools">
-<meta property="og:description" content="日志收集体系ELK - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-133.html">
+<meta property="og:title" content="日誌收集體系ELK - CaesarTools">
+<meta property="og:description" content="日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-133.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"日志收集体系ELK","description":"日志收集体系ELK - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-133.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"日誌收集體系ELK","description":"日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-133.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>日志收集体系ELK</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>日誌收集體系ELK</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>日志收集体系ELK：从分散日志到集中检索的工程实践</p>
-<p>一台服务器的日志看 tail 就行，但几十台上百台服务器，日志分散在各个机器上，出问题要Login每台机器翻日志，效率极低。日志集中收集体系就是把所有服务的日志汇聚到一个地方，统一存储、统一检索、统一分析。</p>
-<p>ELK是经典方案的缩写：Elasticsearch（存储和检索日志）、Logstash（日志收集和处理）、Kibana（日志可视化查询界面）。后来Beats（轻量级日志采集器）替代了重的Logstash做采集，演进为EFLK栈。</p>
-<p>工作流程：每台服务器上的Filebeat采集日志文件，发送到Logstash做解析和过滤（提取时间、级别、traceId，过滤无用信息），然后存入Elasticsearch。开发者在Kibana界面Search日志：按traceId查一次请求的完整链路、按错误级别筛错误日志、按时间范围查。</p>
-<p>结构化日志是前提。日志不能是自由文本"用户Login成功了"，要是结构化的JSON：{"time":"2026-10-06","level":"INFO","traceId":"abc123","userId":"456","message":"用户Login成功"}。这样才能按字段筛选和聚合。日志里带上traceId，是串联一次请求经过所有服务日志的关键。</p>
-<p>日志分级：ERROR（需要立刻处理的错误）、WARN（警告，暂时不影响但要关注）、INFO（关键业务事件）、DEBUG（调试信息，生产Close）。合理分级，ERROR日志才是告警关注的对象。</p>
-<p>日志保留策略要规划。日志量很大（一个中大型服务每天几十GB），不能无限存。热数据（最近7天）存在高性能集群快速查询；冷数据（超过7天）归档到低成本存储或删除。设置生命周期自动管理。</p>
-<p>日志告警是进阶能力。ERROR日志数量突增（比平时多几倍）自动告警；特定关键词（"OutOfMemory"、"连接拒绝"）出现立刻通知。日志不只是事后排查工具，也要做实时监控。</p>
-<p>云厂商也有日志服务（阿里云SLS、AWS CloudWatch Logs），不用自己搭ELK，直接把日志发到云服务，开箱即用。中小团队推荐这种托管方案。</p>
-<p>日志系统是可观测性三大支柱之一（日志、指标、链路追踪）。没有集中日志，出问题就是盲人摸象；有了日志体系，排错效率提升一个量级。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>日誌收集體系ELK：從分散日誌到集中檢索的工程實踐</p>
+<p>一臺服務器的日誌看 tail 就行，但幾十臺上百臺服務器，日誌分散在各個機器上，出問題要登錄每臺機器翻日誌，效率極低。日誌集中收集體系就是把所有服務的日誌匯聚到一個地方，統一存儲、統一檢索、統一分析。</p>
+<p>ELK是經典方案的縮寫：Elasticsearch（存儲和檢索日誌）、Logstash（日誌收集和處理）、Kibana（日誌可視化查詢界面）。後來Beats（輕量級日誌採集器）替代了重的Logstash做採集，演進為EFLK棧。</p>
+<p>工作流程：每臺服務器上的Filebeat採集日誌文件，發送到Logstash做解析和過濾（提取時間、級別、traceId，過濾無用信息），然後存入Elasticsearch。開發者在Kibana界面搜索日誌：按traceId查一次請求的完整鏈路、按錯誤級別篩錯誤日誌、按時間範圍查。</p>
+<p>結構化日誌是前提。日誌不能是自由文本"用戶登錄成功了"，要是結構化的JSON：{"time":"2026-10-06","level":"INFO","traceId":"abc123","userId":"456","message":"用戶登錄成功"}。這樣才能按字段篩選和聚合。日誌裡帶上traceId，是串聯一次請求經過所有服務日誌的關鍵。</p>
+<p>日誌分級：ERROR（需要立刻處理的錯誤）、WARN（警告，暫時不影響但要關注）、INFO（關鍵業務事件）、DEBUG（調試信息，生產關閉）。合理分級，ERROR日誌才是告警關注的對象。</p>
+<p>日誌保留策略要規劃。日誌量很大（一箇中大型服務每天幾十GB），不能無限存。熱數據（最近7天）存在高性能集群快速查詢；冷數據（超過7天）歸檔到低成本存儲或刪除。設置生命週期自動管理。</p>
+<p>日誌告警是進階能力。ERROR日誌數量突增（比平時多幾倍）自動告警；特定關鍵詞（"OutOfMemory"、"連接拒絕"）出現立刻通知。日誌不只是事後排查工具，也要做實時監控。</p>
+<p>雲廠商也有日誌服務（阿里雲SLS、AWS CloudWatch Logs），不用自己搭ELK，直接把日誌發到雲服務，開箱即用。中小團隊推薦這種託管方案。</p>
+<p>日誌系統是可觀測性三大支柱之一（日誌、指標、鏈路追蹤）。沒有集中日誌，出問題就是盲人摸象；有了日誌體系，排錯效率提升一個量級。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理与优化</a><a href="article-tech-136.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP网络基础</a><a href="article-tech-140.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整洁架构与六边形架构</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理與優化</a><a href="article-tech-136.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP網絡基礎</a><a href="article-tech-140.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整潔架構與六邊形架構</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

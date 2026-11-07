@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="JavaScript模块化演进 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="JavaScript模块化演进, JavaScript, Java">
+<meta name="description" content="JavaScript模塊化演進 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="JavaScript模塊化演進, JavaScript, Java">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-007.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JavaScript模块化演进 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-007.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-007.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-007.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-007.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript模塊化演進 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,46 +34,31 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="JavaScript模块化演进 - CaesarTools">
-<meta property="og:description" content="JavaScript模块化演进 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-007.html">
+<meta property="og:title" content="JavaScript模塊化演進 - CaesarTools">
+<meta property="og:description" content="JavaScript模塊化演進 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-007.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript模块化演进","description":"JavaScript模块化演进 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-007.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript模塊化演進","description":"JavaScript模塊化演進 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-007.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>JavaScript模块化演进</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>JavaScript模塊化演進</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>JavaScript模块化：从IIFE到ES Module的演进</p>
-<p>JS模块化经历了多个阶段：早期没有模块系统，全局变量污染；IIFE立即执行函数模拟模块；CommonJS（Node.js）；AMD（RequireJS）；最终统一到ES Module。</p>
-<p>ES Module是现代标准：export导出，import导入。浏览器原生支持（scriptTags加type="module"）。静态导入（编译时确定依赖关系），支持tree-shaking（未使用的导出被移除）。</p>
-<p>CommonJS（require）是动态的，运行时加载；ES Module是静态的，编译时确定。这带来了tree-shaking的优势——打包时移除未使用的代码。</p>
-<p>现代前端项目全部用ES Module。import/export语法，配合打包工具（Vite、Webpack），实现模块管理和代码分割。理解模块化的演进，就明白为什么现在用import而不是require。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>JavaScript模塊化：從IIFE到ES Module的演進</p>
+<p>JS模塊化經歷了多個階段：早期沒有模塊系統，全局變量污染；IIFE立即執行函數模擬模塊；CommonJS（Node.js）；AMD（RequireJS）；最終統一到ES Module。</p>
+<p>ES Module是現代標準：export導出，import導入。瀏覽器原生支持（script標籤加type="module"）。靜態導入（編譯時確定依賴關係），支持tree-shaking（未使用的導出被移除）。</p>
+<p>CommonJS（require）是動態的，運行時加載；ES Module是靜態的，編譯時確定。這帶來了tree-shaking的優勢——打包時移除未使用的代碼。</p>
+<p>現代前端項目全部用ES Module。import/export語法，配合打包工具（Vite、Webpack），實現模塊管理和代碼分割。理解模塊化的演進，就明白為什麼現在用import而不是require。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-083.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript异步编程深入</a><a href="article-98.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS证书申请实战</a><a href="article-tech-050.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端可视化与Three.js三维网页开发入门</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-083.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript異步編程深入</a><a href="article-98.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a><a href="article-tech-050.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端可視化與Three.js三維網頁開發入門</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

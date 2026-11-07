@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="团队代码规范与工程协作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="团队代码规范与工程协作">
+<meta name="description" content="團隊代碼規範與工程協作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="團隊代碼規範與工程協作">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-111.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>团队代码规范与工程协作 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-111.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-111.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-111.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-111.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>團隊代碼規範與工程協作 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,50 +34,35 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="团队代码规范与工程协作 - CaesarTools">
-<meta property="og:description" content="团队代码规范与工程协作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-111.html">
+<meta property="og:title" content="團隊代碼規範與工程協作 - CaesarTools">
+<meta property="og:description" content="團隊代碼規範與工程協作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-111.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"团队代码规范与工程协作","description":"团队代码规范与工程协作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-111.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"團隊代碼規範與工程協作","description":"團隊代碼規範與工程協作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-111.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>团队代码规范与工程协作</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>團隊代碼規範與工程協作</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>团队代码规范与工程协作：让多人项目不混乱的制度建设</p>
-<p>一个人写代码怎么写都行，但一个团队十几个人写同一个项目，如果没有统一规范，代码会变成无法维护的灾难：有人用单引号有人用双引号、有人写分有人不写、变量命名风格各异、Submit信息乱七八糟。Code Review时大家花时间争论风格问题，而不是讨论逻辑问题。代码规范和工程协作制度，就是为了解决这个问题。</p>
-<p>代码风格规范是最基础的。ESLint检测代码错误和风格问题，Prettier自动格式化代码。关键是：这些规则要配置在项目里，Submit代码时自动检查、自动格式化，不靠人自觉。CI流水线里加一步Lint检查，不符合规范的代码不让合并。这样团队里所有人的代码风格自动统一，不需要在Review时争论。</p>
-<p>命名规范、文件组织规范、注释规范也要写进文档。组件怎么命名、文件放在哪个Contents、接口怎么分层、错误怎么处理，这些约定俗成的规则写下来，新人入职照着做就行，不用反复问。</p>
-<p>GitSubmit信息规范经常被忽视。"update"、"fix"、"修改"这种Submit信息，几周后没人知道这次改了什么。规范的Submit信息格式（如Conventional Commits）：type(scope): description。type是feat/fix/docs/refactor等类型，一眼看出这次Submit是新功能还是修bug。好的Submit历史可以自动生成CHANGELOG，也方便回溯问题。</p>
-<p>分支策略和PR流程前面讲过，这里强调Code Review的质量。Review不是走形式"LGTM"就完事。Reviewer要真正看代码：逻辑是否正确、有没有边界情况、命名是否清晰、有没有安全隐患。Author要根据反馈认真修改，而不是抵触。好的Code Review文化是团队成长的重要机制。</p>
-<p>文档是工程协作的重要组成部分。README说明项目怎么跑起来、架构文档说明系统设计、API文档说明接口怎么调。很多项目代码写得不错但文档缺失，三个月后没人记得当初为什么这样设计。好记性不如烂笔头，关键决策和架构要写下来。</p>
-<p>结对编程和技术Share是团队知识共享的方式。新人入职有导师带，每周技术Share会有人讲自己做的东西。知识不集中在某几个人脑子里，团队才不会因为某人离职而停摆。</p>
-<p>代码规范和工程制度不是束缚创造力，而是减少无意义的沟通成本。当风格问题都由工具自动解决，Review就Focus于真正重要的逻辑和设计问题。成熟的工程团队和业余团队的区别，往往就体现在这些"看不见"的制度细节上。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>團隊代碼規範與工程協作：讓多人項目不混亂的制度建設</p>
+<p>一個人寫代碼怎麼寫都行，但一個團隊十幾個人寫同一個項目，如果沒有統一規範，代碼會變成無法維護的災難：有人用單引號有人用雙引號、有人寫分有人不寫、變量命名風格各異、提交信息亂七八糟。Code Review時大家花時間爭論風格問題，而不是討論邏輯問題。代碼規範和工程協作制度，就是為了解決這個問題。</p>
+<p>代碼風格規範是最基礎的。ESLint檢測代碼錯誤和風格問題，Prettier自動格式化代碼。關鍵是：這些規則要配置在項目裡，提交代碼時自動檢查、自動格式化，不靠人自覺。CI流水線里加一步Lint檢查，不符合規範的代碼不讓合併。這樣團隊裡所有人的代碼風格自動統一，不需要在Review時爭論。</p>
+<p>命名規範、文件組織規範、註釋規範也要寫進文檔。組件怎麼命名、文件放在哪個目錄、接口怎麼分層、錯誤怎麼處理，這些約定俗成的規則寫下來，新人入職照着做就行，不用反覆問。</p>
+<p>Git提交信息規範經常被忽視。"update"、"fix"、"修改"這種提交信息，幾周後沒人知道這次改了什麼。規範的提交信息格式（如Conventional Commits）：type(scope): description。type是feat/fix/docs/refactor等類型，一眼看出這次提交是新功能還是修bug。好的提交歷史可以自動生成CHANGELOG，也方便回溯問題。</p>
+<p>分支策略和PR流程前面講過，這裡強調Code Review的質量。Review不是走形式"LGTM"就完事。Reviewer要真正看代碼：邏輯是否正確、有沒有邊界情況、命名是否清晰、有沒有安全隱患。作者要根據反饋認真修改，而不是牴觸。好的Code Review文化是團隊成長的重要機制。</p>
+<p>文檔是工程協作的重要組成部分。README說明項目怎麼跑起來、架構文檔說明系統設計、API文檔說明接口怎麼調。很多項目代碼寫得不錯但文檔缺失，三個月後沒人記得當初為什麼這樣設計。好記性不如爛筆頭，關鍵決策和架構要寫下來。</p>
+<p>結對編程和技術分享是團隊知識共享的方式。新人入職有導師帶，每週技術分享會有人講自己做的東西。知識不集中在某幾個人腦子裡，團隊才不會因為某人離職而停擺。</p>
+<p>代碼規範和工程制度不是束縛創造力，而是減少無意義的溝通成本。當風格問題都由工具自動解決，Review就專注於真正重要的邏輯和設計問題。成熟的工程團隊和業餘團隊的區別，往往就體現在這些"看不見"的制度細節上。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-106.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket实时通信实战</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端监控体系搭建</a><a href="article-tech-114.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebRTC音视频通话技术</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-106.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket實時通信實戰</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端監控體系搭建</a><a href="article-tech-114.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebRTC音視頻通話技術</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

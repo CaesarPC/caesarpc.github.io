@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="浏览器跨域机制与CORS - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="浏览器跨域机制与CORS">
+<meta name="description" content="瀏覽器跨域機制與CORS - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="瀏覽器跨域機制與CORS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-179.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器跨域机制与CORS - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-179.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-179.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-179.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-179.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀏覽器跨域機制與CORS - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,47 +34,32 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="浏览器跨域机制与CORS - CaesarTools">
-<meta property="og:description" content="浏览器跨域机制与CORS - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-179.html">
+<meta property="og:title" content="瀏覽器跨域機制與CORS - CaesarTools">
+<meta property="og:description" content="瀏覽器跨域機制與CORS - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-179.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器跨域机制与CORS","description":"浏览器跨域机制与CORS - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-179.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"瀏覽器跨域機制與CORS","description":"瀏覽器跨域機制與CORS - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-179.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>浏览器跨域机制与CORS</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>瀏覽器跨域機制與CORS</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>浏览器跨域机制与CORS完整指南</p>
-<p>浏览器的同源策略限制了从一个源加载的文档或脚本如何与另一个源的资源交互。这是安全机制，但也给开发带来麻烦：前端localhost:3000想调用后端localhost:8080的接口，浏览器报跨域错误。</p>
-<p>同源策略：协议、域名、端口三者完全一致才算同源。不同端口、不同子域名、不同协议都算跨域。</p>
-<p>CORS（跨源资源共享）是解决跨域的标准方案。后端在响应头里加Access-Control-Allow-Origin，允许指定源访问。简单请求直接发，复杂请求（带自定义头、非POST/GET）会先发OPTIONS预检请求，服务器同意后才发真实请求。</p>
-<p>常见解决方案：CORS（后端配置响应头）、代理（开发环境用Vite/Webpack代理转发）、JSONP（只支持GET，老旧方案）、Nginx反向代理（生产环境把API路径代理到后端，同源就不跨域了）。</p>
-<p>理解同源策略和CORS，才能解决开发中最常见的跨域问题。这是前端开发的基本功。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>瀏覽器跨域機制與CORS完整指南</p>
+<p>瀏覽器的同源策略限制了從一個源加載的文檔或腳本如何與另一個源的資源交互。這是安全機制，但也給開發帶來麻煩：前端localhost:3000想調用後端localhost:8080的接口，瀏覽器報跨域錯誤。</p>
+<p>同源策略：協議、域名、端口三者完全一致才算同源。不同端口、不同子域名、不同協議都算跨域。</p>
+<p>CORS（跨源資源共享）是解決跨域的標準方案。後端在響應頭裡加Access-Control-Allow-Origin，允許指定源訪問。簡單請求直接發，複雜請求（帶自定義頭、非POST/GET）會先發OPTIONS預檢請求，服務器同意後才發真實請求。</p>
+<p>常見解決方案：CORS（後端配置響應頭）、代理（開發環境用Vite/Webpack代理轉發）、JSONP（只支持GET，老舊方案）、Nginx反向代理（生產環境把API路徑代理到後端，同源就不跨域了）。</p>
+<p>理解同源策略和CORS，才能解決開發中最常見的跨域問題。這是前端開發的基本功。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-168.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS容器查询</a><a href="article-tech-186.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API设计规范与前后端协作</a><a href="article-tech-177.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS选择器优先级</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-168.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS容器查詢</a><a href="article-tech-186.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API設計規範與前後端協作</a><a href="article-tech-177.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS選擇器優先級</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

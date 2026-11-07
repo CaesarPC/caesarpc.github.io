@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="整洁架构与六边形架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="整洁架构与六边形架构, 架构">
+<meta name="description" content="整潔架構與六邊形架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="整潔架構與六邊形架構, 架構">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-140.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>整洁架构与六边形架构 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-140.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-140.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-140.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-140.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整潔架構與六邊形架構 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,50 +34,35 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="整洁架构与六边形架构 - CaesarTools">
-<meta property="og:description" content="整洁架构与六边形架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-140.html">
+<meta property="og:title" content="整潔架構與六邊形架構 - CaesarTools">
+<meta property="og:description" content="整潔架構與六邊形架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-140.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"整洁架构与六边形架构","description":"整洁架构与六边形架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-140.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"整潔架構與六邊形架構","description":"整潔架構與六邊形架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-140.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>整洁架构与六边形架构</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>整潔架構與六邊形架構</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>整洁架构与六边形架构：如何组织代码层次</p>
-<p>很多项目的代码层次混乱：Controller里写业务逻辑、Service里直接操作数据库、工具类到处调。改代码不知道该改哪，测试不知道怎么写。整洁架构（Clean Architecture）和六边形架构（Ports & Adapters）提供了一套分层原则，让代码结构清晰、依赖方向明确。</p>
-<p>核心原则是依赖方向：内层不依赖外层，外层依赖内层。最内层是领域实体和业务规则（纯Java/JS对象，不依赖任何框架）；往外一层是用例（应用业务逻辑）；再往外是接口适配器（Controller、Repository实现）；最外层是框架和驱动（数据库、Web框架、外部API）。</p>
-<p>关键规则：内层不知道外层的存在。业务逻辑层不依赖Spring、不依赖MySQL，它只定义接口，外层去实现。这样业务逻辑可以独立测试、独立更换技术实现。</p>
-<p>六边形架构的形象说法：核心是业务逻辑，外面一圈是端口（接口），各种适配器（数据库适配器、API适配器、消息队列适配器）通过端口接入核心。业务逻辑不关心数据从哪来、到哪去，只通过接口交互。</p>
-<p>实际分层：Entity（领域对象）→ UseCase（业务用例）→ Interface（接口定义）→ Infrastructure（接口实现：数据库、外部API）。Web请求进来：Controller（外层）调用UseCase（内层），UseCase调用Repository接口，Repository的实现在Infrastructure（外层）。</p>
-<p>这样做的好处：业务逻辑集中且独立，不被框架污染；单元测试容易（Mock掉外层接口）；换数据库、换框架不影响业务逻辑。</p>
-<p>常见反模式：业务逻辑写在Controller里（太薄的Service）；Service直接SQL操作（没有Repository抽象）；领域对象和数据库Entity混用。这些都让业务逻辑和技术细节耦合在一起。</p>
-<p>整洁架构不是教条，是指导原则。小项目可以简化，不要为了分层而分层搞出过度抽象。但随着项目变大，这种分层思想能帮你保持代码可维护。判断标准：你的业务逻辑能不能脱离数据库独立测试？如果不能，说明层次有问题。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>整潔架構與六邊形架構：如何組織代碼層次</p>
+<p>很多項目的代碼層次混亂：Controller裡寫業務邏輯、Service裡直接操作數據庫、工具類到處調。改代碼不知道該改哪，測試不知道怎麼寫。整潔架構（Clean Architecture）和六邊形架構（Ports & Adapters）提供了一套分層原則，讓代碼結構清晰、依賴方向明確。</p>
+<p>核心原則是依賴方向：內層不依賴外層，外層依賴內層。最內層是領域實體和業務規則（純Java/JS對象，不依賴任何框架）；往外一層是用例（應用業務邏輯）；再往外是接口適配器（Controller、Repository實現）；最外層是框架和驅動（數據庫、Web框架、外部API）。</p>
+<p>關鍵規則：內層不知道外層的存在。業務邏輯層不依賴Spring、不依賴MySQL，它只定義接口，外層去實現。這樣業務邏輯可以獨立測試、獨立更換技術實現。</p>
+<p>六邊形架構的形象說法：核心是業務邏輯，外面一圈是端口（接口），各種適配器（數據庫適配器、API適配器、消息隊列適配器）通過端口接入核心。業務邏輯不關心數據從哪來、到哪去，只通過接口交互。</p>
+<p>實際分層：Entity（領域對象）→ UseCase（業務用例）→ Interface（接口定義）→ Infrastructure（接口實現：數據庫、外部API）。Web請求進來：Controller（外層）調用UseCase（內層），UseCase調用Repository接口，Repository的實現在Infrastructure（外層）。</p>
+<p>這樣做的好處：業務邏輯集中且獨立，不被框架污染；單元測試容易（Mock掉外層接口）；換數據庫、換框架不影響業務邏輯。</p>
+<p>常見反模式：業務邏輯寫在Controller裡（太薄的Service）；Service直接SQL操作（沒有Repository抽象）；領域對象和數據庫Entity混用。這些都讓業務邏輯和技術細節耦合在一起。</p>
+<p>整潔架構不是教條，是指導原則。小項目可以簡化，不要為了分層而分層搞出過度抽象。但隨着項目變大，這種分層思想能幫你保持代碼可維護。判斷標準：你的業務邏輯能不能脫離數據庫獨立測試？如果不能，說明層次有問題。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架构详解</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite構建工具深度解析</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架構詳解</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

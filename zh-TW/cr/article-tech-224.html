@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="图片优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="图片优化">
+<meta name="description" content="圖片優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="圖片優化">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-224.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>图片优化 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-224.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-224.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-224.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-224.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>圖片優化 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,58 +34,43 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="图片优化 - CaesarTools">
-<meta property="og:description" content="图片优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-224.html">
+<meta property="og:title" content="圖片優化 - CaesarTools">
+<meta property="og:description" content="圖片優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-224.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"图片优化","description":"图片优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-224.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"圖片優化","description":"圖片優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-224.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>图片优化</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>圖片優化</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 图片优化：Web性能中最容易被忽视的大头</p>
-<p>一个网页的体积里，图片通常占了70%以上。文字和CSS加起来可能才几百KB，但随便几张高清照片就是几MB。优化图片，是性能优化中投入产出比最高的事情。很多开发者花大量时间优化JS加载速度，却让用户加载了5MB的未压缩图片——方向完全错了。</p>
-<p>## 一、选择正确的格式</p>
-<p>JPEG：适合照片、色彩丰富的图片。有损压缩，压缩率高。不支持透明。
-PNG：适合图标、截图、有透明背景的图片。无损压缩，文件比JPEG大。
-WebP：Google推出的新格式，同样画质下比JPEG小25%-35%，支持透明。现代浏览器都支持。
-AVIF：更新的格式，压缩率比WebP还高，但兼容性稍差。</p>
-<p>结论：照片用WebP（fallback JPEG），图标用PNG或WebP。不要用PNG存照片——文件大好几倍。</p>
-<p>## 二、压缩与缩放</p>
-<p>很多人直接把相机拍的4000x3000像素的原图上传到网站，然后在CSS里缩成400x300显示。浏览器还是要下载原图，再缩放到显示尺寸——浪费了90%的带宽。</p>
-<p>正确做法：上传时生成多种尺寸——缩略图、中图、大图。根据display size加载合适大小的图。用srcset属性让浏览器根据屏幕分辨率选图：普通屏加载1x，Retina屏加载2x。</p>
-<p>## 三、懒加载</p>
-<p>首屏只加载可见区域的图片，滚动到可视区域时再加载后面的。现在原生loading="lazy"属性就能实现——给imgTags加上，浏览器自动处理，不需要写JS。</p>
-<p>## 四、CDN与自动优化</p>
-<p>把图片放到CDN上，配合图片处理服务——URL参数控制尺寸、格式、质量。请求/pic.jpg?width=400&format=webp时自动生成优化后的版本。这样一份原图，自动生成各种尺寸和格式的优化版本。</p>
-<p>## 五、总结</p>
-<p>图片优化是性能优化的第一优先级。选对格式、压缩体积、按需加载、CDN分发——这四步做完，页面体积可能直接小一半。比你优化JS打包的效果明显得多。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 圖片優化：Web性能中最容易被忽視的大頭</p>
+<p>一個網頁的體積裡，圖片通常佔了70%以上。文字和CSS加起來可能才幾百KB，但隨便幾張高清照片就是幾MB。優化圖片，是性能優化中投入產出比最高的事情。很多開發者花大量時間優化JS加載速度，卻讓用戶加載了5MB的未壓縮圖片——方向完全錯了。</p>
+<p>## 一、選擇正確的格式</p>
+<p>JPEG：適合照片、色彩豐富的圖片。有損壓縮，壓縮率高。不支持透明。
+PNG：適合圖標、截圖、有透明背景的圖片。無損壓縮，文件比JPEG大。
+WebP：Google推出的新格式，同樣畫質下比JPEG小25%-35%，支持透明。現代瀏覽器都支持。
+AVIF：更新的格式，壓縮率比WebP還高，但兼容性稍差。</p>
+<p>結論：照片用WebP（fallback JPEG），圖標用PNG或WebP。不要用PNG存照片——文件大好幾倍。</p>
+<p>## 二、壓縮與縮放</p>
+<p>很多人直接把相機拍的4000x3000像素的原圖上傳到網站，然後在CSS裡縮成400x300顯示。瀏覽器還是要下載原圖，再縮放到顯示尺寸——浪費了90%的帶寬。</p>
+<p>正確做法：上傳時生成多種尺寸——縮略圖、中圖、大圖。根據display size加載合適大小的圖。用srcset屬性讓瀏覽器根據屏幕分辨率選圖：普通屏加載1x，Retina屏加載2x。</p>
+<p>## 三、懶加載</p>
+<p>首屏只加載可見區域的圖片，滾動到可視區域時再加載後面的。現在原生loading="lazy"屬性就能實現——給img標籤加上，瀏覽器自動處理，不需要寫JS。</p>
+<p>## 四、CDN與自動優化</p>
+<p>把圖片放到CDN上，配合圖片處理服務——URL參數控制尺寸、格式、質量。請求/pic.jpg?width=400&format=webp時自動生成優化後的版本。這樣一份原圖，自動生成各種尺寸和格式的優化版本。</p>
+<p>## 五、總結</p>
+<p>圖片優化是性能優化的第一優先級。選對格式、壓縮體積、按需加載、CDN分發——這四步做完，頁面體積可能直接小一半。比你優化JS打包的效果明顯得多。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储三剑客</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲三劍客</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虛擬列表與長列表優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

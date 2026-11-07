@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端路由原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="前端路由原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="前端路由原理, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-232.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-232.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-232.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-232.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-232.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端路由原理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,59 +35,44 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端路由原理 - CaesarTools">
-<meta property="og:description" content="前端路由原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-232.html">
+<meta property="og:description" content="前端路由原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-232.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端路由原理","description":"前端路由原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-232.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端路由原理","description":"前端路由原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-232.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端路由原理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 前端路由：SPA页面切换的底层原理</p>
-<p>单页应用（SPA）只有一个HTML页面，点击导航不会刷新整个页面，只是局部更新内容。但浏览器地址栏的URL会变，前进后退按钮也能用。这就是前端路由在背后工作。理解前端路由的原理，你就知道SPA是怎么实现"多页面"体验的。</p>
-<p>## 一、两种路由模式</p>
-<p>前端路由有两种实现方式：Hash模式和History模式。</p>
-<p>Hash模式：URL里带#，比如example.com/#/about。#后面的内容叫hash，改变hash不会触发页面刷新。监听hashchange事件，根据hash值渲染对应组件。简单可靠，不需要服务器配置。</p>
-<p>History模式：URL看起来像正常路径，比如example.com/about。用HTML5的History API（pushState）修改地址栏，不刷新页面。URL更美观，但需要服务器配合——用户直接访问example.com/about时，服务器要Back同一个index.html，不然404。</p>
-<p>## 二、路由怎么工作</p>
-<p>不管哪种模式，核心逻辑都一样：监听URL变化→匹配路由表→渲染对应组件。</p>
-<p>路由表是一个映射：路径→组件。
-'/' → Home组件
-'/about' → 關於组件
-'/user/:id' → User组件（:id是动态参数）</p>
-<p>当URL变成/user/123，路由匹配到/user/:id，把参数id=123传给User组件渲染。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端路由：SPA頁面切換的底層原理</p>
+<p>單頁應用（SPA）只有一個HTML頁面，點擊導航不會刷新整個頁面，只是局部更新內容。但瀏覽器地址欄的URL會變，前進後退按鈕也能用。這就是前端路由在背後工作。理解前端路由的原理，你就知道SPA是怎麼實現"多頁面"體驗的。</p>
+<p>## 一、兩種路由模式</p>
+<p>前端路由有兩種實現方式：Hash模式和History模式。</p>
+<p>Hash模式：URL裡帶#，比如example.com/#/about。#後面的內容叫hash，改變hash不會觸發頁面刷新。監聽hashchange事件，根據hash值渲染對應組件。簡單可靠，不需要服務器配置。</p>
+<p>History模式：URL看起來像正常路徑，比如example.com/about。用HTML5的History API（pushState）修改地址欄，不刷新頁面。URL更美觀，但需要服務器配合——用戶直接訪問example.com/about時，服務器要返回同一個index.html，不然404。</p>
+<p>## 二、路由怎麼工作</p>
+<p>不管哪種模式，核心邏輯都一樣：監聽URL變化→匹配路由表→渲染對應組件。</p>
+<p>路由表是一個映射：路徑→組件。
+'/' → Home組件
+'/about' → About組件
+'/user/:id' → User組件（:id是動態參數）</p>
+<p>當URL變成/user/123，路由匹配到/user/:id，把參數id=123傳給User組件渲染。</p>
 <p>## 三、嵌套路由</p>
-<p>复杂页面有嵌套布局——侧边栏不变，主内容区切换。嵌套路由就是主布局组件里嵌套一个router-view，根据子路径渲染不同的子组件。/user/list和/user/detail共用UserLayout布局，只是内容区不同。</p>
-<p>## 四、路由守卫</p>
-<p>进入某个路由前做检查：比如未Login用户访问/profile页面，拦截跳转到Login页。路由守卫就是一个前置钩子，在路由跳转前执行，决定放行还是重定向。</p>
-<p>## 五、总结</p>
-<p>前端路由的本质是：监听URL变化→匹配组件→局部渲染。Hash模式简单，History模式美观但需服务器配置。理解这个原理，用React Router或Vue Router就知道它在做什么了。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>複雜頁面有嵌套佈局——側邊欄不變，主內容區切換。嵌套路由就是主佈局組件裡嵌套一個router-view，根據子路徑渲染不同的子組件。/user/list和/user/detail共用UserLayout佈局，只是內容區不同。</p>
+<p>## 四、路由守衛</p>
+<p>進入某個路由前做檢查：比如未登錄用戶訪問/profile頁面，攔截跳轉到登錄頁。路由守衛就是一個前置鉤子，在路由跳轉前執行，決定放行還是重定向。</p>
+<p>## 五、總結</p>
+<p>前端路由的本質是：監聽URL變化→匹配組件→局部渲染。Hash模式簡單，History模式美觀但需服務器配置。理解這個原理，用React Router或Vue Router就知道它在做什麼了。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 图片优化</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模塊化</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 圖片優化</a><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR與SSG</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="浏览器事件循环 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="浏览器事件循环">
+<meta name="description" content="瀏覽器事件循環 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="瀏覽器事件循環">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-217.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器事件循环 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-217.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-217.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-217.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-217.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀏覽器事件循環 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,64 +34,49 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="浏览器事件循环 - CaesarTools">
-<meta property="og:description" content="浏览器事件循环 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-217.html">
+<meta property="og:title" content="瀏覽器事件循環 - CaesarTools">
+<meta property="og:description" content="瀏覽器事件循環 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-217.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器事件循环","description":"浏览器事件循环 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-217.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"瀏覽器事件循環","description":"瀏覽器事件循環 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-217.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>浏览器事件循环</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>瀏覽器事件循環</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 浏览器事件循环：JavaScript异步执行的底层逻辑</p>
-<p>JavaScript是单线程的——同一时间只能做一件事。那为什么Ajax请求不会卡住整个页面？为什么setTimeout定时器到点了会执行？答案是事件循环（Event Loop）。理解事件循环，你就理解了JS异步的一切。</p>
-<p>## 一、单线程为什么能异步</p>
-<p>JS一开始是浏览器脚本语言，用来做简单的DOM操作。如果它是多线程的，两个线程同时修改同一个DOM就会冲突。所以设计成单线程——同一时间只执行一段代码。</p>
-<p>但单线程意味着：如果一段代码跑了很久，后面的任务就得等着。那网络请求、定时器这些异步操作怎么办？总不能卡住页面吧。</p>
-<p>答案是：浏览器不是只有一个线程。JS引擎是单线程的，但浏览器有其他线程处理网络请求、定时器、DOM事件。当这些异步操作完成后，它们的回调函数不会立刻执行，而是被放进一个队列里。JS引擎执行完当前同步代码后，从队列里取出下一个任务执行——这就是事件循环。</p>
-<p>## 二、宏任务与微任务</p>
-<p>事件循环里有两种任务队列：宏任务队列和微任务队列。</p>
-<p>宏任务包括：setTimeout、setInterval、I/O、UI渲染、script整体代码。
-微任务包括：Promise.then、MutationObserver、queueMicrotask。</p>
-<p>执行规则：执行完当前宏任务后，清空所有微任务队列，然后执行下一个宏任务。也就是说，微任务优先级比宏任务高——所有微任务在下一个宏任务之前全部执行完。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 瀏覽器事件循環：JavaScript異步執行的底層邏輯</p>
+<p>JavaScript是單線程的——同一時間只能做一件事。那為什麼Ajax請求不會卡住整個頁面？為什麼setTimeout定時器到點了會執行？答案是事件循環（Event Loop）。理解事件循環，你就理解了JS異步的一切。</p>
+<p>## 一、單線程為什麼能異步</p>
+<p>JS一開始是瀏覽器腳本語言，用來做簡單的DOM操作。如果它是多線程的，兩個線程同時修改同一個DOM就會衝突。所以設計成單線程——同一時間只執行一段代碼。</p>
+<p>但單線程意味着：如果一段代碼跑了很久，後面的任務就得等着。那網絡請求、定時器這些異步操作怎麼辦？總不能卡住頁面吧。</p>
+<p>答案是：瀏覽器不是隻有一個線程。JS引擎是單線程的，但瀏覽器有其他線程處理網絡請求、定時器、DOM事件。當這些異步操作完成後，它們的回調函數不會立刻執行，而是被放進一個隊列裡。JS引擎執行完當前同步代碼後，從隊列裡取出下一個任務執行——這就是事件循環。</p>
+<p>## 二、宏任務與微任務</p>
+<p>事件循環裡有兩種任務隊列：宏任務隊列和微任務隊列。</p>
+<p>宏任務包括：setTimeout、setInterval、I/O、UI渲染、script整體代碼。
+微任務包括：Promise.then、MutationObserver、queueMicrotask。</p>
+<p>執行規則：執行完當前宏任務後，清空所有微任務隊列，然後執行下一個宏任務。也就是說，微任務優先級比宏任務高——所有微任務在下一個宏任務之前全部執行完。</p>
 <p>console.log('1');
 setTimeout(() => console.log('2'));
 Promise.resolve().then(() => console.log('3'));
 console.log('4');</p>
-<p>输出顺序：1 → 4 → 3 → 2。同步代码先执行（1、4），然后清空微任务（3），最后执行宏任务（2）。</p>
-<p>## 三、为什么要分两种队列</p>
-<p>如果所有异步任务都放在一个队列里排队，setTimeout回调排在Promise后面也没什么问题。但分微任务的意义在于：微任务应该在当前操作结束后、下一个操作开始前立刻执行。比如Promise resolve后，then回调应该尽快执行，不需要等下一轮宏任务。这种设计让异步操作的延迟更低。</p>
-<p>## 四、Node.js的事件循环</p>
-<p>Node.js的事件循环和浏览器类似但不完全一样。它分多个阶段：定时器阶段（setTimeout/setInterval）、I/O阶段、check阶段（setImmediate）、Close阶段。每个阶段有自己的宏任务队列。微任务（process.nextTick优先级最高，然后Promise）在每个阶段之间清空。</p>
-<p>对于大部分业务代码，你只需要记住：微任务比宏任务先执行，Promise.then比setTimeout快。</p>
-<p>## 五、总结</p>
-<p>事件循环是JS异步的核心机制。单线程的JS靠它实现了非阻塞I/O——同步代码一口气执行完，异步回调按队列依次执行。理解宏任务和微任务的优先级，能帮你搞清楚那些"为什么我的代码输出顺序和预期不一样"的诡异问题。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>輸出順序：1 → 4 → 3 → 2。同步代碼先執行（1、4），然後清空微任務（3），最後執行宏任務（2）。</p>
+<p>## 三、為什麼要分兩種隊列</p>
+<p>如果所有異步任務都放在一個隊列裡排隊，setTimeout回調排在Promise後面也沒什麼問題。但分微任務的意義在於：微任務應該在當前操作結束後、下一個操作開始前立刻執行。比如Promise resolve後，then回調應該儘快執行，不需要等下一輪宏任務。這種設計讓異步操作的延遲更低。</p>
+<p>## 四、Node.js的事件循環</p>
+<p>Node.js的事件循環和瀏覽器類似但不完全一樣。它分多個階段：定時器階段（setTimeout/setInterval）、I/O階段、check階段（setImmediate）、關閉階段。每個階段有自己的宏任務隊列。微任務（process.nextTick優先級最高，然後Promise）在每個階段之間清空。</p>
+<p>對於大部分業務代碼，你只需要記住：微任務比宏任務先執行，Promise.then比setTimeout快。</p>
+<p>## 五、總結</p>
+<p>事件循環是JS異步的核心機制。單線程的JS靠它實現了非阻塞I/O——同步代碼一口氣執行完，異步回調按隊列依次執行。理解宏任務和微任務的優先級，能幫你搞清楚那些"為什麼我的代碼輸出順序和預期不一樣"的詭異問題。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 树与二叉树</a><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-219.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流与熔断降级</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-216.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 樹與二叉樹</a><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控</a><a href="article-tech-219.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流與熔斷降級</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

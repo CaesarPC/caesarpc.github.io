@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="CORS与Cookie - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="CORS与Cookie">
+<meta name="description" content="CORS與Cookie - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CORS與Cookie">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-252.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORS与Cookie - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-252.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-252.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-252.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-252.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORS與Cookie - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,54 +34,39 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="CORS与Cookie - CaesarTools">
-<meta property="og:description" content="CORS与Cookie - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-252.html">
+<meta property="og:title" content="CORS與Cookie - CaesarTools">
+<meta property="og:description" content="CORS與Cookie - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-252.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CORS与Cookie","description":"CORS与Cookie - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-252.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CORS與Cookie","description":"CORS與Cookie - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-252.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>CORS与Cookie</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CORS與Cookie</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># CORS与Cookie：跨域带凭证的坑</p>
-<p>前面讲过CORS基础，这里补一个最常见的坑：跨域请求带Cookie。</p>
-<p>## 一、问题</p>
-<p>前端localhost:5173请求后端api.example.com。默认情况下，跨域请求不带Cookie——即使后端设置了Set-Cookie。</p>
-<p>## 二、怎么解决</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># CORS與Cookie：跨域帶憑證的坑</p>
+<p>前面講過CORS基礎，這裡補一個最常見的坑：跨域請求帶Cookie。</p>
+<p>## 一、問題</p>
+<p>前端localhost:5173請求後端api.example.com。默認情況下，跨域請求不帶Cookie——即使後端設置了Set-Cookie。</p>
+<p>## 二、怎麼解決</p>
 <p>前端fetch要加credentials: 'include'。
-后端要加Access-Control-Allow-Credentials: true。
-后端Access-Control-Allow-Origin不能是*，必须指定具体的前端域名。</p>
-<p>三个条件缺一不可。少任何一个，Cookie都带不上。</p>
-<p>## 三、为什么不能用*</p>
-<p>安全考虑：如果Allow-Origin是*，意味着任意网站都能跨域请求你的API。加上Allow-Credentials后，任意网站都能带着用户的Cookie请求——那CSRF防护就废了。所以浏览器强制要求：要带凭证，Origin必须明确指定。</p>
-<p>## 四、总结</p>
-<p>跨域带Cookie是三个条件的组合：前端credentials include + 后端Allow-Credentials true + 后端指定具体Origin。少一个都不行。这个坑几乎每个做前后端分离的开发者都踩过。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+後端要加Access-Control-Allow-Credentials: true。
+後端Access-Control-Allow-Origin不能是*，必須指定具體的前端域名。</p>
+<p>三個條件缺一不可。少任何一個，Cookie都帶不上。</p>
+<p>## 三、為什麼不能用*</p>
+<p>安全考慮：如果Allow-Origin是*，意味着任意網站都能跨域請求你的API。加上Allow-Credentials後，任意網站都能帶着用戶的Cookie請求——那CSRF防護就廢了。所以瀏覽器強制要求：要帶憑證，Origin必須明確指定。</p>
+<p>## 四、總結</p>
+<p>跨域帶Cookie是三個條件的組合：前端credentials include + 後端Allow-Credentials true + 後端指定具體Origin。少一個都不行。這個坑幾乎每個做前後端分離的開發者都踩過。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL數據庫</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端組件設計</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

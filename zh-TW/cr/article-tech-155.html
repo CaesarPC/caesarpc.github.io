@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端埋点与数据采集 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="前端埋点与数据采集, 前端">
+<meta name="description" content="前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端埋點與數據採集, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-155.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端埋点与数据采集 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-155.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-155.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-155.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-155.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端埋點與數據採集 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,50 +34,35 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="前端埋点与数据采集 - CaesarTools">
-<meta property="og:description" content="前端埋点与数据采集 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-155.html">
+<meta property="og:title" content="前端埋點與數據採集 - CaesarTools">
+<meta property="og:description" content="前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-155.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端埋点与数据采集","description":"前端埋点与数据采集 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-155.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端埋點與數據採集","description":"前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-155.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>前端埋点与数据采集</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端埋點與數據採集</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>前端埋点与数据采集：用数据驱动产品决策</p>
-<p>产品上线了，用户怎么用？点了哪些按钮？哪个页面流失多？转化漏斗哪一步掉了？这些都靠埋点：在关键位置插入数据采集代码，上报用户行为。</p>
-<p>埋点类型：页面浏览（PV）、事件点击（按钮点击、功能使用）、曝光（元素进入可视区）、性能数据（前面讲的Web Vitals）、错误信息。</p>
-<p>埋点方式：代码埋点（在按钮onClick里手动写上报代码，精确但侵入代码）、全埋点（SDK自动采集所有点击和页面浏览，灵活但数据噪音大）、可视化埋点（在后台圈选元素定义事件，不用改代码）。实际项目通常是代码埋点+全埋点结合：关键业务事件手动埋，普通浏览自动采。</p>
-<p>埋点SDK：Google Analytics、神策、GrowingIO、Mixpanel。接入SDK后，配置事件和属性，数据上报到平台，在平台做分析。</p>
-<p>事件设计：每个事件要有明确的名称和属性。比如"Submit订单"事件，属性包括：订单金额、商品类别、来源页面。这样后续才能按维度分析（哪类商品转化率高）。</p>
-<p>数据上报时机：不要阻塞主流程。埋点数据用navigator.sendBeacon异步发送，页面关了也能发出去。批量上报（攒几条一起发）减少网络请求。</p>
-<p>隐私合规：GDPR、个人信息保护法要求用户同意才能采集。要有Privacy Policy、同意选项。敏感数据不要埋（手机号、身份证）。</p>
-<p>埋点是数据驱动产品的基础。没有埋点，产品决策靠猜；有了埋点，用数据说话。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>前端埋點與數據採集：用數據驅動產品決策</p>
+<p>產品上線了，用戶怎麼用？點了哪些按鈕？哪個頁面流失多？轉化漏斗哪一步掉了？這些都靠埋點：在關鍵位置插入數據採集代碼，上報用戶行為。</p>
+<p>埋點類型：頁面瀏覽（PV）、事件點擊（按鈕點擊、功能使用）、曝光（元素進入可視區）、性能數據（前面講的Web Vitals）、錯誤信息。</p>
+<p>埋點方式：代碼埋點（在按鈕onClick裡手動寫上報代碼，精確但侵入代碼）、全埋點（SDK自動採集所有點擊和頁面瀏覽，靈活但數據噪音大）、可視化埋點（在後台圈選元素定義事件，不用改代碼）。實際項目通常是代碼埋點+全埋點結合：關鍵業務事件手動埋，普通瀏覽自動採。</p>
+<p>埋點SDK：Google Analytics、神策、GrowingIO、Mixpanel。接入SDK後，配置事件和屬性，數據上報到平臺，在平臺做分析。</p>
+<p>事件設計：每個事件要有明確的名稱和屬性。比如"提交訂單"事件，屬性包括：訂單金額、商品類別、來源頁面。這樣後續才能按維度分析（哪類商品轉化率高）。</p>
+<p>數據上報時機：不要阻塞主流程。埋點數據用navigator.sendBeacon異步發送，頁面關了也能發出去。批量上報（攢幾條一起發）減少網絡請求。</p>
+<p>隱私合規：GDPR、個人信息保護法要求用戶同意才能採集。要有隱私政策、同意選項。敏感數據不要埋（手機號、身份證）。</p>
+<p>埋點是數據驅動產品的基礎。沒有埋點，產品決策靠猜；有了埋點，用數據說話。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-162.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a><a href="article-tech-161.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能预算</a><a href="article-tech-160.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS动画与性能优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-162.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據脫敏與隱私保護</a><a href="article-tech-161.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能預算</a><a href="article-tech-160.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS動畫與性能優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

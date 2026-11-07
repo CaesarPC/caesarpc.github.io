@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端监控体系搭建 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="前端监控体系搭建, 前端">
+<meta name="description" content="前端監控體系搭建 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端監控體系搭建, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-119.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端监控体系搭建 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-119.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-119.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-119.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-119.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端監控體系搭建 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,52 +34,37 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="前端监控体系搭建 - CaesarTools">
-<meta property="og:description" content="前端监控体系搭建 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-119.html">
+<meta property="og:title" content="前端監控體系搭建 - CaesarTools">
+<meta property="og:description" content="前端監控體系搭建 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-119.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端监控体系搭建","description":"前端监控体系搭建 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-119.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端監控體系搭建","description":"前端監控體系搭建 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-119.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>前端监控体系搭建</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端監控體系搭建</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>前端监控体系搭建：让线上问题在你发现之前先报警</p>
-<p>用户在手机上打开你的网站白屏了，他不会告诉你，直接关掉。你不知道网站在某些机型上崩了，直到用户量明显下降。前端监控就是解决这个"看不见"的问题：采集线上真实用户的报错、性能、行为数据，让你远程了解网站在真实环境中的表现。</p>
-<p>错误监控是前端监控最基本的能力。JavaScript运行时错误通过window.onerror和unhandledrejection事件捕获。资源加载错误（图片404、脚本加载失败）通过捕获阶段监听error事件收集。框架层面（React的ErrorBoundary、Vue的errorHandler）捕获组件渲染错误。所有错误信息带上：错误消息、堆栈、用户UA、浏览器版本、URL、发生时间，上报到监控服务。</p>
-<p>Source Map是错误监控的关键配套。线上代码是压缩混淆过的，报错堆栈里的行列号对应不到源码。Source Map文件记录了混淆后代码和源码的映射关系，监控服务用Source Map还原出真实的错误位置。这样线上报错能精确定位到源码文件和行号。</p>
-<p>性能监控采集真实用户的体验数据。前面讲过的Web Vitals指标（LCP、INP、CLS）是核心。还有页面加载时间、白屏时间、接口耗时、资源加载耗时。这些数据按地域、浏览器、设备分组统计，发现"iOS 15上LCP普遍偏慢"这种具体问题。</p>
-<p>行为回放（Session Replay）是高级功能：录制用户的操作过程（点击、输入、页面变化），出问题时回放看用户到底做了什么。像看视频一样复现Bug，比看日志猜原因高效得多。</p>
-<p>监控平台有成熟的选择：Sentry是最流行的开源错误监控；商业平台如Fundebug、ByteDance的RUM方案；云厂商也有前端监控服务。中小团队直接用Sentry自托管或SaaS版，几行代码接入就能用。</p>
-<p>告警规则要合理。错误率突增（比平时高几倍）立刻告警；单个严重错误（白屏、JS崩溃）出现就通知；普通警告记录但不打扰。告警发到企业微信/钉钉，值班人员及时响应。</p>
-<p>前端监控和后端监控要打通。前端报错带上trace-id，后端日志也记录同一个trace-id，这样从前端报错可以一路追踪到后端是哪个接口、哪行代码出的问题。全链路排错能力就建立起来了。</p>
-<p>埋点分析是另一类前端数据采集：用户点了哪些按钮、看了哪些页面、转化漏斗哪一步流失。这不是技术监控，而是产品数据分析。通过埋点SDK自动采集用户行为，产品经理用数据做决策。</p>
-<p>没有监控的前端是黑盒。你不知道网站在用户手机上到底跑得怎么样，只能靠用户反馈（但用户不会反馈）。建立前端监控体系，是产品从Demo走向成熟的标志。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>前端監控體系搭建：讓線上問題在你發現之前先報警</p>
+<p>用戶在手機上打開你的網站白屏了，他不會告訴你，直接關掉。你不知道網站在某些機型上崩了，直到用戶量明顯下降。前端監控就是解決這個"看不見"的問題：採集線上真實用戶的報錯、性能、行為數據，讓你遠程瞭解網站在真實環境中的表現。</p>
+<p>錯誤監控是前端監控最基本的能力。JavaScript運行時錯誤通過window.onerror和unhandledrejection事件捕獲。資源加載錯誤（圖片404、腳本加載失敗）通過捕獲階段監聽error事件收集。框架層面（React的ErrorBoundary、Vue的errorHandler）捕獲組件渲染錯誤。所有錯誤信息帶上：錯誤消息、堆棧、用戶UA、瀏覽器版本、URL、發生時間，上報到監控服務。</p>
+<p>Source Map是錯誤監控的關鍵配套。線上代碼是壓縮混淆過的，報錯堆棧裡的行列號對應不到源碼。Source Map文件記錄了混淆後代碼和源碼的映射關係，監控服務用Source Map還原出真實的錯誤位置。這樣線上報錯能精確定位到源碼文件和行號。</p>
+<p>性能監控採集真實用戶的體驗數據。前面講過的Web Vitals指標（LCP、INP、CLS）是核心。還有頁面加載時間、白屏時間、接口耗時、資源加載耗時。這些數據按地域、瀏覽器、設備分組統計，發現"iOS 15上LCP普遍偏慢"這種具體問題。</p>
+<p>行為回放（Session Replay）是高級功能：錄製用戶的操作過程（點擊、輸入、頁面變化），出問題時回放看用戶到底做了什麼。像看視頻一樣復現Bug，比看日誌猜原因高效得多。</p>
+<p>監控平臺有成熟的選擇：Sentry是最流行的開源錯誤監控；商業平臺如Fundebug、ByteDance的RUM方案；雲廠商也有前端監控服務。中小團隊直接用Sentry自託管或SaaS版，幾行代碼接入就能用。</p>
+<p>告警規則要合理。錯誤率突增（比平時高几倍）立刻告警；單個嚴重錯誤（白屏、JS崩潰）出現就通知；普通警告記錄但不打擾。告警發到企業微信/釘釘，值班人員及時響應。</p>
+<p>前端監控和後端監控要打通。前端報錯帶上trace-id，後端日誌也記錄同一個trace-id，這樣從前端報錯可以一路追蹤到後端是哪個接口、哪行代碼出的問題。全鏈路排錯能力就建立起來了。</p>
+<p>埋點分析是另一類前端數據採集：用戶點了哪些按鈕、看了哪些頁面、轉化漏斗哪一步流失。這不是技術監控，而是產品數據分析。通過埋點SDK自動採集用戶行為，產品經理用數據做決策。</p>
+<p>沒有監控的前端是黑盒。你不知道網站在用戶手機上到底跑得怎麼樣，只能靠用戶反饋（但用戶不會反饋）。建立前端監控體系，是產品從Demo走向成熟的標誌。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-129.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流算法实战</a><a href="article-tech-109.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 对象存储与云存储架构原理</a><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 实时协同编辑技术解析</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-129.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流算法實戰</a><a href="article-tech-109.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 對象存儲與雲存儲架構原理</a><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 實時協同編輯技術解析</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

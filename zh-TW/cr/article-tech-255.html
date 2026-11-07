@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="NoSQL数据库 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="NoSQL数据库, SQL, 数据库">
+<meta name="description" content="NoSQL數據庫 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="NoSQL數據庫, SQL, 數據庫">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-255.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NoSQL数据库 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-255.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-255.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-255.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-255.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoSQL數據庫 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,59 +34,44 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="NoSQL数据库 - CaesarTools">
-<meta property="og:description" content="NoSQL数据库 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-255.html">
+<meta property="og:title" content="NoSQL數據庫 - CaesarTools">
+<meta property="og:description" content="NoSQL數據庫 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-255.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"NoSQL数据库","description":"NoSQL数据库 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-255.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"NoSQL數據庫","description":"NoSQL數據庫 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-255.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>NoSQL数据库</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>NoSQL數據庫</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是NoSQL：关系型数据库之外的世界</p>
-<p>MySQL这类关系型数据库用了几十年，但不是所有场景都适合。当数据结构灵活、读写量极大、需要水平扩展时，NoSQL数据库是更好的选择。NoSQL不是"没有SQL"，而是"非关系型SQL"。</p>
-<p>## 一、为什么需要NoSQL</p>
-<p>关系型数据库的优点：事务、SQL、表结构严格。但它的缺点也很明显：表结构固定（加字段要ALTER TABLE）、扩展困难（分库分表复杂）、不适合海量非结构化数据。</p>
-<p>NoSQL为特定场景设计：
-- KV存储（Redis）：极速读写。
-- 文档数据库（MongoDB）：灵活的JSON结构。
-- 列存储（HBase）：海量数据分析。
-- 图数据库（Neo4j）：关系网络查询。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是NoSQL：關係型數據庫之外的世界</p>
+<p>MySQL這類關係型數據庫用了幾十年，但不是所有場景都適合。當數據結構靈活、讀寫量極大、需要水平擴展時，NoSQL數據庫是更好的選擇。NoSQL不是"沒有SQL"，而是"非關係型SQL"。</p>
+<p>## 一、為什麼需要NoSQL</p>
+<p>關係型數據庫的優點：事務、SQL、表結構嚴格。但它的缺點也很明顯：表結構固定（加字段要ALTER TABLE）、擴展困難（分庫分表複雜）、不適合海量非結構化數據。</p>
+<p>NoSQL為特定場景設計：
+- KV存儲（Redis）：極速讀寫。
+- 文檔數據庫（MongoDB）：靈活的JSON結構。
+- 列存儲（HBase）：海量數據分析。
+- 圖數據庫（Neo4j）：關係網絡查詢。</p>
 <p>## 二、MongoDB</p>
-<p>最流行的NoSQL。数据以BSON（类似JSON）存在集合里，不像关系型数据库要求严格表结构。同一个集合里的文档可以有不同字段——非常适合数据结构不确定、快速迭代的场景。</p>
-<p>## 三、什么时候选NoSQL</p>
-<p>数据结构灵活、快速迭代——MongoDB。
-极速缓存、计数器、排行榜——Redis。
-海量写入、日志时序数据——列存储。
-社交关系、推荐图——图数据库。</p>
-<p>## 四、总结</p>
-<p>NoSQL不是要取代MySQL，而是补充。关系型数据用MySQL，灵活文档用MongoDB，极速缓存用Redis。根据数据特点选数据库，不要拿一把锤子看什么都是钉子。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>最流行的NoSQL。數據以BSON（類似JSON）存在集合裡，不像關係型數據庫要求嚴格表結構。同一個集合裡的文檔可以有不同字段——非常適合數據結構不確定、快速迭代的場景。</p>
+<p>## 三、什麼時候選NoSQL</p>
+<p>數據結構靈活、快速迭代——MongoDB。
+極速緩存、計數器、排行榜——Redis。
+海量寫入、日誌時序數據——列存儲。
+社交關係、推薦圖——圖數據庫。</p>
+<p>## 四、總結</p>
+<p>NoSQL不是要取代MySQL，而是補充。關係型數據用MySQL，靈活文檔用MongoDB，極速緩存用Redis。根據數據特點選數據庫，不要拿一把錘子看什麼都是釘子。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo</a><a href="article-tech-246.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日志最佳实践</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-263.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo</a><a href="article-tech-246.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日誌最佳實踐</a><a href="article-tech-257.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Webhook</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

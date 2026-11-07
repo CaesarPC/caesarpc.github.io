@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端错误监控 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="前端错误监控, 前端">
+<meta name="description" content="前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端錯誤監控, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-222.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端错误监控 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-222.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-222.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-222.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-222.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端錯誤監控 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,62 +34,47 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="前端错误监控 - CaesarTools">
-<meta property="og:description" content="前端错误监控 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-222.html">
+<meta property="og:title" content="前端錯誤監控 - CaesarTools">
+<meta property="og:description" content="前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-222.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端错误监控","description":"前端错误监控 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-222.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端錯誤監控","description":"前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-222.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>前端错误监控</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端錯誤監控</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 前端错误监控：让线上BUG无所遁形</p>
-<p>你本地测试一切正常，用户那边却报白屏、按钮点了没反应。你没有用户的操作录像，不知道他们用的什么浏览器、点了什么按钮、报了什么错。这种"在我电脑上是好的"困境，靠手动测试永远解决不了。前端错误监控就是把线上真实的错误信息收集回来，让你知道用户遇到了什么问题。</p>
-<p>## 一、监控什么</p>
-<p>前端错误监控主要收集三类信息：</p>
-<p>JS运行时错误：未捕获的异常、类型错误、空指针。通过window.onerror或者unhandledrejection事件捕获。</p>
-<p>资源加载错误：JS/CSS/图片加载失败。通过error事件捕获（注意资源加载错误不冒泡，要用捕获阶段）。</p>
-<p>接口请求错误：fetch或XHR请求Back4xx/5xx。封装请求库时拦截错误上报。</p>
-<p>每条错误记录：错误信息、错误堆栈、用户浏览器版本、操作系统、发生时间、用户当前页面URL。有了这些，你才能复现和定位问题。</p>
-<p>## 二、怎么上报</p>
-<p>捕获到错误后，把信息发送到后端收集服务器。用navigator.sendBeacon发送——它是异步的、不阻塞页面卸载的，特别适合在页面Close时发数据。不要用fetch同步发，可能页面已经关了请求还没发出去。</p>
-<p>上报接口本身也要容错——上报失败了不要影响用户体验，静默失败就行。</p>
-<p>## 三、Source Map：压缩后的代码怎么调试</p>
-<p>线上代码经过压缩混淆，变量名变成了a、b、c，错误堆栈里的行号列号对应的是压缩后的代码，根本没法读。解决办法是Source Map——构建工具生成一个映射文件，记录压缩后的位置对应原始代码的位置。把Source Map上传到错误监控平台，它会自动把压缩后的错误堆栈还原成原始代码的位置。</p>
-<p>注意：Source Map不要部署到公网——它等于把源代码公开了。上传到监控平台的私有存储就行。</p>
-<p>## 四、Sentry：最流行的错误监控平台</p>
-<p>Sentry是开源的错误监控工具，前后端都支持。你在前端集成Sentry SDK，它自动捕获错误、记录堆栈、还原Source Map、聚合相似错误、通知你。界面上能看到每条错误影响了多少用户、发生频率、用户环境分布。</p>
-<p>对于个人项目，Sentry免费版够用。企业可以自建Sentry服务。</p>
-<p>## 五、性能监控</p>
-<p>除了错误，还能监控性能指标：页面加载时间、首屏渲染时间、接口响应时间。这些数据汇聚起来，你就知道哪些页面慢、哪些接口慢，有针对性地优化。</p>
-<p>## 六、总结</p>
-<p>前端错误监控不是可选项——只要你的产品有真实用户，就需要它。本地测试覆盖不了所有浏览器和场景，用户的真实错误信息是最宝贵的反馈。集成Sentry这样的工具，半小时搞定，以后线上出问题你能第一时间知道，而不是等用户来骂。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端錯誤監控：讓線上BUG無所遁形</p>
+<p>你本地測試一切正常，用戶那邊卻報白屏、按鈕點了沒反應。你沒有用戶的操作錄像，不知道他們用的什麼瀏覽器、點了什麼按鈕、報了什麼錯。這種"在我電腦上是好的"困境，靠手動測試永遠解決不了。前端錯誤監控就是把線上真實的錯誤信息收集回來，讓你知道用戶遇到了什麼問題。</p>
+<p>## 一、監控什麼</p>
+<p>前端錯誤監控主要收集三類信息：</p>
+<p>JS運行時錯誤：未捕獲的異常、類型錯誤、空指針。通過window.onerror或者unhandledrejection事件捕獲。</p>
+<p>資源加載錯誤：JS/CSS/圖片加載失敗。通過error事件捕獲（注意資源加載錯誤不冒泡，要用捕獲階段）。</p>
+<p>接口請求錯誤：fetch或XHR請求返回4xx/5xx。封裝請求庫時攔截錯誤上報。</p>
+<p>每條錯誤記錄：錯誤信息、錯誤堆棧、用戶瀏覽器版本、操作系統、發生時間、用戶當前頁面URL。有了這些，你才能復現和定位問題。</p>
+<p>## 二、怎麼上報</p>
+<p>捕獲到錯誤後，把信息發送到後端收集服務器。用navigator.sendBeacon發送——它是異步的、不阻塞頁面卸載的，特別適合在頁面關閉時發數據。不要用fetch同步發，可能頁面已經關了請求還沒發出去。</p>
+<p>上報接口本身也要容錯——上報失敗了不要影響用戶體驗，靜默失敗就行。</p>
+<p>## 三、Source Map：壓縮後的代碼怎麼調試</p>
+<p>線上代碼經過壓縮混淆，變量名變成了a、b、c，錯誤堆棧裡的行號列號對應的是壓縮後的代碼，根本沒法讀。解決辦法是Source Map——構建工具生成一個映射文件，記錄壓縮後的位置對應原始代碼的位置。把Source Map上傳到錯誤監控平臺，它會自動把壓縮後的錯誤堆棧還原成原始代碼的位置。</p>
+<p>注意：Source Map不要部署到公網——它等於把源代碼公開了。上傳到監控平臺的私有存儲就行。</p>
+<p>## 四、Sentry：最流行的錯誤監控平臺</p>
+<p>Sentry是開源的錯誤監控工具，前後端都支持。你在前端集成Sentry SDK，它自動捕獲錯誤、記錄堆棧、還原Source Map、聚合相似錯誤、通知你。界面上能看到每條錯誤影響了多少用戶、發生頻率、用戶環境分佈。</p>
+<p>對於個人項目，Sentry免費版夠用。企業可以自建Sentry服務。</p>
+<p>## 五、性能監控</p>
+<p>除了錯誤，還能監控性能指標：頁面加載時間、首屏渲染時間、接口響應時間。這些數據匯聚起來，你就知道哪些頁面慢、哪些接口慢，有針對性地優化。</p>
+<p>## 六、總結</p>
+<p>前端錯誤監控不是可選項——只要你的產品有真實用戶，就需要它。本地測試覆蓋不了所有瀏覽器和場景，用戶的真實錯誤信息是最寶貴的反饋。集成Sentry這樣的工具，半小時搞定，以後線上出問題你能第一時間知道，而不是等用戶來罵。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-212.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Nginx反向代理与负载均衡</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 图片优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-212.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Nginx反向代理與負載均衡</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 圖片優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

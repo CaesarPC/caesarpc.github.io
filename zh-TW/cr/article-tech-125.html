@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="分布式锁实现方案, 分布式">
+<meta name="description" content="分佈式鎖實現方案 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="分佈式鎖實現方案, 分佈式">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-125.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分布式锁实现方案 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-125.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-125.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-125.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-125.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分佈式鎖實現方案 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="分布式锁实现方案 - CaesarTools">
-<meta property="og:description" content="分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-125.html">
+<meta property="og:title" content="分佈式鎖實現方案 - CaesarTools">
+<meta property="og:description" content="分佈式鎖實現方案 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-125.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"分布式锁实现方案","description":"分布式锁实现方案 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-125.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"分佈式鎖實現方案","description":"分佈式鎖實現方案 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-125.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>分布式锁实现方案</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>分佈式鎖實現方案</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>分布式锁实现方案：多机环境下的并发控制</p>
-<p>单机时代，用Java的synchronized或Redis的setnx就能做锁。但系统拆成多机部署后，多个服务实例同时运行，单机锁管不了其他机器。分布式锁就是在多机环境下，保证同一个操作同一时间只有一个实例在执行。</p>
-<p>典型场景：定时任务每台机器都跑，怎么保证只跑一次？库存扣减并发，怎么防止超卖？定时任务的分布式锁：实例启动定时任务前先抢锁，抢到的才执行，其他实例跳过。</p>
-<p>Redis是最常用的分布式锁实现。SET key value NX EX 30：key不存在才设置（NX），过期时间30秒（EX），防止拿到锁的进程挂了锁永远不释放。value要设成唯一值（比如UUID），释放锁时验证value是不是自己的，防止误删别人的锁。释放锁要用Lua脚本保证"检查+删除"原子性。</p>
-<p>Redis锁的问题：主从切换时锁可能丢失。Master写了锁还没同步到Slave就宕机，Slave升级后锁没了，另一个实例也能拿到锁。RedLock算法是Redis官方提出的解决方案：向多个独立的Redis节点同时申请锁，超过半数成功才算拿到锁。但RedLock也有争议（Martin Kleppmann和antirez的著名争论），实际中大多数业务用单Redis实例锁+合理过期时间就够了，不需要上RedLock。</p>
-<p>Zookeeper也能做分布式锁：创建临时顺序节点，最小的节点获得锁，watch前一个节点释放。Zookeeper锁的特点是可靠性高（会话断开自动释放锁），但性能不如Redis，运维复杂。</p>
-<p>数据库做分布式锁：创建一张锁表，插入记录成功算拿到锁，删除记录释放锁。简单但性能差，数据库成瓶颈。适合并发不高的场景。</p>
-<p>选型建议：大多数业务用Redis锁就够了；对可靠性要求极高（涉及金钱、不能出错）的场景用Zookeeper或 etcd。</p>
-<p>锁的粒度很重要。锁整个订单服务太粗，应该锁具体的订单ID。锁的过期时间要合理：太短业务没执行完锁就释放了，太长进程挂了恢复慢。看门狗（Watchdog）机制：业务执行期间自动续期，执行完才停止，解决"业务执行时间不确定"的问题。</p>
-<p>分布式锁是分布式系统的基础组件，但要谨慎使用。能用乐观锁（数据库版本号）解决的不要用分布式锁；能缩小锁粒度的不要锁大范围。锁是并发安全的最后手段，不是第一选择。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>分佈式鎖實現方案：多機環境下的併發控制</p>
+<p>單機時代，用Java的synchronized或Redis的setnx就能做鎖。但系統拆成多機部署後，多個服務實例同時運行，單機鎖管不了其他機器。分佈式鎖就是在多機環境下，保證同一個操作同一時間只有一個實例在執行。</p>
+<p>典型場景：定時任務每臺機器都跑，怎麼保證只跑一次？庫存扣減併發，怎麼防止超賣？定時任務的分佈式鎖：實例啟動定時任務前先搶鎖，搶到的才執行，其他實例跳過。</p>
+<p>Redis是最常用的分佈式鎖實現。SET key value NX EX 30：key不存在才設置（NX），過期時間30秒（EX），防止拿到鎖的進程掛了鎖永遠不釋放。value要設成唯一值（比如UUID），釋放鎖時驗證value是不是自己的，防止誤刪別人的鎖。釋放鎖要用Lua腳本保證"檢查+刪除"原子性。</p>
+<p>Redis鎖的問題：主從切換時鎖可能丟失。Master寫了鎖還沒同步到Slave就宕機，Slave升級後鎖沒了，另一個實例也能拿到鎖。RedLock算法是Redis官方提出的解決方案：向多個獨立的Redis節點同時申請鎖，超過半數成功才算拿到鎖。但RedLock也有爭議（Martin Kleppmann和antirez的著名爭論），實際中大多數業務用單Redis實例鎖+合理過期時間就夠了，不需要上RedLock。</p>
+<p>Zookeeper也能做分佈式鎖：創建臨時順序節點，最小的節點獲得鎖，watch前一個節點釋放。Zookeeper鎖的特點是可靠性高（會話斷開自動釋放鎖），但性能不如Redis，運維複雜。</p>
+<p>數據庫做分佈式鎖：創建一張鎖表，插入記錄成功算拿到鎖，刪除記錄釋放鎖。簡單但性能差，數據庫成瓶頸。適合併發不高的場景。</p>
+<p>選型建議：大多數業務用Redis鎖就夠了；對可靠性要求極高（涉及金錢、不能出錯）的場景用Zookeeper或 etcd。</p>
+<p>鎖的粒度很重要。鎖整個訂單服務太粗，應該鎖具體的訂單ID。鎖的過期時間要合理：太短業務沒執行完鎖就釋放了，太長進程掛了恢復慢。看門狗（Watchdog）機制：業務執行期間自動續期，執行完才停止，解決"業務執行時間不確定"的問題。</p>
+<p>分佈式鎖是分佈式系統的基礎組件，但要謹慎使用。能用樂觀鎖（數據庫版本號）解決的不要用分佈式鎖；能縮小鎖粒度的不要鎖大範圍。鎖是併發安全的最後手段，不是第一選擇。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 实时协同编辑技术解析</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端监控体系搭建</a><a href="article-tech-132.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心与服务发现</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 實時協同編輯技術解析</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端監控體系搭建</a><a href="article-tech-132.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心與服務發現</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="技术文档写作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="技术文档写作">
+<meta name="description" content="技術文檔寫作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="技術文檔寫作">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-165.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>技术文档写作 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-165.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-165.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-165.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-165.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技術文檔寫作 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,48 +34,33 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="技术文档写作 - CaesarTools">
-<meta property="og:description" content="技术文档写作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-165.html">
+<meta property="og:title" content="技術文檔寫作 - CaesarTools">
+<meta property="og:description" content="技術文檔寫作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-165.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技术文档写作","description":"技术文档写作 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-165.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技術文檔寫作","description":"技術文檔寫作 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-165.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>技术文档写作</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>技術文檔寫作</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>技术文档写作：让代码和架构被人理解</p>
-<p>代码写了，别人看不懂怎么办？文档不是写完代码后的附属品，是工程交付的一部分。好文档让新人快速上手，让维护者理解设计决策。</p>
-<p>文档类型：README（项目是什么、怎么跑起来）、架构文档（系统组件和数据流）、API文档（接口说明）、开发指南（环境搭建、代码规范）、运维手册（部署、监控、故障处理）。</p>
-<p>写作原则：面向读者。新人看的文档和运维看的文档不一样。简洁：不要写废话，直击要点。图文结合：架构图比文字描述清楚。及时更新：代码改了文档要同步，过时文档比没有文档更糟。</p>
-<p>工具：Markdown写文档，Git管理；架构图用draw.io、Excalidraw；API文档用OpenAPI/Swagger；知识库用飞书/Notion/Confluence。</p>
-<p>代码注释：为什么这么做（Why），不是做什么（What，代码本身已经说明）。复杂逻辑写注释。</p>
-<p>好文档是团队知识传承的载体。没有文档，知识只在个别人脑子里，人走了知识就没了。写文档是工程能力的重要部分。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>技術文檔寫作：讓代碼和架構被人理解</p>
+<p>代碼寫了，別人看不懂怎麼辦？文檔不是寫完代碼後的附屬品，是工程交付的一部分。好文檔讓新人快速上手，讓維護者理解設計決策。</p>
+<p>文檔類型：README（項目是什麼、怎麼跑起來）、架構文檔（系統組件和數據流）、API文檔（接口說明）、開發指南（環境搭建、代碼規範）、運維手冊（部署、監控、故障處理）。</p>
+<p>寫作原則：面向讀者。新人看的文檔和運維看的文檔不一樣。簡潔：不要寫廢話，直擊要點。圖文結合：架構圖比文字描述清楚。及時更新：代碼改了文檔要同步，過時文檔比沒有文檔更糟。</p>
+<p>工具：Markdown寫文檔，Git管理；架構圖用draw.io、Excalidraw；API文檔用OpenAPI/Swagger；知識庫用飛書/Notion/Confluence。</p>
+<p>代碼註釋：為什麼這麼做（Why），不是做什麼（What，代碼本身已經說明）。複雜邏輯寫註釋。</p>
+<p>好文檔是團隊知識傳承的載體。沒有文檔，知識只在個別人腦子裡，人走了知識就沒了。寫文檔是工程能力的重要部分。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-174.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_in_JS方案对比</a><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 边缘渲染与下一代Web架构</a><a href="article-tech-162.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据脱敏与隐私保护</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-174.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_in_JS方案對比</a><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣渲染與下一代Web架構</a><a href="article-tech-162.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據脫敏與隱私保護</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

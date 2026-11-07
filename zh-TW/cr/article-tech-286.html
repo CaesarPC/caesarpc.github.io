@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="浏览器存储方案对比 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="浏览器存储方案对比">
+<meta name="description" content="瀏覽器存儲方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="瀏覽器存儲方案對比">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-286.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浏览器存储方案对比（2） - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-286.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-286.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-286.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-286.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>瀏覽器存儲方案對比（2） - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,44 +34,29 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="浏览器存储方案对比 - CaesarTools">
-<meta property="og:description" content="浏览器存储方案对比 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-286.html">
+<meta property="og:title" content="瀏覽器存儲方案對比 - CaesarTools">
+<meta property="og:description" content="瀏覽器存儲方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-286.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"浏览器存储方案对比（2）","description":"浏览器存储方案对比 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-286.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"瀏覽器存儲方案對比（2）","description":"瀏覽器存儲方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-286.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>浏览器存储方案对比（2）</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>瀏覽器存儲方案對比（2）</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>浏览器存储方案完整对比：Cookie、LocalStorage、SessionStorage、IndexedDB</p>
-<p>前端存储有多种方案，各有适用场景。Cookie容量4KB，每次请求自动带在Header里，主要用于会话认证。LocalStorage 5MB，持久保存，不自动发送，适合存用户偏好。SessionStorageTags页级别，关Tags页就清空。IndexedDB是浏览器内置数据库，容量大、支持索引和事务，适合存大量结构化数据。</p>
-<p>选择原则：小量配置用LocalStorage；临时数据用SessionStorage；认证信息用Cookie（HttpOnly）；大量结构化数据用IndexedDB；离线资源用Cache Storage。理解各方案的容量、生命周期、API特点，才能选对工具。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>瀏覽器存儲方案完整對比：Cookie、LocalStorage、SessionStorage、IndexedDB</p>
+<p>前端存儲有多種方案，各有適用場景。Cookie容量4KB，每次請求自動帶在Header裡，主要用於會話認證。LocalStorage 5MB，持久保存，不自動發送，適合存用戶偏好。SessionStorage標籤頁級別，關標籤頁就清空。IndexedDB是瀏覽器內置數據庫，容量大、支持索引和事務，適合存大量結構化數據。</p>
+<p>選擇原則：小量配置用LocalStorage；臨時數據用SessionStorage；認證信息用Cookie（HttpOnly）；大量結構化數據用IndexedDB；離線資源用Cache Storage。理解各方案的容量、生命週期、API特點，才能選對工具。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-293.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型链继承</a><a href="article-tech-275.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo工具链</a><a href="article-tech-289.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript_Promise完整指南</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-293.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型鏈繼承</a><a href="article-tech-275.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo工具鏈</a><a href="article-tech-289.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript_Promise完整指南</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

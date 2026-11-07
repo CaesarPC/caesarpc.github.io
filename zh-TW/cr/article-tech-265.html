@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="WebAssembly - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="WebAssembly - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="WebAssembly">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-265.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-265.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-265.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-265.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-265.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebAssembly - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,50 +35,35 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="WebAssembly - CaesarTools">
-<meta property="og:description" content="WebAssembly - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-265.html">
+<meta property="og:description" content="WebAssembly - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-265.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebAssembly","description":"WebAssembly - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-265.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebAssembly","description":"WebAssembly - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-265.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>WebAssembly</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是WebAssembly：让其他语言跑在浏览器里</p>
-<p>JavaScript一直是浏览器唯一的原生语言。WebAssembly（Wasm）让C、C++、Rust编译成二进制格式在浏览器里运行，速度接近原生。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是WebAssembly：讓其他語言跑在瀏覽器裡</p>
+<p>JavaScript一直是瀏覽器唯一的原生語言。WebAssembly（Wasm）讓C、C++、Rust編譯成二進制格式在瀏覽器裡運行，速度接近原生。</p>
 <p>## 一、用途</p>
-<p>图片编辑、视频处理、游戏引擎——这些计算密集型任务用JS写性能不够。把C/C++/Rust编译成Wasm在浏览器跑，性能接近原生。Figma、AutoCAD网页版都是Wasm驱动的。</p>
-<p>## 二、怎么工作</p>
-<p>你用Rust写代码，编译成.wasm二进制文件。浏览器加载.wasm，以接近原生的速度执行。JS和Wasm之间可以互相调用。</p>
+<p>圖片編輯、視頻處理、遊戲引擎——這些計算密集型任務用JS寫性能不夠。把C/C++/Rust編譯成Wasm在瀏覽器跑，性能接近原生。Figma、AutoCAD網頁版都是Wasm驅動的。</p>
+<p>## 二、怎麼工作</p>
+<p>你用Rust寫代碼，編譯成.wasm二進制文件。瀏覽器加載.wasm，以接近原生的速度執行。JS和Wasm之間可以互相調用。</p>
 <p>## 三、不是替代JS</p>
-<p>Wasm不取代JS。它处理计算密集型任务，JS处理DOM操作和应用逻辑。两者配合使用。</p>
-<p>## 四、总结</p>
-<p>WebAssembly让高性能应用跑在浏览器里。计算密集任务用Rust/C++编译成Wasm，UI和逻辑还是JS。浏览器不再只有JS一种语言。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>Wasm不取代JS。它處理計算密集型任務，JS處理DOM操作和應用邏輯。兩者配合使用。</p>
+<p>## 四、總結</p>
+<p>WebAssembly讓高性能應用跑在瀏覽器裡。計算密集任務用Rust/C++編譯成Wasm，UI和邏輯還是JS。瀏覽器不再只有JS一種語言。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-267.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ EdgeFunctions</a><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-259.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SameSiteCookie</a><a href="article-tech-267.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ EdgeFunctions</a><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL數據庫</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

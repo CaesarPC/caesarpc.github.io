@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="CSS选择器优先级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="CSS选择器优先级, CSS">
+<meta name="description" content="CSS選擇器優先級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CSS選擇器優先級, CSS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-177.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS选择器优先级 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-177.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-177.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-177.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-177.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS選擇器優先級 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,48 +34,33 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="CSS选择器优先级 - CaesarTools">
-<meta property="og:description" content="CSS选择器优先级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-177.html">
+<meta property="og:title" content="CSS選擇器優先級 - CaesarTools">
+<meta property="og:description" content="CSS選擇器優先級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-177.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS选择器优先级","description":"CSS选择器优先级 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-177.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS選擇器優先級","description":"CSS選擇器優先級 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-177.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>CSS选择器优先级</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CSS選擇器優先級</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>CSS选择器优先级与层叠规则</p>
-<p>CSS样式冲突时，哪个生效？这由选择器优先级（Specificity）和层叠顺序决定。理解优先级规则，才能知道为什么你的样式没生效。</p>
-<p>优先级计算：内联样式（style属性）优先级最高；ID选择器次之；类、属性、伪类再次；Tags选择器最低。通配符*和继承的样式优先级为0。</p>
-<p>计算方式：用(a,b,c)表示——a是内联样式数量，b是ID选择器数量，c是类/属性/伪类数量。比较时从左到右，a大的胜，a相同比b，b相同比c。</p>
-<p>!important声明优先级最高，超过所有正常声明。但滥用!important会导致后续难以覆盖，应该尽量少用。</p>
-<p>层叠顺序：优先级相同时，后写的样式生效。这就是为什么调试时经常需要提高优先级（加ID、加!important）来覆盖前面的样式。</p>
-<p>理解优先级规则，就知道为什么有时候样式不生效——可能是被更高优先级的规则覆盖了。检查计算后的样式（DevTools的Computed面板），能看到哪条规则生效了。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>CSS選擇器優先級與層疊規則</p>
+<p>CSS樣式衝突時，哪個生效？這由選擇器優先級（Specificity）和層疊順序決定。理解優先級規則，才能知道為什麼你的樣式沒生效。</p>
+<p>優先級計算：內聯樣式（style屬性）優先級最高；ID選擇器次之；類、屬性、僞類再次；標籤選擇器最低。通配符*和繼承的樣式優先級為0。</p>
+<p>計算方式：用(a,b,c)表示——a是內聯樣式數量，b是ID選擇器數量，c是類/屬性/僞類數量。比較時從左到右，a大的勝，a相同比b，b相同比c。</p>
+<p>!important聲明優先級最高，超過所有正常聲明。但濫用!important會導致後續難以覆蓋，應該儘量少用。</p>
+<p>層疊順序：優先級相同時，後寫的樣式生效。這就是為什麼調試時經常需要提高優先級（加ID、加!important）來覆蓋前面的樣式。</p>
+<p>理解優先級規則，就知道為什麼有時候樣式不生效——可能是被更高優先級的規則覆蓋了。檢查計算後的樣式（DevTools的Computed面板），能看到哪條規則生效了。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 边缘渲染与下一代Web架构</a><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演进史</a><a href="article-tech-185.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 数据库索引与查询优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣渲染與下一代Web架構</a><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演進史</a><a href="article-tech-185.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫索引與查詢優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

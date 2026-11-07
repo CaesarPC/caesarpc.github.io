@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="分布式锁 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="分布式锁, 分布式">
+<meta name="description" content="分佈式鎖 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="分佈式鎖, 分佈式">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-226.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>分布式锁 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-226.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-226.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-226.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-226.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分佈式鎖 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,58 +34,43 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="分布式锁 - CaesarTools">
-<meta property="og:description" content="分布式锁 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-226.html">
+<meta property="og:title" content="分佈式鎖 - CaesarTools">
+<meta property="og:description" content="分佈式鎖 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-226.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"分布式锁","description":"分布式锁 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-226.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"分佈式鎖","description":"分佈式鎖 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-226.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>分布式锁</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>分佈式鎖</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 分布式锁：多实例下的并发控制</p>
-<p>单机时代，多线程共享数据用JVM锁或者synchronized就行。但在分布式系统里，一个服务部署了多台实例，同一个任务可能在两台机器上同时执行——比如定时任务，每台服务器都跑一遍，结果重复执行了。这时候就需要分布式锁：让跨服务器的多个进程互斥地访问同一个资源。</p>
-<p>## 一、为什么需要分布式锁</p>
-<p>场景：定时任务每天凌晨凌晨2点执行数据汇总。你的服务部署了3台实例，每台都有定时任务——结果任务执行了3次，数据汇总了3遍，重复计算浪费资源。</p>
-<p>再比如：库存扣减。商品库存只剩1件，两个请求同时进来，都查到库存是1，都扣减成功了——超卖了。单机用事务或行锁就能解决，但多实例部署时，两个请求打到不同实例上，本地锁互相不知道对方的存在。</p>
-<p>分布式锁就是解决这种问题的：跨多个进程、多台机器，保证同一时间只有一个执行。</p>
-<p>## 二、基于Redis的分布式锁</p>
-<p>最常用的分布式锁实现是Redis。SET key random_value NX PX 30000——这条命令的意思是：如果key不存在就设置成功，同时设30秒自动过期。NX（Not Exists）保证了只有一个客户端能设置成功，其他客户端设置失败就拿不到锁。</p>
-<p>random_value是客户端生成的唯一随机值——释放锁的时候要验证这个值是不是自己的，防止误删别人的锁。释放锁要用Lua脚本保证原子性：先比对value，匹配了再删。</p>
-<p>为什么要设过期时间？怕拿到锁的客户端挂了，锁永远不释放——死锁。设了过期时间，即使客户端挂了，锁也会自动释放。</p>
-<p>## 三、Redlock：多节点Redis</p>
-<p>上面的方案在单节点Redis下工作。但如果Redis主节点拿到锁之后挂了，锁还没同步到从节点，从节点升主，新主上没有这个锁——另一个客户端也能拿到锁，两个客户端同时持有锁。</p>
-<p>Redlock算法是RedisAuthor提出的改进方案：向多个独立的Redis节点同时申请锁，超过半数成功才算拿到锁。这样即使一个节点挂了，其他节点还有锁记录。但Redlock争议很大，实现复杂，大部分场景用单节点锁就够了。</p>
-<p>## 四、数据库分布式锁</p>
-<p>也可以用数据库做分布式锁：建一张锁表，唯一键是锁名。拿锁就插入一条记录，释放锁就删除。简单可靠，但性能不如Redis——每次拿锁都要读写数据库。适合并发不高的场景。</p>
-<p>## 五、总结</p>
-<p>分布式锁是分布式系统的基础组件。Redis SET NX是最常用的实现，记住三个要点：NX保证互斥、PX防止死锁、唯一值防止误删。不是所有场景都需要分布式锁——只有跨进程竞争同一资源时才用。单机能解决的问题不要上分布式锁。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 分佈式鎖：多實例下的併發控制</p>
+<p>單機時代，多線程共享數據用JVM鎖或者synchronized就行。但在分佈式系統裡，一個服務部署了多臺實例，同一個任務可能在兩臺機器上同時執行——比如定時任務，每臺服務器都跑一遍，結果重複執行了。這時候就需要分佈式鎖：讓跨服務器的多個進程互斥地訪問同一個資源。</p>
+<p>## 一、為什麼需要分佈式鎖</p>
+<p>場景：定時任務每天凌晨凌晨2點執行數據彙總。你的服務部署了3臺實例，每臺都有定時任務——結果任務執行了3次，數據彙總了3遍，重複計算浪費資源。</p>
+<p>再比如：庫存扣減。商品庫存只剩1件，兩個請求同時進來，都查到庫存是1，都扣減成功了——超賣了。單機用事務或行鎖就能解決，但多實例部署時，兩個請求打到不同實例上，本地鎖互相不知道對方的存在。</p>
+<p>分佈式鎖就是解決這種問題的：跨多個進程、多臺機器，保證同一時間只有一個執行。</p>
+<p>## 二、基於Redis的分佈式鎖</p>
+<p>最常用的分佈式鎖實現是Redis。SET key random_value NX PX 30000——這條命令的意思是：如果key不存在就設置成功，同時設30秒自動過期。NX（Not Exists）保證了只有一個客戶端能設置成功，其他客戶端設置失敗就拿不到鎖。</p>
+<p>random_value是客戶端生成的唯一隨機值——釋放鎖的時候要驗證這個值是不是自己的，防止誤刪別人的鎖。釋放鎖要用Lua腳本保證原子性：先比對value，匹配了再刪。</p>
+<p>為什麼要設過期時間？怕拿到鎖的客戶端掛了，鎖永遠不釋放——死鎖。設了過期時間，即使客戶端掛了，鎖也會自動釋放。</p>
+<p>## 三、Redlock：多節點Redis</p>
+<p>上面的方案在單節點Redis下工作。但如果Redis主節點拿到鎖之後掛了，鎖還沒同步到從節點，從節點升主，新主上沒有這個鎖——另一個客戶端也能拿到鎖，兩個客戶端同時持有鎖。</p>
+<p>Redlock算法是Redis作者提出的改進方案：向多個獨立的Redis節點同時申請鎖，超過半數成功才算拿到鎖。這樣即使一個節點掛了，其他節點還有鎖記錄。但Redlock爭議很大，實現複雜，大部分場景用單節點鎖就夠了。</p>
+<p>## 四、數據庫分佈式鎖</p>
+<p>也可以用數據庫做分佈式鎖：建一張鎖表，唯一鍵是鎖名。拿鎖就插入一條記錄，釋放鎖就刪除。簡單可靠，但性能不如Redis——每次拿鎖都要讀寫數據庫。適合併發不高的場景。</p>
+<p>## 五、總結</p>
+<p>分佈式鎖是分佈式系統的基礎組件。Redis SET NX是最常用的實現，記住三個要點：NX保證互斥、PX防止死鎖、唯一值防止誤刪。不是所有場景都需要分佈式鎖——只有跨進程競爭同一資源時才用。單機能解決的問題不要上分佈式鎖。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR与SSG</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虚拟列表与长列表优化</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 状态管理</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-234.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SSR與SSG</a><a href="article-tech-223.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 虛擬列表與長列表優化</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 狀態管理</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

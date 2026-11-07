@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="WebAssembly与前端性能新边界 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="WebAssembly与前端性能新边界, 前端">
+<meta name="description" content="WebAssembly與前端性能新邊界 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="WebAssembly與前端性能新邊界, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-107.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebAssembly与前端性能新边界 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-107.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-107.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-107.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-107.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebAssembly與前端性能新邊界 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="WebAssembly与前端性能新边界 - CaesarTools">
-<meta property="og:description" content="WebAssembly与前端性能新边界 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-107.html">
+<meta property="og:title" content="WebAssembly與前端性能新邊界 - CaesarTools">
+<meta property="og:description" content="WebAssembly與前端性能新邊界 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-107.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebAssembly与前端性能新边界","description":"WebAssembly与前端性能新边界 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-107.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebAssembly與前端性能新邊界","description":"WebAssembly與前端性能新邊界 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-107.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>WebAssembly与前端性能新边界</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>WebAssembly與前端性能新邊界</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>WebAssembly与前端性能新边界：让浏览器跑接近原生的速度</p>
-<p>JavaScript的执行速度这几年通过V8引擎的JIT优化已经快了很多，但对于计算密集型任务（视频处理、3D游戏、数据压缩、AI推理），JS还是不够快。WebAssembly（Wasm）是一种新的二进制指令格式，让其他语言（C、C++、Rust）编译成Wasm在浏览器里运行，性能接近原生代码，比JavaScript快几倍到几十倍。</p>
-<p>WebAssembly不是要替代JavaScript，而是和JS配合。擅长计算的部分用C/Rust写成Wasm，擅长UI和业务逻辑的部分继续用JS。两者之间可以互相调用。这种分工让浏览器应用既能保持开发效率，又能获得原生级的计算性能。</p>
-<p>典型应用场景：视频编辑器在浏览器里实时处理视频帧；Photoshop网页版做复杂的图像滤镜；Google Earth在浏览器里渲染海量3D地形；音乐软件在浏览器里实时音频处理；甚至在浏览器里跑完整的Linux虚拟机（WebVM）。这些场景在纯JS时代是不可想象的。</p>
-<p>从开发者角度，使用Wasm的流程是：用Rust或C++写核心计算逻辑，编译成.wasm文件，在JS里加载调用。Rust是目前最推荐的Wasm开发语言：内存安全、性能好、生态成熟（wasm-bindgen工具链）。写一段Rust函数，编译后在JS里像调用普通函数一样调用它。性能瓶颈部分用Rust，其他还是JS。</p>
-<p>Wasm的性能优势来自几个方面：二进制格式比JS文本下载和解析快；预编译的指令不需要运行时JIT优化；紧凑的指令集执行效率高；可以充分利用CPU的SIMD指令（并行计算）。在计算密集型任务上，Wasm的性能可以达到原生代码的80%-90%，而JS通常只能到30%-50%。</p>
-<p>但Wasm不是万能药。它不适合DOM操作（DOM操作还是JS的活），不适合简单业务逻辑（写Rust比写JS慢，编译还有成本）。Wasm文件体积也比JS大，需要按需加载、流式编译。调试Wasm比调试JS困难。这些限制决定了Wasm是性能优化的工具，不是日常开发的选择。</p>
-<p>新兴的应用方向是AI在浏览器端运行。通过Wasm把大模型推理跑在浏览器里，数据不用上传到服务器，隐私性好、延迟低。Transformers.js就是让大模型在浏览器里跑的库，底层用Wasm/WebGPU加速。未来很多AI功能会从云端下沉到端侧浏览器。</p>
-<p>WebGPU是和WebAssembly配合的下一代图形和计算API。它能让浏览器直接调用GPU做通用计算（GPGPU），AI推理、物理模拟、数据处理都可以利用GPU的并行算力。WebGPU + Wasm的组合，正在把浏览器变成一个功能强大的计算平台。</p>
-<p>前端技术的边界一直在扩展。从只能做简单页面，到做复杂应用，再到做高性能计算，WebAssembly代表了前端未来的一个重要方向。理解Wasm的能力和适用场景，是前端开发者面向未来的知识储备。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>WebAssembly與前端性能新邊界：讓瀏覽器跑接近原生的速度</p>
+<p>JavaScript的執行速度這幾年通過V8引擎的JIT優化已經快了很多，但對於計算密集型任務（視頻處理、3D遊戲、數據壓縮、AI推理），JS還是不夠快。WebAssembly（Wasm）是一種新的二進制指令格式，讓其他語言（C、C++、Rust）編譯成Wasm在瀏覽器裡運行，性能接近原生代碼，比JavaScript快幾倍到幾十倍。</p>
+<p>WebAssembly不是要替代JavaScript，而是和JS配合。擅長計算的部分用C/Rust寫成Wasm，擅長UI和業務邏輯的部分繼續用JS。兩者之間可以互相調用。這種分工讓瀏覽器應用既能保持開發效率，又能獲得原生級的計算性能。</p>
+<p>典型應用場景：視頻編輯器在瀏覽器裡實時處理視頻幀；Photoshop網頁版做複雜的圖像濾鏡；Google Earth在瀏覽器裡渲染海量3D地形；音樂軟件在瀏覽器裡實時音頻處理；甚至在瀏覽器裡跑完整的Linux虛擬機（WebVM）。這些場景在純JS時代是不可想象的。</p>
+<p>從開發者角度，使用Wasm的流程是：用Rust或C++寫核心計算邏輯，編譯成.wasm文件，在JS里加載調用。Rust是目前最推薦的Wasm開發語言：內存安全、性能好、生態成熟（wasm-bindgen工具鏈）。寫一段Rust函數，編譯後在JS裡像調用普通函數一樣調用它。性能瓶頸部分用Rust，其他還是JS。</p>
+<p>Wasm的性能優勢來自幾個方面：二進制格式比JS文本下載和解析快；預編譯的指令不需要運行時JIT優化；緊湊的指令集執行效率高；可以充分利用CPU的SIMD指令（並行計算）。在計算密集型任務上，Wasm的性能可以達到原生代碼的80%-90%，而JS通常只能到30%-50%。</p>
+<p>但Wasm不是萬能藥。它不適合DOM操作（DOM操作還是JS的活），不適合簡單業務邏輯（寫Rust比寫JS慢，編譯還有成本）。Wasm文件體積也比JS大，需要按需加載、流式編譯。調試Wasm比調試JS困難。這些限制決定了Wasm是性能優化的工具，不是日常開發的選擇。</p>
+<p>新興的應用方向是AI在瀏覽器端運行。通過Wasm把大模型推理跑在瀏覽器裡，數據不用上傳到服務器，隱私性好、延遲低。Transformers.js就是讓大模型在瀏覽器裡跑的庫，底層用Wasm/WebGPU加速。未來很多AI功能會從雲端下沉到端側瀏覽器。</p>
+<p>WebGPU是和WebAssembly配合的下一代圖形和計算API。它能讓瀏覽器直接調用GPU做通用計算（GPGPU），AI推理、物理模擬、數據處理都可以利用GPU的並行算力。WebGPU + Wasm的組合，正在把瀏覽器變成一個功能強大的計算平臺。</p>
+<p>前端技術的邊界一直在擴展。從只能做簡單頁面，到做複雜應用，再到做高性能計算，WebAssembly代表了前端未來的一個重要方向。理解Wasm的能力和適用場景，是前端開發者面向未來的知識儲備。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 单页应用路由原理与前端状态管理</a><a href="article-tech-111.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 团队代码规范与工程协作</a><a href="article-tech-109.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 对象存储与云存储架构原理</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 單頁應用路由原理與前端狀態管理</a><a href="article-tech-111.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 團隊代碼規範與工程協作</a><a href="article-tech-109.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 對象存儲與雲存儲架構原理</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

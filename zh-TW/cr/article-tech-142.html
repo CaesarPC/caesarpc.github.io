@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="技术选型决策方法 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="技术选型决策方法">
+<meta name="description" content="技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="技術選型決策方法">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-142.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>技术选型决策方法 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-142.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-142.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-142.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-142.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技術選型決策方法 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="技术选型决策方法 - CaesarTools">
-<meta property="og:description" content="技术选型决策方法 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-142.html">
+<meta property="og:title" content="技術選型決策方法 - CaesarTools">
+<meta property="og:description" content="技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-142.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技术选型决策方法","description":"技术选型决策方法 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-142.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技術選型決策方法","description":"技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-142.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>技术选型决策方法</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>技術選型決策方法</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>技术选型决策方法：在众多方案中做对选择</p>
-<p>做一个新功能、新项目，技术栈选什么？数据库用MySQL还是PostgreSQL？前端用React还是Vue？消息队列用Kafka还是RabbitMQ？技术选型没有标准答案，但有方法论。</p>
-<p>第一步是明确需求和约束。这个项目要解决什么问题？团队熟悉什么技术？预算多少？什么时候要上线？需求和约束不清晰，选型就是瞎选。比如一个内部工具，没必要上微服务；一个高并发交易系统，不能用不熟悉的新技术。</p>
-<p>第二步是列出候选方案。不要只知道一个方案就选它。调研两三个主流选项，了解各自的优劣。</p>
-<p>第三步是评估维度。常见维度：团队熟悉度（学习成本）、社区生态（文档、插件、人才）、性能（够不够用）、成熟度（踩坑多不多）、运维成本、长期维护性。按项目权重打分。</p>
-<p>第四步是做POC验证。关键技术选型不要只看文档，写个原型实际跑一跑。性能压测一下、关键功能试一下，文档说的和实际用的可能有差距。</p>
-<p>常见的选型误区：追新（用最新但不成熟的技术，踩坑）；盲目跟风（别人用什么我用什么，不考虑适不适合）；过度设计（小项目上大架构）；个人偏好（因为我喜欢这个语言就选它）。</p>
-<p>好的选型原则：成熟优先（新项目用经过验证的技术，别当小白鼠）；熟悉优先（团队会的技术比"更好"的技术重要）；简单优先（能满足需求的最简单方案）；可逆优先（选了以后容易换的方案，不要锁死在某家）。</p>
-<p>技术选型不是一劳永逸。架构和技术会演进，定期复盘：当初选的方案现在还合适吗？有没有更好的选择？但不要频繁换技术栈，那是巨大的浪费。</p>
-<p>技术选型是架构师的核心工作之一。它不是选"最好的技术"，而是选"最适合当前场景的技术"。理解权衡，比知道技术本身更重要。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>技術選型決策方法：在衆多方案中做對選擇</p>
+<p>做一個新功能、新項目，技術棧選什麼？數據庫用MySQL還是PostgreSQL？前端用React還是Vue？消息隊列用Kafka還是RabbitMQ？技術選型沒有標準答案，但有方法論。</p>
+<p>第一步是明確需求和約束。這個項目要解決什麼問題？團隊熟悉什麼技術？預算多少？什麼時候要上線？需求和約束不清晰，選型就是瞎選。比如一個內部工具，沒必要上微服務；一個高併發交易系統，不能用不熟悉的新技術。</p>
+<p>第二步是列出候選方案。不要只知道一個方案就選它。調研兩三個主流選項，瞭解各自的優劣。</p>
+<p>第三步是評估維度。常見維度：團隊熟悉度（學習成本）、社區生態（文檔、插件、人才）、性能（夠不夠用）、成熟度（踩坑多不多）、運維成本、長期維護性。按項目權重打分。</p>
+<p>第四步是做POC驗證。關鍵技術選型不要只看文檔，寫個原型實際跑一跑。性能壓測一下、關鍵功能試一下，文檔說的和實際用的可能有差距。</p>
+<p>常見的選型誤區：追新（用最新但不成熟的技術，踩坑）；盲目跟風（別人用什麼我用什麼，不考慮適不適合）；過度設計（小項目上大架構）；個人偏好（因為我喜歡這個語言就選它）。</p>
+<p>好的選型原則：成熟優先（新項目用經過驗證的技術，別當小白鼠）；熟悉優先（團隊會的技術比"更好"的技術重要）；簡單優先（能滿足需求的最簡單方案）；可逆優先（選了以後容易換的方案，不要鎖死在某家）。</p>
+<p>技術選型不是一勞永逸。架構和技術會演進，定期復盤：當初選的方案現在還合適嗎？有沒有更好的選擇？但不要頻繁換技術棧，那是巨大的浪費。</p>
+<p>技術選型是架構師的核心工作之一。它不是選"最好的技術"，而是選"最適合當前場景的技術"。理解權衡，比知道技術本身更重要。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架构详解</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驅動架構</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度發佈與AB測試</a><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架構詳解</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

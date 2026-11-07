@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端SEO - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="前端SEO - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="前端SEO, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-256.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-256.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-256.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-256.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-256.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>前端SEO - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,55 +35,40 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="前端SEO - CaesarTools">
-<meta property="og:description" content="前端SEO - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-256.html">
+<meta property="og:description" content="前端SEO - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-256.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端SEO","description":"前端SEO - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-256.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端SEO","description":"前端SEO - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-256.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>前端SEO</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 前端SEO：让Search引擎找到你的页面</p>
-<p>做了一个漂亮的网站，但搜不到？SEO（Search引擎优化）就是让你的网站在Google/百度Search结果中排名靠前。前端框架让SEO变得更难了——SPA默认对Search引擎不友好。</p>
-<p>## 一、为什么SPA不SEO</p>
-<p>爬虫访问你的SPA，看到的是空HTML——只有一个div和一个scriptTags。JS执行后才渲染内容。虽然Google能执行JS，但渲染慢、可能抓不全。其他Search引擎更差。</p>
-<p>## 二、怎么优化</p>
-<p>服务端渲染（SSR）：前面讲过，服务器直接Back完整HTML，爬虫看到完整内容。
-静态生成（SSG）：构建时预渲染所有页面，每个页面都是完整HTML。</p>
-<p>即使是SPA，也要做好基础SEO：
-- 每个页面有独特的title和meta description。
-- 语义化HTML（h1、article、navTags）。
-- 有意义的URL（/blog/post-1 而不是/?p=123）。</p>
-<p>## 三、结构化数据</p>
-<p>在HTML里加结构化数据（JSON-LD），告诉Search引擎这个页面是什么内容——文章、商品、面包屑。Search结果可以展示更丰富的信息（评分、价格、Date）。</p>
-<p>## 四、总结</p>
-<p>SEO对内容站、电商站很重要，对Admin系统完全不重要。需要SEO的站用SSR/SSG，做好title/meta和语义化HTML。不需要SEO的内部工具，不用纠结。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端SEO：讓搜索引擎找到你的頁面</p>
+<p>做了一個漂亮的網站，但搜不到？SEO（搜索引擎優化）就是讓你的網站在Google/百度搜索結果中排名靠前。前端框架讓SEO變得更難了——SPA默認對搜索引擎不友好。</p>
+<p>## 一、為什麼SPA不SEO</p>
+<p>爬蟲訪問你的SPA，看到的是空HTML——只有一個div和一個script標籤。JS執行後才渲染內容。雖然Google能執行JS，但渲染慢、可能抓不全。其他搜索引擎更差。</p>
+<p>## 二、怎麼優化</p>
+<p>服務端渲染（SSR）：前面講過，服務器直接返回完整HTML，爬蟲看到完整內容。
+靜態生成（SSG）：構建時預渲染所有頁面，每個頁面都是完整HTML。</p>
+<p>即使是SPA，也要做好基礎SEO：
+- 每個頁面有獨特的title和meta description。
+- 語義化HTML（h1、article、nav標籤）。
+- 有意義的URL（/blog/post-1 而不是/?p=123）。</p>
+<p>## 三、結構化數據</p>
+<p>在HTML里加結構化數據（JSON-LD），告訴搜索引擎這個頁面是什麼內容——文章、商品、麵包屑。搜索結果可以展示更豐富的信息（評分、價格、日期）。</p>
+<p>## 四、總結</p>
+<p>SEO對內容站、電商站很重要，對後台管理系統完全不重要。需要SEO的站用SSR/SSG，做好title/meta和語義化HTML。不需要SEO的內部工具，不用糾結。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a><a href="article-tech-248.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS预处理器</a><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a><a href="article-tech-248.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS預處理器</a><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="对象存储与云存储架构原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="对象存储与云存储架构原理, 架构">
+<meta name="description" content="對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="對象存儲與雲存儲架構原理, 架構">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-109.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>对象存储与云存储架构原理 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-109.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-109.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-109.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-109.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>對象存儲與雲存儲架構原理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="对象存储与云存储架构原理 - CaesarTools">
-<meta property="og:description" content="对象存储与云存储架构原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-109.html">
+<meta property="og:title" content="對象存儲與雲存儲架構原理 - CaesarTools">
+<meta property="og:description" content="對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-109.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"对象存储与云存储架构原理","description":"对象存储与云存储架构原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-109.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"對象存儲與雲存儲架構原理","description":"對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-109.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>对象存储与云存储架构原理</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>對象存儲與雲存儲架構原理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>对象存储与云存储架构原理：从文件服务器到S3的演进</p>
-<p>早期的网站存储文件，就是存在服务器本地磁盘上，通过Nginx直接对外提供下载。这种方式在单机时代没问题，但随着文件数量增长（图片、视频、用户上传的附件），单机存储的瓶颈很快暴露：扩容麻烦、备份困难、带宽有限、多机文件不一致。对象存储（Object Storage）就是为解决海量文件存储而生的架构。</p>
-<p>对象存储的核心概念是：所有文件作为"对象"存储在扁平的存储空间（Bucket）里，不是文件系统的Contents树结构。每个对象有一个唯一的Key（相当于路径），通过Key读写对象。S3（Amazon Simple Storage Service）是对象存储的鼻祖和标准API，现在阿里云OSS、腾讯云COS、Cloudflare R2都兼容S3 API。</p>
-<p>对象存储和传统文件存储的区别：文件系统是层级Contents结构，支持随机修改文件内容；对象存储是扁平的，整个对象作为一个单元上传下载，不支持修改文件中间的某一段（要么整个重传）。这种简单模型换来的是极强的扩展性：存储容量几乎无限，自动扩容，不需要管理磁盘。</p>
-<p>实际使用中，网站的图片、视频、用户上传的文件，都存在对象存储里，而不是应用服务器本地。应用服务器只处理业务逻辑，文件交给对象存储。前端上传文件时，通常是后端生成一个带权限的上传凭证（Pre-signed URL），前端直接把文件传到对象存储，不经过应用服务器。这样应用服务器不占用带宽处理文件传输，性能和成本都更优。</p>
-<p>CDN和对象存储天然配合。文件存在对象存储源站，CDN缓存到全球边缘节点，用户从就近节点下载。图片处理（缩放、裁剪、转格式）也在CDN边缘完成，不用后端服务器处理。</p>
-<p>数据冗余是对象存储的底层设计。每个对象自动多副本存储（通常3份），分布在不同机房，单块磁盘损坏不影响数据可用性。这就是为什么对象存储号称"11个9"的持久性——数据几乎不会丢。版本控制功能可以保留文件的历史版本，误删后可以恢复。</p>
-<p>生命周期管理是成本优化的利器。不常访问的文件（如一年前的日志、历史图片），自动从标准存储降级到低频访问存储、归档存储，价格便宜很多。符合条件的数据自动迁移，不用手动操作。</p>
-<p>自建对象存储 vs 用云服务：MinIO是开源的对象存储，可以部署在自己的服务器上，兼容S3 API。适合有数据合规要求、不想把数据放公有云的场景。但自建要自己运维：磁盘管理、扩容、备份、监控，成本不低。大多数中小团队直接用云厂商的托管对象存储，省心。</p>
-<p>对象存储已经是现代Web应用的基础设施。几乎所有网站的静态资源、用户上传文件都存在对象存储上。理解它的原理和使用方式，是全栈开发的基本能力。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>對象存儲與雲存儲架構原理：從文件服務器到S3的演進</p>
+<p>早期的網站存儲文件，就是存在服務器本地磁盤上，通過Nginx直接對外提供下載。這種方式在單機時代沒問題，但隨着文件數量增長（圖片、視頻、用戶上傳的附件），單機存儲的瓶頸很快暴露：擴容麻煩、備份困難、帶寬有限、多機文件不一致。對象存儲（Object Storage）就是為解決海量文件存儲而生的架構。</p>
+<p>對象存儲的核心概念是：所有文件作為"對象"存儲在扁平的存儲空間（Bucket）裡，不是文件系統的目錄樹結構。每個對象有一個唯一的Key（相當於路徑），通過Key讀寫對象。S3（Amazon Simple Storage Service）是對象存儲的鼻祖和標準API，現在阿里雲OSS、騰訊雲COS、Cloudflare R2都兼容S3 API。</p>
+<p>對象存儲和傳統文件存儲的區別：文件系統是層級目錄結構，支持隨機修改文件內容；對象存儲是扁平的，整個對象作為一個單元上傳下載，不支持修改文件中間的某一段（要麼整個重傳）。這種簡單模型換來的是極強的擴展性：存儲容量幾乎無限，自動擴容，不需要管理磁盤。</p>
+<p>實際使用中，網站的圖片、視頻、用戶上傳的文件，都存在對象存儲裡，而不是應用服務器本地。應用服務器只處理業務邏輯，文件交給對象存儲。前端上傳文件時，通常是後端生成一個帶權限的上傳憑證（Pre-signed URL），前端直接把文件傳到對象存儲，不經過應用服務器。這樣應用服務器不佔用帶寬處理文件傳輸，性能和成本都更優。</p>
+<p>CDN和對象存儲天然配合。文件存在對象存儲源站，CDN緩存到全球邊緣節點，用戶從就近節點下載。圖片處理（縮放、裁剪、轉格式）也在CDN邊緣完成，不用後端服務器處理。</p>
+<p>數據冗餘是對象存儲的底層設計。每個對象自動多副本存儲（通常3份），分佈在不同機房，單塊磁盤損壞不影響數據可用性。這就是為什麼對象存儲號稱"11個9"的持久性——數據幾乎不會丟。版本控制功能可以保留文件的歷史版本，誤刪後可以恢復。</p>
+<p>生命週期管理是成本優化的利器。不常訪問的文件（如一年前的日誌、歷史圖片），自動從標準存儲降級到低頻訪問存儲、歸檔存儲，價格便宜很多。符合條件的數據自動遷移，不用手動操作。</p>
+<p>自建對象存儲 vs 用雲服務：MinIO是開源的對象存儲，可以部署在自己的服務器上，兼容S3 API。適合有數據合規要求、不想把數據放公有云的場景。但自建要自己運維：磁盤管理、擴容、備份、監控，成本不低。大多數中小團隊直接用雲廠商的託管對象存儲，省心。</p>
+<p>對象存儲已經是現代Web應用的基礎設施。幾乎所有網站的靜態資源、用戶上傳文件都存在對象存儲上。理解它的原理和使用方式，是全棧開發的基本能力。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API网关架构设计</a><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 单页应用路由原理与前端状态管理</a><a href="article-tech-117.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS布局进化史</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 單頁應用路由原理與前端狀態管理</a><a href="article-tech-117.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS佈局進化史</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

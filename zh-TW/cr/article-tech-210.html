@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="HTTPS与TLS加密原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="HTTPS与TLS加密原理, HTTPS">
+<meta name="description" content="HTTPS與TLS加密原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="HTTPS與TLS加密原理, HTTPS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-210.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HTTPS与TLS加密原理 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-210.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-210.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-210.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-210.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTPS與TLS加密原理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,65 +34,50 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="HTTPS与TLS加密原理 - CaesarTools">
-<meta property="og:description" content="HTTPS与TLS加密原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-210.html">
+<meta property="og:title" content="HTTPS與TLS加密原理 - CaesarTools">
+<meta property="og:description" content="HTTPS與TLS加密原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-210.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"HTTPS与TLS加密原理","description":"HTTPS与TLS加密原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-210.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"HTTPS與TLS加密原理","description":"HTTPS與TLS加密原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-210.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>HTTPS与TLS加密原理</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>HTTPS與TLS加密原理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># HTTPS与TLS：加密传输是怎么工作的</p>
-<p>你每天访问的网站都挂着一把小锁，表示HTTPS加密。但HTTPS到底是怎么加密的？为什么HTTPS不会被中间人窃听？为什么现在所有网站都必须上HTTPS？理解TLS加密的基本原理，不仅是网络安全的必修课，也能帮你理解现代Web的信任体系。</p>
-<p>## 一、为什么需要加密</p>
-<p>HTTP是明文传输的。你在咖啡馆连公共Wi-Fi，你输入的Password、浏览的网页、发送的数据，都以明文形式在网络上传输。同一网络上的其他人可以用抓包工具直接看到你的所有数据——甚至篡改你看到的网页内容，插入广告或者钓鱼链接。</p>
-<p>HTTPS在HTTP和TCP之间加了一层TLS加密。数据在浏览器和服务器之间是加密传输的，中间的人只能看到一堆乱码，不知道你传了什么，也篡改不了内容。</p>
-<p>## 二、对称加密与非对称加密</p>
-<p>加密有两种基本方式。</p>
-<p>对称加密：加密和解密用同一个密钥。就像一把钥匙开一把锁——你和对方都有同一把钥匙，加密后发过去，对方用钥匙解密。问题是：怎么把安全地把密钥告诉对方？如果密钥在传输过程中被截获，后面所有加密都白搭。</p>
-<p>非对称加密：有一对密钥——公钥和私钥。公钥加密的数据，只有私钥能解密。公钥可以公开给任何人，私钥自己保管。你要给我发消息，用我的公钥加密，我用我的私钥解密。但非对称加密非常慢，不适合加密大量数据。</p>
-<p>TLS的聪明之处是：用非对称加密安全地交换一个对称密钥，然后用对称密钥加密后续的数据传输。两全其美。</p>
-<p>## 三、TLS握手过程</p>
-<p>浏览器和服务器建立HTTPS连接时，要做一次TLS握手。过程大概是这样：</p>
-<p>浏览器说：我支持这些加密算法，这是我的随机数。服务器说：好，选这个算法，这是我的随机数和数字证书（证书里包含服务器的公钥）。浏览器验证证书——这个证书是受信任的CA机构签发的吗？域名对不对？有没有被吊销？验证通过后，浏览器生成一个预主密钥，用服务器的公钥加密发给服务器。服务器用私钥解密，拿到预主密钥。双方根据之前的两个随机数和预主密钥，各自生成一个会话密钥。之后所有通信用这个会话密钥对称加密。</p>
-<p>整个握手过程可能需要2-3个RTT，但之后的数据传输就是高速的对称加密了。</p>
-<p>## 四、数字证书与信任链</p>
-<p>你可能会问：浏览器怎么知道服务器的公钥是真的？万有人伪造了一个网站，给了一个假公钥怎么办？</p>
-<p>答案是数字证书。证书是由受信任的CA（证书颁发机构）签发的，里面包含域名、公钥、有效期、CA的签名。浏览器内置了所有主流CA的根证书。当服务器把证书发给浏览器时，浏览器用CA的公钥验证证书上的签名——如果签名有效，说明这个证书确实是CA给这个域名签的，公钥可信。</p>
-<p>这个信任链是层层嵌套的：你的网站证书由中级CA签发，中级CA由根CA签发，根CA预装在浏览器里。只要根CA是可信的，整条链就可信。</p>
-<p>Let's Encrypt让免费证书变得普及，现在HTTPS几乎没有成本门槛了。</p>
-<p>## 五、混合内容与HSTS</p>
-<p>网站上一个常见问题是混合内容：HTML是HTTPS加载的，但里面引用的图片或JS是HTTP的浏览器会拦截这些HTTP资源，因为不安全。解决方案是所有资源都用HTTPS或者相对路径引用。</p>
-<p>HSTS是一个响应头，告诉浏览器：这个网站以后只允许用HTTPS访问，不要尝试HTTP。这样即使有人输入http://example.com，浏览器也会自动跳转到HTTPS，防止降级攻击。</p>
-<p>## 六、总结</p>
-<p>HTTPS不是什么高深的黑科技，它是一套组合拳：非对称加密安全交换密钥，对称加密高效传输数据，数字证书验证身份。理解了这个原理，你就知道为什么HTTPS安全、为什么证书重要、为什么不能随便点"继续访问不安全网站"。在今天，HTTPS已经不是可选项，而是Web的基本要求。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># HTTPS與TLS：加密傳輸是怎麼工作的</p>
+<p>你每天訪問的網站都掛着一把小鎖，表示HTTPS加密。但HTTPS到底是怎麼加密的？為什麼HTTPS不會被中間人竊聽？為什麼現在所有網站都必須上HTTPS？理解TLS加密的基本原理，不僅是網絡安全的必修課，也能幫你理解現代Web的信任體系。</p>
+<p>## 一、為什麼需要加密</p>
+<p>HTTP是明文傳輸的。你在咖啡館連公共Wi-Fi，你輸入的密碼、瀏覽的網頁、發送的數據，都以明文形式在網絡上傳輸。同一網絡上的其他人可以用抓包工具直接看到你的所有數據——甚至篡改你看到的網頁內容，插入廣告或者釣魚鏈接。</p>
+<p>HTTPS在HTTP和TCP之間加了一層TLS加密。數據在瀏覽器和服務器之間是加密傳輸的，中間的人只能看到一堆亂碼，不知道你傳了什麼，也篡改不了內容。</p>
+<p>## 二、對稱加密與非對稱加密</p>
+<p>加密有兩種基本方式。</p>
+<p>對稱加密：加密和解密用同一個密鑰。就像一把鑰匙開一把鎖——你和對方都有同一把鑰匙，加密後發過去，對方用鑰匙解密。問題是：怎麼把安全地把密鑰告訴對方？如果密鑰在傳輸過程中被截獲，後面所有加密都白搭。</p>
+<p>非對稱加密：有一對密鑰——公鑰和私鑰。公鑰加密的數據，只有私鑰能解密。公鑰可以公開給任何人，私鑰自己保管。你要給我發消息，用我的公鑰加密，我用我的私鑰解密。但非對稱加密非常慢，不適合加密大量數據。</p>
+<p>TLS的聰明之處是：用非對稱加密安全地交換一個對稱密鑰，然後用對稱密鑰加密後續的數據傳輸。兩全其美。</p>
+<p>## 三、TLS握手過程</p>
+<p>瀏覽器和服務器建立HTTPS連接時，要做一次TLS握手。過程大概是這樣：</p>
+<p>瀏覽器說：我支持這些加密算法，這是我的隨機數。服務器說：好，選這個算法，這是我的隨機數和數字證書（證書裡包含服務器的公鑰）。瀏覽器驗證證書——這個證書是受信任的CA機構簽發的嗎？域名對不對？有沒有被吊銷？驗證通過後，瀏覽器生成一個預主密鑰，用服務器的公鑰加密發給服務器。服務器用私鑰解密，拿到預主密鑰。雙方根據之前的兩個隨機數和預主密鑰，各自生成一個會話密鑰。之後所有通信用這個會話密鑰對稱加密。</p>
+<p>整個握手過程可能需要2-3個RTT，但之後的數據傳輸就是高速的對稱加密了。</p>
+<p>## 四、數字證書與信任鏈</p>
+<p>你可能會問：瀏覽器怎麼知道服務器的公鑰是真的？萬有人僞造了一個網站，給了一個假公鑰怎麼辦？</p>
+<p>答案是數字證書。證書是由受信任的CA（證書頒發機構）簽發的，裡面包含域名、公鑰、有效期、CA的簽名。瀏覽器內置了所有主流CA的根證書。當服務器把證書發給瀏覽器時，瀏覽器用CA的公鑰驗證證書上的簽名——如果簽名有效，說明這個證書確實是CA給這個域名籤的，公鑰可信。</p>
+<p>這個信任鏈是層層嵌套的：你的網站證書由中級CA簽發，中級CA由根CA簽發，根CA預裝在瀏覽器裡。只要根CA是可信的，整條鏈就可信。</p>
+<p>Let's Encrypt讓免費證書變得普及，現在HTTPS幾乎沒有成本門檻了。</p>
+<p>## 五、混合內容與HSTS</p>
+<p>網站上一個常見問題是混合內容：HTML是HTTPS加載的，但裡面引用的圖片或JS是HTTP的瀏覽器會攔截這些HTTP資源，因為不安全。解決方案是所有資源都用HTTPS或者相對路徑引用。</p>
+<p>HSTS是一個響應頭，告訴瀏覽器：這個網站以後只允許用HTTPS訪問，不要嘗試HTTP。這樣即使有人輸入http://example.com，瀏覽器也會自動跳轉到HTTPS，防止降級攻擊。</p>
+<p>## 六、總結</p>
+<p>HTTPS不是什麼高深的黑科技，它是一套組合拳：非對稱加密安全交換密鑰，對稱加密高效傳輸數據，數字證書驗證身份。理解了這個原理，你就知道為什麼HTTPS安全、為什麼證書重要、為什麼不能隨便點"繼續訪問不安全網站"。在今天，HTTPS已經不是可選項，而是Web的基本要求。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-218.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS布局Flex与Grid</a><a href="article-tech-213.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Hash表原理与应用</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率对比</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-218.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS佈局Flex與Grid</a><a href="article-tech-213.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 哈希表原理與應用</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

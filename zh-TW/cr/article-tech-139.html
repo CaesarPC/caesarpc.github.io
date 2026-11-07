@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="DDD领域驱动设计入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="DDD领域驱动设计入门">
+<meta name="description" content="DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="DDD領域驅動設計入門">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-139.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DDD领域驱动设计入门 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-139.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-139.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-139.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-139.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DDD領域驅動設計入門 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="DDD领域驱动设计入门 - CaesarTools">
-<meta property="og:description" content="DDD领域驱动设计入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-139.html">
+<meta property="og:title" content="DDD領域驅動設計入門 - CaesarTools">
+<meta property="og:description" content="DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-139.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"DDD领域驱动设计入门","description":"DDD领域驱动设计入门 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-139.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"DDD領域驅動設計入門","description":"DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-139.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>DDD领域驱动设计入门</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>DDD領域驅動設計入門</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>DDD领域驱动设计入门：让代码结构匹配业务复杂度</p>
-<p>业务复杂的系统，代码写成一团：一个Service几千行，什么业务逻辑都往里塞，改一个功能怕动到其他地方。DDD（Domain-Driven Design，领域驱动设计）是一套应对复杂业务的方法论：让代码结构反映业务领域，业务逻辑集中在"领域层"，和技术细节分离。</p>
-<p>DDD的核心概念是领域。电商系统的领域是"订单、商品、库存、支付"；医院系统的领域是"患者、挂号、诊断、处方"。每个领域有自己的模型和业务规则。</p>
-<p>实体（Entity）是有唯一标识的领域对象。订单有订单ID，订单ID不变就是同一个订单，哪怕内容改了。值对象（Value Object）没有标识，靠属性值判断相等。地址、金额都是值对象——两个地址属性完全一样就是同一个地址，不需要单独标识。</p>
-<p>聚合（Aggregate）是一组相关对象的集合，作为一致性边界。订单聚合包括订单、订单项，它们一起保证业务规则（订单总金额=订单项之和）。外部只操作聚合根（订单），不直接操作内部对象。</p>
-<p>领域服务处理不属于单个实体的业务逻辑。比如"转账"涉及两个账户，放在哪个实体里都不合适，就用领域服务。</p>
-<p>领域层是核心：包含所有业务规则，不依赖数据库、不依赖API，纯业务逻辑。基础设施层（数据库、外部API）在外面，通过接口被领域层依赖。这样业务逻辑独立，测试容易，技术换了业务逻辑不用改。</p>
-<p>限界上下文（Bounded Context）划分领域边界。"商品"在营销上下文里是"促销品"，在库存上下文里是"SKU"，在物流上下文里是"包裹"。同一个词在不同上下文有不同含义，分开建模，不要强行统一。</p>
-<p>DDD不是万能的。简单CRUD系统用DDD是杀鸡用牛刀，过度设计。它适合业务逻辑复杂、领域知识丰富的中大型系统。判断标准：业务规则是不是很多很复杂？代码是不是已经难维护？是就考虑DDD。</p>
-<p>DDD是思维方式，不是具体框架。它帮助团队建立统一的业务语言（和产品经理用同样的词），让代码结构和业务对齐。这是应对复杂业务的重要方法论。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>DDD領域驅動設計入門：讓代碼結構匹配業務複雜度</p>
+<p>業務複雜的系統，代碼寫成一團：一個Service幾千行，什麼業務邏輯都往裡塞，改一個功能怕動到其他地方。DDD（Domain-Driven Design，領域驅動設計）是一套應對複雜業務的方法論：讓代碼結構反映業務領域，業務邏輯集中在"領域層"，和技術細節分離。</p>
+<p>DDD的核心概念是領域。電商系統的領域是"訂單、商品、庫存、支付"；醫院系統的領域是"患者、掛號、診斷、處方"。每個領域有自己的模型和業務規則。</p>
+<p>實體（Entity）是有唯一標識的領域對象。訂單有訂單ID，訂單ID不變就是同一個訂單，哪怕內容改了。值對象（Value Object）沒有標識，靠屬性值判斷相等。地址、金額都是值對象——兩個地址屬性完全一樣就是同一個地址，不需要單獨標識。</p>
+<p>聚合（Aggregate）是一組相關對象的集合，作為一致性邊界。訂單聚合包括訂單、訂單項，它們一起保證業務規則（訂單總金額=訂單項之和）。外部只操作聚合根（訂單），不直接操作內部對象。</p>
+<p>領域服務處理不屬於單個實體的業務邏輯。比如"轉賬"涉及兩個賬戶，放在哪個實體裡都不合適，就用領域服務。</p>
+<p>領域層是核心：包含所有業務規則，不依賴數據庫、不依賴API，純業務邏輯。基礎設施層（數據庫、外部API）在外面，通過接口被領域層依賴。這樣業務邏輯獨立，測試容易，技術換了業務邏輯不用改。</p>
+<p>限界上下文（Bounded Context）劃分領域邊界。"商品"在營銷上下文裡是"促銷品"，在庫存上下文裡是"SKU"，在物流上下文裡是"包裹"。同一個詞在不同上下文有不同含義，分開建模，不要強行統一。</p>
+<p>DDD不是萬能的。簡單CRUD系統用DDD是殺雞用牛刀，過度設計。它適合業務邏輯複雜、領域知識豐富的中大型系統。判斷標準：業務規則是不是很多很複雜？代碼是不是已經難維護？是就考慮DDD。</p>
+<p>DDD是思維方式，不是具體框架。它幫助團隊建立統一的業務語言（和產品經理用同樣的詞），讓代碼結構和業務對齊。這是應對複雜業務的重要方法論。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度发布与AB测试</a><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite構建工具深度解析</a><a href="article-tech-143.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度發佈與AB測試</a><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

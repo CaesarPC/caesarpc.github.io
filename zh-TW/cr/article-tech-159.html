@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="富文本编辑器原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="富文本编辑器原理">
+<meta name="description" content="富文本編輯器原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="富文本編輯器原理">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-159.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>富文本编辑器原理 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-159.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-159.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-159.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-159.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>富文本編輯器原理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,49 +34,34 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="富文本编辑器原理 - CaesarTools">
-<meta property="og:description" content="富文本编辑器原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-159.html">
+<meta property="og:title" content="富文本編輯器原理 - CaesarTools">
+<meta property="og:description" content="富文本編輯器原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-159.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"富文本编辑器原理","description":"富文本编辑器原理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-159.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"富文本編輯器原理","description":"富文本編輯器原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-159.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>富文本编辑器原理</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>富文本編輯器原理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>富文本编辑器原理：从contenteditable到协同编辑</p>
-<p>博客、Comments、文档都需要富文本编辑器。自己做一个看起来简单（div加contenteditable），但做好很难：工具栏、快捷键、粘贴处理、XSS防护、移动端适配，都是坑。</p>
-<p>基础原理：contenteditable属性让div可编辑。document.execCommand做加粗、斜体、插入链接等操作。但execCommand已被废弃，新方案是直接操作DOM。</p>
-<p>成熟编辑器：Quill、TipTap、Slate.js、ProseMirror。它们封装了文档模型（不是HTML字符串，是结构化数据）、历史记录（撤销重做）、插件系统（@提及、图片插入）、协同编辑（前面讲的CRDT）。</p>
-<p>XSS防护是必须的。用户粘贴的内容可能带恶意脚本。渲染时要过滤HTMLTags，只允许安全Tags和属性。不要直接把用户输入的HTML插入页面。</p>
-<p>协同编辑是高级功能：多个用户同时编辑同一文档，基于CRDT算法（前面讲过）实现实时合并。</p>
-<p>不要自己从零写富文本编辑器。用成熟库，它们处理了各种边界情况。自己写一个生产级编辑器需要数月。</p>
-<p>富文本编辑器是看起来简单做起来难的典型。理解原理，选对工具，是正确做法。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>富文本編輯器原理：從contenteditable到協同編輯</p>
+<p>博客、評論、文檔都需要富文本編輯器。自己做一個看起來簡單（div加contenteditable），但做好很難：工具欄、快捷鍵、粘貼處理、XSS防護、移動端適配，都是坑。</p>
+<p>基礎原理：contenteditable屬性讓div可編輯。document.execCommand做加粗、斜體、插入鏈接等操作。但execCommand已被廢棄，新方案是直接操作DOM。</p>
+<p>成熟編輯器：Quill、TipTap、Slate.js、ProseMirror。它們封裝了文檔模型（不是HTML字符串，是結構化數據）、歷史記錄（撤銷重做）、插件系統（@提及、圖片插入）、協同編輯（前面講的CRDT）。</p>
+<p>XSS防護是必須的。用戶粘貼的內容可能帶惡意腳本。渲染時要過濾HTML標籤，只允許安全標籤和屬性。不要直接把用戶輸入的HTML插入頁面。</p>
+<p>協同編輯是高級功能：多個用戶同時編輯同一文檔，基於CRDT算法（前面講過）實現實時合併。</p>
+<p>不要自己從零寫富文本編輯器。用成熟庫，它們處理了各種邊界情況。自己寫一個生產級編輯器需要數月。</p>
+<p>富文本編輯器是看起來簡單做起來難的典型。理解原理，選對工具，是正確做法。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上传与大文件分片</a><a href="article-tech-149.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器跨Tags页通信</a><a href="article-tech-157.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI应用产品设计原则</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a><a href="article-tech-149.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器跨標籤頁通信</a><a href="article-tech-157.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI應用產品設計原則</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

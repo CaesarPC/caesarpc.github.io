@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="事件委托">
+<meta name="description" content="事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="事件委託">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-239.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>事件委托 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-239.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-239.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-239.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-239.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事件委託 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,60 +34,45 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="事件委托 - CaesarTools">
-<meta property="og:description" content="事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-239.html">
+<meta property="og:title" content="事件委託 - CaesarTools">
+<meta property="og:description" content="事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-239.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"事件委托","description":"事件委托 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-239.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"事件委託","description":"事件委託 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-239.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>事件委托</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>事件委託</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 事件委托：少绑定监听器的性能技巧</p>
-<p>一个列表有1000条数据，每条都有一个删除按钮。你给每个按钮都绑定一个click事件监听器——1000个监听器，内存占用大，新加的列表项还得重新绑定。事件委托用一个监听器搞定所有按钮。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 事件委託：少綁定監聽器的性能技巧</p>
+<p>一個列表有1000條數據，每條都有一個刪除按鈕。你給每個按鈕都綁定一個click事件監聽器——1000個監聽器，內存佔用大，新加的列表項還得重新綁定。事件委託用一個監聽器搞定所有按鈕。</p>
 <p>## 一、原理</p>
-<p>事件会冒泡：子元素上的事件会一层层往父元素传播。你不在每个按钮上绑监听，而是在它们的共同父元素（比如ul）上绑一个。点击按钮时，事件冒泡到ul，在处理函数里判断event.target是哪个按钮，执行对应操作。</p>
+<p>事件會冒泡：子元素上的事件會一層層往父元素傳播。你不在每個按鈕上綁監聽，而是在它們的共同父元素（比如ul）上綁一個。點擊按鈕時，事件冒泡到ul，在處理函數里判斷event.target是哪個按鈕，執行對應操作。</p>
 <p>document.querySelector('ul').addEventListener('click', function(e) {
   if (e.target.tagName === 'BUTTON') {
     const id = e.target.dataset.id;
     deleteItem(id);
   }
 });</p>
-<p>不管列表里有10个还是10000个按钮，只绑了一个监听器。新加的按钮自动支持，不需要重新绑定。</p>
-<p>## 二、好处</p>
-<p>性能好：一个监听器 vs 一千个。
-动态元素友好：新加的列表项自动有事件，不用手动绑定。
-代码简洁：事件处理集中在一处。</p>
+<p>不管列表裡有10個還是10000個按鈕，只綁了一個監聽器。新加的按鈕自動支持，不需要重新綁定。</p>
+<p>## 二、好處</p>
+<p>性能好：一個監聽器 vs 一千個。
+動態元素友好：新加的列表項自動有事件，不用手動綁定。
+代碼簡潔：事件處理集中在一處。</p>
 <p>## 三、注意</p>
-<p>判断event.target时要小心——按钮里面可能有图标、span等子元素。点击图标时target是img不是button。解决办法：用closest()向上找最近的匹配元素：e.target.closest('button')。</p>
-<p>## 四、总结</p>
-<p>事件委托是利用事件冒泡的经典优化。列表、表格这种动态生成大量相似元素的场景，用一个父级监听器搞定所有子元素的事件，性能好又省心。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>判斷event.target時要小心——按鈕裡面可能有圖標、span等子元素。點擊圖標時target是img不是button。解決辦法：用closest()向上找最近的匹配元素：e.target.closest('button')。</p>
+<p>## 四、總結</p>
+<p>事件委託是利用事件冒泡的經典優化。列表、表格這種動態生成大量相似元素的場景，用一個父級監聽器搞定所有子元素的事件，性能好又省心。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 状态管理</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模块化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-233.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 狀態管理</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模塊化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

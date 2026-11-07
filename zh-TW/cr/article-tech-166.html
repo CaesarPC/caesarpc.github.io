@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="边缘渲染与下一代Web架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="边缘渲染与下一代Web架构, 架构">
+<meta name="description" content="邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="邊緣渲染與下一代Web架構, 架構">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-166.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>边缘渲染与下一代Web架构 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-166.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-166.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-166.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-166.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邊緣渲染與下一代Web架構 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,48 +34,33 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="边缘渲染与下一代Web架构 - CaesarTools">
-<meta property="og:description" content="边缘渲染与下一代Web架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-166.html">
+<meta property="og:title" content="邊緣渲染與下一代Web架構 - CaesarTools">
+<meta property="og:description" content="邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-166.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"边缘渲染与下一代Web架构","description":"边缘渲染与下一代Web架构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-166.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"邊緣渲染與下一代Web架構","description":"邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-166.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>边缘渲染与下一代Web架构</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>邊緣渲染與下一代Web架構</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>边缘渲染与下一代Web架构：从集中式到分布式的演进</p>
-<p>Web架构正在从集中式向分布式演进。传统模式：代码部署在一个机房，全球用户访问。新模式：计算推到边缘节点，离用户最近的地方处理。前面讲过Cloudflare Workers，这是边缘计算。边缘渲染是它的进阶：在边缘节点做SSR，而不是只做静态托管。</p>
-<p>传统SSR：服务器在一个地方，美国用户访问要跨洋。边缘SSR：在全球几百个节点都渲染，用户从最近节点拿渲染好的HTML，延迟极低。</p>
-<p>好处：全球用户都快（不用跨洋）；源站压力小（边缘节点挡掉大部分请求）；天然抗DDoS（流量在边缘被清洗）。</p>
-<p>实现：Cloudflare Pages Functions、Vercel Edge Functions、Netlify Edge Functions。在边缘写SSR逻辑，部署后自动在全球节点运行。</p>
-<p>趋势：Web架构从"一个服务器服务所有人"变成"全球节点协同服务"。边缘计算、边缘渲染、边缘数据库，整个技术栈都在下移到离用户最近的地方。</p>
-<p>这是Web架构的大方向：更快、更近、更分布式。理解这个趋势，就理解了Cloudflare、Vercel这些公司为什么崛起。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>邊緣渲染與下一代Web架構：從集中式到分佈式的演進</p>
+<p>Web架構正在從集中式向分佈式演進。傳統模式：代碼部署在一個機房，全球用戶訪問。新模式：計算推到邊緣節點，離用戶最近的地方處理。前面講過Cloudflare Workers，這是邊緣計算。邊緣渲染是它的進階：在邊緣節點做SSR，而不是隻做靜態託管。</p>
+<p>傳統SSR：服務器在一個地方，美國用戶訪問要跨洋。邊緣SSR：在全球幾百個節點都渲染，用戶從最近節點拿渲染好的HTML，延遲極低。</p>
+<p>好處：全球用戶都快（不用跨洋）；源站壓力小（邊緣節點擋掉大部分請求）；天然抗DDoS（流量在邊緣被清洗）。</p>
+<p>實現：Cloudflare Pages Functions、Vercel Edge Functions、Netlify Edge Functions。在邊緣寫SSR邏輯，部署後自動在全球節點運行。</p>
+<p>趨勢：Web架構從"一個服務器服務所有人"變成"全球節點協同服務"。邊緣計算、邊緣渲染、邊緣數據庫，整個技術棧都在下移到離用戶最近的地方。</p>
+<p>這是Web架構的大方向：更快、更近、更分佈式。理解這個趨勢，就理解了Cloudflare、Vercel這些公司為什麼崛起。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-172.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ React_Hooks深入</a><a href="article-tech-177.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS选择器优先级</a><a href="article-tech-171.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型链与继承</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-172.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ React_Hooks深入</a><a href="article-tech-177.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS選擇器優先級</a><a href="article-tech-171.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript原型鏈與繼承</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

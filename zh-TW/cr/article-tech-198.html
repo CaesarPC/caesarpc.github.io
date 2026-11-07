@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="设计模式实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="设计模式实战">
+<meta name="description" content="設計模式實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="設計模式實戰">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-198.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>设计模式实战 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-198.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-198.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-198.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-198.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設計模式實戰 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,68 +34,53 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="设计模式实战 - CaesarTools">
-<meta property="og:description" content="设计模式实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-198.html">
+<meta property="og:title" content="設計模式實戰 - CaesarTools">
+<meta property="og:description" content="設計模式實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-198.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"设计模式实战","description":"设计模式实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-198.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"設計模式實戰","description":"設計模式實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-198.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>设计模式实战</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>設計模式實戰</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 设计模式实战：不是背面试题，而是解决真实问题</p>
-<p>设计模式这个话题在技术圈一直很分裂。一派人说"设计模式是过度设计，写代码就该直接简单"，另一派人把二十三种设计模式背得滚瓜烂熟，面试侃侃而谈，写代码却一个都用不上。其实设计模式既不是什么高深的架构理论，也不是面试八股文。它是前人总结出来的、在特定场景下反复出现的问题的标准答案。就像下棋的定式——你不需要每次遇到"马走日"都重新思考怎么走，记住定式就行。但前提是你要理解这个定式解决什么问题，而不是生搬硬套。</p>
-<p>## 一、创建型模式：对象怎么创建出来</p>
-<p>工厂模式是最常用的创建型模式。假设你要根据日志级别创建不同的处理器——错误日志写文件、警告日志发邮件、调试日志打控制台。如果直接在业务代码里if-else判断类型然后new不同的对象，每加一种日志类型就要改业务代码。</p>
-<p>工厂模式就是把"创建对象"这件事单独抽出来。你给工厂一个类型，工厂Back对应的处理器实例。业务代码只面向统一的接口编程，不知道具体是哪个实现。新增日志类型的时候只需要改工厂，业务代码一行不动。这就是开闭原则——对扩展开放，对修改Close。</p>
-<p>单例模式可能是最出名也是被滥用最多的模式。它保证一个类在全局只有一个实例。数据库连接池、配置管理器、日志器——这些全局只需要一个对象的场景适合用单例。但单例的问题在于全局状态共享，测试的时候互相影响。现代语言里有依赖注入容器，很多以前用单例的场景现在用DI更灵活。</p>
-<p>## 二、结构型模式：怎么把类组合起来</p>
-<p>适配器模式是生活中最常见的模式——你有一个HDMI接口的电脑，但显示器是VGA的，需要一个转接头。在代码里，你对接了一个第三方支付SDK，但它的接口和你项目里定义的PaymentGateway接口不匹配。你写一个适配器类，内部调用第三方SDK，外部暴露成你项目需要的接口。这样业务代码不用知道第三方的存在，将来换支付渠道也只需要换一个适配器。</p>
-<p>装饰器模式是不改变原有类的情况下，动态给它加功能。比如你有一个基础的HttpRequest类，现在需要给所有请求加日志记录、加超时重试、加密请求体。如果用继承，你要写LoggingHttpRequest、RetryHttpRequest、EncryptHttpRequest——组合起来排列组合爆炸。装饰器模式是把每个功能包装成一个装饰器，一层层套上去：new RetryDecorator(new LoggingDecorator(new HttpRequest()))。每层只管自己的功能，想加几层加几层。前端里的高阶组件、Python的装饰器语法，本质都是这个模式。</p>
-<p>## 三、行为型模式：对象之间怎么通信</p>
-<p>策略模式是最实用的行为型模式。假设有一个促销计算：满减、打折、优惠券，三种算法。最直接的写法是在Order类里写一个calculatePrice方法，里面if-else判断是哪种促销方式。问题是每加一种促销方式就要改这个方法，方法越来越长，而且测试要覆盖所有分支。</p>
-<p>策略模式把每种算法封装成独立的策略类，实现同一个接口。Order类持有一个策略接口的引用，运行时根据需要切换不同的策略。加新促销方式就是加一个新类，不需要改Order的代码。这在实际业务中太常见了——支付方式选择、排序算法选择、导出格式选择，本质都是策略模式。</p>
-<p>观察者模式（发布订阅）也是到处都是。事件就是这个模式：用户点击按钮，按钮不直接调用具体的处理函数，而是发出一个"click"事件，谁关心这个事件谁就Register监听。Vue的响应式系统、Node.js的EventEmitter、消息队列，底层都是观察者模式。它的价值在于解耦——发出事件的人不知道谁在听，听的人也不知道谁发的，双方独立变化。</p>
-<p>## 四、不要为了模式而模式</p>
-<p>最大的误区是拿着锤子找钉子——学了设计模式，写什么代码都想套一个模式。一个简单的if-else能搞定的事情，你搞了工厂+策略+依赖注入三层抽象，代码反而更难读了。</p>
-<p>什么时候该用设计模式？当你发现代码里出现了重复的条件判断、修改一个地方要动好几个文件、新增需求要改老代码的时候——这时候考虑用对应的模式重构。模式是重构的结果，不是设计的起点。</p>
-<p>Martin Fowler说过："任何笨蛋都能写出计算机能理解的代码，优秀的程序员写出人类能理解的代码。"设计模式的价值在于让代码更容易被人理解和修改，而不是让代码看起来更高级。</p>
-<p>## 五、SOLID原则：比模式更底层</p>
-<p>设计模式背后是SOLID五大原则，这些原则比具体的模式更重要。</p>
-<p>单一职责原则：一个类只做一件事。如果一个类里既有用户验证逻辑又有邮件发送逻辑还有数据库操作，改任何一个需求都要动这个类，这就违反了单一职责。应该拆成三个类。</p>
-<p>开闭原则：对扩展开放，对修改Close。加新功能的时候加新代码，不改老代码。上面说的策略模式就是实现开闭原则的手段。</p>
-<p>里氏替换原则：子类必须能替换父类出现的地方不报错。听起来抽象，实际上就是不要在子类里做违反父类约定的事情。</p>
-<p>接口隔离原则：不要强迫客户端依赖它不需要的接口。一个接口里方法太多，实现类被迫实现一堆用不到的方法，不如拆成小接口。</p>
-<p>依赖倒置原则：依赖抽象不依赖具体实现。业务代码依赖接口，不依赖具体的类。这样换实现的时候业务代码不用动。</p>
-<p>## 六、总结</p>
-<p>设计模式不是面试要背的知识点，而是你写了足够多代码之后自然会遇到的问题的解决方案。如果你还没遇到过"改一个功能要动五个地方"的痛苦，那你现在不需要设计模式。但当你真的被重复代码、混乱的条件分支、脆弱的耦合折磨过之后，再回头看设计模式，会恍然大悟——原来前辈们早就把答案写好了。</p>
-<p>最好的学习方式不是背二十三种模式，而是在写代码的时候有意识地思考：这段代码哪里在未来可能变化？变化的地方隔离出来了吗？新增需求的时候我需要改老代码吗？带着这些问题写代码，慢慢地你就会自然地用出对应的模式。模式是结果，不是目标。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 設計模式實戰：不是背面試題，而是解決真實問題</p>
+<p>設計模式這個話題在技術圈一直很分裂。一派人說"設計模式是過度設計，寫代碼就該直接簡單"，另一派人把二十三種設計模式背得滾瓜爛熟，面試侃侃而談，寫代碼卻一個都用不上。其實設計模式既不是什麼高深的架構理論，也不是面試八股文。它是前人總結出來的、在特定場景下反覆出現的問題的標準答案。就像下棋的定式——你不需要每次遇到"馬走日"都重新思考怎麼走，記住定式就行。但前提是你要理解這個定式解決什麼問題，而不是生搬硬套。</p>
+<p>## 一、創建型模式：對象怎麼創建出來</p>
+<p>工廠模式是最常用的創建型模式。假設你要根據日誌級別創建不同的處理器——錯誤日誌寫文件、警告日誌發郵件、調試日誌打控制檯。如果直接在業務代碼裡if-else判斷類型然後new不同的對象，每加一種日誌類型就要改業務代碼。</p>
+<p>工廠模式就是把"創建對象"這件事單獨抽出來。你給工廠一個類型，工廠返回對應的處理器實例。業務代碼只面向統一的接口編程，不知道具體是哪個實現。新增日誌類型的時候只需要改工廠，業務代碼一行不動。這就是開閉原則——對擴展開放，對修改關閉。</p>
+<p>單例模式可能是最出名也是被濫用最多的模式。它保證一個類在全局只有一個實例。數據庫連接池、配置管理器、日誌器——這些全局只需要一個對象的場景適合用單例。但單例的問題在於全局狀態共享，測試的時候互相影響。現代語言裡有依賴注入容器，很多以前用單例的場景現在用DI更靈活。</p>
+<p>## 二、結構型模式：怎麼把類組合起來</p>
+<p>適配器模式是生活中最常見的模式——你有一個HDMI接口的電腦，但顯示器是VGA的，需要一個轉接頭。在代碼裡，你對接了一個第三方支付SDK，但它的接口和你項目裡定義的PaymentGateway接口不匹配。你寫一個適配器類，內部調用第三方SDK，外部暴露成你項目需要的接口。這樣業務代碼不用知道第三方的存在，將來換支付渠道也只需要換一個適配器。</p>
+<p>裝飾器模式是不改變原有類的情況下，動態給它加功能。比如你有一個基礎的HttpRequest類，現在需要給所有請求加日誌記錄、加超時重試、加密請求體。如果用繼承，你要寫LoggingHttpRequest、RetryHttpRequest、EncryptHttpRequest——組合起來排列組合爆炸。裝飾器模式是把每個功能包裝成一個裝飾器，一層層套上去：new RetryDecorator(new LoggingDecorator(new HttpRequest()))。每層只管自己的功能，想加幾層加幾層。前端裡的高階組件、Python的裝飾器語法，本質都是這個模式。</p>
+<p>## 三、行為型模式：對象之間怎麼通信</p>
+<p>策略模式是最實用的行為型模式。假設有一個促銷計算：滿減、打折、優惠券，三種算法。最直接的寫法是在Order類裡寫一個calculatePrice方法，裡面if-else判斷是哪種促銷方式。問題是每加一種促銷方式就要改這個方法，方法越來越長，而且測試要覆蓋所有分支。</p>
+<p>策略模式把每種算法封裝成獨立的策略類，實現同一個接口。Order類持有一個策略接口的引用，運行時根據需要切換不同的策略。加新促銷方式就是加一個新類，不需要改Order的代碼。這在實際業務中太常見了——支付方式選擇、排序算法選擇、導出格式選擇，本質都是策略模式。</p>
+<p>觀察者模式（發佈訂閱）也是到處都是。事件就是這個模式：用戶點擊按鈕，按鈕不直接調用具體的處理函數，而是發出一個"click"事件，誰關心這個事件誰就註冊監聽。Vue的響應式系統、Node.js的EventEmitter、消息隊列，底層都是觀察者模式。它的價值在於解耦——發出事件的人不知道誰在聽，聽的人也不知道誰發的，雙方獨立變化。</p>
+<p>## 四、不要為了模式而模式</p>
+<p>最大的誤區是拿着錘子找釘子——學了設計模式，寫什麼代碼都想套一個模式。一個簡單的if-else能搞定的事情，你搞了工廠+策略+依賴注入三層抽象，代碼反而更難讀了。</p>
+<p>什麼時候該用設計模式？當你發現代碼裡出現了重複的條件判斷、修改一個地方要動好幾個文件、新增需求要改老代碼的時候——這時候考慮用對應的模式重構。模式是重構的結果，不是設計的起點。</p>
+<p>Martin Fowler說過："任何笨蛋都能寫出計算機能理解的代碼，優秀的程序員寫出人類能理解的代碼。"設計模式的價值在於讓代碼更容易被人理解和修改，而不是讓代碼看起來更高級。</p>
+<p>## 五、SOLID原則：比模式更底層</p>
+<p>設計模式背後是SOLID五大原則，這些原則比具體的模式更重要。</p>
+<p>單一職責原則：一個類只做一件事。如果一個類裡既有用戶驗證邏輯又有郵件發送邏輯還有數據庫操作，改任何一個需求都要動這個類，這就違反了單一職責。應該拆成三個類。</p>
+<p>開閉原則：對擴展開放，對修改關閉。加新功能的時候加新代碼，不改老代碼。上面說的策略模式就是實現開閉原則的手段。</p>
+<p>里氏替換原則：子類必須能替換父類出現的地方不報錯。聽起來抽象，實際上就是不要在子類裡做違反父類約定的事情。</p>
+<p>接口隔離原則：不要強迫客戶端依賴它不需要的接口。一個接口裡方法太多，實現類被迫實現一堆用不到的方法，不如拆成小接口。</p>
+<p>依賴倒置原則：依賴抽象不依賴具體實現。業務代碼依賴接口，不依賴具體的類。這樣換實現的時候業務代碼不用動。</p>
+<p>## 六、總結</p>
+<p>設計模式不是面試要背的知識點，而是你寫了足夠多代碼之後自然會遇到的問題的解決方案。如果你還沒遇到過"改一個功能要動五個地方"的痛苦，那你現在不需要設計模式。但當你真的被重複代碼、混亂的條件分支、脆弱的耦合折磨過之後，再回頭看設計模式，會恍然大悟——原來前輩們早就把答案寫好了。</p>
+<p>最好的學習方式不是背二十三種模式，而是在寫代碼的時候有意識地思考：這段代碼哪裡在未來可能變化？變化的地方隔離出來了嗎？新增需求的時候我需要改老代碼嗎？帶着這些問題寫代碼，慢慢地你就會自然地用出對應的模式。模式是結果，不是目標。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-193.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息队列与异步架构</a><a href="article-tech-199.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket与实时通信</a><a href="article-tech-188.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 测试驱动开发与代码质量</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-193.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息隊列與異步架構</a><a href="article-tech-199.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket與實時通信</a><a href="article-tech-188.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 測試驅動開發與代碼質量</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

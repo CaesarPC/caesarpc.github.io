@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="Monorepo多包管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="Monorepo多包管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="Monorepo多包管理">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-148.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-148.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-148.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-148.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-148.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monorepo多包管理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,47 +35,32 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="Monorepo多包管理 - CaesarTools">
-<meta property="og:description" content="Monorepo多包管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-148.html">
+<meta property="og:description" content="Monorepo多包管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-148.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Monorepo多包管理","description":"Monorepo多包管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-148.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Monorepo多包管理","description":"Monorepo多包管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-148.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>Monorepo多包管理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>Monorepo多包管理：一个仓库管理多个相关项目</p>
-<p>项目拆成了好几个包：组件库、工具函数、主应用、SSR入口。每个包一个Git仓库？改一个组件要发多个PR、跨仓库调试麻烦、版本同步困难。Monorepo把所有相关包放在一个Git仓库里统一管理。</p>
-<p>Monorepo的优势：代码共享方便（改一个包，其他包立刻能用，不用发版再安装）；原子Submit（一次Submit可以同时改多个包，保证一致性）；统一工具链和版本（ESLint、TS配置一份）；跨包重构容易（全局Search替换）。</p>
-<p>挑战：仓库变大（虽然Git处理得不错）；构建要做依赖管理（改了A包，只构建依赖A的包，不要全量构建）；权限粒度变粗（整个仓库一组权限，不能按包分权）。</p>
-<p>工具链：pnpm workspace是轻量选择（pnpm自带，配置简单）；Turborepo做构建编排（缓存构建结果，只重新构建变化的包）；Nx是全功能解决方案（依赖图、代码生成、 affected构建）。中小团队pnpm+Turborepo足够。</p>
-<p>实际场景：组件库和主应用放一个monorepo；前端多个相关子项目共享工具库；全栈项目（前端+后端+共享类型）放一个仓库。</p>
-<p>不是所有项目都适合monorepo。无关的项目放一起是噪音。判断标准：这些包是否经常一起改、是否共享代码？是就monorepo，不是就分开。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>Monorepo多包管理：一個倉庫管理多個相關項目</p>
+<p>項目拆成了好幾個包：組件庫、工具函數、主應用、SSR入口。每個包一個Git倉庫？改一個組件要發多個PR、跨倉庫調試麻煩、版本同步困難。Monorepo把所有相關包放在一個Git倉庫裡統一管理。</p>
+<p>Monorepo的優勢：代碼共享方便（改一個包，其他包立刻能用，不用發版再安裝）；原子提交（一次提交可以同時改多個包，保證一致性）；統一工具鏈和版本（ESLint、TS配置一份）；跨包重構容易（全局搜索替換）。</p>
+<p>挑戰：倉庫變大（雖然Git處理得不錯）；構建要做依賴管理（改了A包，只構建依賴A的包，不要全量構建）；權限粒度變粗（整個倉庫一組權限，不能按包分權）。</p>
+<p>工具鏈：pnpm workspace是輕量選擇（pnpm自帶，配置簡單）；Turborepo做構建編排（緩存構建結果，只重新構建變化的包）；Nx是全功能解決方案（依賴圖、代碼生成、 affected構建）。中小團隊pnpm+Turborepo足夠。</p>
+<p>實際場景：組件庫和主應用放一個monorepo；前端多個相關子項目共享工具庫；全棧項目（前端+後端+共享類型）放一個倉庫。</p>
+<p>不是所有項目都適合monorepo。無關的項目放一起是噪音。判斷標準：這些包是否經常一起改、是否共享代碼？是就monorepo，不是就分開。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-149.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器跨Tags页通信</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite构建工具深度解析</a><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驱动架构</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-149.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器跨標籤頁通信</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite構建工具深度解析</a><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驅動架構</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

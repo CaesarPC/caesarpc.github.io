@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="前端性能优化清单 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="前端性能优化清单, 前端, 性能优化">
+<meta name="description" content="前端性能優化清單 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端性能優化清單, 前端, 性能優化">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-228.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>前端性能优化清单 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-228.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-228.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-228.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-228.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端性能優化清單 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,65 +34,50 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="前端性能优化清单 - CaesarTools">
-<meta property="og:description" content="前端性能优化清单 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-228.html">
+<meta property="og:title" content="前端性能優化清單 - CaesarTools">
+<meta property="og:description" content="前端性能優化清單 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-228.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端性能优化清单","description":"前端性能优化清单 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-228.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端性能優化清單","description":"前端性能優化清單 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-228.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>前端性能优化清单</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端性能優化清單</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 前端性能优化清单：从加载到交互的全方位加速</p>
-<p>页面慢、卡、白屏时间长——这是用户对一个产品最直接的负面感受。前端性能优化不是某一个技巧，而是一整套系统性工作。从资源加载、渲染、交互三个维度入手，每个环节做一点优化，整体体验就能提升一个量级。</p>
-<p>## 一、加载优化</p>
-<p>首屏加载慢，大部分原因是资源太多太大。</p>
-<p>代码分割：不要把所有JS打包成一个大文件。按路由拆分，用户访问哪个页面才加载哪个页面的代码。Vite/Webpack都支持动态import做代码分割。</p>
-<p>Tree Shaking：打包时自动删除没被引用的代码。确保用ES Module的import/export，不要用require。</p>
-<p>压缩：JS/CSS用Terser压缩，移除空格注释和无效代码。Gzip/Brotli在服务器端压缩传输，体积再小70%。</p>
-<p>CDN：静态资源放CDN上，用户从最近的节点加载，延迟低。</p>
-<p>## 二、渲染优化</p>
-<p>首屏白屏时间长，是因为浏览器要下载HTML、CSS、JS，解析执行完才能渲染。</p>
-<p>关键CSS内联：首屏需要的CSS直接写在HTML的styleTags里，不用等外部CSS文件下载。</p>
-<p>预加载关键资源：<link rel="preload">告诉浏览器优先加载重要资源（字体、首屏图片）。</p>
-<p>骨架屏：页面加载时先显示灰色占位骨架，用户感知加载速度快。</p>
-<p>## 三、交互优化</p>
-<p>页面加载完了，但操作卡顿——滚动掉帧、点击延迟。</p>
-<p>避免长任务：单个JS任务不要超过50ms。超过了就拆分，让浏览器有机会响应用户交互。</p>
-<p>用transform做动画：不要改left/top（触发重排），用transform: translate做位移动画（只触发合成）。</p>
-<p>防抖节流：Search框输入、滚动监听这些高频事件，用防抖节流限制处理频率。</p>
-<p>## 四、图片优化</p>
-<p>前面专门讲过，简单复习：用WebP、压缩、按需尺寸、懒加载。</p>
-<p>## 五、Web Vitals指标</p>
-<p>Google提出的三个核心指标：LCP（最大内容渲染时间，应小于2.5秒）、INP（交互到绘制延迟，应小于200ms）、CLS（累计布局偏移，应小于0.1）。用Chrome DevTools的Lighthouse可以测量这些指标。</p>
-<p>## 六、总结</p>
-<p>性能优化没有银弹，但有清单。加载优化资源体积，渲染优化首屏速度，交互优化响应流畅度。每一项做一点，用户感知到的就是一个快而流畅的产品。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端性能優化清單：從加載到交互的全方位加速</p>
+<p>頁面慢、卡、白屏時間長——這是用戶對一個產品最直接的負面感受。前端性能優化不是某一個技巧，而是一整套系統性工作。從資源加載、渲染、交互三個維度入手，每個環節做一點優化，整體體驗就能提升一個量級。</p>
+<p>## 一、加載優化</p>
+<p>首屏加載慢，大部分原因是資源太多太大。</p>
+<p>代碼分割：不要把所有JS打包成一個大文件。按路由拆分，用戶訪問哪個頁面才加載哪個頁面的代碼。Vite/Webpack都支持動態import做代碼分割。</p>
+<p>Tree Shaking：打包時自動刪除沒被引用的代碼。確保用ES Module的import/export，不要用require。</p>
+<p>壓縮：JS/CSS用Terser壓縮，移除空格註釋和無效代碼。Gzip/Brotli在服務器端壓縮傳輸，體積再小70%。</p>
+<p>CDN：靜態資源放CDN上，用戶從最近的節點加載，延遲低。</p>
+<p>## 二、渲染優化</p>
+<p>首屏白屏時間長，是因為瀏覽器要下載HTML、CSS、JS，解析執行完才能渲染。</p>
+<p>關鍵CSS內聯：首屏需要的CSS直接寫在HTML的style標籤裡，不用等外部CSS文件下載。</p>
+<p>預加載關鍵資源：<link rel="preload">告訴瀏覽器優先加載重要資源（字體、首屏圖片）。</p>
+<p>骨架屏：頁面加載時先顯示灰色佔位骨架，用戶感知加載速度快。</p>
+<p>## 三、交互優化</p>
+<p>頁面加載完了，但操作卡頓——滾動掉幀、點擊延遲。</p>
+<p>避免長任務：單個JS任務不要超過50ms。超過了就拆分，讓瀏覽器有機會響應用戶交互。</p>
+<p>用transform做動畫：不要改left/top（觸發重排），用transform: translate做位移動畫（只觸發合成）。</p>
+<p>防抖節流：搜索框輸入、滾動監聽這些高頻事件，用防抖節流限制處理頻率。</p>
+<p>## 四、圖片優化</p>
+<p>前面專門講過，簡單複習：用WebP、壓縮、按需尺寸、懶加載。</p>
+<p>## 五、Web Vitals指標</p>
+<p>Google提出的三個核心指標：LCP（最大內容渲染時間，應小於2.5秒）、INP（交互到繪製延遲，應小於200ms）、CLS（累計佈局偏移，應小於0.1）。用Chrome DevTools的Lighthouse可以測量這些指標。</p>
+<p>## 六、總結</p>
+<p>性能優化沒有銀彈，但有清單。加載優化資源體積，渲染優化首屏速度，交互優化響應流暢度。每一項做一點，用戶感知到的就是一個快而流暢的產品。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端错误监控</a><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁</a><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 浏览器存储三剑客</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控</a><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式鎖</a><a href="article-tech-227.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲三劍客</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

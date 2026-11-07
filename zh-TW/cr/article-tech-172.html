@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="React_Hooks深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="React_Hooks深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="React_Hooks深入, React">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-172.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-172.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-172.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-172.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-172.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>React_Hooks深入 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,47 +35,32 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="React_Hooks深入 - CaesarTools">
-<meta property="og:description" content="React_Hooks深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-172.html">
+<meta property="og:description" content="React_Hooks深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-172.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"React_Hooks深入","description":"React_Hooks深入 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-172.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"React_Hooks深入","description":"React_Hooks深入 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-172.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>React_Hooks深入</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>React Hooks深入：useEffect依赖数组与性能优化</p>
-<p>React的useEffect是最常用的Hook，但也是最容易写错的。依赖数组漏写会导致闭包陷阱，多写会导致重复执行。理解useEffect的执行时机和依赖规则，是写出健壮React代码的关键。</p>
-<p>useEffect的执行时机：组件渲染后执行。依赖数组决定什么时候重新执行：空数组只在挂载后执行一次；有依赖时，依赖变化后重新执行；不写依赖则每次渲染都执行。</p>
-<p>常见坑：闭包陷阱。useEffect里用了组件内的变量，但依赖数组没包含这个变量，导致effect里拿到的是旧值。解决方法是把用到的变量都加进依赖数组。ESLint的react-hooks插件会自动检查这个问题。</p>
-<p>性能优化：如果effect里做了昂贵操作（请求、计算），要确保依赖正确，避免不必要的重复执行。useMemo缓存计算结果，useCallback缓存函数引用，配合React.memo避免不必要的子组件重渲染。</p>
-<p>清理函数：useEffect可以Back一个清理函数，在组件卸载或依赖变化前执行。比如清除定时器、取消订阅、移除事件监听。这是防止内存泄漏的关键。</p>
-<p>理解useEffect的依赖规则，配合ESLint检查，就能写出正确的effect代码。这是React开发的基本功。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>React Hooks深入：useEffect依賴數組與性能優化</p>
+<p>React的useEffect是最常用的Hook，但也是最容易寫錯的。依賴數組漏寫會導致閉包陷阱，多寫會導致重複執行。理解useEffect的執行時機和依賴規則，是寫出健壯React代碼的關鍵。</p>
+<p>useEffect的執行時機：組件渲染後執行。依賴數組決定什麼時候重新執行：空數組只在掛載後執行一次；有依賴時，依賴變化後重新執行；不寫依賴則每次渲染都執行。</p>
+<p>常見坑：閉包陷阱。useEffect裡用了組件內的變量，但依賴數組沒包含這個變量，導致effect裡拿到的是舊值。解決方法是把用到的變量都加進依賴數組。ESLint的react-hooks插件會自動檢查這個問題。</p>
+<p>性能優化：如果effect裡做了昂貴操作（請求、計算），要確保依賴正確，避免不必要的重複執行。useMemo緩存計算結果，useCallback緩存函數引用，配合React.memo避免不必要的子組件重渲染。</p>
+<p>清理函數：useEffect可以返回一個清理函數，在組件卸載或依賴變化前執行。比如清除定時器、取消訂閱、移除事件監聽。這是防止內存泄漏的關鍵。</p>
+<p>理解useEffect的依賴規則，配合ESLint檢查，就能寫出正確的effect代碼。這是React開發的基本功。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 边缘渲染与下一代Web架构</a><a href="article-tech-169.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件循环深入</a><a href="article-tech-164.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系统设计方法论</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-166.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣渲染與下一代Web架構</a><a href="article-tech-169.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件循環深入</a><a href="article-tech-164.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系統設計方法論</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

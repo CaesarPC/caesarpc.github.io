@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="微前端 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="微前端 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="微前端, 前端">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-273.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-273.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-273.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-273.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-273.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>微前端 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,54 +35,39 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="微前端 - CaesarTools">
-<meta property="og:description" content="微前端 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-273.html">
+<meta property="og:description" content="微前端 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-273.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"微前端","description":"微前端 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-273.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"微前端","description":"微前端 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-273.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>微前端</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是微前端：把大应用拆成小应用</p>
-<p>一个大前端应用，团队十几个人开发，代码冲突频繁、技术栈统一困难、一个小改动要全量部署。微前端把大应用拆成多个独立的小应用，每个可以独立开发、部署、技术栈。</p>
-<p>## 一、怎么工作</p>
-<p>主应用是一个壳，里面加载各个子应用。子应用可以是React、Vue、Angular不同技术栈，各自独立部署。主应用根据路由加载对应子应用。</p>
-<p>## 二、好处</p>
-<p>独立部署：子应用发布不影响其他部分。
-技术栈自由：老模块用老技术，新模块用新技术，渐进式迁移。
-团队自治：每个团队负责自己的子应用。</p>
-<p>## 三、坏处</p>
-<p>复杂度高：通信、共享状态、样式隔离都是难题。
-性能开销：多个框架同时加载。
-不是所有项目都需要——小项目单体前端就够了。</p>
-<p>## 四、总结</p>
-<p>微前端适合超大型、多团队的前端应用。小团队小项目不要为了微前端而微前端，增加的复杂度远大于收益。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是微前端：把大應用拆成小應用</p>
+<p>一個大前端應用，團隊十幾個人開發，代碼衝突頻繁、技術棧統一困難、一個小改動要全量部署。微前端把大應用拆成多個獨立的小應用，每個可以獨立開發、部署、技術棧。</p>
+<p>## 一、怎麼工作</p>
+<p>主應用是一個殼，裡面加載各個子應用。子應用可以是React、Vue、Angular不同技術棧，各自獨立部署。主應用根據路由加載對應子應用。</p>
+<p>## 二、好處</p>
+<p>獨立部署：子應用發佈不影響其他部分。
+技術棧自由：老模塊用老技術，新模塊用新技術，漸進式遷移。
+團隊自治：每個團隊負責自己的子應用。</p>
+<p>## 三、壞處</p>
+<p>複雜度高：通信、共享狀態、樣式隔離都是難題。
+性能開銷：多個框架同時加載。
+不是所有項目都需要——小項目單體前端就夠了。</p>
+<p>## 四、總結</p>
+<p>微前端適合超大型、多團隊的前端應用。小團隊小項目不要為了微前端而微前端，增加的複雜度遠大於收益。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a><a href="article-tech-266.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JAMstack</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a><a href="article-tech-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA</a><a href="article-tech-266.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JAMstack</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

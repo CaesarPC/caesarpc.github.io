@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="WebSocket实时通信实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="WebSocket实时通信实战">
+<meta name="description" content="WebSocket實時通信實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="WebSocket實時通信實戰">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-106.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebSocket实时通信实战（5） - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-106.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-106.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-106.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-106.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebSocket實時通信實戰（5） - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="WebSocket实时通信实战 - CaesarTools">
-<meta property="og:description" content="WebSocket实时通信实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-106.html">
+<meta property="og:title" content="WebSocket實時通信實戰 - CaesarTools">
+<meta property="og:description" content="WebSocket實時通信實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-106.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebSocket实时通信实战（5）","description":"WebSocket实时通信实战 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-106.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebSocket實時通信實戰（5）","description":"WebSocket實時通信實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-106.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>WebSocket实时通信实战（5）</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>WebSocket實時通信實戰（5）</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>WebSocket实时通信实战：从聊天系统到实时数据大屏</p>
-<p>HTTP协议是请求-响应模式：客户端发请求，服务器回响应，然后连接就结束了。服务器不能主动给客户端推数据。但很多场景需要实时通信：聊天消息、股票价格实时更新、协作文档同步、在线状态显示。这些场景用HTTP轮询（每隔几秒问一次服务器）效率低、延迟高。WebSocket就是为解决实时双向通信而生的协议。</p>
-<p>WebSocket的握手过程很巧妙：客户端用HTTP发起一个Upgrade请求，告诉服务器"我想把这个HTTP连接升级成WebSocket连接"。服务器同意后，连接就从HTTP升级为全双工的WebSocket连接——双方可以随时互相发消息，不用再建立新连接。这个连接一旦建立，会一直保持，直到任意一方主动断开。</p>
-<p>WebSocket和HTTP的本质区别是：HTTP是短连接、单向请求；WebSocket是长连接、双向通信。一个WebSocket连接可以持续几个小时，期间双方随时发消息。这在聊天、实时推送场景下效率极高，不需要反复建立TCP连接。</p>
-<p>浏览器端用WebSocket API非常简单：new WebSocket('wss://...')建立连接，onmessage接收消息，send()发送消息，onclose处理断开。但生产环境要处理很多边界情况：网络断开后自动重连、心跳检测（防止连接被中间代理静默断开）、消息队列（断线期间的消息重连后补发）。成熟的库（Socket.io）已经封装了这些逻辑，自动重连、房间概念、广播消息都内置了。</p>
-<p>服务端实现WebSocket，Node.js用ws库或Socket.io最方便。Java用Spring WebSocket，Go用gorilla/websocket。核心是维护一张连接表：每个连接对应哪个用户。用户A发消息给用户B，服务器查到B的连接，直接send消息过去。群聊就是维护一个房间（一组连接），一条消息发给房间里所有人。</p>
-<p>实际应用场景非常多：即时通讯（客服系统、聊天室）、实时协作（多人同时编辑一个文档）、实时数据（股票行情、监控大屏每秒更新数据）、在线游戏（玩家位置实时同步）、通知推送（新消息提醒）。</p>
-<p>高并发下的WebSocket架构挑战很大。一台服务器维护几万长连接还可以，但几十万、上百万连接就需要分布式方案：多台服务器维护连接，用户A在服务器1，用户B在服务器2，A发消息要通过消息队列（Redis Pub/Sub）转发到服务器2，再推给B。连接路由要根据用户ID固定到某台服务器（一致性Hash），这样才能高效找到用户的连接在哪台机器。</p>
-<p>WebSocket也有它的局限：不是所有网络环境都支持（有些公司防火墙拦截WebSocket），所以要有降级方案：不支持WebSocket时回退到HTTP轮询。移动端后台时连接会被系统挂起，需要应用回到前台时重连。</p>
-<p>WebSocket是Web实时应用的基础设施。从简单的聊天到复杂的协作系统，理解WebSocket的原理和工程实践，是做实时类Web应用的必备能力。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>WebSocket實時通信實戰：從聊天系統到實時數據大屏</p>
+<p>HTTP協議是請求-響應模式：客戶端發請求，服務器迴響應，然後連接就結束了。服務器不能主動給客戶端推數據。但很多場景需要實時通信：聊天消息、股票價格實時更新、協作文檔同步、在線狀態顯示。這些場景用HTTP輪詢（每隔幾秒問一次服務器）效率低、延遲高。WebSocket就是為解決實時雙向通信而生的協議。</p>
+<p>WebSocket的握手過程很巧妙：客戶端用HTTP發起一個Upgrade請求，告訴服務器"我想把這個HTTP連接升級成WebSocket連接"。服務器同意後，連接就從HTTP升級為全雙工的WebSocket連接——雙方可以隨時互相發消息，不用再建立新連接。這個連接一旦建立，會一直保持，直到任意一方主動斷開。</p>
+<p>WebSocket和HTTP的本質區別是：HTTP是短連接、單向請求；WebSocket是長連接、雙向通信。一個WebSocket連接可以持續幾個小時，期間雙方隨時發消息。這在聊天、實時推送場景下效率極高，不需要反覆建立TCP連接。</p>
+<p>瀏覽器端用WebSocket API非常簡單：new WebSocket('wss://...')建立連接，onmessage接收消息，send()發送消息，onclose處理斷開。但生產環境要處理很多邊界情況：網絡斷開後自動重連、心跳檢測（防止連接被中間代理靜默斷開）、消息隊列（斷線期間的消息重連後補發）。成熟的庫（Socket.io）已經封裝了這些邏輯，自動重連、房間概念、廣播消息都內置了。</p>
+<p>服務端實現WebSocket，Node.js用ws庫或Socket.io最方便。Java用Spring WebSocket，Go用gorilla/websocket。核心是維護一張連接表：每個連接對應哪個用戶。用戶A發消息給用戶B，服務器查到B的連接，直接send消息過去。群聊就是維護一個房間（一組連接），一條消息發給房間裡所有人。</p>
+<p>實際應用場景非常多：即時通訊（客服系統、聊天室）、實時協作（多人同時編輯一個文檔）、實時數據（股票行情、監控大屏每秒更新數據）、在線遊戲（玩家位置實時同步）、通知推送（新消息提醒）。</p>
+<p>高併發下的WebSocket架構挑戰很大。一臺服務器維護幾萬長連接還可以，但幾十萬、上百萬連接就需要分佈式方案：多臺服務器維護連接，用戶A在服務器1，用戶B在服務器2，A發消息要通過消息隊列（Redis Pub/Sub）轉發到服務器2，再推給B。連接路由要根據用戶ID固定到某臺服務器（一致性哈希），這樣才能高效找到用戶的連接在哪臺機器。</p>
+<p>WebSocket也有它的侷限：不是所有網絡環境都支持（有些公司防火牆攔截WebSocket），所以要有降級方案：不支持WebSocket時回退到HTTP輪詢。移動端後台時連接會被系統掛起，需要應用回到前臺時重連。</p>
+<p>WebSocket是Web實時應用的基礎設施。從簡單的聊天到複雜的協作系統，理解WebSocket的原理和工程實踐，是做實時類Web應用的必備能力。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-105.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 低代码平台技术原理解析</a><a href="article-tech-110.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA渐进式Web应用</a><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 单页应用路由原理与前端状态管理</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-105.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 低代碼平臺技術原理解析</a><a href="article-tech-110.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA漸進式Web應用</a><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 單頁應用路由原理與前端狀態管理</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

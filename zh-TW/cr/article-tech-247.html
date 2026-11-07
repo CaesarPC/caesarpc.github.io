@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="DockerCompose - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="DockerCompose - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="DockerCompose, Docker">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-247.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-247.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-247.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-247.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-247.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DockerCompose - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,41 +35,26 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="DockerCompose - CaesarTools">
-<meta property="og:description" content="DockerCompose - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-247.html">
+<meta property="og:description" content="DockerCompose - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-247.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"DockerCompose","description":"DockerCompose - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-247.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"DockerCompose","description":"DockerCompose - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-247.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>DockerCompose</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># Docker Compose：多容器应用一键启动</p>
-<p>前面讲过Docker单个容器，实际项目往往不止一个容器——你的应用需要数据库、缓存、可能还有消息队列。每个都手动docker run，参数一大堆，换台服务器重新敲一遍。Docker Compose就是用一个配置文件定义所有服务，一条命令全部启动。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># Docker Compose：多容器應用一鍵啟動</p>
+<p>前面講過Docker單個容器，實際項目往往不止一個容器——你的應用需要數據庫、緩存、可能還有消息隊列。每個都手動docker run，參數一大堆，換臺服務器重新敲一遍。Docker Compose就是用一個配置文件定義所有服務，一條命令全部啟動。</p>
 <p>## 一、docker-compose.yml</p>
-<p>在项目根Contents建一个docker-compose.yml：</p>
+<p>在項目根目錄建一個docker-compose.yml：</p>
 <p>services:
   app:
     build: .
@@ -87,16 +72,16 @@ function switchLang(target){
       - dbdata:/var/lib/mysql
   redis:
     image: redis:alpine</p>
-<p>一条docker compose up启动三个服务。app、db、redis在同一个网络里，可以用服务名互相访问——app连接mysql://db:3306，db就是数据库容器的主机名。</p>
-<p>## 二、数据卷</p>
-<p>db下面的volumes把容器内的数据Contents映射到命名卷dbdata。容器删了重建，数据还在。前面讲过——不做数据卷，数据库数据容器一删就没。</p>
-<p>## 三、开发体验</p>
-<p>docker compose up启动所有服务，docker compose down停止并删除容器。改了代码？app服务挂载了当前Contents进去，代码改动实时生效。换台电脑？装了Docker，clone项目，docker compose up，一切跑起来。环境一致性彻底解决。</p>
-<p>## 四、总结</p>
-<p>Docker Compose是本地开发和小型部署的利器。一个yml文件定义整个应用的所有服务，一条命令启动。个人项目用Compose完全够了，不需要上K8s。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>一條docker compose up啟動三個服務。app、db、redis在同一個網絡裡，可以用服務名互相訪問——app連接mysql://db:3306，db就是數據庫容器的主機名。</p>
+<p>## 二、數據卷</p>
+<p>db下面的volumes把容器內的數據目錄映射到命名卷dbdata。容器刪了重建，數據還在。前面講過——不做數據卷，數據庫數據容器一刪就沒。</p>
+<p>## 三、開發體驗</p>
+<p>docker compose up啟動所有服務，docker compose down停止並刪除容器。改了代碼？app服務掛載了當前目錄進去，代碼改動實時生效。換臺電腦？裝了Docker，clone項目，docker compose up，一切跑起來。環境一致性徹底解決。</p>
+<p>## 四、總結</p>
+<p>Docker Compose是本地開發和小型部署的利器。一個yml文件定義整個應用的所有服務，一條命令啟動。個人項目用Compose完全夠了，不需要上K8s。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入门</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS与Cookie</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL數據庫</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入門</a><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS與Cookie</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="暗色模式实现 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="暗色模式实现">
+<meta name="description" content="暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="暗色模式實現">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-152.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>暗色模式实现 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-152.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-152.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-152.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-152.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暗色模式實現 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,49 +34,34 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="暗色模式实现 - CaesarTools">
-<meta property="og:description" content="暗色模式实现 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-152.html">
+<meta property="og:title" content="暗色模式實現 - CaesarTools">
+<meta property="og:description" content="暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-152.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"暗色模式实现","description":"暗色模式实现 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-152.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"暗色模式實現","description":"暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-152.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>暗色模式实现</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>暗色模式實現</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>暗色模式实现：让网站支持白天黑夜两种主题</p>
-<p>暗色模式（Dark Mode）现在是标配功能。用户晚上看网页不想被白底晃眼。实现暗色模式不是做两套样式，而是用CSS变量做主题切换。</p>
-<p>核心思路：所有颜色定义为CSS变量。:root里定义亮色主题的变量值，[data-theme="dark"]里定义暗色变量值。组件里用var(--color-bg)而不是写死颜色。切换主题就是切换data-theme属性，所有变量值自动切换。</p>
-<p>CSS变量的好处：改一处全局生效。不用给每个元素写两套样式。</p>
-<p>颜色设计要注意：暗色模式不是简单反色。背景不是纯黑（#000太刺眼），而是深灰；文字不是纯白，而是浅灰；对比度要满足可读性标准。直接取反色效果通常很差。</p>
-<p>用户偏好检测：prefers-color-scheme媒体查询可以知道用户系统是否设置了暗色模式，默认跟随系统。同时提供手动切换按钮，用户可以强制选亮色或暗色。</p>
-<p>持久化：用户选择存localStorage，下次访问记住。切换时要避免闪烁（页面加载前就根据存储的偏好设置好主题）。</p>
-<p>暗色模式是细节体验，但做好了显示产品用心。CSS变量是现代主题切换的标准做法。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>暗色模式實現：讓網站支持白天黑夜兩種主題</p>
+<p>暗色模式（Dark Mode）現在是標配功能。用戶晚上看網頁不想被白底晃眼。實現暗色模式不是做兩套樣式，而是用CSS變量做主題切換。</p>
+<p>核心思路：所有顏色定義為CSS變量。:root裡定義亮色主題的變量值，[data-theme="dark"]裡定義暗色變量值。組件裡用var(--color-bg)而不是寫死顏色。切換主題就是切換data-theme屬性，所有變量值自動切換。</p>
+<p>CSS變量的好處：改一處全局生效。不用給每個元素寫兩套樣式。</p>
+<p>顏色設計要注意：暗色模式不是簡單反色。背景不是純黑（#000太刺眼），而是深灰；文字不是純白，而是淺灰；對比度要滿足可讀性標準。直接取反色效果通常很差。</p>
+<p>用戶偏好檢測：prefers-color-scheme媒體查詢可以知道用戶系統是否設置了暗色模式，默認跟隨系統。同時提供手動切換按鈕，用戶可以強制選亮色或暗色。</p>
+<p>持久化：用戶選擇存localStorage，下次訪問記住。切換時要避免閃爍（頁面加載前就根據存儲的偏好設置好主題）。</p>
+<p>暗色模式是細節體驗，但做好了顯示產品用心。CSS變量是現代主題切換的標準做法。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上传与大文件分片</a><a href="article-tech-151.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 国际化i18n实战</a><a href="article-tech-155.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端埋点与数据采集</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-153.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a><a href="article-tech-151.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 國際化i18n實戰</a><a href="article-tech-155.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端埋點與數據採集</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

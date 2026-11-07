@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="环境变量与配置管理">
+<meta name="description" content="環境變量與配置管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="環境變量與配置管理">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-242.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>环境变量与配置管理 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-242.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-242.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-242.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-242.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>環境變量與配置管理 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,58 +34,43 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="环境变量与配置管理 - CaesarTools">
-<meta property="og:description" content="环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-242.html">
+<meta property="og:title" content="環境變量與配置管理 - CaesarTools">
+<meta property="og:description" content="環境變量與配置管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-242.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"环境变量与配置管理","description":"环境变量与配置管理 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-242.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"環境變量與配置管理","description":"環境變量與配置管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-242.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>环境变量与配置管理</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>環境變量與配置管理</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 环境变量与配置管理：12 Factor App实践</p>
-<p>同一个项目，开发环境连本地数据库，测试环境连测试数据库，生产环境连线上数据库。数据库Password、API密钥、第三方服务地址——这些不能硬编码在代码里。环境变量就是解决这个问题的标准方案。</p>
-<p>## 一、为什么需要环境变量</p>
-<p>代码Submit到Git仓库后，如果Password写在代码里，任何人都能看到。而且开发、测试、生产三套环境的配置不同——你不可能改一次代码部署一个环境就改一次配置。</p>
-<p>环境变量的思路：配置不写在代码里，从运行环境读取。同一份代码，在不同环境启动时注入不同的环境变量，自动连接对应的数据库、使用对应的密钥。</p>
-<p>## 二、怎么用</p>
-<p>Node.js：process.env.DATABASE_URL读取环境变量。
-前端：Vite用import.meta.env.VITE_XXX。注意：前端代码里的环境变量会被打包进JS，任何人都能看到——不要在前端放敏感密钥。敏感配置只放后端。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 環境變量與配置管理：12 Factor App實踐</p>
+<p>同一個項目，開發環境連本地數據庫，測試環境連測試數據庫，生產環境連線上數據庫。數據庫密碼、API密鑰、第三方服務地址——這些不能硬編碼在代碼裡。環境變量就是解決這個問題的標準方案。</p>
+<p>## 一、為什麼需要環境變量</p>
+<p>代碼提交到Git倉庫後，如果密碼寫在代碼裡，任何人都能看到。而且開發、測試、生產三套環境的配置不同——你不可能改一次代碼部署一個環境就改一次配置。</p>
+<p>環境變量的思路：配置不寫在代碼裡，從運行環境讀取。同一份代碼，在不同環境啟動時注入不同的環境變量，自動連接對應的數據庫、使用對應的密鑰。</p>
+<p>## 二、怎麼用</p>
+<p>Node.js：process.env.DATABASE_URL讀取環境變量。
+前端：Vite用import.meta.env.VITE_XXX。注意：前端代碼裡的環境變量會被打包進JS，任何人都能看到——不要在前端放敏感密鑰。敏感配置只放後端。</p>
 <p>## 三、.env文件</p>
-<p>本地开发时，用.env文件存环境变量：
+<p>本地開發時，用.env文件存環境變量：
 DATABASE_URL=mongodb://localhost:27017/dev
 API_KEY=secret123</p>
-<p>.env文件加入.gitignore，不Submit到仓库。仓库里放一个.env.example，列出需要哪些变量但不给值。新成员clone项目后，复制.env.example为.env，填上自己的值。</p>
-<p>## 四、生产环境</p>
-<p>生产环境的环境变量通过部署平台注入——Docker run -e、云平台的环境变量配置、K8s的Secret。不要把生产密钥放在代码仓库里。</p>
-<p>## 五、总结</p>
-<p>环境变量是配置管理的标准做法：代码不变，环境变量变，同一份代码跑在不同环境。敏感信息不进Git，通过部署平台注入。这是12 Factor App的核心理念之一。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>.env文件加入.gitignore，不提交到倉庫。倉庫裡放一個.env.example，列出需要哪些變量但不給值。新成員clone項目後，複製.env.example為.env，填上自己的值。</p>
+<p>## 四、生產環境</p>
+<p>生產環境的環境變量通過部署平臺注入——Docker run -e、雲平臺的環境變量配置、K8s的Secret。不要把生產密鑰放在代碼倉庫裡。</p>
+<p>## 五、總結</p>
+<p>環境變量是配置管理的標準做法：代碼不變，環境變量變，同一份代碼跑在不同環境。敏感信息不進Git，通過部署平臺注入。這是12 Factor App的核心理念之一。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-243.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a><a href="article-tech-248.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS预处理器</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-243.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a><a href="article-tech-248.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS預處理器</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

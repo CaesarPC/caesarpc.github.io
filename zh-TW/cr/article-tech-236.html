@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="Redis高级数据结构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="Redis高级数据结构, Redis">
+<meta name="description" content="Redis高級數據結構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Redis高級數據結構, Redis">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-236.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redis高级数据结构 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-236.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-236.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-236.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-236.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redis高級數據結構 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,60 +34,45 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="Redis高级数据结构 - CaesarTools">
-<meta property="og:description" content="Redis高级数据结构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-236.html">
+<meta property="og:title" content="Redis高級數據結構 - CaesarTools">
+<meta property="og:description" content="Redis高級數據結構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-236.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Redis高级数据结构","description":"Redis高级数据结构 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-236.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Redis高級數據結構","description":"Redis高級數據結構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-236.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>Redis高级数据结构</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>Redis高級數據結構</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># Redis高级数据结构：不只是键值对</p>
-<p>很多人用Redis只用到了GET/SET——普通的字符串键值对。但Redis真正强大的地方在于它丰富的数据结构：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每个结构都有专门的适用场景，用对了能省掉大量代码。</p>
-<p>## 一、Hash：存储对象</p>
-<p>Hash适合存对象。比如一个用户的信息：HSET user:100 name "张三" age 25 city "北京"。可以单独取某个字段：HGET user:100 name。比把整个对象序列化成JSON存String更灵活——不用取出整个对象再改一个字段。</p>
-<p>## 二、List：消息队列/时间线</p>
-<p>List是双向链表。LPUSH从左边插，RPOP从右边弹——天然的队列。简单的异步任务可以用List做：生产者LPUSH，消费者RPOP。</p>
-<p>LPUSH + LRANGE也可以做时间线：最新消息插到左边，取前20条就是最新动态。</p>
-<p>## 三、Set：去重与Tags</p>
-<p>Set是无序不重复集合。SADD添加元素，SISMEMBER判断是否存在。天然去重——同一个元素加多少次都只有一份。</p>
-<p>适合做Tags系统：文章id=100的Tags是"JS""前端"，SADD article:100:tags "JS" "前端"。反向也可以：这个Tags下有哪些文章。</p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># Redis高級數據結構：不只是鍵值對</p>
+<p>很多人用Redis只用到了GET/SET——普通的字符串鍵值對。但Redis真正強大的地方在於它豐富的數據結構：List、Set、Sorted Set、Hash、Bitmap、HyperLogLog。每個結構都有專門的適用場景，用對了能省掉大量代碼。</p>
+<p>## 一、Hash：存儲對象</p>
+<p>Hash適合存對象。比如一個用戶的信息：HSET user:100 name "張三" age 25 city "北京"。可以單獨取某個字段：HGET user:100 name。比把整個對象序列化成JSON存String更靈活——不用取出整個對象再改一個字段。</p>
+<p>## 二、List：消息隊列/時間線</p>
+<p>List是雙向鏈表。LPUSH從左邊插，RPOP從右邊彈——天然的隊列。簡單的異步任務可以用List做：生產者LPUSH，消費者RPOP。</p>
+<p>LPUSH + LRANGE也可以做時間線：最新消息插到左邊，取前20條就是最新動態。</p>
+<p>## 三、Set：去重與標籤</p>
+<p>Set是無序不重複集合。SADD添加元素，SISMEMBER判斷是否存在。天然去重——同一個元素加多少次都只有一份。</p>
+<p>適合做標籤系統：文章id=100的標籤是"JS""前端"，SADD article:100:tags "JS" "前端"。反向也可以：這個標籤下有哪些文章。</p>
 <p>## 四、Sorted Set：排行榜</p>
-<p>Sorted Set每个成员关联一个score（分数），按score排序。ZADD加元素，ZRANGE按分数排名取前N个。</p>
-<p>这是Redis做排行榜的核心——热搜榜、积分排行榜、实时排名。ZADD article:rank 1000 "文章A"，ZREVRANGE article:rank 0 9取前10名。O(log n)的插入和排名查询。</p>
-<p>## 五、Bitmap：签到打卡</p>
-<p>Bitmap用位来表示状态，每个位0或1。一年365天签到，用一个字符串的365位表示——第n天签到了第n位置1。SETBIT sign:user1 100 1表示第100天签到了。超省空间——一年签到记录只要46字节。</p>
-<p>## 六、HyperLogLog：UV统计</p>
-<p>统计一个页面一天有多少独立访客（UV）。用Set存所有访客ID，100万用户就占100万空间。HyperLogLog用极小的内存（12KB）就能估算亿级数据的基数——有一定误差（0.81%），但对UV统计完全够用。</p>
-<p>## 七、总结</p>
-<p>Redis不只是缓存字符串。Hash存对象、List做队列、Set做去重Tags、Sorted Set做排行榜、Bitmap做签到、HyperLogLog做计数。选对数据结构，一个Redis能顶好几个专门组件。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>Sorted Set每個成員關聯一個score（分數），按score排序。ZADD加元素，ZRANGE按分數排名取前N個。</p>
+<p>這是Redis做排行榜的核心——熱搜榜、積分排行榜、實時排名。ZADD article:rank 1000 "文章A"，ZREVRANGE article:rank 0 9取前10名。O(log n)的插入和排名查詢。</p>
+<p>## 五、Bitmap：簽到打卡</p>
+<p>Bitmap用位來表示狀態，每個位0或1。一年365天簽到，用一個字符串的365位表示——第n天簽到了第n位置1。SETBIT sign:user1 100 1表示第100天簽到了。超省空間——一年簽到記錄只要46字節。</p>
+<p>## 六、HyperLogLog：UV統計</p>
+<p>統計一個頁面一天有多少獨立訪客（UV）。用Set存所有訪客ID，100萬用戶就佔100萬空間。HyperLogLog用極小的內存（12KB）就能估算億級數據的基數——有一定誤差（0.81%），但對UV統計完全夠用。</p>
+<p>## 七、總結</p>
+<p>Redis不只是緩存字符串。Hash存對象、List做隊列、Set做去重標籤、Sorted Set做排行榜、Bitmap做簽到、HyperLogLog做計數。選對數據結構，一個Redis能頂好幾個專門組件。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分布式锁</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委托</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入门</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-226.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式鎖</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委託</a><a href="article-tech-237.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ SQL入門</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

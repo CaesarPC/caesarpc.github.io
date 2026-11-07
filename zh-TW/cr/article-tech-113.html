@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="机器学习模型训练全流程 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="机器学习模型训练全流程">
+<meta name="description" content="機器學習模型訓練全流程 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="機器學習模型訓練全流程">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-113.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>机器学习模型训练全流程 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-113.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-113.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-113.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-113.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機器學習模型訓練全流程 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,52 +34,37 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="机器学习模型训练全流程 - CaesarTools">
-<meta property="og:description" content="机器学习模型训练全流程 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-113.html">
+<meta property="og:title" content="機器學習模型訓練全流程 - CaesarTools">
+<meta property="og:description" content="機器學習模型訓練全流程 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-113.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"机器学习模型训练全流程","description":"机器学习模型训练全流程 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-113.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"機器學習模型訓練全流程","description":"機器學習模型訓練全流程 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-113.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>机器学习模型训练全流程</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>機器學習模型訓練全流程</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>机器学习模型训练全流程：从原始数据到上线推理的完整链路</p>
-<p>AI大模型很火，但很多人对"训练模型"的理解只停留在"喂数据给AI"。实际上，一个机器学习项目从数据到上线，有一套完整的工程流程。理解这个流程，才能明白AI应用开发和传统软件开发的区别。</p>
-<p>第一步是数据采集和清洗。数据是模型的燃料，质量决定模型上限。原始数据通常是脏乱的：有缺失值、异常值、重复数据、格式不统一。数据清洗要花掉整个项目70%的时间。缺失值填充、异常值剔除、格式统一、去重，这些脏活累活是模型训练的基础。"Garbage In, Garbage Out"——脏数据训练不出好模型。</p>
-<p>第二步是数据标注。监督学习需要带Tags的数据：图片要标注是什么物体、文本要标注情感倾向、语音要转写成文字。标注质量直接决定模型效果。标注要做质检（多人标注同一样本，不一致的讨论Confirm），制定清晰的标注规范。</p>
-<p>第三步是特征工程。原始数据不能直接喂给模型，要转换成模型能理解的特征。文本转成词向量、类别数据做编码、时间数据拆分成多个特征。好的特征工程往往比换模型算法更能提升效果。这是机器学习里最依赖经验的环节。</p>
-<p>第四步是模型选择和训练。选择什么模型？传统机器学习任务（表格数据Category、回归）用XGBoost、随机森林就够了；图像任务用CNN；文本任务用Transformer。训练过程就是不断调整模型参数，让预测结果和真实结果的差距（损失函数）越来越小。深度学习模型需要GPU训练，小模型几小时，大模型几周。</p>
-<p>第五步是模型评估。不能只看训练集上的准确率，要看测试集（模型没见过的数据）上的表现。过拟合是常见问题：模型在训练集上完美，但在新数据上表现差，因为它背下了训练数据而不是学到规律。交叉验证、正则化、更多数据，是应对过拟合的方法。</p>
-<p>第六步是模型调优。调整超参数（学习率、层数、batch size），尝试不同模型结构，看哪个效果好。这个过程叫调参，很耗时但必要。</p>
-<p>第七步是部署上线。训练好的模型保存成文件，部署到服务器上，通过API接收输入Back预测结果。这就是前面讲的AI部署。上线后还要监控：预测准确率有没有下降（数据漂移——线上数据分布和训练时不一样了），延迟有没有升高，成本有没有超预期。</p>
-<p>MLOps是把机器学习工程化的整套体系：数据版本管理、模型版本管理、自动训练流水线、模型监控。和DevOps类似，但多了数据和模型的维度。成熟的AI团队有完整的MLOps流程，模型更新像发版一样规范。</p>
-<p>理解这个全流程，就知道AI开发不是"调API"那么简单。数据准备、训练、评估、部署、监控，每一步都有工程挑战。大模型时代，虽然训练大模型本身门槛高，但基于开源模型做微调、做RAG应用，这套流程仍然适用。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>機器學習模型訓練全流程：從原始數據到上線推理的完整鏈路</p>
+<p>AI大模型很火，但很多人對"訓練模型"的理解只停留在"喂數據給AI"。實際上，一個機器學習項目從數據到上線，有一套完整的工程流程。理解這個流程，才能明白AI應用開發和傳統軟件開發的區別。</p>
+<p>第一步是數據採集和清洗。數據是模型的燃料，質量決定模型上限。原始數據通常是髒亂的：有缺失值、異常值、重複數據、格式不統一。數據清洗要花掉整個項目70%的時間。缺失值填充、異常值剔除、格式統一、去重，這些髒活累活是模型訓練的基礎。"Garbage In, Garbage Out"——髒數據訓練不出好模型。</p>
+<p>第二步是數據標註。監督學習需要帶標籤的數據：圖片要標註是什麼物體、文本要標註情感傾向、語音要轉寫成文字。標註質量直接決定模型效果。標註要做質檢（多人標註同一樣本，不一致的討論確認），制定清晰的標註規範。</p>
+<p>第三步是特徵工程。原始數據不能直接餵給模型，要轉換成模型能理解的特徵。文本轉成詞向量、類別數據做編碼、時間數據拆分成多個特徵。好的特徵工程往往比換模型算法更能提升效果。這是機器學習裡最依賴經驗的環節。</p>
+<p>第四步是模型選擇和訓練。選擇什麼模型？傳統機器學習任務（表格數據分類、迴歸）用XGBoost、隨機森林就夠了；圖像任務用CNN；文本任務用Transformer。訓練過程就是不斷調整模型參數，讓預測結果和真實結果的差距（損失函數）越來越小。深度學習模型需要GPU訓練，小模型幾小時，大模型幾周。</p>
+<p>第五步是模型評估。不能只看訓練集上的準確率，要看測試集（模型沒見過的數據）上的表現。過擬合是常見問題：模型在訓練集上完美，但在新數據上表現差，因為它背下了訓練數據而不是學到規律。交叉驗證、正則化、更多數據，是應對過擬合的方法。</p>
+<p>第六步是模型調優。調整超參數（學習率、層數、batch size），嘗試不同模型結構，看哪個效果好。這個過程叫調參，很耗時但必要。</p>
+<p>第七步是部署上線。訓練好的模型保存成文件，部署到服務器上，通過API接收輸入返回預測結果。這就是前面講的AI部署。上線後還要監控：預測準確率有沒有下降（數據漂移——線上數據分佈和訓練時不一樣了），延遲有沒有升高，成本有沒有超預期。</p>
+<p>MLOps是把機器學習工程化的整套體系：數據版本管理、模型版本管理、自動訓練流水線、模型監控。和DevOps類似，但多了數據和模型的維度。成熟的AI團隊有完整的MLOps流程，模型更新像發版一樣規範。</p>
+<p>理解這個全流程，就知道AI開發不是"調API"那麼簡單。數據準備、訓練、評估、部署、監控，每一步都有工程挑戰。大模型時代，雖然訓練大模型本身門檻高，但基於開源模型做微調、做RAG應用，這套流程仍然適用。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-103.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git版本控制与团队协作工作流</a><a href="article-tech-123.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF层设计与实践</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API网关架构设计</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-103.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git版本控制與團隊協作工作流</a><a href="article-tech-123.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF層設計與實踐</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

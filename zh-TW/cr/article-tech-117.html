@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="CSS布局进化史 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="CSS布局进化史, CSS">
+<meta name="description" content="CSS佈局進化史 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CSS佈局進化史, CSS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-117.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS布局进化史 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-117.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-117.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-117.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-117.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS佈局進化史 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="CSS布局进化史 - CaesarTools">
-<meta property="og:description" content="CSS布局进化史 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-117.html">
+<meta property="og:title" content="CSS佈局進化史 - CaesarTools">
+<meta property="og:description" content="CSS佈局進化史 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-117.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS布局进化史","description":"CSS布局进化史 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-117.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS佈局進化史","description":"CSS佈局進化史 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-117.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>CSS布局进化史</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CSS佈局進化史</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>CSS布局进化史：从float定位到Grid栅格的技术变迁</p>
-<p>CSS布局是前端最基础也最容易踩坑的领域。十几年前做网页布局，靠float加负margin各种hack；现在Flexbox和Grid让布局变得自然直观。理解CSS布局的进化过程，才能写出优雅、易维护的样式代码。</p>
-<p>早期网页布局用table表格，把内容放在表格单元格里控制位置。这种方式简单但僵硬，改布局要改HTML结构，语义也不清晰。后来div+css兴起，float成为主流：左浮动、右浮动，模拟两栏三栏布局。float本意是让文字环绕图片，被拿来做布局后带来大量问题：高度塌陷（父元素高度为0）、清除浮动hack、居中困难。margin负值布局更是像走钢丝。</p>
-<p>Flexbox弹性布局彻底改变了这一切。它是为一维布局设计的：一行或者一列的排列。容器设置display: flex，子元素自动排成一行。justify-content控制主轴对齐，align-items控制交叉轴对齐。一行代码就能实现水平垂直居中，这在以前要三四行hack。Flexbox还能让子元素自动伸缩分配空间（flex: 1），响应式布局变得非常简单。导航栏、卡片排列、居中和分布，都是Flexbox的主场。</p>
-<p>Grid网格布局是二维布局的终极方案。和Flexbox的一维不同，Grid同时控制行和列。display: grid后，用grid-template-columns定义列宽，grid-template-rows定义行高，子元素自动放入网格。grid-area可以精确指定某个元素占哪几行几列。复杂的页面整体布局（头部、侧边栏、主内容、底部），用Grid几行代码就搞定，不需要嵌套div和float。</p>
-<p>现代布局的组合用法：页面整体框架用Grid（头部一行、内容区分两列），内容区内部的卡片排列用Flexbox。Grid管宏观布局，Flexbox管微观排列。两者配合，覆盖99%的布局需求。</p>
-<p>常见布局模式的现代实现：圣杯布局（中间先加载、三栏等高）用Grid一行grid-template: auto 1fr auto / auto 1fr auto搞定；垂直居中用Flexbox的align-items + justify-content；等分卡片用Flexbox的flex: 1；不规则网格用Grid的span。以前需要大量hack的布局，现在都变得简洁。</p>
-<p>响应式布局在现代CSS下也变得简单。容器查询（Container Queries）是新特性：不是根据屏幕宽度，而是根据组件所在容器的宽度调整样式。这样组件真正做到了可复用——放在不同宽度的容器里自动适配。clamp()函数让字号、间距流畅缩放，不需要写一堆媒体查询。</p>
-<p>CSS逻辑属性（margin-inline-start等）让多语言布局（从右到左的阿拉伯语）变得容易，不用写两套方向样式。</p>
-<p>CSS布局的进化方向是：从hack到声明式，从复杂到简单。掌握Flexbox和Grid，就掌握了现代CSS布局的核心。那些float布局时代的hack技巧，现在了解原理即可，不用再实际使用。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>CSS佈局進化史：從float定位到Grid柵格的技術變遷</p>
+<p>CSS佈局是前端最基礎也最容易踩坑的領域。十幾年前做網頁佈局，靠float加負margin各種hack；現在Flexbox和Grid讓佈局變得自然直觀。理解CSS佈局的進化過程，才能寫出優雅、易維護的樣式代碼。</p>
+<p>早期網頁佈局用table表格，把內容放在表格單元格里控制位置。這種方式簡單但僵硬，改佈局要改HTML結構，語義也不清晰。後來div+css興起，float成為主流：左浮動、右浮動，模擬兩欄三欄佈局。float本意是讓文字環繞圖片，被拿來做佈局後帶來大量問題：高度塌陷（父元素高度為0）、清除浮動hack、居中困難。margin負值佈局更是像走鋼絲。</p>
+<p>Flexbox彈性佈局徹底改變了這一切。它是為一維佈局設計的：一行或者一列的排列。容器設置display: flex，子元素自動排成一行。justify-content控制主軸對齊，align-items控制交叉軸對齊。一行代碼就能實現水平垂直居中，這在以前要三四行hack。Flexbox還能讓子元素自動伸縮分配空間（flex: 1），響應式佈局變得非常簡單。導航欄、卡片排列、居中和分佈，都是Flexbox的主場。</p>
+<p>Grid網格佈局是二維佈局的終極方案。和Flexbox的一維不同，Grid同時控制行和列。display: grid後，用grid-template-columns定義列寬，grid-template-rows定義行高，子元素自動放入網格。grid-area可以精確指定某個元素佔哪幾行幾列。複雜的頁面整體佈局（頭部、側邊欄、主內容、底部），用Grid幾行代碼就搞定，不需要嵌套div和float。</p>
+<p>現代佈局的組合用法：頁面整體框架用Grid（頭部一行、內容區分兩列），內容區內部的卡片排列用Flexbox。Grid管宏觀佈局，Flexbox管微觀排列。兩者配合，覆蓋99%的佈局需求。</p>
+<p>常見佈局模式的現代實現：聖盃佈局（中間先加載、三欄等高）用Grid一行grid-template: auto 1fr auto / auto 1fr auto搞定；垂直居中用Flexbox的align-items + justify-content；等分卡片用Flexbox的flex: 1；不規則網格用Grid的span。以前需要大量hack的佈局，現在都變得簡潔。</p>
+<p>響應式佈局在現代CSS下也變得簡單。容器查詢（Container Queries）是新特性：不是根據屏幕寬度，而是根據組件所在容器的寬度調整樣式。這樣組件真正做到了可複用——放在不同寬度的容器裡自動適配。clamp()函數讓字號、間距流暢縮放，不需要寫一堆媒體查詢。</p>
+<p>CSS邏輯屬性（margin-inline-start等）讓多語言佈局（從右到左的阿拉伯語）變得容易，不用寫兩套方向樣式。</p>
+<p>CSS佈局的進化方向是：從hack到聲明式，從複雜到簡單。掌握Flexbox和Grid，就掌握了現代CSS佈局的核心。那些float佈局時代的hack技巧，現在瞭解原理即可，不用再實際使用。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-111.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 团队代码规范与工程协作</a><a href="article-tech-115.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 监控告警系统建设</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 机器学习模型训练全流程</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-111.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 團隊代碼規範與工程協作</a><a href="article-tech-115.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 監控告警系統建設</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 機器學習模型訓練全流程</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

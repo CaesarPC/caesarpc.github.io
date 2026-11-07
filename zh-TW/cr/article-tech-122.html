@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="服务端渲染SSR与同构应用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="服务端渲染SSR与同构应用">
+<meta name="description" content="服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="服務端渲染SSR與同構應用">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-122.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>服务端渲染SSR与同构应用 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-122.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-122.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-122.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-122.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服務端渲染SSR與同構應用 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="服务端渲染SSR与同构应用 - CaesarTools">
-<meta property="og:description" content="服务端渲染SSR与同构应用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-122.html">
+<meta property="og:title" content="服務端渲染SSR與同構應用 - CaesarTools">
+<meta property="og:description" content="服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-122.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"服务端渲染SSR与同构应用","description":"服务端渲染SSR与同构应用 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-122.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"服務端渲染SSR與同構應用","description":"服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-122.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>服务端渲染SSR与同构应用</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>服務端渲染SSR與同構應用</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>服务端渲染SSR与同构应用：解决SPA首屏慢和SEO问题</p>
-<p>单页应用（SPA）体验好，但有两个痛点：首屏慢（要下载整个JS才开始渲染）、SEO不友好（初始HTML是空的，爬虫抓不到内容）。服务端渲染（SSR）解决这两个问题：服务器把页面渲染成完整HTML再发给浏览器，用户打开就看到内容，爬虫也能抓到完整页面。</p>
-<p>传统多页应用就是SSR：服务器用模板引擎（Jinja2、Thymeleaf）渲染HTMLBack。现代SSR指的是React/Vue的服务端渲染：在服务器上运行React/Vue代码，把组件渲染成HTML字符串，发给浏览器。浏览器接收后hydration（注水）：把静态HTML绑定上JS事件，变成可交互的应用。</p>
-<p>Next.js（React生态）和Nuxt（Vue生态）是现代SSR框架，把复杂的SSR工程化问题封装好了。开发者写组件，框架自动处理服务端渲染、客户端注水、路由、数据获取。开发体验接近纯客户端开发，但拥有SSR的性能和SEO优势。</p>
-<p>SSR的优势：首屏快（服务器直接发HTML，不用等JS下载执行完）；SEO友好（爬虫拿到完整渲染的HTML）；社交媒体Share卡片正确（Share链接时能抓到标题、缩略图）。</p>
-<p>但SSR不是没有代价。服务器要承担渲染工作，CPU压力大；Node.js服务器的运维复杂度高于纯静态托管；首屏快了，但hydration过程如果JS包大，交互还是要等；开发复杂度提升（要区分服务端和客户端能跑的代码，不能在组件里直接用window等浏览器API）。</p>
-<p>静态站点生成（SSG）是SSR的一个特例：构建时就把所有页面渲染成静态HTML，部署到CDN。速度极快（纯静态文件），适合博客、文档、营销站这种内容不常变的场景。Next.js的SSG模式、Astro、Hexo都是这种思路。</p>
-<p>ISR（增量静态再生）是折中方案：页面首次访问时服务端渲染并缓存，之后按时间间隔重新生成。兼顾静态速度和内容新鲜度。</p>
-<p>现在的趋势是：混合渲染。一个应用里，Home用SSG（快且SEO好）、个人中心用CSR（不需要SEO，交互复杂）、详情页用ISR（内容定期更新）。Next.js App Router支持按页面选择渲染方式，这是最灵活的方案。</p>
-<p>选择渲染策略的判断：内容型网站（博客、新闻、文档）优先SSG；需要SEO但内容动态的用SSR或ISR；纯Admin系统不需要SEO，CSR就行。不要所有页面都用SSR，那会浪费服务器资源。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>服務端渲染SSR與同構應用：解決SPA首屏慢和SEO問題</p>
+<p>單頁應用（SPA）體驗好，但有兩個痛點：首屏慢（要下載整個JS才開始渲染）、SEO不友好（初始HTML是空的，爬蟲抓不到內容）。服務端渲染（SSR）解決這兩個問題：服務器把頁面渲染成完整HTML再發給瀏覽器，用戶打開就看到內容，爬蟲也能抓到完整頁面。</p>
+<p>傳統多頁應用就是SSR：服務器用模板引擎（Jinja2、Thymeleaf）渲染HTML返回。現代SSR指的是React/Vue的服務端渲染：在服務器上運行React/Vue代碼，把組件渲染成HTML字符串，發給瀏覽器。瀏覽器接收後hydration（注水）：把靜態HTML綁定上JS事件，變成可交互的應用。</p>
+<p>Next.js（React生態）和Nuxt（Vue生態）是現代SSR框架，把複雜的SSR工程化問題封裝好了。開發者寫組件，框架自動處理服務端渲染、客戶端注水、路由、數據獲取。開發體驗接近純客戶端開發，但擁有SSR的性能和SEO優勢。</p>
+<p>SSR的優勢：首屏快（服務器直接發HTML，不用等JS下載執行完）；SEO友好（爬蟲拿到完整渲染的HTML）；社交媒體分享卡片正確（分享鏈接時能抓到標題、縮略圖）。</p>
+<p>但SSR不是沒有代價。服務器要承擔渲染工作，CPU壓力大；Node.js服務器的運維複雜度高於純靜態託管；首屏快了，但hydration過程如果JS包大，交互還是要等；開發複雜度提升（要區分服務端和客戶端能跑的代碼，不能在組件裡直接用window等瀏覽器API）。</p>
+<p>靜態站點生成（SSG）是SSR的一個特例：構建時就把所有頁面渲染成靜態HTML，部署到CDN。速度極快（純靜態文件），適合博客、文檔、營銷站這種內容不常變的場景。Next.js的SSG模式、Astro、Hexo都是這種思路。</p>
+<p>ISR（增量靜態再生）是折中方案：頁面首次訪問時服務端渲染並緩存，之後按時間間隔重新生成。兼顧靜態速度和內容新鮮度。</p>
+<p>現在的趨勢是：混合渲染。一個應用裡，首頁用SSG（快且SEO好）、個人中心用CSR（不需要SEO，交互複雜）、詳情頁用ISR（內容定期更新）。Next.js App Router支持按頁面選擇渲染方式，這是最靈活的方案。</p>
+<p>選擇渲染策略的判斷：內容型網站（博客、新聞、文檔）優先SSG；需要SEO但內容動態的用SSR或ISR；純後台管理系統不需要SEO，CSR就行。不要所有頁面都用SSR，那會浪費服務器資源。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-132.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心与服务发现</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 机器学习模型训练全流程</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端监控体系搭建</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-132.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 配置中心與服務發現</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 機器學習模型訓練全流程</a><a href="article-tech-119.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端監控體系搭建</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

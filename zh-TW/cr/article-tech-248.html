@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="CSS预处理器, CSS">
+<meta name="description" content="CSS預處理器 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CSS預處理器, CSS">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-248.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSS预处理器 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-248.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-248.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-248.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-248.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS預處理器 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,47 +34,32 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="CSS预处理器 - CaesarTools">
-<meta property="og:description" content="CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-248.html">
+<meta property="og:title" content="CSS預處理器 - CaesarTools">
+<meta property="og:description" content="CSS預處理器 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-248.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS预处理器","description":"CSS预处理器 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-248.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS預處理器","description":"CSS預處理器 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-248.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>CSS预处理器</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CSS預處理器</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 前端CSS预处理器：Sass与Less</p>
-<p>原生CSS写大项目很痛苦：没有变量、没有嵌套、没有复用。CSS预处理器扩展了CSS的能力——变量、嵌套、混入、函数——编译成普通CSS浏览器就能跑。Sass是最流行的预处理器。</p>
-<p>## 一、变量</p>
-<p>原生CSS没有变量（虽然现在CSS变量已经普及了）。Sass：
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端CSS預處理器：Sass與Less</p>
+<p>原生CSS寫大項目很痛苦：沒有變量、沒有嵌套、沒有複用。CSS預處理器擴展了CSS的能力——變量、嵌套、混入、函數——編譯成普通CSS瀏覽器就能跑。Sass是最流行的預處理器。</p>
+<p>## 一、變量</p>
+<p>原生CSS沒有變量（雖然現在CSS變量已經普及了）。Sass：
 $primary-color: #3498db;
 .button { color: $primary-color; }</p>
-<p>改主题色只改变量一处，全局生效。</p>
+<p>改主題色只改變量一處，全局生效。</p>
 <p>## 二、嵌套</p>
-<p>原生CSS选择器一层层写：.nav ul li a { }。Sass可以嵌套：
+<p>原生CSS選擇器一層層寫：.nav ul li a { }。Sass可以嵌套：
 .nav {
   ul {
     li {
@@ -82,22 +67,22 @@ $primary-color: #3498db;
     }
   }
 }</p>
-<p>编译后自动展开成完整选择器。结构清晰，和HTML层级对应。</p>
+<p>編譯後自動展開成完整選擇器。結構清晰，和HTML層級對應。</p>
 <p>## 三、混入（Mixin）</p>
-<p>复用一段样式：
+<p>複用一段樣式：
 @mixin flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .card { @include flex-center; }</p>
-<p>## 四、现代趋势</p>
-<p>现在很多项目用CSS-in-JS（Styled Components）或CSS Modules替代预处理器。Tailwind CSS更是直接用原子化class，连预处理器都不太需要了。但Sass的思想——变量、嵌套、复用——影响了所有后来者。</p>
-<p>## 五、总结</p>
-<p>CSS预处理器解决了原生CSS的复用和组织问题。新项目可以根据团队偏好选Sass或Tailwind，但理解预处理器的核心概念（变量、嵌套、混入），看任何样式方案都不会陌生。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>## 四、現代趨勢</p>
+<p>現在很多項目用CSS-in-JS（Styled Components）或CSS Modules替代預處理器。Tailwind CSS更是直接用原子化class，連預處理器都不太需要了。但Sass的思想——變量、嵌套、複用——影響了所有後來者。</p>
+<p>## 五、總結</p>
+<p>CSS預處理器解決了原生CSS的複用和組織問題。新項目可以根據團隊偏好選Sass或Tailwind，但理解預處理器的核心概念（變量、嵌套、混入），看任何樣式方案都不會陌生。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端组件设计</a><a href="article-tech-253.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ FetchAPI</a><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端組件設計</a><a href="article-tech-253.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ FetchAPI</a><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

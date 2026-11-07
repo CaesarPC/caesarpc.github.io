@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="灰度发布与AB测试 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="灰度发布与AB测试">
+<meta name="description" content="灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="灰度發佈與AB測試">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-143.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>灰度发布与AB测试 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-143.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-143.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-143.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-143.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灰度發佈與AB測試 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,51 +34,36 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="灰度发布与AB测试 - CaesarTools">
-<meta property="og:description" content="灰度发布与AB测试 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-143.html">
+<meta property="og:title" content="灰度發佈與AB測試 - CaesarTools">
+<meta property="og:description" content="灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-143.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"灰度发布与AB测试","description":"灰度发布与AB测试 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-143.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"灰度發佈與AB測試","description":"灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-143.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>灰度发布与AB测试</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>灰度發佈與AB測試</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>灰度发布与A/B测试：安全上线和数据驱动决策</p>
-<p>新版本直接全量上线，万一有Bug，所有用户都受影响。灰度发布（金丝雀发布）让新版本先给一小部分用户用，没问题再逐步扩大。A/B测试则是同时给两组用户看不同版本，用数据判断哪个版本更好。</p>
-<p>灰度发布的流程：新版本部署，先切1%流量到新版本；观察监控（错误率、性能、业务指标）没问题；逐步扩大到10%、50%、100%。任何阶段发现问题，立刻切回旧版本，影响范围小。</p>
-<p>实现方式：Nginx/网关按比例分流；按用户IDHash分流（同一用户总是看到同一版本，不会混乱）；按地域分流（先在一个城市试）。K8s的滚动更新、Istio的流量管理都支持灰度。</p>
-<p>灰度发布是工程实践，目的是安全上线。A/B测试是产品实验，目的是用数据做决策。</p>
-<p>A/B测试：把用户随机分成两组，A组看旧版本，B组看新版本（新按钮颜色、新文案、新推荐算法）。一段时间后比较两组的指标（点击率、转化率、留存），统计显著的差异说明新版本更好。</p>
-<p>A/B测试的关键：随机分组（保证两组用户特征一致）、足够样本量（太少数据不显著）、单一变量（一次只测一个改动，不然不知道是什么导致差异）、跑足够长时间（覆盖一周周期）。</p>
-<p>灰度和A/B经常结合：先灰度发布新版本观察稳定性，同时在灰度流量里做A/B测试验证效果。</p>
-<p>特性开关（Feature Flag）是灰度的技术基础。新功能代码部署了，但默认Close，通过开关控制哪些用户能看到。这样部署和发布解耦：代码随时部署，功能按需开启。出问题关开关就行，不用回滚代码。</p>
-<p>灰度发布和A/B测试是成熟团队的标志。它们让上线不再是"赌一把"，而是可控、可回退、数据驱动的过程。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>灰度發佈與A/B測試：安全上線和數據驅動決策</p>
+<p>新版本直接全量上線，萬一有Bug，所有用戶都受影響。灰度發佈（金絲雀發佈）讓新版本先給一小部分用戶用，沒問題再逐步擴大。A/B測試則是同時給兩組用戶看不同版本，用數據判斷哪個版本更好。</p>
+<p>灰度發佈的流程：新版本部署，先切1%流量到新版本；觀察監控（錯誤率、性能、業務指標）沒問題；逐步擴大到10%、50%、100%。任何階段發現問題，立刻切回舊版本，影響範圍小。</p>
+<p>實現方式：Nginx/網關按比例分流；按用戶ID哈希分流（同一用戶總是看到同一版本，不會混亂）；按地域分流（先在一個城市試）。K8s的滾動更新、Istio的流量管理都支持灰度。</p>
+<p>灰度發佈是工程實踐，目的是安全上線。A/B測試是產品實驗，目的是用數據做決策。</p>
+<p>A/B測試：把用戶隨機分成兩組，A組看舊版本，B組看新版本（新按鈕顏色、新文案、新推薦算法）。一段時間後比較兩組的指標（點擊率、轉化率、留存），統計顯著的差異說明新版本更好。</p>
+<p>A/B測試的關鍵：隨機分組（保證兩組用戶特徵一致）、足夠樣本量（太少數據不顯著）、單一變量（一次只測一個改動，不然不知道是什麼導致差異）、跑足夠長時間（覆蓋一週週期）。</p>
+<p>灰度和A/B經常結合：先灰度發佈新版本觀察穩定性，同時在灰度流量裡做A/B測試驗證效果。</p>
+<p>特性開關（Feature Flag）是灰度的技術基礎。新功能代碼部署了，但默認關閉，通過開關控制哪些用戶能看到。這樣部署和發佈解耦：代碼隨時部署，功能按需開啟。出問題關開關就行，不用回滾代碼。</p>
+<p>灰度發佈和A/B測試是成熟團隊的標誌。它們讓上線不再是"賭一把"，而是可控、可回退、數據驅動的過程。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a><a href="article-tech-145.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 压力测试与容量规划</a><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理与优化</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-148.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a><a href="article-tech-145.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 壓力測試與容量規劃</a><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理與優化</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

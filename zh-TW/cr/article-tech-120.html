@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="虚拟列表与长列表性能优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="虚拟列表与长列表性能优化, 性能优化">
+<meta name="description" content="虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="虛擬列表與長列表性能優化, 性能優化">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-120.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>虚拟列表与长列表性能优化 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-120.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-120.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-120.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-120.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虛擬列表與長列表性能優化 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,52 +34,37 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="虚拟列表与长列表性能优化 - CaesarTools">
-<meta property="og:description" content="虚拟列表与长列表性能优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-120.html">
+<meta property="og:title" content="虛擬列表與長列表性能優化 - CaesarTools">
+<meta property="og:description" content="虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-120.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"虚拟列表与长列表性能优化","description":"虚拟列表与长列表性能优化 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-120.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"虛擬列表與長列表性能優化","description":"虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-120.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>虚拟列表与长列表性能优化</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>虛擬列表與長列表性能優化</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p>虚拟列表与长列表性能优化：万条数据不卡顿的渲染方案</p>
-<p>一个订单列表有十万条数据，直接全部渲染到DOM里会怎样？浏览器可能直接卡死。DOM节点太多是前端性能的头号杀手：每增加一个DOM节点，渲染、样式计算、内存都有开销。虚拟列表（Virtual List）是解决长列表性能问题的标准方案。</p>
-<p>虚拟列表的核心思想很简单：只渲染可视区域内的列表项。屏幕只能显示10条数据，就只渲染10个DOM节点，上下滚动时动态替换内容。哪怕总共有十万条数据，DOM节点始终只有十几个，性能完全不卡。</p>
-<p>实现原理：计算列表总高度（项数×每项高度），用一个可滚动容器撑出这个高度；根据滚动位置计算当前应该显示哪几条数据（开始索引、结束索引），只渲染这几条；用transform把渲染的列表项偏移到正确的位置。用户滚动时，实时更新可见范围，动态替换DOM内容。</p>
-<p>定高列表是最简单的场景：每个列表项高度固定。计算很简单：开始索引=滚动位置÷项高，结束索引=开始索引+屏幕可显示条数。库如react-window、vue-virtual-scroller默认支持这种场景。</p>
-<p>不定高列表是难点：每条数据高度不一样（消息列表，有的长有的短）。预先测量所有项的高度不现实（数据太多）。解决方案是：先预估高度，渲染后实际测量，动态修正位置。滚动时根据已知的高度缓存计算偏移。复杂的虚拟列表库都内置了这种动态高度处理。</p>
-<p>虚拟滚动不仅用于纵向列表，也用于横向表格、甚至二维网格（虚拟表格，行和列都虚拟化）。数据表格成千上万行成千上万列，只有可视区域渲染，是大数据量表格的标准做法。</p>
-<p>除了虚拟列表，长列表优化还有其他手段：分页加载（滚动到底部加载下一页，这是最简单的做法，适合不需要快速滚动的场景）；分页和虚拟列表结合（每一页数据虚拟化渲染）；图片懒加载（列表里的图片进入可视区才加载）；减少列表项的复杂度（列表项里不要放重组件、不要放太多嵌套）。</p>
-<p>常见坑：滚动时白屏（快速滚动时新数据还没渲染出来，显示空白），解决方法是多渲染一些缓冲区（可视区上下各多渲染几条）；滚动跳动（动态高度修正时位置跳变），需要平滑调整；列表项内部的交互状态在滚动后丢失（因为DOM被替换了），需要把状态提升到外部数据层管理。</p>
-<p>成熟的虚拟列表库：React生态用react-window（轻量）或react-virtuoso（功能全）；Vue生态用vue-virtual-scroller。不要自己从零写虚拟列表，边界情况太多，用成熟库更可靠。</p>
-<p>长列表性能优化是前端面试和实战的高频话题。理解虚拟列表的原理，遇到大数据量渲染场景就不会慌。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>虛擬列表與長列表性能優化：萬條數據不卡頓的渲染方案</p>
+<p>一個訂單列表有十萬條數據，直接全部渲染到DOM裡會怎樣？瀏覽器可能直接卡死。DOM節點太多是前端性能的頭號殺手：每增加一個DOM節點，渲染、樣式計算、內存都有開銷。虛擬列表（Virtual List）是解決長列表性能問題的標準方案。</p>
+<p>虛擬列表的核心思想很簡單：只渲染可視區域內的列表項。屏幕只能顯示10條數據，就只渲染10個DOM節點，上下滾動時動態替換內容。哪怕總共有十萬條數據，DOM節點始終只有十幾個，性能完全不卡。</p>
+<p>實現原理：計算列表總高度（項數×每項高度），用一個可滾動容器撐出這個高度；根據滾動位置計算當前應該顯示哪幾條數據（開始索引、結束索引），只渲染這幾條；用transform把渲染的列表項偏移到正確的位置。用戶滾動時，實時更新可見範圍，動態替換DOM內容。</p>
+<p>定高列表是最簡單的場景：每個列表項高度固定。計算很簡單：開始索引=滾動位置÷項高，結束索引=開始索引+屏幕可顯示條數。庫如react-window、vue-virtual-scroller默認支持這種場景。</p>
+<p>不定高列表是難點：每條數據高度不一樣（消息列表，有的長有的短）。預先測量所有項的高度不現實（數據太多）。解決方案是：先預估高度，渲染後實際測量，動態修正位置。滾動時根據已知的高度緩存計算偏移。複雜的虛擬列表庫都內置了這種動態高度處理。</p>
+<p>虛擬滾動不僅用於縱向列表，也用於橫向表格、甚至二維網格（虛擬表格，行和列都虛擬化）。數據表格成千上萬行成千上萬列，只有可視區域渲染，是大數據量表格的標準做法。</p>
+<p>除了虛擬列表，長列表優化還有其他手段：分頁加載（滾動到底部加載下一頁，這是最簡單的做法，適合不需要快速滾動的場景）；分頁和虛擬列表結合（每一頁數據虛擬化渲染）；圖片懶加載（列表裡的圖片進入可視區才加載）；減少列表項的複雜度（列表項裡不要放重組件、不要放太多嵌套）。</p>
+<p>常見坑：滾動時白屏（快速滾動時新數據還沒渲染出來，顯示空白），解決方法是多渲染一些緩衝區（可視區上下各多渲染幾條）；滾動跳動（動態高度修正時位置跳變），需要平滑調整；列表項內部的交互狀態在滾動後丟失（因為DOM被替換了），需要把狀態提升到外部數據層管理。</p>
+<p>成熟的虛擬列表庫：React生態用react-window（輕量）或react-virtuoso（功能全）；Vue生態用vue-virtual-scroller。不要自己從零寫虛擬列表，邊界情況太多，用成熟庫更可靠。</p>
+<p>長列表性能優化是前端面試和實戰的高頻話題。理解虛擬列表的原理，遇到大數據量渲染場景就不會慌。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 实时协同编辑技术解析</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API网关架构设计</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 机器学习模型训练全流程</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-116.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 實時協同編輯技術解析</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 機器學習模型訓練全流程</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

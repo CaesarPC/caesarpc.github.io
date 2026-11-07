@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="Nginx反向代理与负载均衡 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="Nginx反向代理与负载均衡">
+<meta name="description" content="Nginx反向代理與負載均衡 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Nginx反向代理與負載均衡">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-212.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nginx反向代理与负载均衡 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-212.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-212.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-212.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-212.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nginx反向代理與負載均衡 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,46 +34,31 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="Nginx反向代理与负载均衡 - CaesarTools">
-<meta property="og:description" content="Nginx反向代理与负载均衡 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-212.html">
+<meta property="og:title" content="Nginx反向代理與負載均衡 - CaesarTools">
+<meta property="og:description" content="Nginx反向代理與負載均衡 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-212.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Nginx反向代理与负载均衡","description":"Nginx反向代理与负载均衡 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-212.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Nginx反向代理與負載均衡","description":"Nginx反向代理與負載均衡 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-212.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>Nginx反向代理与负载均衡</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>Nginx反向代理與負載均衡</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># Nginx实战：反向代理、负载均衡与静态服务</p>
-<p>Nginx是全世界使用最广泛的Web服务器。超过三分之一的网站用Nginx做反向代理和负载均衡。它做静态文件服务快得惊人，做反向代理配置灵活，做负载均衡能轻松扛住几万并发。但很多人对Nginx的印象还停留在"改改配置文件转发一下请求"，没有真正用起来它的强大功能。</p>
-<p>## 一、Nginx是什么</p>
-<p>Nginx是一个高性能的HTTP服务器和反向代理服务器。它最初就是为了解决C10K问题（单台服务器同时处理一万个并发连接）而设计的。采用事件驱动的异步非阻塞架构，内存占用小、并发能力强。</p>
-<p>Nginx有两个核心角色：作为Web服务器直接提供静态文件；作为反向代理把请求转发给后端应用服务器。</p>
-<p>## 二、反向代理：请求的统一入口</p>
-<p>反向代理是Nginx最常用的功能。用户不直接访问后端应用，而是访问Nginx，Nginx根据规则把请求转发给后端的某个服务。</p>
-<p>最简单的配置：
+<div class="meta">CaesarTools · 技術教程</div>
+<p># Nginx實戰：反向代理、負載均衡與靜態服務</p>
+<p>Nginx是全世界使用最廣泛的Web服務器。超過三分之一的網站用Nginx做反向代理和負載均衡。它做靜態文件服務快得驚人，做反向代理配置靈活，做負載均衡能輕鬆扛住幾萬併發。但很多人對Nginx的印象還停留在"改改配置文件轉發一下請求"，沒有真正用起來它的強大功能。</p>
+<p>## 一、Nginx是什麼</p>
+<p>Nginx是一個高性能的HTTP服務器和反向代理服務器。它最初就是為了解決C10K問題（單臺服務器同時處理一萬個併發連接）而設計的。採用事件驅動的異步非阻塞架構，內存佔用小、併發能力強。</p>
+<p>Nginx有兩個核心角色：作為Web服務器直接提供靜態文件；作為反向代理把請求轉發給後端應用服務器。</p>
+<p>## 二、反向代理：請求的統一入口</p>
+<p>反向代理是Nginx最常用的功能。用戶不直接訪問後端應用，而是訪問Nginx，Nginx根據規則把請求轉發給後端的某個服務。</p>
+<p>最簡單的配置：
 server {
     listen 80;
     server_name example.com;
@@ -81,10 +66,10 @@ server {
         proxy_pass http://127.0.0.1:3000;
     }
 }</p>
-<p>所有发往example.com的请求，都转发到本机3000端口的Node.js服务。用户不知道后端跑的是什么、跑在几台机器上。</p>
-<p>反向代理的好处：安全——后端应用不直接暴露公网，只监听本地端口，外部只能通过Nginx访问。统一入口——SSL终止、日志记录、访问控制都在Nginx层做，后端应用不用管。</p>
-<p>## 三、负载均衡：把流量分给多台服务器</p>
-<p>当一台服务器扛不住流量了，就加几台，Nginx在前面做负载均衡，把请求平均分到多台后端服务器。</p>
+<p>所有發往example.com的請求，都轉發到本機3000端口的Node.js服務。用戶不知道後端跑的是什麼、跑在幾臺機器上。</p>
+<p>反向代理的好處：安全——後端應用不直接暴露公網，只監聽本地端口，外部只能通過Nginx訪問。統一入口——SSL終止、日誌記錄、訪問控制都在Nginx層做，後端應用不用管。</p>
+<p>## 三、負載均衡：把流量分給多臺服務器</p>
+<p>當一臺服務器扛不住流量了，就加幾臺，Nginx在前面做負載均衡，把請求平均分到多臺後端服務器。</p>
 <p>upstream backend {
     server 192.168.1.1:3000;
     server 192.168.1.2:3000;
@@ -93,30 +78,30 @@ server {
 server {
     location / { proxy_pass http://backend; }
 }</p>
-<p>默认是轮询——请求一个一个轮流分给三台服务器。还可以配置权重（某台机器性能好多分点流量）、ip_hash（同一个用户固定访问同一台服务器，解决Session共享问题）。</p>
-<p>## 四、静态文件服务</p>
-<p>Nginx做静态文件服务的性能极高，直接从磁盘读文件Back，不需要经过后端应用。</p>
+<p>默認是輪詢——請求一個一個輪流分給三臺服務器。還可以配置權重（某臺機器性能好多分點流量）、ip_hash（同一個用戶固定訪問同一臺服務器，解決Session共享問題）。</p>
+<p>## 四、靜態文件服務</p>
+<p>Nginx做靜態文件服務的性能極高，直接從磁盤讀文件返回，不需要經過後端應用。</p>
 <p>server {
     root /var/www/dist;
     location / {
         try_files $uri $uri/ /index.html;
     }
 }</p>
-<p>把前端构建产物放在/var/www/distContents，Nginx直接对外提供访问。try_files那行是SPA（单页应用）的关键：先找文件，找不到就Backindex.html，让前端路由处理。</p>
-<p>## 五、HTTPS与Gzip</p>
-<p>Nginx配置HTTPS非常简单：把证书文件路径配上，listen 443 ssl就行。HTTP的80端口自动301跳转到HTTPS。</p>
-<p>Gzip压缩也是Nginx一行配置开启的：gzip on;。开启后，文本类资源（HTML、CSS、JS）会被压缩传输，体积缩小70%以上，加载速度大幅提升。</p>
+<p>把前端構建產物放在/var/www/dist目錄，Nginx直接對外提供訪問。try_files那行是SPA（單頁應用）的關鍵：先找文件，找不到就返回index.html，讓前端路由處理。</p>
+<p>## 五、HTTPS與Gzip</p>
+<p>Nginx配置HTTPS非常簡單：把證書文件路徑配上，listen 443 ssl就行。HTTP的80端口自動301跳轉到HTTPS。</p>
+<p>Gzip壓縮也是Nginx一行配置開啟的：gzip on;。開啟後，文本類資源（HTML、CSS、JS）會被壓縮傳輸，體積縮小70%以上，加載速度大幅提升。</p>
 <p>## 六、常用Location匹配</p>
-<p>location /匹配所有路径。
-location /api/匹配以/api/开头的路径。
-location ~ \.js$用正则匹配以.js结尾的请求。
-= /精确匹配根路径。</p>
-<p>掌握这几种匹配方式，就能灵活地把不同路径的请求分发到不同的后端或者处理方式。</p>
-<p>## 七、总结</p>
-<p>Nginx不是什么复杂的技术，但它是每个Web项目都要用到的基础设施。反向代理、负载均衡、静态服务、HTTPS终止、Gzip压缩——这些是Nginx最常用的功能。配置文件写多了就发现，它就是一套声明式规则，理解了location匹配和proxy_pass的转发逻辑，大部分场景都能搞定。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<p>location /匹配所有路徑。
+location /api/匹配以/api/開頭的路徑。
+location ~ \.js$用正則匹配以.js結尾的請求。
+= /精確匹配根路徑。</p>
+<p>掌握這幾種匹配方式，就能靈活地把不同路徑的請求分發到不同的後端或者處理方式。</p>
+<p>## 七、總結</p>
+<p>Nginx不是什麼複雜的技術，但它是每個Web項目都要用到的基礎設施。反向代理、負載均衡、靜態服務、HTTPS終止、Gzip壓縮——這些是Nginx最常用的功能。配置文件寫多了就發現，它就是一套聲明式規則，理解了location匹配和proxy_pass的轉發邏輯，大部分場景都能搞定。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-204.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API设计新范式_GraphQL与gRPC</a><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全过程</a><a href="article-tech-209.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP与UDP协议对比</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-204.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API設計新範式_GraphQL與gRPC</a><a href="article-tech-211.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DNS解析全過程</a><a href="article-tech-209.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP與UDP協議對比</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

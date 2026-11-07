@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="WebVitals - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
+<meta name="description" content="WebVitals - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
 <meta name="keywords" content="WebVitals">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-270.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-270.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-270.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-270.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-270.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WebVitals - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -35,55 +35,40 @@ a:hover{text-decoration:underline}
 </style>
 <meta name="theme-color" content="#1e1e2e">
 <meta property="og:title" content="WebVitals - CaesarTools">
-<meta property="og:description" content="WebVitals - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-270.html">
+<meta property="og:description" content="WebVitals - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-270.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebVitals","description":"WebVitals - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-270.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebVitals","description":"WebVitals - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-270.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
+<a href="articles.html" class="back">← 返回文章列表</a>
 <h1>WebVitals</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 什么是Web Vitals：Google的核心指标</p>
-<p>Google提出了三个衡量网页用户体验的核心指标，叫Web Vitals。它们直接影响SEO排名。</p>
-<p>## 一、LCP：最大内容渲染时间</p>
-<p>Largest Contentful Paint——页面上最大的内容元素（大图、大段文字）渲染完成的时间。好的标准：小于2.5秒。LCP慢，用户觉得页面加载慢。</p>
-<p>优化LCP：优化最大图片、减少服务器响应时间、预加载关键资源。</p>
-<p>## 二、INP：交互到绘制延迟</p>
-<p>Interaction to Next Paint——用户交互（点击、按键）到页面响应的时间。好的标准：小于200毫秒。INP差，用户觉得页面卡。</p>
-<p>优化INP：减少长JS任务、代码分割、Web Worker处理重计算。</p>
-<p>## 三、CLS：累计布局偏移</p>
-<p>Cumulative Layout Shift——页面内容意外移动的程度。比如图片加载完把文字挤下去、广告插入导致布局跳动。好的标准：小于0.1。</p>
-<p>优化CLS：给图片设宽高、预留广告位空间、不要在已有内容上方插入新元素。</p>
-<p>## 四、怎么测量</p>
-<p>Chrome DevTools的Lighthouse面板可以跑一遍。生产环境用web-vitals库收集真实用户数据。</p>
-<p>## 五、总结</p>
-<p>Web Vitals是Google定义的用户体验标准：LCP看加载、INP看交互、CLS看稳定性。三个都达标，用户体验和SEO都不会差。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 什麼是Web Vitals：Google的核心指標</p>
+<p>Google提出了三個衡量網頁用戶體驗的核心指標，叫Web Vitals。它們直接影響SEO排名。</p>
+<p>## 一、LCP：最大內容渲染時間</p>
+<p>Largest Contentful Paint——頁面上最大的內容元素（大圖、大段文字）渲染完成的時間。好的標準：小於2.5秒。LCP慢，用戶覺得頁面加載慢。</p>
+<p>優化LCP：優化最大圖片、減少服務器響應時間、預加載關鍵資源。</p>
+<p>## 二、INP：交互到繪製延遲</p>
+<p>Interaction to Next Paint——用戶交互（點擊、按鍵）到頁面響應的時間。好的標準：小於200毫秒。INP差，用戶覺得頁面卡。</p>
+<p>優化INP：減少長JS任務、代碼分割、Web Worker處理重計算。</p>
+<p>## 三、CLS：累計佈局偏移</p>
+<p>Cumulative Layout Shift——頁面內容意外移動的程度。比如圖片加載完把文字擠下去、廣告插入導致佈局跳動。好的標準：小於0.1。</p>
+<p>優化CLS：給圖片設寬高、預留廣告位空間、不要在已有內容上方插入新元素。</p>
+<p>## 四、怎麼測量</p>
+<p>Chrome DevTools的Lighthouse面板可以跑一遍。生產環境用web-vitals庫收集真實用戶數據。</p>
+<p>## 五、總結</p>
+<p>Web Vitals是Google定義的用戶體驗標準：LCP看加載、INP看交互、CLS看穩定性。三個都達標，用戶體驗和SEO都不會差。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 代码分割</a><a href="article-tech-276.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebComponents</a><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 代碼分割</a><a href="article-tech-276.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebComponents</a><a href="article-tech-272.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ ORM</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>

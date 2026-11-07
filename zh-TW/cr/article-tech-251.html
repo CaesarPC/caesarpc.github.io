@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-HK">
 <head>
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta charset="UTF-8">
-<meta name="description" content="测试金字塔 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta name="keywords" content="测试金字塔">
+<meta name="description" content="測試金字塔 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="測試金字塔">
 
-<link rel="canonical" href="https://caesarpc.github.io/cr/article-tech-251.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>测试金字塔 - CaesarTools</title>
+<link rel="canonical" href="https://caesarpc.github.io/zh-TW/cr/article-tech-251.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-251.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/zh-TW/cr/article-tech-251.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-251.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>測試金字塔 - CaesarTools</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
@@ -34,54 +34,39 @@ a:hover{text-decoration:underline}
 }
 </style>
 <meta name="theme-color" content="#1e1e2e">
-<meta property="og:title" content="测试金字塔 - CaesarTools">
-<meta property="og:description" content="测试金字塔 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。">
-<meta property="og:url" content="https://caesarpc.github.io/cr/article-tech-251.html">
+<meta property="og:title" content="測試金字塔 - CaesarTools">
+<meta property="og:description" content="測試金字塔 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/zh-TW/cr/article-tech-251.html">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"测试金字塔","description":"测试金字塔 - CaesarTools - CaesarBase 免费技术站，提供在线工具、编码转换、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/cr/article-tech-251.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"測試金字塔","description":"測試金字塔 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/zh-TW/cr/article-tech-251.html"}</script>
 <link rel="icon" href="/icon-192.png">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
 </head>
-
-<!-- 語言 Switcher -->
-<div style="background:#16162a;padding:8px 16px;text-align:center;font-size:13px;border-bottom:1px solid #2a2a4a;position:sticky;top:0;z-index:998;">
-  🌐 語言: 
-  <a href="javascript:void(0)" onclick="switchLang('zh')" style="color:#8be9fd;margin:0 8px;text-decoration:none">簡體中文</a> | 
-  <a href="javascript:void(0)" style="color:#50fa7b;margin:0 8px;text-decoration:none;font-weight:bold">English</a> | 
-  <a href="javascript:void(0)" onclick="switchLang('tw')" style="color:#bd93f9;margin:0 8px;text-decoration:none">繁體中文</a>
-</div>
-<script>
-function switchLang(target){
-  var path = location.pathname;
-  if(target==='zh'){ location.href = path.replace('/en/','/') || '/'; }
-  if(target==='tw'){ location.href = path.replace('/en/','/zh-TW/') || '/zh-TW/'; }
-}
-</script>
 <body>
 <div class="wrap">
-<a href="articles.html" class="back">← Back文章列表</a>
-<h1>测试金字塔</h1>
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>測試金字塔</h1>
 <h2>概述</h2>
-<div class="meta">CaesarTools · 技术教程</div>
-<p># 自动化测试金字塔：从单元测试到E2E</p>
-<p>前面专门讲过TDD，这里聊聊测试分层的整体策略。一个健康的测试套件应该像金字塔：底层大量单元测试，中间适量集成测试，顶层少量E2E测试。</p>
-<p>## 一、金字塔结构</p>
-<p>底层单元测试最多：测试函数、类、工具方法。跑得快（毫秒级），定位精准。
-中层集成测试：测试模块间协作、数据库读写、API接口。中等数量，中等速度。
-顶层E2E测试：模拟真实用户操作，走完整用户路径。最少，最慢。</p>
-<p>## 二、为什么是金字塔</p>
-<p>如果反过来——大量E2E测试、很少单元测试——测试套件跑得慢（E2E几分钟一轮），一个测试失败了很难定位是哪层出了问题。</p>
-<p>金字塔的好处：大部分bug被快速的单元测试抓住，少数集成问题被集成测试抓住，关键路径被少量E2E覆盖。跑得快，定位准。</p>
-<p>## 三、实际比例</p>
-<p>经验值：70%单元测试，20%集成测试，10% E2E测试。不是精确数字，但方向对——越往下越多越快。</p>
-<p>## 四、总结</p>
-<p>测试金字塔不是教条，但它告诉你：多写单元测试（快而准），少写E2E（慢而贵）。不要一上来就写一堆端到端测试，维护不起。</p>
-<p><a href="articles.html">← Back文章列表</a></p>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 自動化測試金字塔：從單元測試到E2E</p>
+<p>前面專門講過TDD，這裡聊聊測試分層的整體策略。一個健康的測試套件應該像金字塔：底層大量單元測試，中間適量集成測試，頂層少量E2E測試。</p>
+<p>## 一、金字塔結構</p>
+<p>底層單元測試最多：測試函數、類、工具方法。跑得快（毫秒級），定位精準。
+中層集成測試：測試模塊間協作、數據庫讀寫、API接口。中等數量，中等速度。
+頂層E2E測試：模擬真實用戶操作，走完整用戶路徑。最少，最慢。</p>
+<p>## 二、為什麼是金字塔</p>
+<p>如果反過來——大量E2E測試、很少單元測試——測試套件跑得慢（E2E幾分鐘一輪），一個測試失敗了很難定位是哪層出了問題。</p>
+<p>金字塔的好處：大部分bug被快速的單元測試抓住，少數集成問題被集成測試抓住，關鍵路徑被少量E2E覆蓋。跑得快，定位準。</p>
+<p>## 三、實際比例</p>
+<p>經驗值：70%單元測試，20%集成測試，10% E2E測試。不是精確數字，但方向對——越往下越多越快。</p>
+<p>## 四、總結</p>
+<p>測試金字塔不是教條，但它告訴你：多寫單元測試（快而準），少寫E2E（慢而貴）。不要一上來就寫一堆端到端測試，維護不起。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
 </div>
-<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 Related Reading</h3><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-245.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 缓存三大问题复习</a><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL数据库</a></div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-249.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TailwindCSS</a><a href="article-tech-245.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 緩存三大問題複習</a><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL數據庫</a></div>
 <script src="/cr/clip.js"></script>
 </body>
 </html>
