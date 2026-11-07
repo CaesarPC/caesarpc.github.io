@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>字体对照 · CaesarBase</title>
+<style>
+:root{--bg:#1e1e2e;--border:#44475a;--text:#f8f8f2;--dim:#6272a4;--green:#50fa7b;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{pointer-events:none}
+
+.f-hei{font-family:"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif}
+.f-song{font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong","SimSun",serif}
+.f-kai{font-family:"Kaiti SC","KaiTi","STKaiti",serif}
+.f-fang{font-family:"STFangsong","FangSong","FangSong_GB2312",serif}
+.f-yuan{font-family:"Yuanti SC","YouYuan",sans-serif}
+.f-mono{font-family:var(--mono)}
+
+.wrap{max-width:920px;margin:0 auto;padding:56px 24px 80px}
+.head{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:8px}
+.head h1{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+.head p{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:12px;letter-spacing:.06em;line-height:1.9}
+
+.row{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:34px 0;border-bottom:1px solid var(--border)}
+@media(max-width:640px){.row{grid-template-columns:1fr;gap:14px;padding:28px 0}}
+
+.label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;padding-top:6px;line-height:1.9}
+.label b{display:block;color:var(--green);font-weight:400;font-size:10px}
+
+.demo h2{font-size:44px;line-height:1.15;font-weight:600;letter-spacing:.01em}
+.demo h3{font-size:20px;font-weight:500;margin-top:18px;line-height:1.5}
+.demo p{font-size:14px;color:#b8bcc8;line-height:1.95;margin-top:12px;font-weight:300}
+.demo small{font-size:11px;color:var(--dim);display:block;margin-top:10px;line-height:1.8}
+
+.note{margin-top:36px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--dim);line-height:2;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Typeface Test / 字体对照</h1>
+    <p>每一行用同一种字体渲染标题、小标题、正文、中英混排。全部系统自带，不联网加载。<br>点不动，纯看。</p>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>01</b>黑体<br>PingFang / HarmonyOS / YaHei</div>
+    <div class="demo f-hei">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>iOS 可用 / Android 可用 / Windows 可用 · 最稳的一档</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>02</b>宋体<br>Songti / Noto Serif</div>
+    <div class="demo f-song">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>iOS 可用 / Android 部分机型缺失 / Windows 可用 · 缺了就退回黑体</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>03</b>楷体<br>Kaiti</div>
+    <div class="demo f-kai">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>iOS 可用 / Android 多数缺失 / Windows 可用 · 手写感强</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>04</b>仿宋<br>FangSong</div>
+    <div class="demo f-fang">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>iOS 可用 / Android 多数缺失 / Windows 可用 · 文件感</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>05</b>圆体<br>Yuanti</div>
+    <div class="demo f-yuan">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>iOS 可用 / Android 基本没有 / Windows 部分机型</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>06</b>等宽<br>Mono</div>
+    <div class="demo f-mono">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>全平台可用 · 技术感强，正文会显窄</small>
+    </div>
+  </div>
+
+  <div class="note">
+    你现在看到 01 和 02 长得一样的话，说明这台设备没有宋体，02 已经退回黑体了。<br>
+    Android 手机大概率 02—05 全部和 01 一样，这不是没生效，是真的没有这个字体。
+  </div>
+</div>
+</body>
+</html>
