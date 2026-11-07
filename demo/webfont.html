@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>网页字体对照 · CaesarBase</title>
+<style>
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/index.css');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.7.0/style.css');
+</style>
+<style>
+:root{--bg:#1e1e2e;--border:#44475a;--text:#f8f8f2;--dim:#6272a4;--green:#50fa7b;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{pointer-events:none}
+
+.f-sys{font-family:"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif}
+.f-serif{font-family:"Noto Serif SC",serif}
+.f-kai{font-family:"LXGW WenKai Lite","LXGW WenKai",serif}
+
+.wrap{max-width:920px;margin:0 auto;padding:56px 24px 80px}
+.head{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:8px}
+.head h1{font-family:var(--mono);font-size:12px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+.head p{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:12px;letter-spacing:.06em;line-height:1.95}
+
+.row{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:34px 0;border-bottom:1px solid var(--border)}
+@media(max-width:640px){.row{grid-template-columns:1fr;gap:16px;padding:30px 0}}
+
+.label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;padding-top:6px;line-height:1.9}
+.label b{display:block;color:var(--green);font-weight:400;font-size:10px}
+
+.demo h2{font-size:46px;line-height:1.18;font-weight:600;letter-spacing:.01em}
+.demo h3{font-size:20px;font-weight:500;margin-top:18px;line-height:1.5}
+.demo p{font-size:15px;color:#c2c6d0;line-height:2.0;margin-top:12px;font-weight:300}
+.demo small{font-size:11px;color:var(--dim);display:block;margin-top:12px;line-height:1.8;font-family:var(--mono)}
+
+.note{margin-top:36px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--dim);line-height:2;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Webfont Test / 网页字体</h1>
+    <p>三个都是从网上加载的字体文件，不依赖你手机装了什么。<br>第一次打开会慢一两秒，之后有缓存。点不动，纯看。</p>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>00</b>系统黑体<br>基准对照</div>
+    <div class="demo f-sys">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>这就是你现在看到的默认字</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>01</b>思源宋体<br>Noto Serif SC</div>
+    <div class="demo f-serif">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>开源 · 所有人看到的都一样 · 衬线，正式、干净</small>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="label"><b>02</b>霞鹜文楷<br>LXGW WenKai</div>
+    <div class="demo f-kai">
+      <h2>CaesarBase</h2>
+      <h3>技术文章 · Tools &amp; Articles</h3>
+      <p>浏览器渲染原理与前端性能优化实战。从输入 URL 到页面呈现的完整链路，理解每一步在做什么，比记住结论更重要。</p>
+      <small>开源 · 所有人看到的都一样 · 楷体骨架，带一点手写味</small>
+    </div>
+  </div>
+
+  <div class="note">
+    如果 01 和 02 还是和 00 一样，说明字体文件没加载下来（网络问题），刷新一次再试。<br>
+    两个都是免费开源的，商用没问题，可以直接打包进你的站点。
+  </div>
+</div>
+</body>
+</html>
