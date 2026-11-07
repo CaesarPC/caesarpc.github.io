@@ -310,5 +310,21 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
   "ref": ""
+ },
+ {
+  "id": 1794047030344,
+  "ts": 1794047030344,
+  "time": "2026-11-07 18:23",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
+  "ref": ""
+ },
+ {
+  "id": 1794047105043,
+  "ts": 1794047105043,
+  "time": "2026-11-07 18:25",
+  "page": "admin.html",
+  "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
+  "ref": "https://caesarpc.github.io/cr/index.html"
  }
 ]
