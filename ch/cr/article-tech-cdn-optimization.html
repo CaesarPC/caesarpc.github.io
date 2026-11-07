@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="CDN原理與優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CDN原理與優化">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-cdn-optimization.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-cdn-optimization.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-cdn-optimization.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-cdn-optimization.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDN原理與優化（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CDN原理與優化 - CaesarTools">
+<meta property="og:description" content="CDN原理與優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-cdn-optimization.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CDN原理與優化（2）","description":"CDN原理與優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-cdn-optimization.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>CDN原理與優化（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>CDN原理與優化：讓全球用戶都能快速訪問你的網站</h2>
+<p>你的服務器放在上海，一個美國用戶訪問要跨太平洋往返，延遲300毫秒以上。CDN（內容分發網絡）解決這個問題：把內容緩存到全球各地的邊緣節點，用戶從最近的節點獲取，延遲降到幾十毫秒。</p>
+<p>CDN的核心原理是緩存。靜態資源（圖片、CSS、JS、視頻）首次請求時，從源站拉取並緩存到CDN邊緣節點。後續用戶請求，CDN直接從就近節點返回，不回源。源站壓力大減，用戶速度大增。</p>
+<p>CDN節點遍佈全球主要城市。用戶的DNS請求會被調度到離他最近的節點（智能DNS解析）。這就是為什麼用了CDN後域名要換成CNAME記錄，指向CDN廠商的調度域名。</p>
+<p>緩存策略是CDN效果的關鍵配置。哪些資源緩存？靜態資源長緩存（CSS/JS/圖片緩存一個月）；HTML頁面短緩存或不緩存（要及時更新）；API接口通常不緩存（數據實時變化）。緩存過期時間設置要權衡：太長更新不及時，太短頻繁回源。</p>
+<p>緩存刷新：網站更新了，但CDN節點還緩存舊內容，用戶看到舊版本。需要主動刷新CDN緩存（控制檯操作或API觸發），強制節點重新從源站拉取。</p>
+<p>動態內容加速：傳統CDN只緩存靜態內容。現代CDN也能加速動態內容（API接口）：通過優化路由（選最快的回源路徑）、TCP連接複用、協議優化（HTTP/2），即使不緩存也能加快動態請求。</p>
+<p>邊緣計算和CDN結合：Cloudflare Workers（前面講過）在CDN節點上運行代碼，不只是緩存靜態文件，還能做動態處理。CDN從"緩存分發"進化為"邊緣計算平臺"。</p>
+<p>CDN選擇：國內用阿里雲CDN、騰訊雲CDN、Cloudflare國內版；海外用Cloudflare、AWS CloudFront、Akamai。選擇看節點覆蓋、價格、是否有邊緣計算能力。</p>
+<p>CDN是網站加速的標配。純靜態站+CDN可以做到全球訪問都快，幾乎不需要源站性能。理解CDN原理，是網站性能優化的基本功。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-WebAssembly.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebAssembly與前端性能新邊界</a><a href="article-tech-api-versioning.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-code-standard.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 團隊代碼規範與工程協作</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

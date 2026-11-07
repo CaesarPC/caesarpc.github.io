@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="靶場練習 · CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/ch/rangefield.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>靶場練習 · CaesarBase</title>
+<style>
+:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--green:#50fa7b;--blue:#8be9fd;--purple:#bd93f9;--text:#e6e6f0;--dim:#6272a4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:rgba(20,20,35,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.topbar .logo{font-size:18px;font-weight:700;background:linear-gradient(135deg,#50fa7b,#8be9fd,#bd93f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar a{color:var(--dim);text-decoration:none;font-size:14px}
+.topbar a:hover{color:var(--green)}
+.wrap{max-width:760px;margin:0 auto;padding:30px 20px;position:relative;z-index:1}
+.hero{text-align:center;margin-bottom:26px}
+.hero h1{font-size:30px;font-weight:900;background:linear-gradient(135deg,#50fa7b 0%,#8be9fd 50%,#bd93f9 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--dim);margin-top:8px;font-size:14px}
+.card{background:rgba(26,26,46,.85);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:16px}
+.quizTitle{font-size:16px;font-weight:700;margin-bottom:4px;color:#fff}
+.quizSub{color:var(--dim);font-size:13px;margin-bottom:16px}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .2s;background:rgba(15,15,26,.5)}
+.opt:hover{border-color:var(--green)}
+.opt input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+.opt .fn{font-family:monospace;font-size:14px;color:var(--blue);flex:1}
+.opt .sz{color:var(--dim);font-size:12px}
+.btnRow{display:flex;gap:10px;margin-top:16px}
+.btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--blue));color:#0f0f1a}
+.btn-ghost{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.score{text-align:center;font-size:40px;font-weight:900;margin:10px 0}
+.scoreGood{color:var(--green)}.scoreOk{color:#f1c40f}.scoreBad{color:#ff6b6b}
+.segTitle{font-size:15px;font-weight:700;margin:18px 0 10px}
+.segGood{color:var(--green)}.segWarn{color:#f1c40f}.segBad{color:#ff6b6b}
+.resultItem{background:rgba(15,15,26,.5);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.resultItem .p{font-family:monospace;font-size:13px;color:#fff}
+.resultItem .d{font-size:13px;color:var(--dim);margin-top:4px}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:4px;margin-left:8px;vertical-align:1px}
+.tagHigh{background:rgba(255,71,87,.2);color:#ff6b6b}
+.tagMed{background:rgba(241,196,15,.2);color:#f1c40f}
+.hint{font-size:12px;color:var(--dim);margin-top:14px;line-height:1.7}
+footer{text-align:center;padding:24px;color:var(--dim);font-size:12px}
+.proxyBar{background:rgba(0,20,10,.6);border:1px solid rgba(80,250,123,.3);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-family:monospace;font-size:13px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.proxyBar.off{background:rgba(40,40,50,.5);border-color:var(--border)}
+.proxyLeft{display:flex;align-items:center;gap:10px}
+.proxyDot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+.proxyBar.off .proxyDot{background:var(--dim);box-shadow:none;animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.proxyIP{color:var(--green)}
+.proxyBar.off .proxyIP{color:var(--dim)}
+.proxyNode{color:var(--blue);margin-left:12px}
+.proxyToggle{background:transparent;border:1px solid var(--border);color:var(--dim);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:11px}
+.proxyToggle:hover{border-color:var(--green);color:var(--green)}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="靶場練習 · CaesarBase">
+<meta property="og:description" content="靶場練習 · CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/rangefield.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="topbar">
+  <span class="logo">CaesarBase · 靶場</span>
+  <a href="/index.html">← 返回主站</a>
+</div>
+<div class="wrap">
+  <div class="hero">
+    <h1>🛡️ 安全判斷練習</h1>
+    <p>免費 · 選擇題式 · 隨機出題。勾選你認為存在「敏感信息泄露」的文件，提交後看答案和原理。</p>
+  </div>
+
+  <div class="proxyBar" id="proxyBar">
+    <div class="proxyLeft">
+      <span class="proxyDot"></span>
+      <span>匿名通道已連接 · 出口IP: <span class="proxyIP" id="fakeIP">--.--.--.--</span></span>
+      <span class="proxyNode" id="fakeNode">節點: --</span>
+    </div>
+    <button class="proxyToggle" onclick="toggleProxy()">切換代理</button>
+  </div>
+
+  <div class="card" id="quizCard">
+    <div id="quizInner"></div>
+  </div>
+</div>
+<footer>© 2026 CaesarBase · 僅用於授權安全測試學習</footer>
+
+<script>
+// === 内置假IP匿名状态栏（纯前端装逼用） ===
+var PROXY_PREFIX = [185, 103, 45, 193, 154, 176, 94, 141];
+var NODES = ['香港 HK-07 节点', '东京 JP-12 节点', '新加坡 SG-03 节点', '法兰克福 DE-05 节点', '洛杉矶 US-09 节点', '首尔 KR-02 节点'];
+var proxyOn = localStorage.getItem('proxyOn') !== '0';
+function randIP(){
+  var p = PROXY_PREFIX[Math.floor(Math.random()*PROXY_PREFIX.length)];
+  return p + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255) + '.' + Math.floor(Math.random()*255);
+}
+function renderProxy(){
+  var bar = document.getElementById('proxyBar');
+  if(proxyOn){
+    bar.classList.remove('off');
+    document.getElementById('fakeIP').textContent = randIP();
+    document.getElementById('fakeNode').textContent = '节点: ' + NODES[Math.floor(Math.random()*NODES.length)];
+  } else {
+    bar.classList.add('off');
+    document.getElementById('fakeIP').textContent = '未连接 (真实IP已暴露)';
+    document.getElementById('fakeNode').textContent = '节点: 直连';
+  }
+}
+function toggleProxy(){
+  proxyOn = !proxyOn;
+  localStorage.setItem('proxyOn', proxyOn ? '1' : '0');
+  renderProxy();
+}
+renderProxy();
+// === 假IP状态栏结束 ===
+
+var POOL=[
+{url:"/.env",sev:"high",d:"环境变量泄露，含数据库密码、API密钥"},
+{url:"/.git/config",sev:"high",d:"Git仓库配置泄露，可拉取整个源码"},
+{url:"/backup.sql",sev:"high",d:"数据库备份，含全部用户数据"},
+{url:"/www.zip",sev:"high",d:"整站源码打包泄露"},
+{url:"/wp-config.php~",sev:"high",d:"WordPress配置临时备份"},
+{url:"/config.php.bak",sev:"high",d:"配置文件备份，可能含密码"},
+{url:"/actuator/env",sev:"high",d:"Spring环境变量，含密钥"},
+{url:"/nacos",sev:"high",d:"配置中心未授权访问"},
+{url:"/phpinfo.php",sev:"med",d:"PHP配置信息泄露"},
+{url:"/debug.log",sev:"med",d:"调试日志含敏感信息"},
+{url:"/uploads/",sev:"med",d:"上传目录可列目录"},
+{url:"/swagger-ui.html",sev:"med",d:"API文档暴露"},
+{url:"/robots.txt",sev:"safe",d:"爬虫规则，正常公开文件"},
+{url:"/favicon.ico",sev:"safe",d:"网站图标，正常文件"},
+{url:"/login",sev:"safe",d:"登录页面，正常功能"},
+{url:"/about",sev:"safe",d:"关于页面，正常静态页"},
+{url:"/sitemap.xml",sev:"safe",d:"站点地图，SEO正常文件"},
+{url:"/api/v1/health",sev:"safe",d:"健康检查接口，正常"}
+];
+var round=[];
+function pick(arr,n){return arr.slice().sort(function(){return Math.random()-0.5}).slice(0,n)}
+function newRound(){
+  if(proxyOn) renderProxy(); // 每出一题自动换IP
+  document.getElementById('quizInner').innerHTML='';
+  var vuln=pick(POOL.filter(function(v){return v.sev!=='safe'}),4);
+  var safe=pick(POOL.filter(function(v){return v.sev==='safe'}),2);
+  round=vuln.concat(safe).sort(function(){return Math.random()-0.5});
+  var host='mock-'+Math.floor(1000+Math.random()*9000)+'.site';
+  var h='';
+  h+='<div class="quizTitle">🖥️ 模拟目标站</div>';
+  h+='<div class="quizSub">目标：<span style="font-family:monospace;color:#8be9fd">https://'+host+'/</span> · 这个站根目录有以下文件，勾选属于「敏感信息泄露」的：</div>';
+  round.forEach(function(t,i){
+    h+='<label class="opt"><input type="checkbox" class="qo" data-i="'+i+'"><span class="fn">'+t.url+'</span><span class="sz">'+(t.sev==='safe'?'正常':'敏感')+'</span></label>';
+  });
+  h+='<div class="btnRow"><button class="btn btn-primary" onclick="submitQuiz()">提交判断</button><button class="btn btn-ghost" onclick="newRound()">换一题</button></div>';
+  document.getElementById('quizInner').innerHTML=h;
+}
+function submitQuiz(){
+  var picked=[];
+  document.querySelectorAll('.qo').forEach(function(cb){if(cb.checked)picked.push(parseInt(cb.dataset.i))});
+  var sens=[];round.forEach(function(t,i){if(t.sev!=='safe')sens.push(i)});
+  var good=[],miss=[],wrong=[];
+  sens.forEach(function(i){if(picked.indexOf(i)>=0)good.push(round[i]);else miss.push(round[i])});
+  picked.forEach(function(i){if(sens.indexOf(i)<0)wrong.push(round[i])});
+  var total=sens.length,pct=Math.round(good.length/total*100);
+  var sc=pct>=80?'scoreGood':pct>=50?'scoreOk':'scoreBad';
+  var msg=pct>=80?'漂亮！判断很准':pct>=50?'还可以，再练练':'多练几轮';
+  var h='<div class="score '+sc+'">'+good.length+'/'+total+' ('+pct+'%)</div>';
+  h+='<p style="text-align:center;color:#888;margin-bottom:8px">'+msg+'</p>';
+  h+='<div class="segTitle segGood">✅ 你找对的</div>';
+  if(good.length===0)h+='<p style="color:#666;font-size:13px">一个都没找对</p>';
+  good.forEach(function(v){h+='<div class="resultItem"><div class="p">'+v.url+'<span class="tag '+(v.sev==='high'?'tagHigh':'tagMed')+'">'+(v.sev==='high'?'高危':'中危')+'</span></div><div class="d">'+v.d+'</div></div>'});
+  h+='<div class="segTitle segWarn">⚠️ 你漏掉的</div>';
+  if(miss.length===0)h+='<p style="color:#666;font-size:13px">全找到了！</p>';
+  miss.forEach(function(v){h+='<div class="resultItem"><div class="p">'+v.url+'<span class="tag '+(v.sev==='high'?'tagHigh':'tagMed')+'">'+(v.sev==='high'?'高危':'中危')+'</span></div><div class="d">'+v.d+'</div></div>'});
+  if(wrong.length>0){
+    h+='<div class="segTitle segBad">❌ 你误判的（其实是正常文件）</div>';
+    wrong.forEach(function(v){h+='<div class="resultItem"><div class="p">'+v.url+'</div><div class="d">正常文件，不是漏洞</div></div>'});
+  }
+  h+='<div class="btnRow"><button class="btn btn-primary" onclick="newRound()">再来一题</button><a class="btn btn-ghost" href="/index.html" style="display:block;text-align:center;text-decoration:none">返回主站</a></div>';
+  document.getElementById('quizInner').innerHTML=h;
+}
+newRound();
+</script>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

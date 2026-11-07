@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-353.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-353.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-353.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-353.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TypeScript入門到實戰 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 TypeScript入門到實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="TypeScript入門到實戰">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="TypeScript入門到實戰 - CaesarTools">
+<meta property="og:description" content="TypeScript入門到實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-353.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"TypeScript入門到實戰","description":"← 返回文章列表 TypeScript入門到實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-353.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>TypeScript入門到實戰</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、JS的痛</h2>
+<p>動態類型運行時才發現錯。大型項目改字段名編譯不報錯，用戶點擊才崩。TS加靜態類型，編譯時抓錯。</p>
+<h2>二、基本類型</h2>
+<p>let name: string = '小明';</p>
+<p>let age: number = 18;</p>
+<p>let hobbies: string[] = ['籃球'];</p>
+<h2>三、接口</h2>
+<p>interface User {</p>
+<p>id: number;</p>
+<p>name: string;</p>
+<p>email?: string;</p>
+<p>readonly createdAt: Date;</p>
+<p>}</p>
+<p>傳錯字段編譯報錯。</p>
+<h2>四、聯合類型</h2>
+<p>type Status = 'pending' | 'success' | 'error';</p>
+<p>比string精確。</p>
+<h2>五、泛型</h2>
+<p>function identity<T>(arg: T): T { return arg; }</p>
+<p>寫通用函數不丟類型。</p>
+<h2>六、React裡用</h2>
+<p>interface Props { title: string; onClick: () => void; }</p>
+<p>function Button({ title, onClick }: Props) { ... }</p>
+<h2>七、常見坑</h2>
+<p>any等於沒寫。開strict。</p>
+<p>as強行斷言出運行時錯。</p>
+<p>第三方庫裝@types/xxx。</p>
+<h2>八、類型推導</h2>
+<p>TS自動推導，不用每個都標註。邊界（函數參數、公共API）標註就行。</p>
+<h2>九、Utility Types</h2>
+<p>Partial讓所有屬性可選。Pick選部分屬性。Omit排除屬性。ReturnType取函數返回類型。這些工具類型讓類型操作更簡潔。</p>
+<h2>十、總結</h2>
+<p>TS是JS加類型。大型項目編譯期抓bug，重構有提示。新項目無腦TS。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-361.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-357.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS變量與主題切換</a><a href="article-359.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a></div>
+</body>
+</html>

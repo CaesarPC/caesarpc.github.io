@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="實時協同編輯技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="實時協同編輯技術解析">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-116.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-116.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-116.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-116.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>實時協同編輯技術解析 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="實時協同編輯技術解析 - CaesarTools">
+<meta property="og:description" content="實時協同編輯技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-116.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"實時協同編輯技術解析","description":"實時協同編輯技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-116.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>實時協同編輯技術解析</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>實時協同編輯技術解析：多人同時編輯一個文檔的實現原理</p>
+<p>Google Docs最讓人驚歎的功能是：多人同時編輯同一個文檔，你能看到別人的光標在動，別人也能實時看到你的修改。這種實時協同編輯技術，背後是一套複雜的算法和工程體系。理解它的原理，對理解現代Web應用的實時協作能力很有幫助。</p>
+<p>協同編輯的核心問題是：兩個人同時修改同一段文字，怎麼合併？如果用戶A輸入"你好"，用戶B同時輸入"Hello"，最終文檔應該是什麼？順序怎麼定？衝突怎麼解決？這就是協同算法要解決的問題。</p>
+<p>OT（Operational Transformation，操作轉換）是最早的協同算法。每個編輯操作（插入、刪除）帶上位置信息，當兩個操作併發時，通過轉換函數調整位置，保證所有用戶最終看到一致的結果。OT算法複雜，需要中心服務器做操作排序和轉換，Google Docs早期用的就是OT。</p>
+<p>CRDT（Conflict-free Replicated Data Type，無衝突複製數據類型）是新一代協同算法。它的設計讓併發操作天然不衝突，不需要中心服務器做複雜轉換，每個客戶端本地應用操作後，最終所有副本自動收斂到一致狀態。Yjs、Automerge是流行的CRDT實現。CRDT比OT更簡潔，也支持離線編輯（離線時本地修改，聯網後自動合併），是現在的主流選擇。</p>
+<p>技術架構上，協同編輯基於WebSocket實時同步。每個編輯操作（插入了什麼文字、刪了什麼）作為消息實時廣播給所有在線協作者。其他人收到操作後應用到自己的文檔上。操作而不是文檔內容同步，這樣流量小、延遲低。</p>
+<p>光同步操作還不夠，還要解決光標的實時顯示：誰在編輯、他的光標在哪個位置、選中了哪段文字。光標位置也是一種"狀態"，通過WebSocket實時廣播。用戶在線狀態（誰在線、誰正在輸入）也要同步。</p>
+<p>歷史記錄和撤銷重做是協同編輯的難點。單人文檔的撤銷很簡單，撤回上一步操作。多人協同時，A撤銷的操作是B做的，怎麼處理？CRDT天然支持分佈式的撤銷重做。文檔歷史版本也要保留，能回溯到任何時間點。</p>
+<p>富文本協同比純文本複雜得多。文字格式（加粗、顏色、標題層級）、圖片、表格、評論，這些元素都要參與協同。ProseMirror、Slate.js是支持協同的富文本編輯器框架，底層集成了Yjs等協同引擎。</p>
+<p>實際產品中，飛書文檔、騰訊文檔、Notion都用了類似的技術棧。除了文字編輯，白板（多人畫流程圖）、代碼協同編輯（多人寫同一段代碼）也是類似的原理——都是基於CRDT的實時操作同步。</p>
+<p>實時協同編輯是Web應用從"單人工具"走向"多人協作平臺"的關鍵技術。它的背後是CRDT算法、WebSocket實時通信、富文本引擎的結合。理解這套技術，能幫助我們理解為什麼在線文檔、在線白板這些產品體驗這麼流暢。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-113.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 機器學習模型訓練全流程</a><a href="article-tech-121.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微前端架構實踐</a><a href="article-tech-118.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript高級類型編程實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

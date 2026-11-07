@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="GraphQL API設計 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cb-article-tech-graphql-api.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GraphQL API設計 - CaesarBase</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#0f0f1a;color:#e6e6f0;line-height:1.8;padding:20px}
+.back{display:inline-block;margin-bottom:20px;color:#50fa7b;text-decoration:none;font-size:14px}
+.back:hover{text-decoration:underline}
+.article{max-width:700px;margin:0 auto;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:30px}
+h1{font-size:24px;margin-bottom:20px;color:#50fa7b}
+.meta{font-size:13px;color:#6272a4;margin-bottom:20px}
+h2{font-size:18px;margin:20px 0 10px;color:#8be9fd}
+p{margin-bottom:12px;color:#c8c8e0;font-size:15px}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<meta property="og:title" content="GraphQL API設計 - CaesarBase">
+<meta property="og:description" content="GraphQL API設計 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cb-article-tech-graphql-api.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="article">
+<a class="back" href="index.html">← 返回 CaesarBase</a>
+<h1>GraphQL API設計</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>GraphQL API設計：讓前端按需取數的新範式</h2>
+<p>RESTful API有個經典痛點：後端返回的數據要麼太多（列表接口帶了一堆前端不用的字段），要麼太少（還要再發一個請求獲取詳情）。前端要反覆找後端加字段、改接口。GraphQL是Facebook提出的API查詢語言，解決這個問題：前端精確聲明需要哪些數據，後端按聲明返回。</p>
+<p>GraphQL的核心是類型系統。後端定義一張Schema：有哪些類型、每個類型有哪些字段、字段之間什麼關係。前端寫一個查詢（Query），描述自己需要哪些字段，後端執行查詢，返回的JSON結構和查詢結構完全一致。</p>
+<p>舉個例子：REST要拿用戶信息和他的最新文章，可能要調/user/123和/user/123/posts兩個接口。GraphQL一個查詢搞定：query { user(id: 123) { name avatar posts(first: 5) { title date } } }。後端知道你要name、avatar，以及5篇文章的title和date，一次返回。</p>
+<p>GraphQL的優勢：按需取數（不多不少）、強類型（Schema就是文檔）、內省（工具自動生成API文檔）、前端靈活（不用等後端改接口）。這些特點在多端、複雜數據關係的場景下特別有價值。</p>
+<p>但GraphQL不是銀彈。它的缺點：學習曲線（要學Schema定義、Resolver、查詢語法）；緩存複雜（REST用URL做緩存鍵很自然，GraphQL所有請求都打到同一個URL，緩存需要專門處理）；性能風險（前端可以寫很深的嵌套查詢，一次請求打爆後端，需要限制查詢深度和複雜度）；文件上傳、實時訂閱（Subscriptions）比REST麻煩。</p>
+<p>實際使用建議：複雜的、數據關係多的BFF層用GraphQL很合適；簡單的CRUD接口用REST更直接。不要全棧Graph化，選擇適合的場景。</p>
+<p>Apollo是最流行的GraphQL框架，前後端都有成熟庫。後端用Apollo Server定義Schema和Resolver，前端用Apollo Client發查詢、做緩存、管理加載狀態。工具鏈完善，開發體驗好。</p>
+<p>REST和GraphQL不是替代關係，而是互補。很多公司的做法是：內部微服務之間用REST/gRPC，對外的BFF層用GraphQL服務前端。各取所長。</p>
+</div>
+<script src="/cr/clip.js"></script>
+<div style="text-align:center;color:#6272a4;font-size:12px;padding:20px;margin-top:40px;border-top:1px solid #44475a;">© CaesarBase · CaesarTools 原創內容，轉載請註明出處</div>
+</body>
+</html>

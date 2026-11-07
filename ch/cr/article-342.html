@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-342.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-342.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-342.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-342.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Docker容器化部署實戰 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 Docker容器化部署實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="Docker容器化部署實戰, Docker">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Docker容器化部署實戰 - CaesarTools">
+<meta property="og:description" content="Docker容器化部署實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-342.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Docker容器化部署實戰","description":"← 返回文章列表 Docker容器化部署實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-342.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Docker容器化部署實戰</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Docker解決什麼</h2>
+<p>開發Mac、測試Windows、生產Linux。環境不一致bug修不完。Docker把應用和依賴打包成鏡像，任何機器跑起來一樣。</p>
+<h2>二、Dockerfile</h2>
+<p>FROM node:20-alpine</p>
+<p>WORKDIR /app</p>
+<p>COPY package*.json ./</p>
+<p>RUN npm ci --production</p>
+<p>COPY . .</p>
+<p>EXPOSE 3000</p>
+<p>CMD ["node", "app.js"]</p>
+<h2>三、層緩存</h2>
+<p>先COPY package.json再npm ci。依賴沒變就用緩存。</p>
+<h2>四、多階段構建</h2>
+<p>前端構建產物不需要Node：</p>
+<p>FROM node:20-alpine AS builder</p>
+<p>COPY . .</p>
+<p>RUN npm ci && npm run build</p>
+<p>FROM nginx:alpine</p>
+<p>COPY --from=builder /app/dist /usr/share/nginx/html</p>
+<p>最終鏡像50MB。</p>
+<h2>五、docker-compose</h2>
+<p>services:</p>
+<p>api:</p>
+<p>build: .</p>
+<p>db:</p>
+<p>image: postgres:16</p>
+<p>docker-compose up -d。</p>
+<h2>六、生產要點</h2>
+<p>不要root跑容器。</p>
+<p>鏡像打版本標籤。</p>
+<p>日誌輸出stdout。</p>
+<p>健康檢查。</p>
+<p>資源限制。</p>
+<h2>七、常見坑</h2>
+<p>容器監聽127.0.0.1外部訪問不到，要0.0.0.0。</p>
+<p>容器重建數據丟，數據庫掛volume。</p>
+<p>鏡像大，用alpine和多階段。</p>
+<h2>八、CI/CD裡用Docker</h2>
+<p>push代碼→CI構建鏡像→推到Registry→生產pull重啟。全自動發佈，環境一致。</p>
+<h2>九、總結</h2>
+<p>Docker是現代部署標配。寫好Dockerfile、層緩存、多階段、compose管理多服務。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-337.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-335.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS變量與主題切換</a><a href="article-334.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a></div>
+</body>
+</html>

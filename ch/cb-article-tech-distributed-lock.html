@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="分佈式鎖實現方案 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cb-article-tech-distributed-lock.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>分佈式鎖實現方案 - CaesarBase</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#0f0f1a;color:#e6e6f0;line-height:1.8;padding:20px}
+.back{display:inline-block;margin-bottom:20px;color:#50fa7b;text-decoration:none;font-size:14px}
+.back:hover{text-decoration:underline}
+.article{max-width:700px;margin:0 auto;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:30px}
+h1{font-size:24px;margin-bottom:20px;color:#50fa7b}
+.meta{font-size:13px;color:#6272a4;margin-bottom:20px}
+h2{font-size:18px;margin:20px 0 10px;color:#8be9fd}
+p{margin-bottom:12px;color:#c8c8e0;font-size:15px}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<meta property="og:title" content="分佈式鎖實現方案 - CaesarBase">
+<meta property="og:description" content="分佈式鎖實現方案 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cb-article-tech-distributed-lock.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="article">
+<a class="back" href="index.html">← 返回 CaesarBase</a>
+<h1>分佈式鎖實現方案</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>分佈式鎖實現方案：多機環境下的併發控制</h2>
+<p>單機時代，用Java的synchronized或Redis的setnx就能做鎖。但系統拆成多機部署後，多個服務實例同時運行，單機鎖管不了其他機器。分佈式鎖就是在多機環境下，保證同一個操作同一時間只有一個實例在執行。</p>
+<p>典型場景：定時任務每臺機器都跑，怎麼保證只跑一次？庫存扣減併發，怎麼防止超賣？定時任務的分佈式鎖：實例啟動定時任務前先搶鎖，搶到的才執行，其他實例跳過。</p>
+<p>Redis是最常用的分佈式鎖實現。SET key value NX EX 30：key不存在才設置（NX），過期時間30秒（EX），防止拿到鎖的進程掛了鎖永遠不釋放。value要設成唯一值（比如UUID），釋放鎖時驗證value是不是自己的，防止誤刪別人的鎖。釋放鎖要用Lua腳本保證"檢查+刪除"原子性。</p>
+<p>Redis鎖的問題：主從切換時鎖可能丟失。Master寫了鎖還沒同步到Slave就宕機，Slave升級後鎖沒了，另一個實例也能拿到鎖。RedLock算法是Redis官方提出的解決方案：向多個獨立的Redis節點同時申請鎖，超過半數成功才算拿到鎖。但RedLock也有爭議（Martin Kleppmann和antirez的著名爭論），實際中大多數業務用單Redis實例鎖+合理過期時間就夠了，不需要上RedLock。</p>
+<p>Zookeeper也能做分佈式鎖：創建臨時順序節點，最小的節點獲得鎖，watch前一個節點釋放。Zookeeper鎖的特點是可靠性高（會話斷開自動釋放鎖），但性能不如Redis，運維複雜。</p>
+<p>數據庫做分佈式鎖：創建一張鎖表，插入記錄成功算拿到鎖，刪除記錄釋放鎖。簡單但性能差，數據庫成瓶頸。適合併發不高的場景。</p>
+<p>選型建議：大多數業務用Redis鎖就夠了；對可靠性要求極高（涉及金錢、不能出錯）的場景用Zookeeper或 etcd。</p>
+<p>鎖的粒度很重要。鎖整個訂單服務太粗，應該鎖具體的訂單ID。鎖的過期時間要合理：太短業務沒執行完鎖就釋放了，太長進程掛了恢復慢。看門狗（Watchdog）機制：業務執行期間自動續期，執行完才停止，解決"業務執行時間不確定"的問題。</p>
+<p>分佈式鎖是分佈式系統的基礎組件，但要謹慎使用。能用樂觀鎖（數據庫版本號）解決的不要用分佈式鎖；能縮小鎖粒度的不要鎖大範圍。鎖是併發安全的最後手段，不是第一選擇。</p>
+</div>
+<script src="/cr/clip.js"></script>
+<div style="text-align:center;color:#6272a4;font-size:12px;padding:20px;margin-top:40px;border-top:1px solid #44475a;">© CaesarBase · CaesarTools 原創內容，轉載請註明出處</div>
+</body>
+</html>

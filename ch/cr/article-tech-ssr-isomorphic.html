@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="服務端渲染SSR與同構應用">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-ssr-isomorphic.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-ssr-isomorphic.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-ssr-isomorphic.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-ssr-isomorphic.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服務端渲染SSR與同構應用（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="服務端渲染SSR與同構應用 - CaesarTools">
+<meta property="og:description" content="服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-ssr-isomorphic.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"服務端渲染SSR與同構應用（2）","description":"服務端渲染SSR與同構應用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-ssr-isomorphic.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>服務端渲染SSR與同構應用（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>服務端渲染SSR與同構應用：解決SPA首屏慢和SEO問題</h2>
+<p>單頁應用（SPA）體驗好，但有兩個痛點：首屏慢（要下載整個JS才開始渲染）、SEO不友好（初始HTML是空的，爬蟲抓不到內容）。服務端渲染（SSR）解決這兩個問題：服務器把頁面渲染成完整HTML再發給瀏覽器，用戶打開就看到內容，爬蟲也能抓到完整頁面。</p>
+<p>傳統多頁應用就是SSR：服務器用模板引擎（Jinja2、Thymeleaf）渲染HTML返回。現代SSR指的是React/Vue的服務端渲染：在服務器上運行React/Vue代碼，把組件渲染成HTML字符串，發給瀏覽器。瀏覽器接收後hydration（注水）：把靜態HTML綁定上JS事件，變成可交互的應用。</p>
+<p>Next.js（React生態）和Nuxt（Vue生態）是現代SSR框架，把複雜的SSR工程化問題封裝好了。開發者寫組件，框架自動處理服務端渲染、客戶端注水、路由、數據獲取。開發體驗接近純客戶端開發，但擁有SSR的性能和SEO優勢。</p>
+<p>SSR的優勢：首屏快（服務器直接發HTML，不用等JS下載執行完）；SEO友好（爬蟲拿到完整渲染的HTML）；社交媒體分享卡片正確（分享鏈接時能抓到標題、縮略圖）。</p>
+<p>但SSR不是沒有代價。服務器要承擔渲染工作，CPU壓力大；Node.js服務器的運維複雜度高於純靜態託管；首屏快了，但hydration過程如果JS包大，交互還是要等；開發複雜度提升（要區分服務端和客戶端能跑的代碼，不能在組件裡直接用window等瀏覽器API）。</p>
+<p>靜態站點生成（SSG）是SSR的一個特例：構建時就把所有頁面渲染成靜態HTML，部署到CDN。速度極快（純靜態文件），適合博客、文檔、營銷站這種內容不常變的場景。Next.js的SSG模式、Astro、Hexo都是這種思路。</p>
+<p>ISR（增量靜態再生）是折中方案：頁面首次訪問時服務端渲染並緩存，之後按時間間隔重新生成。兼顧靜態速度和內容新鮮度。</p>
+<p>現在的趨勢是：混合渲染。一個應用裡，首頁用SSG（快且SEO好）、個人中心用CSR（不需要SEO，交互複雜）、詳情頁用ISR（內容定期更新）。Next.js App Router支持按頁面選擇渲染方式，這是最靈活的方案。</p>
+<p>選擇渲染策略的判斷：內容型網站（博客、新聞、文檔）優先SSG；需要SEO但內容動態的用SSR或ISR；純後台管理系統不需要SEO，CSR就行。不要所有頁面都用SSR，那會浪費服務器資源。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-rate-limit-algo.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流算法實戰</a><a href="article-tech-rw-split-ha.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 讀寫分離與數據庫高可用</a><a href="article-tech-prompt-engineering.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 大模型提示工程實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

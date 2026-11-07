@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="重構實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="重構實戰">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-141.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-141.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-141.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-141.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重構實戰 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="重構實戰 - CaesarTools">
+<meta property="og:description" content="重構實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-141.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"重構實戰","description":"重構實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-141.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>重構實戰</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>重構實戰：如何安全地改善遺留代碼</p>
+<p>每個項目都有遺留代碼：寫得亂、沒人完全懂、不敢動。但代碼不會自己變好，越拖越難改。重構是在不改變外部行為的前提下，改善代碼內部結構。關鍵是"不改變行為"——重構後功能一樣，只是代碼更好讀、更好改。</p>
+<p>重構的時機：添加新功能時順手重構相關代碼；修Bug時順便理清這段邏輯；Code Review發現壞味道時。不要專門花一週"大重構"，那是高風險行為。小步持續重構。</p>
+<p>常見重構手法：提取函數（一段邏輯抽成獨立函數，命名清楚）；重命名變量（a、b、tmp改成有意義的名字）；合併重複代碼（兩段類似的邏輯抽公共函數）；拆分巨型函數（一個函數幾百行，按功能拆成幾個小函數）；移除魔法數字（代碼裡的3.14、8080改成命名常量）。</p>
+<p>安全重構的保障是測試。沒有測試就重構，等於矇眼開車——改完不知道有沒有改壞。重要邏輯至少要有單元測試覆蓋，重構後跑測試確認行為沒變。遺留項目沒測試？先給關鍵路徑補特徵測試（捕獲當前行為的測試），再開始重構。</p>
+<p>重構的紀律：一次只做一件事。不要一邊改命名一邊改邏輯，出了問題不知道是哪步導致的。每小步改完跑測試，確認通過再繼續。頻繁提交Git，出問題隨時回退。</p>
+<p>什麼時候不該重構：上線前緊急修復不要重構（先修問題，後面再整理）；時間緊迫的功能開發不要夾帶大規模重構（先交付，再還技術債）。重構是投資，但要在合適的時機做。</p>
+<p>代碼壞味道是重構信號：重複代碼、長函數、大類、參數列表過長、發散式變更（改一個功能要動很多地方）、霰彈式修改（一個小改動要改很多類）。看到這些就該考慮重構了。</p>
+<p>重構不是目的，是手段。目的是讓後續開發更快。如果一段代碼以後不會再碰，哪怕寫得爛也不用動。把精力花在高頻修改的代碼上。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-144.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 容災備份與多活架構</a><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驅動架構</a><a href="article-tech-139.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DDD領域驅動設計入門</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

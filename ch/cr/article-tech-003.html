@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="容器化技術Docker與Kubernetes實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="容器化技術Docker與Kubernetes實戰, Docker">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-003.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-003.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-003.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-003.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>容器化技術Docker與Kubernetes實戰 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="容器化技術Docker與Kubernetes實戰 - CaesarTools">
+<meta property="og:description" content="容器化技術Docker與Kubernetes實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-003.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"容器化技術Docker與Kubernetes實戰","description":"容器化技術Docker與Kubernetes實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-003.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>容器化技術Docker與Kubernetes實戰</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>容器化技術Docker與Kubernetes實戰：從環境一致性到自動伸縮的雲原生之路</p>
+<p>"在我電腦上是好的"是開發和運維之間最經典的矛盾。開發環境跑着沒問題的代碼，部署到測試環境就報錯；測試環境正常，上線又出問題。追根溯源，是環境不一致導致的：操作系統版本不同、依賴庫版本不同、配置不同。容器化技術的出現，徹底解決了這個問題。Docker將應用和它的所有依賴打包在一起，形成一個標準鏡像，開發、測試、生產環境跑的是完全一樣的東西。環境一致性的問題，從根源上被消滅了。</p>
+<p>Docker的核心思想，是利用Linux內核的Namespace和Cgroup技術，實現進程級別的隔離。容器不是虛擬機，它不需要模擬完整的操作系統，所有容器共享宿主機的內核。這意味着一個容器啟動只需要幾毫秒，佔用的資源也非常少。一臺服務器可以同時跑幾十上百個容器，資源利用率遠高於虛擬機。鏡像則是容器的模板，採用分層文件系統設計：底層是操作系統基礎層，上面是依賴安裝層，再上面是應用代碼層。分層設計讓鏡像可以複用，不同鏡像共享相同的基礎層，節省存儲空間和傳輸帶寬。</p>
+<p>Dockerfile是構建鏡像的藍圖。FROM指定基礎鏡像，RUN執行安裝命令，COPY複製代碼文件，EXPOSE聲明端口，CMD指定啟動命令。編寫Dockerfile有很多最佳實踐：選擇精簡的基礎鏡像（Alpine比Ubuntu小得多），合併RUN層減少鏡像層數，合理利用構建緩存加速構建，不要在鏡像裡硬編碼敏感信息。一個寫得好的Dockerfile，構建出來的鏡像可能只有幾十MB；寫得差的，可能幾個GB。多階段構建是優化鏡像體積的利器：第一階段用完整的編譯環境構建應用，第二階段只把編譯產物複製到精簡的運行時鏡像裡，最終鏡像不包含任何編譯工具和源碼。</p>
+<p>Docker Compose解決的是多容器編排問題。一個Web應用通常需要Web服務、數據庫、緩存、消息隊列等多個容器。手動一個個啟動、配置網絡、掛載數據卷，非常麻煩。docker-compose.yml文件可以定義所有服務，一條docker compose up命令全部啟動，一條docker compose down命令全部銷燬。對於本地開發和小型項目，Compose足夠用了。</p>
+<p>但當容器數量增長到幾十上百個，分佈在多臺服務器上，手動管理就不現實了。這時候就需要Kubernetes（K8s）。K8s是Google開源的容器編排系統，現在已經成為雲原生時代的事實標準。它解決了容器集群管理的所有核心問題：服務發現與負載均衡、容器自動重啟、自動伸縮、滾動更新、存儲編排、配置管理。</p>
+<p>K8s的架構分為控制平面和工作節點。控制平面負責整個集群的管理調度，包括API Server（所有操作的入口）、Scheduler（決定容器調度到哪臺機器）、Controller Manager（維持系統狀態）、etcd（存儲集群數據）。工作節點上運行kubelet（管理本節點容器）、kube-proxy（網絡規則）和容器運行時。理解這個架構，才能理解為什麼K8s出問題時要先看控制平面的組件狀態。</p>
+<p>Pod是K8s的最小調度單位。一個Pod可以包含一個或多個緊密耦合的容器，它們共享網絡命名空間和存儲卷。通常一個Pod只跑一個主容器，邊車容器做輔助功能（日誌收集、代理等）。Deployment是最常用的工作負載資源，它管理Pod的副本數量，保證始終有指定數量的Pod在運行。當某個Pod掛了，Deployment會自動創建新的Pod補上。滾動更新策略讓應用升級時不中斷服務：逐步創建新版本的Pod，逐步銷燬舊版本的Pod，整個過程零停機。</p>
+<p>Service是Pod的穩定訪問入口。Pod是短暫的，隨時可能被銷燬重建，IP地址會變。Service提供一個固定的虛擬IP和DNS名，後端自動關聯一組Pod。通過標籤選擇器，Service將請求負載均衡到後端的多個Pod上。Ingress則是集群外部訪問的統一入口，基於域名和路徑將外部請求路由到不同的Service。</p>
+<p>自動伸縮是K8s最強大的能力之一。HPA（水平Pod自動伸縮）根據CPU利用率、內存利用率或自定義指標，自動增加或減少Pod副本數量。流量高峰時自動擴容，流量低谷時自動縮容，既保證了系統穩定，又節省了資源成本。集群層面還有Cluster Autoscaler，可以自動增加或減少節點數量，當Pod資源不足時自動添加新節點，節點空閒時自動釋放。</p>
+<p>配置管理和密鑰管理是生產環境的剛需。ConfigMap存儲非敏感的配置信息，Secret存儲密碼、密鑰等敏感數據（加密存儲）。配置和鏡像分離，同一份鏡像可以部署到不同環境，只需要換配置。配置變更後滾動重啟Pod，不需要重新構建鏡像。</p>
+<p>容器化和K8s不是銀彈，它帶來了技術複雜度的提升。學習曲線陡峭，調試困難，網絡和存儲的概念都和傳統方式不一樣。但對於中大型團隊和微服務架構，它帶來的標準化、自動化、彈性能力，是值得付出學習成本的。雲原生已經成為行業標配，掌握Docker和K8s，是現代後端工程師的必備技能。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-99.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a><a href="article-96.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引實戰</a><a href="article-tech-014.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_BFC塊級格式化上下文</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="虛擬列表與長列表性能優化">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-virtual-list.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-virtual-list.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-virtual-list.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-virtual-list.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虛擬列表與長列表性能優化（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="虛擬列表與長列表性能優化 - CaesarTools">
+<meta property="og:description" content="虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-virtual-list.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"虛擬列表與長列表性能優化（2）","description":"虛擬列表與長列表性能優化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-virtual-list.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>虛擬列表與長列表性能優化（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>虛擬列表與長列表性能優化：萬條數據不卡頓的渲染方案</h2>
+<p>一個訂單列表有十萬條數據，直接全部渲染到DOM裡會怎樣？瀏覽器可能直接卡死。DOM節點太多是前端性能的頭號殺手：每增加一個DOM節點，渲染、樣式計算、內存都有開銷。虛擬列表（Virtual List）是解決長列表性能問題的標準方案。</p>
+<p>虛擬列表的核心思想很簡單：只渲染可視區域內的列表項。屏幕只能顯示10條數據，就只渲染10個DOM節點，上下滾動時動態替換內容。哪怕總共有十萬條數據，DOM節點始終只有十幾個，性能完全不卡。</p>
+<p>實現原理：計算列表總高度（項數×每項高度），用一個可滾動容器撐出這個高度；根據滾動位置計算當前應該顯示哪幾條數據（開始索引、結束索引），只渲染這幾條；用transform把渲染的列表項偏移到正確的位置。用戶滾動時，實時更新可見範圍，動態替換DOM內容。</p>
+<p>定高列表是最簡單的場景：每個列表項高度固定。計算很簡單：開始索引=滾動位置÷項高，結束索引=開始索引+屏幕可顯示條數。庫如react-window、vue-virtual-scroller默認支持這種場景。</p>
+<p>不定高列表是難點：每條數據高度不一樣（消息列表，有的長有的短）。預先測量所有項的高度不現實（數據太多）。解決方案是：先預估高度，渲染後實際測量，動態修正位置。滾動時根據已知的高度緩存計算偏移。複雜的虛擬列表庫都內置了這種動態高度處理。</p>
+<p>虛擬滾動不僅用於縱向列表，也用於橫向表格、甚至二維網格（虛擬表格，行和列都虛擬化）。數據表格成千上萬行成千上萬列，只有可視區域渲染，是大數據量表格的標準做法。</p>
+<p>除了虛擬列表，長列表優化還有其他手段：分頁加載（滾動到底部加載下一頁，這是最簡單的做法，適合不需要快速滾動的場景）；分頁和虛擬列表結合（每一頁數據虛擬化渲染）；圖片懶加載（列表裡的圖片進入可視區才加載）；減少列表項的複雜度（列表項裡不要放重組件、不要放太多嵌套）。</p>
+<p>常見坑：滾動時白屏（快速滾動時新數據還沒渲染出來，顯示空白），解決方法是多渲染一些緩衝區（可視區上下各多渲染幾條）；滾動跳動（動態高度修正時位置跳變），需要平滑調整；列表項內部的交互狀態在滾動後丟失（因為DOM被替換了），需要把狀態提升到外部數據層管理。</p>
+<p>成熟的虛擬列表庫：React生態用react-window（輕量）或react-virtuoso（功能全）；Vue生態用vue-virtual-scroller。不要自己從零寫虛擬列表，邊界情況太多，用成熟庫更可靠。</p>
+<p>長列表性能優化是前端面試和實戰的高頻話題。理解虛擬列表的原理，遇到大數據量渲染場景就不會慌。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-ssr-isomorphic.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服務端渲染SSR與同構應用</a><a href="article-tech-typescript.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript類型系統進階</a><a href="article-tech-tech-debt.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技術債管理</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

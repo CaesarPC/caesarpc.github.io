@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-276.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-276.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-276.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-276.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript原型鏈完全指南：理解繼承的底層機制 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 JavaScript原型鏈完全指南：理解繼承的底層機制 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript原型鏈完全指南, 理解繼承的底層機制, JavaScript, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript原型鏈完全指南：理解繼承的底層機制 - CaesarTools">
+<meta property="og:description" content="JavaScript原型鏈完全指南：理解繼承的底層機制 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-276.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript原型鏈完全指南：理解繼承的底層機制","description":"← 返回文章列表 JavaScript原型鏈完全指南：理解繼承的底層機制 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-276.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript原型鏈完全指南：理解繼承的底層機制</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、JS為什麼需要原型鏈</h2>
+<p>Java先寫class再new對象。JS早期沒有class，用對象之間直接關聯實現繼承。每個對象有個內部屬性[[Prototype]]（瀏覽器裡__proto__），指向它的原型。訪問obj.prop時，obj自身沒有，就順着__proto__往上找，直到null。這條鏈就是原型鏈。</p>
+<h2>二、一個對象的原型鏈長什麼樣</h2>
+<p>const arr = [1,2,3];</p>
+<p>arr.push(4);</p>
+<p>arr對象上並沒有push方法。arr.__proto__是Array.prototype，push就在那裡。arr.__proto__.__proto__是Object.prototype，toString在那裡。Object.prototype.__proto__是null，到頭了。</p>
+<h2>三、constructor和prototype</h2>
+<p>每個函數有個prototype屬性，這個對象有個constructor指回函數。</p>
+<p>function Person(name) { this.name = name; }</p>
+<p>Person.prototype.greet = function() { console.log(this.name); };</p>
+<p>const p = new Person('小明');</p>
+<p>p.__proto__ === Person.prototype;</p>
+<p>p.constructor === Person;</p>
+<p>new做了三件事：創建空對象、__proto__指向構造函數prototype、執行構造函數綁定this。</p>
+<h2>四、ES6 class是語法糖</h2>
+<p>class Person {</p>
+<p>constructor(name) { this.name = name; }</p>
+<p>greet() { console.log(this.name); }</p>
+<p>}</p>
+<p>底層和原型寫法一樣。extends實現繼承，super調用父類。現代項目用class更易讀，但要知道它是語法糖。</p>
+<h2>五、instanceof</h2>
+<p>obj instanceof Type：沿obj原型鏈找Type.prototype。</p>
+<p>[] instanceof Array // true</p>
+<p>[] instanceof Object // true</p>
+<h2>六、常見坑</h2>
+<p>坑1：for...in把原型鏈可枚舉屬性帶出來。用hasOwnProperty過濾。</p>
+<p>坑2：改prototype，所有實例立刻受影響。</p>
+<p>坑3：__proto__不是標準API。用Object.getPrototypeOf()。</p>
+<h2>七、原型鏈查找性能</h2>
+<p>頻繁訪問深層原型屬性有性能成本。熱點方法應該在對象自身上，不要每次沿鏈找。V8引擎對常見原型鏈做了內聯緩存優化，但寫代碼時還是要注意。</p>
+<h2>八、總結</h2>
+<p>原型鏈是JS繼承根基。__proto__、prototype、constructor三者關係搞懂，class就是紙上談兵。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-268.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a><a href="article-278.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a><a href="article-273.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a></div>
+</body>
+</html>

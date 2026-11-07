@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-32.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-32.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-32.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-32.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebSocket實戰：實時通信從入門到生產 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 WebSocket實戰：實時通信從入門到生產 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="WebSocket實戰, 實時通信從入門到生產">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="WebSocket實戰：實時通信從入門到生產 - CaesarTools">
+<meta property="og:description" content="WebSocket實戰：實時通信從入門到生產 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-32.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"WebSocket實戰：實時通信從入門到生產","description":"← 返回文章列表 WebSocket實戰：實時通信從入門到生產 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-32.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>WebSocket實戰：實時通信從入門到生產</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、HTTP和WebSocket的區別</h2>
+<p>HTTP是請求-響應模式：客戶端問，服務器答，答完連接關了。服務器想主動推消息給客戶端？做不到，只能靠輪詢。</p>
+<p>WebSocket是全雙工通信：建立連接後，客戶端和服務器隨時互相發消息。聊天、通知、實時數據看板都需要這個。</p>
+<h2>二、什麼時候用WebSocket</h2>
+<p>- 在線聊天</p>
+<p>- 實時通知（新訂單、新消息）</p>
+<p>- 多人協作（文檔編輯）</p>
+<p>- 實時數據看板（股票、監控）</p>
+<h2>三、基本用法</h2>
+<p>前端：</p>
+<p>const ws = new WebSocket('wss://example.com/ws');</p>
+<p>ws.onopen = () => ws.send('hello');</p>
+<p>ws.onmessage = (e) => console.log(e.data);</p>
+<p>ws.onclose = () => reconnect();</p>
+<p>後端Node：</p>
+<p>const WebSocket = require('ws');</p>
+<p>const wss = new WebSocket.Server({ port: 8080 });</p>
+<p>wss.on('connection', (ws) => {</p>
+<p>ws.on('message', (data) => ws.send('收到: ' + data));</p>
+<p>});</p>
+<h2>四、心跳保活</h2>
+<p>連接可能被中間網關掐斷（空閒30秒）。客戶端每隔30秒發ping，服務器回pong。多久沒收到pong就重連。</p>
+<h2>五、自動重連</h2>
+<p>連接斷了自動重連，指數退避：1秒、2秒、4秒、8秒，最多30秒。不要瘋狂重連打掛服務器。</p>
+<h2>六、生產注意事項</h2>
+<h3>6.1 Nginx配置</h3>
+<p>WebSocket需要Upgrade頭：</p>
+<p>proxy_set_header Upgrade $http_upgrade;</p>
+<p>proxy_set_header Connection "upgrade";</p>
+<h3>6.2 鑑權</h3>
+<p>連接時帶token：new WebSocket('wss://...?token=xxx')。服務器驗證token。</p>
+<h3>6.3 集群</h3>
+<p>多臺Node實例，用戶連在不同實例上。用Redis Pub/Sub廣播消息。</p>
+<h2>七、Socket.io</h2>
+<p>Socket.io封裝了WebSocket，自動降級到長輪詢，帶重連和房間功能。新手推薦用。</p>
+<h2>八、常見坑</h2>
+<p>坑1：Nginx沒配Upgrade頭，連接握手失敗。</p>
+<p>坑2：沒心跳，連接空閒被掐。</p>
+<p>坑3：重連太頻繁，雪崩。</p>
+<p>坑4：消息格式不統一，解析報錯。</p>
+<h2>九、SSE和WebSocket怎麼選</h2>
+<p>SSE（Server-Sent Events）是服務器單向推送，客戶端用普通HTTP接收。比WebSocket簡單，自動重連。適合只需要服務器推（通知、股票行情）的場景。WebSocket雙向通信，適合聊天。</p>
+<h2>十、總結</h2>
+<p>WebSocket是實時通信標配。前端建立連接、心跳保活、自動重連。後端Nginx配Upgrade、集群用Redis廣播。做好這幾點，實時應用就穩了。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-327.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引實戰</a><a href="article-319.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a><a href="article-314.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a></div>
+</body>
+</html>

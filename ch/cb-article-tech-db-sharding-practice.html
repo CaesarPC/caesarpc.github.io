@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="分庫分表實戰 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cb-article-tech-db-sharding-practice.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>分庫分表實戰 - CaesarBase</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#0f0f1a;color:#e6e6f0;line-height:1.8;padding:20px}
+.back{display:inline-block;margin-bottom:20px;color:#50fa7b;text-decoration:none;font-size:14px}
+.back:hover{text-decoration:underline}
+.article{max-width:700px;margin:0 auto;background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:30px}
+h1{font-size:24px;margin-bottom:20px;color:#50fa7b}
+.meta{font-size:13px;color:#6272a4;margin-bottom:20px}
+h2{font-size:18px;margin:20px 0 10px;color:#8be9fd}
+p{margin-bottom:12px;color:#c8c8e0;font-size:15px}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<link rel="icon" href="/icon-192.png">
+<meta property="og:title" content="分庫分表實戰 - CaesarBase">
+<meta property="og:description" content="分庫分表實戰 - CaesarBase - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cb-article-tech-db-sharding-practice.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://caesarpc.github.io/icon-512.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="article">
+<a class="back" href="index.html">← 返回 CaesarBase</a>
+<h1>分庫分表實戰</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>分庫分表實戰：當單表數據量突破千萬後的架構升級</h2>
+<p>數據庫單表數據量到了千萬級，查詢性能開始下降；到了億級，即使索引建得再好，也明顯變慢。分庫分表是解決這個問題的終極方案：把數據分散到多個數據庫、多張表裡，每個分片只存一部分數據。</p>
+<p>垂直拆分是第一步：按業務把不同的表放到不同數據庫。用戶相關的表放用戶庫、訂單相關的放訂單庫、商品相關的放商品庫。這和微服務的拆分對應，每個服務有自己的數據庫。垂直拆分後單庫壓力減小，但單表數據量還是可能很大。</p>
+<p>水平拆分是真正的分表：同一張表的數據按某個規則分散到多張表。比如訂單表按用戶ID取模，分散到64張表裡。查詢時根據用戶ID路由到對應的表。</p>
+<p>分片鍵的選擇至關重要。選什麼字段做分片？要滿足：大部分查詢都帶這個字段（能路由到具體分片，不用全分片掃描）；數據分佈均勻（不會有的分片數據特別多）。用戶ID是常見選擇，因為大部分查詢是查某個用戶的數據。但如果經常要按時間範圍查詢全部訂單，用戶ID分片就不合適，要全分片掃描。沒有完美的分片鍵，要根據主要查詢模式權衡。</p>
+<p>分片策略：取模（user_id % N）簡單均勻，但擴容麻煩（從32張擴到64張，數據要重新分佈）；範圍分片（按時間範圍分表）擴容方便但可能熱點（最新數據都在最新分片）；一致性哈希兼顧均勻和擴容。</p>
+<p>分庫分錶帶來的複雜問題：分佈式ID（不能用自增ID了，多表自增會衝突，要用雪花算法等全局ID）；跨分片查詢（要查所有分片再合併，性能差，要避免）；跨分片事務（一個事務涉及多個分片，強一致性很難保證，通常用最終一致性）；分佈式聚合（count、sum要在所有分片算完再彙總）。</p>
+<p>中間件幫開發者屏蔽複雜性：ShardingSphere（Java生態）、Vitess、MyCat。配置好分片規則，中間件負責路由、聚合，業務代碼像操作單表一樣。但中間件不能解決所有問題，跨分片的複雜SQL還是要業務層面規避。</p>
+<p>分庫分表是架構升級的大動作，不到萬不得已不要做。先試試優化索引、歸檔歷史數據、讀寫分離，這些手段能解決大部分問題。當單表數據量真的到了瓶頸，再上分庫分表。一旦分了，後續的數據遷移、擴容都是大工程。</p>
+</div>
+<script src="/cr/clip.js"></script>
+<div style="text-align:center;color:#6272a4;font-size:12px;padding:20px;margin-top:40px;border-top:1px solid #44475a;">© CaesarBase · CaesarTools 原創內容，轉載請註明出處</div>
+</body>
+</html>

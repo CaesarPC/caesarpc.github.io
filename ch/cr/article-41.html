@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-41.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-41.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-41.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-41.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端路由原理與實踐 - CaesarTools</title>
+<meta name="description" content="前端路由原理與實踐 - CaesarBase 免費技術文章">
+<meta name="keywords" content="前端路由原理與實踐, 前端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端路由原理與實踐 - CaesarTools">
+<meta property="og:description" content="前端路由原理與實踐 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-41.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端路由原理與實踐","description":"前端路由原理與實踐 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-41.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端路由原理與實踐</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、前端路由是什麼</h2>
+<p>傳統網站，每個頁面是一個HTML文件，點擊鏈接瀏覽器刷新頁面。SPA單頁應用，整個網站只有一個HTML，切換頁面不刷新瀏覽器，由JavaScript渲染不同組件。前端路由就是管理URL和頁面組件對應關係的模塊。</p>
+<h2>二、兩種實現方式</h2>
+<h3>2.1 Hash路由</h3>
+<p>URL帶#號：https://example.com/#/user。#後面的變化瀏覽器不會發請求到服務器。監聽hashchange事件，根據hash值渲染不同組件。</p>
+<p>優點：不需要服務器配置。缺點：URL醜，有個#。</p>
+<h3>2.2 History路由</h3>
+<p>URL乾淨：https://example.com/user。用HTML5 History API，pushState改URL不刷新頁面。監聽popstate事件。</p>
+<p>缺點：刷新頁面時服務器收到/user請求，要配置所有路徑都返回index.html，否則404。Nginx配置try_files $uri /index.html。</p>
+<h2>三、React Router用法</h2>
+<p>import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';</p>
+<p>function App() {</p>
+<p>return (</p>
+<p><BrowserRouter></p>
+<p><nav></p>
+<p><Link to="/">首頁</Link></p>
+<p><Link to="/about">關於</Link></p>
+<p></nav></p>
+<p><Routes></p>
+<p><Route path="/" element={<Home />} /></p>
+<p><Route path="/about" element={<About />} /></p>
+<p><Route path="/user/:id" element={<User />} /></p>
+<p></Routes></p>
+<p></BrowserRouter></p>
+<p>);</p>
+<p>}</p>
+<h2>四、動態路由</h2>
+<p>/user/123裡的123是動態參數：</p>
+<p>import { useParams } from 'react-router-dom';</p>
+<p>function User() {</p>
+<p>const { id } = useParams();</p>
+<p>return <div>用戶{id}</div>;</p>
+<p>}</p>
+<h2>五、路由守衛</h2>
+<p>未登錄用戶訪問後台，重定向到登錄頁：</p>
+<p>function RequireAuth({ children }) {</p>
+<p>const user = useUser();</p>
+<p>if (!user) return <Navigate to="/login" />;</p>
+<p>return children;</p>
+<p>}</p>
+<p><Route path="/admin" element={<RequireAuth><Admin /></RequireAuth>} /></p>
+<h2>六、滾動恢復</h2>
+<p>切換路由後頁面要回到頂部：</p>
+<p>useEffect(() => { window.scrollTo(0, 0); }, [location.pathname]);</p>
+<h2>七、常見坑</h2>
+<p>History路由刷新404，服務器要配置fallback。</p>
+<p>路由嵌套要寫嵌套的Routes。</p>
+<p>頁面切換滾動位置不對。</p>
+<h2>八、總結</h2>
+<p>前端路由是SPA核心。Hash簡單但URL醜，History乾淨但要服務器配置。React Router是事實標準。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-418.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a><a href="article-409.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a><a href="article-413.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a></div>
+</body>
+</html>

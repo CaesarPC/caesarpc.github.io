@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-496.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-496.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-496.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-496.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript事件循環詳解 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 JavaScript事件循環詳解 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript事件循環詳解, JavaScript, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript事件循環詳解 - CaesarTools">
+<meta property="og:description" content="JavaScript事件循環詳解 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-496.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件循環詳解","description":"← 返回文章列表 JavaScript事件循環詳解 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-496.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript事件循環詳解</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼需要事件循環</h2>
+<p>JS單線程，等一個網絡請求後面全卡住。事件循環就是處理異步任務的機制。</p>
+<h2>二、基本流程</h2>
+<h3>1. 執行棧同步代碼</h3>
+<h3>2. 清空微任務隊列</h3>
+<h3>3. 渲染</h3>
+<h3>4. 取一個宏任務</h3>
+<h3>5. 回到第2步</h3>
+<p>微任務優先級高於宏任務。</p>
+<h2>三、微任務和宏任務</h2>
+<p>微任務：Promise.then、queueMicrotask、MutationObserver、process.nextTick。</p>
+<p>宏任務：setTimeout、setInterval、I/O、UI事件。</p>
+<h2>四、經典面試題</h2>
+<p>console.log(1);</p>
+<p>setTimeout(() => console.log(2), 0);</p>
+<p>Promise.resolve().then(() => console.log(3));</p>
+<p>console.log(4);</p>
+<p>輸出：1 4 3 2</p>
+<h2>五、setTimeout不準</h2>
+<p>setTimeout(fn, 0)不是0毫秒後執行。是0毫秒後放進宏任務隊列。前面還有任務就要等。</p>
+<h2>六、async/await</h2>
+<p>await後面的代碼相當於Promise.then，進微任務隊列。</p>
+<h2>七、長任務卡頓</h2>
+<p>主線程任務超50ms，用戶點擊沒反應。大計算拆小片，Web Worker處理。</p>
+<h2>八、Node和瀏覽器區別</h2>
+<p>Node事件循環分階段：timers→pending→poll→check→close。瀏覽器簡單宏任務+微任務。</p>
+<h2>九、調試</h2>
+<p>Chrome Performance面板錄操作。黃色腳本，紫色渲染，綠色Layout。紅色長條是長任務。</p>
+<h2>十、生產問題</h2>
+<p>接口返回大量數據，主線程卡住200毫秒。放Web Worker。滾動事件用節流減少主線程壓力。</p>
+<h2>十一、總結</h2>
+<p>事件循環：同步→微任務→渲染→宏任務。微任務比宏任務先執行。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-495.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a><a href="article-497.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a><a href="article-489.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS變量與主題切換</a></div>
+</body>
+</html>

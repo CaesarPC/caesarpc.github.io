@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="遞歸與動態規劃 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="遞歸與動態規劃">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-208.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-208.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-208.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-208.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>遞歸與動態規劃 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="遞歸與動態規劃 - CaesarTools">
+<meta property="og:description" content="遞歸與動態規劃 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-208.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"遞歸與動態規劃","description":"遞歸與動態規劃 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-208.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>遞歸與動態規劃</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 遞歸與動態規劃：算法面試與實戰中的核心思維</p>
+<p>遞歸和動態規劃是編程算法中最重要也最讓人頭疼的兩個概念。很多人面試時被要求寫斐波那契數列或者爬樓梯，寫出來了但說不清為什麼這麼寫。遞歸是一種思維方式——把大問題拆解成同結構的小問題；動態規劃是一種優化手段——把重複計算的中間結果存起來，避免重複勞動。理解這兩個概念，不只是為了面試，更是為了寫出高效的代碼。</p>
+<p>## 一、遞歸：自己調用自己</p>
+<p>遞歸的核心思想很簡單：一個問題可以拆成一個或多個子問題，子問題和原問題結構相同，只是規模更小。當子問題小到不能再拆的時候，直接給出答案（遞歸終止條件）。</p>
+<p>最經典的遞歸例子是階乘：n! = n * (n-1)!，終止條件是0! = 1。寫代碼就是：function factorial(n) { if (n === 0) return 1; return n * factorial(n-1); }。</p>
+<p>遞歸有兩個要素：基線條件（什麼時候停止）和遞歸條件（怎麼拆成子問題）。缺了基線條件就無限遞歸，棧溢出。</p>
+<p>遞歸的好處是代碼簡潔優雅，樹的遍歷、分治算法、深度優先搜索天然適合遞歸。缺點是每次函數調用都有棧空間開銷，遞歸太深會棧溢出。能寫成遞歸的問題，往往也能寫成迭代（用棧數據結構模擬），看哪個更直觀。</p>
+<p>## 二、斐波那契：遞歸的性能陷阱</p>
+<p>斐波那契數列f(n) = f(n-1) + f(n-2)，f(0)=0, f(1)=1。用遞歸寫特別簡單：function fib(n) { if (n < 2) return n; return fib(n-1) + fib(n-2); }。</p>
+<p>但這個寫法的時間複雜度是指數級的O(2^n)。為什麼？因為f(5)要算f(4)和f(3)，f(4)要算f(3)和f(2)——f(3)被算了兩遍。n越大，重複計算的次數爆炸式增長。算fib(40)可能要幾秒鐘，fib(50)就完全跑不動了。</p>
+<p>問題出在：同一個子問題被重複計算了無數次。解決辦法就是把算過的結果存起來。</p>
+<p>## 三、記憶化：遞歸的優化</p>
+<p>最簡單的優化是加一個緩存（Memoization）。算過的結果存到一個對象裡，下次要算同一個子問題時直接從緩存拿，不重複計算。</p>
+<p>function fib(n, memo = {}) { if (n < 2) return n; if (memo[n]) return memo[n]; memo[n] = fib(n-1, memo) + fib(n-2, memo); return memo[n]; }</p>
+<p>加了緩存之後，每個f(n)只算一次，時間複雜度從O(2^n)降到O(n)。這就是動態規劃的雛形——把中間結果存起來，避免重複計算。</p>
+<p>## 四、動態規劃：自底向上</p>
+<p>記憶化遞歸是"自頂向下"——從大問題往下拆，遇到算過的子問題直接返回緩存。動態規劃通常是"自底向上"——從最小的子問題開始，一步步往上推，直到算出大問題的答案。</p>
+<p>斐波那契的動態規劃寫法：function fib(n) { if (n < 2) return n; let dp = [0, 1]; for (let i = 2; i <= n; i++) { dp[i] = dp[i-1] + dp[i-2]; } return dp[n]; }</p>
+<p>從dp[0]、dp[1]開始，依次算出dp[2]、dp[3]...一直到dp[n]。時間複雜度O(n)，空間複雜度也是O(n)。</p>
+<p>還可以再優化空間：其實只需要保留前兩個值，不需要整個數組。let a = 0, b = 1; for (let i = 2; i <= n; i++) { let c = a + b; a = b; b = c; } return b;。空間複雜度降到O(1)。</p>
+<p>## 五、動態規劃的解題框架</p>
+<p>遇到一個問題能不能用動態規劃，看兩個特徵：</p>
+<p>第一，最優子結構——大問題的最優解可以由小問題的最優解推導出來。比如爬樓梯：到第n階的最短路徑，取決於到第n-1階和第n-2階的最短路徑。</p>
+<p>第二，重疊子問題——求解過程中會反覆遇到相同的子問題。如果每個子問題只算一次，那就沒必要動態規劃了。</p>
+<p>解題步驟：1.定義dp數組的含義——dp[i]代表什麼。2.寫出狀態轉移方程——dp[i]怎麼從dp[i-1]、dp[i-2]推導出來。3.確定初始條件——dp[0]、dp[1]是多少。4.確定遍歷順序——從前往後還是從後往前。</p>
+<p>## 六、常見DP問題</p>
+<p>爬樓梯：每次可以爬1或2階，到第n階有多少種走法？dp[i] = dp[i-1] + dp[i-2]，和斐波那契一模一樣。</p>
+<p>打家劫舍：一條街的房子，不能偷相鄰的兩家，最多偷多少錢？dp[i] = max(dp[i-1], dp[i-2] + nums[i])——第i家偷還是不偷，選錢多的方案。</p>
+<p>最長公共子序列：兩個字符串，最長的公共子序列長度。dp[i][j] = text1[i] === text2[j] ? dp[i-1][j-1] + 1 : max(dp[i-1][j], dp[i][j-1])。</p>
+<p>## 七、總結</p>
+<p>遞歸和動態規劃不是什麼神祕的算法，它們是一種思維方式：把大問題拆成小問題，把重複計算的結果存起來。遞歸是自上而下想問題，動態規劃是自下而上解決問題。很多時候你先用遞歸想清楚怎麼拆，再翻譯成動態規劃的自底向上寫法。</p>
+<p>刷題不是目的，目的是訓練這種拆解問題的能力。遇到一個複雜問題，先問自己：這個問題能不能拆成同結構的小問題？小問題的答案能不能推導出大問題？如果能，就往遞歸和動態規劃的方向想。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 設計模式實戰</a><a href="article-tech-206.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTP2與HTTP3協議演進</a><a href="article-tech-213.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 哈希表原理與應用</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

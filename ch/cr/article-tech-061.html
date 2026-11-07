@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Web安全攻防實戰指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Web安全攻防實戰指南, 安全">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-061.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-061.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-061.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-061.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web安全攻防實戰指南 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Web安全攻防實戰指南 - CaesarTools">
+<meta property="og:description" content="Web安全攻防實戰指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-061.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Web安全攻防實戰指南","description":"Web安全攻防實戰指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-061.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>Web安全攻防實戰指南</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>Web安全攻防實戰指南：從輸入校驗到零信任架構的系統性防護</p>
+<p>安全是網站的底線。一次嚴重的安全事件，可能導致用戶數據泄露、服務器被入侵、業務停擺，對企業的打擊是毀滅性的。但很多開發者對安全的理解停留在"用了框架就安全了"這個層面。框架確實幫你擋掉了一些常見問題，但業務層面的邏輯漏洞、配置錯誤、第三方依賴漏洞，都需要自己警惕。系統性理解Web安全的攻擊面和防禦手段，是每個Web開發者的必修課。</p>
+<p>首先要建立一個核心認知：永遠不要信任用戶輸入。瀏覽器發來的任何東西——URL參數、表單字段、Cookie、Header——都可能被篡改。攻擊者可以構造任意輸入來探測漏洞。所有輸入都必須經過校驗：類型校驗（是不是數字）、範圍校驗（是不是在合法範圍內）、格式校驗（郵箱是不是合法格式）。白名單校驗比黑名單校驗安全得多：明確允許什麼，而不是禁止什麼。</p>
+<p>注入攻擊是最古老也最危險的攻擊類型。SQL注入前面已經講過，核心防禦是參數化查詢。命令注入是另一種：如果後端把用戶輸入拼接到系統命令裡執行（比如調用ffmpeg處理用戶上傳的視頻文件名），攻擊者可以通過文件名注入惡意命令，在服務器上執行任意操作。防禦方法是永遠不要拼接用戶輸入到系統命令，使用參數數組的方式調用。模板注入（SSTI）則發生在使用模板引擎時，用戶輸入被當作模板代碼執行。</p>
+<p>XSS跨站腳本攻擊是Web安全的重災區。反射型XSS是惡意腳本藏在URL參數裡，服務器反射到頁面執行；存儲型XSS是惡意腳本存到數據庫裡（比如用戶發的帖子），其他用戶瀏覽時執行；DOM型XSS是純前端的問題，JavaScript把不可信數據直接插入頁面。防禦XSS的核心原則是：輸出編碼。把用戶內容插入HTML時，轉義特殊字符（<轉成&lt;、>轉成&gt;）；插入屬性時，用引號包裹並轉義；插入JavaScript時，永遠不要把不可信數據直接傳給eval。CSP（內容安全策略）是第二道防線：通過響應頭聲明允許從哪些來源加載腳本，即使有XSS漏洞，外部惡意腳本也會被瀏覽器攔截。</p>
+<p>CSRF跨站請求僞造前面也提到過。SameSite Cookie、CSRF Token、驗證自定義Header，是三種主要防禦手段。現在的瀏覽器默認SameSite=Lax，已經擋掉了大部分CSRF攻擊，但敏感操作（修改密碼、轉賬）仍然要加二次確認。</p>
+<p>文件上傳漏洞是另一個高頻問題。允許用戶上傳文件的功能，如果不加限制，攻擊者可以上傳一個PHP/WebShell腳本，直接控制服務器。防禦措施包括：校驗文件類型（不僅看擴展名，還要檢查文件頭的真實類型）、重命名上傳文件（不用用戶給的文件名）、存儲在Web根目錄之外（不能直接通過URL訪問）、圖片二次處理（用圖片庫重新壓縮，消除嵌入的惡意代碼）。</p>
+<p>認證和授權漏洞越權是業務邏輯層面最常見的安全問題。水平越權：用戶A可以查看用戶B的訂單，因為後端只驗證了"你登錄了"，沒驗證"這個訂單是不是你的"。垂直越權：普通用戶可以調用管理員接口，因為後端沒做角色校驗。防禦方法：每個接口都要做資源歸屬校驗——這個資源屬於當前用戶嗎？不要信任前端傳過來的role字段，後端自己根據用戶ID查數據庫判斷權限。</p>
+<p>敏感數據泄露是另一個大問題。密碼絕對不能明文存儲，必須用bcrypt/Argon2等慢哈希算法加鹽存儲。數據庫裡存的應該是不可逆的哈希值，即使數據庫泄露，攻擊者也無法還原密碼。API響應不要返回多餘的敏感字段（密碼哈希、內部ID、手機號中間位要脫敏）。日誌不要打印敏感信息（密碼、身份證號、銀行卡號），不然日誌泄露等於數據泄露。</p>
+<p>依賴漏洞是容易被忽視的攻擊面。你的項目依賴了幾百個npm包，其中某個包發現了嚴重漏洞，你的應用就有風險。定期用npm audit、Snyk等工具掃描依賴漏洞，及時更新有問題的包。供應鏈攻擊（攻擊者入侵開源庫植入惡意代碼）是近年越來越多的威脅，鎖定依賴版本、用鎖文件、CI中檢查依賴完整性，是基本防護。</p>
+<p>零信任是現代安全架構的理念。傳統安全架構假設內網是可信的，只要進了內網就隨便訪問。零信任的原則是"永不信任，始終驗證"：每次訪問都要驗證身份、驗證權限、驗證設備狀態。微服務之間的調用也不是自動信任，每個請求都要帶身份令牌，服務間做雙向認證。對於面向互聯網的服務，零信任是必然方向。</p>
+<p>安全是一個持續的過程，不是一次性的工作。依賴要持續更新、日誌要持續監控、新漏洞要持續關注。把安全意識融入日常開發，而不是上線前才臨時抱佛腳，才能真正把風險降到最低。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-007.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript模塊化演進</a><a href="article-tech-103.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git版本控制與團隊協作工作流</a><a href="article-tech-101.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 單頁應用路由原理與前端狀態管理</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

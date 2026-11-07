@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="對象存儲與雲存儲架構原理">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-object-storage.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-object-storage.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-object-storage.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-object-storage.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>對象存儲與雲存儲架構原理（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="對象存儲與雲存儲架構原理 - CaesarTools">
+<meta property="og:description" content="對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-object-storage.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"對象存儲與雲存儲架構原理（2）","description":"對象存儲與雲存儲架構原理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-object-storage.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>對象存儲與雲存儲架構原理（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>對象存儲與雲存儲架構原理：從文件服務器到S3的演進</h2>
+<p>早期的網站存儲文件，就是存在服務器本地磁盤上，通過Nginx直接對外提供下載。這種方式在單機時代沒問題，但隨着文件數量增長（圖片、視頻、用戶上傳的附件），單機存儲的瓶頸很快暴露：擴容麻煩、備份困難、帶寬有限、多機文件不一致。對象存儲（Object Storage）就是為解決海量文件存儲而生的架構。</p>
+<p>對象存儲的核心概念是：所有文件作為"對象"存儲在扁平的存儲空間（Bucket）裡，不是文件系統的目錄樹結構。每個對象有一個唯一的Key（相當於路徑），通過Key讀寫對象。S3（Amazon Simple Storage Service）是對象存儲的鼻祖和標準API，現在阿里雲OSS、騰訊雲COS、Cloudflare R2都兼容S3 API。</p>
+<p>對象存儲和傳統文件存儲的區別：文件系統是層級目錄結構，支持隨機修改文件內容；對象存儲是扁平的，整個對象作為一個單元上傳下載，不支持修改文件中間的某一段（要麼整個重傳）。這種簡單模型換來的是極強的擴展性：存儲容量幾乎無限，自動擴容，不需要管理磁盤。</p>
+<p>實際使用中，網站的圖片、視頻、用戶上傳的文件，都存在對象存儲裡，而不是應用服務器本地。應用服務器只處理業務邏輯，文件交給對象存儲。前端上傳文件時，通常是後端生成一個帶權限的上傳憑證（Pre-signed URL），前端直接把文件傳到對象存儲，不經過應用服務器。這樣應用服務器不佔用帶寬處理文件傳輸，性能和成本都更優。</p>
+<p>CDN和對象存儲天然配合。文件存在對象存儲源站，CDN緩存到全球邊緣節點，用戶從就近節點下載。圖片處理（縮放、裁剪、轉格式）也在CDN邊緣完成，不用後端服務器處理。</p>
+<p>數據冗餘是對象存儲的底層設計。每個對象自動多副本存儲（通常3份），分佈在不同機房，單塊磁盤損壞不影響數據可用性。這就是為什麼對象存儲號稱"11個9"的持久性——數據幾乎不會丟。版本控制功能可以保留文件的歷史版本，誤刪後可以恢復。</p>
+<p>生命週期管理是成本優化的利器。不常訪問的文件（如一年前的日誌、歷史圖片），自動從標準存儲降級到低頻訪問存儲、歸檔存儲，價格便宜很多。符合條件的數據自動遷移，不用手動操作。</p>
+<p>自建對象存儲 vs 用雲服務：MinIO是開源的對象存儲，可以部署在自己的服務器上，兼容S3 API。適合有數據合規要求、不想把數據放公有云的場景。但自建要自己運維：磁盤管理、擴容、備份、監控，成本不低。大多數中小團隊直接用雲廠商的託管對象存儲，省心。</p>
+<p>對象存儲已經是現代Web應用的基礎設施。幾乎所有網站的靜態資源、用戶上傳文件都存在對象存儲上。理解它的原理和使用方式，是全棧開發的基本能力。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-rich-text-editor.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 富文本編輯器原理</a><a href="article-tech-prompt-engineering.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 大模型提示工程實戰</a><a href="article-tech-rw-split-ha.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 讀寫分離與數據庫高可用</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

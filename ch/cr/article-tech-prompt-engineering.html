@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="大模型提示工程實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="大模型提示工程實戰">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-prompt-engineering.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-prompt-engineering.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-prompt-engineering.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-prompt-engineering.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大模型提示工程實戰（2） - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:26px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15.5px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+/* 模块小标题：左侧绿色竖杠 */
+.section{margin:32px 0 16px 0;padding:12px 0 12px 16px;border-left:4px solid #50fa7b}
+.section h2{font-size:18px;color:#50fa7b;margin:0 0 4px 0;font-weight:600;line-height:1.4}
+.section p{font-size:13px;color:#6272a4;margin:0;text-indent:0;line-height:1.5}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="大模型提示工程實戰 - CaesarTools">
+<meta property="og:description" content="大模型提示工程實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-prompt-engineering.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"大模型提示工程實戰（2）","description":"大模型提示工程實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-prompt-engineering.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>大模型提示工程實戰（2）</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>同樣一個大模型，有人用它寫出優秀文案，有人用它只得到乾巴巴的廢話。差別不在模型，在提示詞。提示工程（Prompt Engineering）是一門新興技能：通過精心設計的輸入提示，引導大模型輸出高質量、符合預期的結果。好的提示詞能讓通用大模型變成專家級助手，差的提示詞只能得到平庸的回答。</p>
+<p>提示詞的基本結構包含幾個要素：角色設定、任務描述、上下文信息、輸出格式、示例。角色設定告訴模型"你是誰"：你是一個資深前端工程師、你是一個專業的文案編輯、你是一個嚴格的代碼審查者。不同的角色設定會顯著影響回答的風格和深度。任務描述要具體：不是"幫我寫文章"，而是"寫一篇800字的文章，主題是XX，面向初學者，語言通俗，分三個小節"。越具體，輸出越符合預期。</p>
+<p>Few-shot Learning（少樣本示例）是提升輸出質量最有效的技巧之一。在提示詞裡給出幾個輸入輸出示例，模型就會模仿示例的格式和風格。比如你想要特定格式的JSON輸出，給它兩個示例，它就知道該輸出什麼格式。示例的數量一般3到5個就夠了，太多會佔用上下文窗口。示例要多樣化，覆蓋不同情況，不能全是相似的。</p>
+<p>思維鏈（Chain of Thought）是讓模型分步推理的技巧。在提示詞里加一句"請一步步思考"或者"讓我們逐步分析"，模型會先展示推理過程，再給出答案。對於數學題、邏輯題、複雜分析題，這種方式能大幅提升準確率。因為大模型是逐詞生成的，把推理過程寫出來相當於給自己更多"思考時間"。</p>
+<p>約束和限制要寫清楚。不想要什麼比想要什麼更重要。"不要使用專業術語"、"不要超過500字"、"不要分點"、"輸出純文本不要markdown"，這些負向約束能有效避免輸出不符合要求。輸出格式要求越精確越好："輸出一個JSON，包含title、content、tags三個字段"比"輸出結構化數據"效果好得多。</p>
+<p>上下文管理是實用技巧。大模型的上下文窗口有限（比如128K token），要把最相關的信息放在提示詞裡。系統提示（System Prompt）放在最前面，定義模型的行為準則；用戶消息放在後面。重要的指令不要放在中間，容易被忽略。長對話時，早期的對話內容可能被截斷，需要把關鍵信息重複提到。</p>
+<p>常見的提示詞技巧包括：讓模型扮演批評者（先輸出方案，再讓它自己找問題）、溫度參數調節（需要創造性時調高temperature，需要精確輸出時調低）、分步驟完成複雜任務（先讓它列大綱，再逐節展開）。不要指望一個提示詞解決所有問題，複雜任務拆成多輪對話，每輪聚焦一個子任務，效果更好。</p>
+<p>提示工程不是玄學，是有方法論的技能。它和編程類似：清晰的輸入產生清晰的輸出。學會寫好提示詞，是用好一切大模型工具的基礎，無論是用ChatGPT寫文案、用API做AI應用、還是做RAG系統的檢索增強。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-rate-limit-algo.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 限流算法實戰</a><a href="article-tech-microservice-deep.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服務架構拆解</a><a href="article-tech-object-storage.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 對象存儲與雲存儲架構原理</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

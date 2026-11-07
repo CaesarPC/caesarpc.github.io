@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-30.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-30.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-30.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-30.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL和PostgreSQL怎麼選：2024年的決策指南 - CaesarTools</title>
+<meta name="description" content="MySQL和PostgreSQL怎麼選：2024年的決策指南 - CaesarBase 免費技術文章">
+<meta name="keywords" content="MySQL和PostgreSQL怎麼選, 2024年的決策指南, MySQL, SQL">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="MySQL和PostgreSQL怎麼選：2024年的決策指南 - CaesarTools">
+<meta property="og:description" content="MySQL和PostgreSQL怎麼選：2024年的決策指南 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-30.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"MySQL和PostgreSQL怎麼選：2024年的決策指南","description":"MySQL和PostgreSQL怎麼選：2024年的決策指南 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-30.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>MySQL和PostgreSQL怎麼選：2024年的決策指南</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、兩個都是好數據庫</h2>
+<p>MySQL全球市佔率最高，PostgreSQL功能最強。沒有絕對好壞，只有適不適合。這篇幫你根據場景選。</p>
+<h2>二、MySQL的優勢</h2>
+<h3>2.1 生態成熟</h3>
+<p>互聯網公司用了十幾年，教程多，DBA好找。WordPress、Laravel默認MySQL。</p>
+<h3>2.2 讀性能強</h3>
+<p>主從複製、讀寫分離方案成熟。讀多寫少的場景（博客、電商商品頁）MySQL很穩。</p>
+<h3>2.3 雲服務支持好</h3>
+<p>阿里雲、AWS都有託管MySQL，開箱即用。</p>
+<h2>三、PostgreSQL的優勢</h2>
+<h3>3.1 功能全面</h3>
+<p>JSONB、全文搜索、PostGIS地理空間、pgvector向量檢索、窗口函數、CTE。一個數據庫頂好幾個。</p>
+<h3>3.2 複雜查詢強</h3>
+<p>多表JOIN、子查詢、複雜聚合，PostgreSQL優化器更聰明。</p>
+<h3>3.3 數據完整性</h3>
+<p>約束、事務、外鍵嚴格。金融級數據一致性選PostgreSQL。</p>
+<h2>四、什麼時候選MySQL</h2>
+<p>- 簡單CRUD網站，團隊只會MySQL</p>
+<p>- 讀多寫少，需要讀寫分離</p>
+<p>- 用WordPress/Laravel等默認MySQL的框架</p>
+<p>- 追求部署簡單、招人容易</p>
+<h2>五、什麼時候選PostgreSQL</h2>
+<p>- 需要JSONB存半結構化數據</p>
+<p>- 需要全文搜索、地理位置、向量檢索</p>
+<p>- 複雜查詢和分析</p>
+<p>- 對數據一致性要求高</p>
+<p>- 一個數據庫想搞定多種需求</p>
+<h2>六、性能對比</h2>
+<p>簡單讀寫：MySQL略快。</p>
+<p>複雜查詢：PostgreSQL快。</p>
+<p>JSON操作：PostgreSQL的JSONB比MySQL的JSON強很多。</p>
+<h2>七、2024年趨勢</h2>
+<p>PostgreSQL市佔率持續上升。新項目越來越多選PostgreSQL，因為它功能全，不用再額外裝MongoDB、Elasticsearch。Supabase、Neon都是基於PostgreSQL。</p>
+<h2>八、遷移成本</h2>
+<p>MySQL遷PostgreSQL不是改個連接串。數據類型、SQL方言、自增主鍵都要改。新項目直接選，老項目遷移要評估。</p>
+<h2>九、雲託管對比</h2>
+<p>AWS RDS、阿里雲都同時支持MySQL和PostgreSQL。Neon、Supabase是新興的Serverless PostgreSQL，按用量付費，個人項目免費額度夠用。</p>
+<h2>十、總結</h2>
+<p>簡單網站選MySQL，功能複雜選PostgreSQL。2024年新項目我傾向PostgreSQL——它能覆蓋更多場景，減少技術棧複雜度。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-296.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a><a href="article-301.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a><a href="article-298.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能優化：從加載到交互的全鏈路</a></div>
+</body>
+</html>

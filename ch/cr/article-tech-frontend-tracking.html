@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端埋點與數據採集">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-frontend-tracking.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-frontend-tracking.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-frontend-tracking.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-frontend-tracking.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端埋點與數據採集（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端埋點與數據採集 - CaesarTools">
+<meta property="og:description" content="前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-frontend-tracking.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端埋點與數據採集（2）","description":"前端埋點與數據採集 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-frontend-tracking.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>前端埋點與數據採集（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>前端埋點與數據採集：用數據驅動產品決策</h2>
+<p>產品上線了，用戶怎麼用？點了哪些按鈕？哪個頁面流失多？轉化漏斗哪一步掉了？這些都靠埋點：在關鍵位置插入數據採集代碼，上報用戶行為。</p>
+<p>埋點類型：頁面瀏覽（PV）、事件點擊（按鈕點擊、功能使用）、曝光（元素進入可視區）、性能數據（前面講的Web Vitals）、錯誤信息。</p>
+<p>埋點方式：代碼埋點（在按鈕onClick裡手動寫上報代碼，精確但侵入代碼）、全埋點（SDK自動採集所有點擊和頁面瀏覽，靈活但數據噪音大）、可視化埋點（在後台圈選元素定義事件，不用改代碼）。實際項目通常是代碼埋點+全埋點結合：關鍵業務事件手動埋，普通瀏覽自動採。</p>
+<p>埋點SDK：Google Analytics、神策、GrowingIO、Mixpanel。接入SDK後，配置事件和屬性，數據上報到平臺，在平臺做分析。</p>
+<p>事件設計：每個事件要有明確的名稱和屬性。比如"提交訂單"事件，屬性包括：訂單金額、商品類別、來源頁面。這樣後續才能按維度分析（哪類商品轉化率高）。</p>
+<p>數據上報時機：不要阻塞主流程。埋點數據用navigator.sendBeacon異步發送，頁面關了也能發出去。批量上報（攢幾條一起發）減少網絡請求。</p>
+<p>隱私合規：GDPR、個人信息保護法要求用戶同意才能採集。要有隱私政策、同意選項。敏感數據不要埋（手機號、身份證）。</p>
+<p>埋點是數據驅動產品的基礎。沒有埋點，產品決策靠猜；有了埋點，用數據說話。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-frontend-monitoring.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端監控體系搭建</a><a href="article-tech-message-queue-deep.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息隊列與異步架構</a><a href="article-tech-i18n-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 國際化i18n實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

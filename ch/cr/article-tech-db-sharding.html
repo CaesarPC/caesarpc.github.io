@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="數據庫分庫分表">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-db-sharding.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-db-sharding.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-db-sharding.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-db-sharding.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數據庫分庫分表（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="數據庫分庫分表 - CaesarTools">
+<meta property="og:description" content="數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-db-sharding.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"數據庫分庫分表（2）","description":"數據庫分庫分表 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-db-sharding.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>數據庫分庫分表（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2># 數據庫分庫分表：當單表數據量突破千萬級</h2>
+<p>數據庫是業務系統最核心的組件，也是最容易成為瓶頸的組件。早期項目，一張MySQL表存個幾百萬條數據，加上索引和緩存，跑得好好的。但隨着業務增長，單表數據量突破千萬、甚至上億的時候，你會發現查詢越來越慢、寫入越來越卡、加索引要鎖表半天、備份恢復要十幾個小時。這時候就到了分庫分表的階段。分庫分表不是什麼高深的架構，但它是一個"一旦做了就回不去"的決策——數據拆了之後，跨表查詢、分頁排序、事務一致性全都是問題。所以做之前要想清楚：真的到了必須拆的時候嗎？</p>
+<h2>## 一、什麼時候該拆：不要過早優化</h2>
+<p>很多團隊聽說大廠都在分庫分表，自己項目才幾十萬條數據就急着拆。這完全是過度優化。分庫分錶帶來的複雜度，在數據量小的時候遠遠大於收益。</p>
+<p>單表多大需要拆？經驗值是單表數據量超過千萬級、或者單表文件大小超過幾十GB，並且經過了索引優化、讀寫分離、緩存等手段還是解決不了性能問題，這時候再考慮分表。</p>
+<p>拆之前先確認你已經做過了所有不需要分表就能做的優化：索引是否合理、慢查詢是否已經優化、讀寫是否分離（主庫寫、從庫讀）、熱點數據是否加了緩存。很多時候加個索引、加個緩存就能解決的問題，完全不需要走到分庫分表這一步。</p>
+<h2>## 二、垂直拆分 vs 水平拆分</h2>
+<p>數據庫拆分有兩種方向。垂直拆分是按照業務模塊拆分——把用戶相關的表放到一個庫，訂單相關的表放到另一個庫，商品相關的表再放一個庫。這其實就是微服務在數據層的體現，每個服務有自己獨立的數據庫。垂直拆分的好處是業務解耦，不同模塊的數據庫互相不影響。</p>
+<p>水平拆分是同一張表的數據，按照某種規則分散到多個庫或者多個表裡。比如訂單表有一億條數據，按用戶ID取模，分到16張表裡，每張表大概六百多萬條。水平拆分解決的是單表數據量過大的問題。</p>
+<p>實際項目中通常是先垂直拆分（按業務分庫），再對單表數據量特別大的表做水平拆分（分表）。</p>
+<h2>## 三、分表策略：按什麼規則拆</h2>
+<p>水平拆分的核心是分片鍵（Sharding Key）的選擇——按照哪個字段把數據分散到不同的表上。</p>
+<p>最常見的是取模分片：user_id % N，N是分片數量。同一個用戶的數據永遠落在同一張表裡。好處是數據分佈均勻。缺點是擴容麻煩——從4張表擴到8張表，所有數據的取模結果都變了，需要全部遷移。</p>
+<p>範圍分片：按時間區間或者ID區間分表。比如2025年的訂單放一張表，2026年的訂單放另一張表。好處是擴容簡單——新加一年的表就行，老數據不用動。缺點是熱點問題——新數據都寫在最新的那張表裡，老表沒人訪問，數據分佈不均勻。</p>
+<p>實際項目中，訂單表經常按時間範圍分表（因為訂單天然按時間查詢，新訂單是熱點），用戶表按用戶ID取模（因為用戶數據要均勻分佈）。選分片鍵的原則是：大多數查詢都能帶上這個分片鍵，這樣查詢只需要訪問一張表，不用掃描所有分片。</p>
+<h2>## 四、分表後的麻煩事</h2>
+<p>分表不是把一張表拆成N張表就完事了，它會帶來一系列新問題。</p>
+<p>跨分片查詢是最頭疼的。如果查詢條件不帶分片鍵，比如"查詢所有狀態為已完成的訂單"，這個查詢需要掃描所有分片的表，然後在應用層合併結果。性能比單表差得多。解決辦法是儘量讓查詢都帶分片鍵，或者用冗餘表/搜索引擎做跨分片查詢。</p>
+<p>分佈式ID是第二個問題。單表用自增主鍵就行，分表之後每張表都自增會產生重複ID。需要一個全局唯一ID生成方案。雪花算法（Snowflake）是常用方案——用時間戳+機器ID+序列號生成趨勢遞增的唯一ID。</p>
+<p>跨分片事務是第三個問題。單表一個數據庫事務搞定的事情，分表之後涉及到兩個分片的數據就不能用本地事務了。需要用分佈式事務方案（比如最終一致性+消息隊列），或者在設計上儘量讓一個業務操作只涉及一個分片。</p>
+<h2>## 五、讀寫分離：分表之前的第一步</h2>
+<p>在分表之前，通常先做讀寫分離。主庫負責寫操作，多個從庫負責讀操作。寫操作走主庫，讀操作走從庫，主從之間自動同步數據。</p>
+<p>讀寫分離適合讀多寫少的場景——大部分操作是查詢，寫操作相對少。它的好處是不需要拆表，配置簡單，擴容加從庫就行。但讀寫分離有主從延遲的問題——寫入主庫之後，立刻去從庫讀，可能讀不到剛寫的數據。對於一致性要求高的操作（比如剛下單就查訂單狀態），需要強制走主庫讀。</p>
+<h2>## 六、分庫分表中間件</h2>
+<p>自己寫分庫分表的邏輯很麻煩——路由到哪個表、聚合多個表的結果、處理分佈式ID。很多中間件幫你做了這些事情。</p>
+<p>ShardingSphere是國內最流行的分庫分表中間件。它以代理或者JDBC層的形式介入，對應用透明——你還是寫原來的SQL，中間件自動幫你路由到正確的分片、合併結果。這樣業務代碼幾乎不用改，就實現了分表。</p>
+<p>但中間件不是萬能的。跨分片的join、分佈式事務、複雜子查詢，中間件處理起來都有限制。而且引入中間件本身增加了運維複雜度。很多大公司最終還是選擇在業務層做分片邏輯，雖然代碼侵入性強，但可控性更高。</p>
+<h2>## 七、總結</h2>
+<p>分庫分表是數據庫架構演進的必經之路，但它是一步"過河拆橋"的棋——拆了之後再想合並回來非常困難。所以做之前一定要確認：數據量真的到了瓶頸嗎？所有不拆表的優化手段都試過了嗎？未來的查詢模式是什麼樣的？分片鍵選對了嗎？</p>
+<p>對於大多數中小項目，單表加索引、加緩存、讀寫分離，撐到千萬級數據完全沒問題。不要為了"大廠都這麼做"而過早拆分。但如果你已經到了那個臨界點，瞭解分庫分表的原理和常見坑，能幫你少走很多彎路。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-collaborative-editing.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 實時協同編輯技術解析</a><a href="article-tech-dark-mode.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 暗色模式實現</a><a href="article-tech-elasticsearch-search.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Elasticsearch搜索引擎實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

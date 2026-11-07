@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="CSS_in_JS方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CSS_in_JS方案對比, CSS">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-174.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-174.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-174.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-174.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS_in_JS方案對比 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS_in_JS方案對比 - CaesarTools">
+<meta property="og:description" content="CSS_in_JS方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-174.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS_in_JS方案對比","description":"CSS_in_JS方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-174.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CSS_in_JS方案對比</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>CSS-in-JS方案對比：styled-components、emotion與零運行時方案</p>
+<p>CSS-in-JS是把CSS寫在JavaScript裡的方案。它解決了傳統CSS的全局污染問題，讓組件樣式真正模塊化。主流方案有styled-components、emotion，以及新一代的零運行時方案。</p>
+<p>styled-components是最流行的CSS-in-JS庫。用模板標籤創建組件：const Button = styled.button`padding: 8px 16px; background: blue; color: white;`。然後直接用<Button>。樣式和組件綁定，不會泄漏到全局。支持props動態樣式：${props => props.primary && 'background: red;'}。</p>
+<p>emotion是另一個主流方案，API類似styled-components，但性能更好，支持零運行時模式。它和styled-components功能重疊，選擇哪個看團隊偏好。</p>
+<p>零運行時方案（如Vanilla Extract、Linaria）在構建時把CSS提取成靜態文件，運行時沒有JS開銷。這對性能敏感的場景很重要。它們保留了CSS-in-JS的開發體驗（CSS寫在JS裡），但產物是純CSS。</p>
+<p>CSS Modules是瀏覽器原生支持的方案（構建時處理），不需要運行時庫。它把CSS類名局部化，組件樣式互不污染。這是最輕量的方案，適合不想要CSS-in-JS運行時開銷的項目。</p>
+<p>選擇建議：小項目用CSS Modules（簡單無依賴）；中大型項目用styled-components或emotion（開發體驗好）；性能敏感場景用零運行時方案。CSS-in-JS不是必須的，但它解決了全局CSS污染的真實痛點。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-167.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Web_Components原生組件化</a><a href="article-tech-162.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據脫敏與隱私保護</a><a href="article-tech-169.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript事件循環深入</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-639.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-639.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-639.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-639.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTPS與網站安全實戰 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 HTTPS與網站安全實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="HTTPS與網站安全實戰, 安全, HTTPS">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="HTTPS與網站安全實戰 - CaesarTools">
+<meta property="og:description" content="HTTPS與網站安全實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-639.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"HTTPS與網站安全實戰","description":"← 返回文章列表 HTTPS與網站安全實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-639.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>HTTPS與網站安全實戰</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼必須上HTTPS</h2>
+<p>HTTP是明文傳輸，你登錄網站輸入的密碼，中間經過的每一個路由器都能看到。2024年Chrome和Firefox對所有HTTP網站直接標"不安全"紅色警告，搜索引擎也把HTTPS作為排名信號，支付接口和Cookie的Secure屬性更是強制要求HTTPS。不上HTTPS基本等於沒法做正經網站。</p>
+<h2>二、免費SSL證書怎麼申請</h2>
+<p>Let's Encrypt提供完全免費的SSL證書，三個月有效期，自動續期。用Certbot工具一鍵配置：</p>
+<p>sudo certbot --nginx -d example.com -d www.example.com</p>
+<p>Certbot會自動改Nginx配置文件，自動申請證書，自動配置HTTPS跳轉。跑完就能用。三個月後它自己會續期，不用人管。</p>
+<h2>三、OWASP十大安全風險要防什麼</h2>
+<h3>3.1 SQL注入</h3>
+<p>用戶輸入直接拼SQL字符串："SELECT * FROM users WHERE id = " + req.query.id。攻擊者傳id=1;DROP TABLE users;，你的庫就沒了。解法永遠是參數化查詢：pool.query('SELECT * FROM users WHERE id = $1', [id])。</p>
+<h3>3.2 XSS跨站腳本</h3>
+<p>用戶評論裡寫<script>偷cookie</script>，其他用戶訪問時腳本就在瀏覽器裡跑了。解法：輸出到HTML時轉義特殊字符。React默認轉義，v-html要特別小心。CSP響應頭限制腳本來源。</p>
+<h3>3.3 CSRF跨站請求僞造</h3>
+<p>用戶登錄你的網站，同時訪問惡意網站，惡意網站偷偷發請求到你的後端，帶着用戶Cookie。解法：CSRF Token、SameSite Cookie、驗證Referer頭。</p>
+<h3>3.4 敏感數據泄露</h3>
+<p>密碼絕對不能明文存數據庫。用bcrypt哈希，bcrypt自帶salt，計算慢，抗暴力破解。數據庫被拖庫，攻擊者拿到的也是哈希值。</p>
+<h2>四、安全響應頭</h2>
+<p>Nginx配置加幾個頭，擋住大部分攻擊：</p>
+<p>add_header X-Frame-Options DENY;</p>
+<p>add_header X-Content-Type-Options nosniff;</p>
+<p>add_header Strict-Transport-Security "max-age=31536000";</p>
+<p>add_header Content-Security-Policy "default-src 'self'";</p>
+<p>X-Frame-Options防止別人iframe嵌套你的頁面做點擊劫持。HSTS強制瀏覽器以後都用HTTPS訪問。CSP限制腳本只能從自己域名加載。</p>
+<h2>五、CORS跨域配置</h2>
+<p>不要直接寫Access-Control-Allow-Origin: *。生產環境指定具體域名：</p>
+<p>app.use(cors({</p>
+<p>origin: 'https://example.com',</p>
+<p>credentials: true</p>
+<p>}));</p>
+<h2>六、密鑰管理</h2>
+<p>數據庫密碼、JWT密鑰、第三方API Key不要寫代碼裡。用環境變量：</p>
+<p>DATABASE_URL=postgres://...</p>
+<p>JWT_SECRET=隨機長字符串</p>
+<p>.gitignore文件要把.env排除。一旦密鑰提交到GitHub公開倉庫，立刻刪、換密鑰、改歷史。</p>
+<h2>七、登錄接口防護</h2>
+<p>登錄是攻擊重災區。加三道防線：失敗5次鎖賬號10分鐘；圖形驗證碼或滑塊防爆破；日誌記錄異常IP，批量失敗的IP直接封。JWT有效期設15分鐘，泄露了影響也小。</p>
+<h2>八、依賴安全</h2>
+<p>npm audit掃描已知漏洞。重要項目用lock文件鎖版本。GitHub Dependabot自動提PR修依賴漏洞。</p>
+<h2>九、常見漏項</h2>
+<p>後台管理地址/admin不做IP白名單，被爆破。上傳接口不校驗文件類型，傳個webshell上去。錯誤信息把堆棧返回給用戶，泄露數據庫結構。日誌裡打印密碼。這些都是新手常犯的錯。</p>
+<h2>十、總結</h2>
+<p>網站安全不是一次配置就完事。HTTPS是基礎，SQL注入/XSS/CSRF要從代碼層防，密碼哈希、密鑰管理、安全響應頭、CORS配置一套配齊。安全是持續工程，不是一次性項目。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-643.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS變量與主題切換</a><a href="article-631.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a><a href="article-64.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a></div>
+</body>
+</html>

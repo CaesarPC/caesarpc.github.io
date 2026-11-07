@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="gRPC與高性能RPC框架 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="gRPC與高性能RPC框架">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-137.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-137.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-137.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-137.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gRPC與高性能RPC框架 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="gRPC與高性能RPC框架 - CaesarTools">
+<meta property="og:description" content="gRPC與高性能RPC框架 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-137.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"gRPC與高性能RPC框架","description":"gRPC與高性能RPC框架 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-137.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>gRPC與高性能RPC框架</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>gRPC與高性能RPC框架：服務間調用的新選擇</p>
+<p>微服務之間怎麼調用？最早是HTTP+JSON（REST），簡單但性能一般。gRPC是Google開源的RPC框架，用HTTP/2做傳輸、Protocol Buffers做序列化，性能比REST高很多。</p>
+<p>RPC（遠程過程調用）的思想：調用遠程服務像調用本地函數一樣。你寫userClient.GetUser(123)，底層自動處理網絡通信、序列化、錯誤處理。開發者不用關心HTTP細節。</p>
+<p>gRPC的工作方式：先寫.proto接口定義文件，聲明服務方法、請求和響應的數據結構。用protoc工具生成各語言的客戶端和服務端代碼。服務端實現接口，客戶端用生成的Stub調用。</p>
+<p>gRPC的優勢：性能高（Protobuf二進制序列化比JSON小、快；HTTP/2多路複用）；強類型（.proto就是接口契約，自動生成代碼）；多語言支持（一套定義，Java/Go/Python/C++都能用）；流式調用（支持客戶端流、服務端流、雙向流，適合實時數據）。</p>
+<p>缺點：瀏覽器不能直接調gRPC（需要gRPC-Web代理）；調試不如REST直觀（curl不方便）；學習成本（要學Protobuf語法）。</p>
+<p>適用場景：微服務之間內部調用，追求性能和類型安全，用gRPC很合適。對外提供API給瀏覽器/第三方用，還是REST或GraphQL更友好。</p>
+<p>其他RPC框架：Dubbo（阿里開源，Java生態流行）、Thrift（Facebook開源）。思想類似，都是IDL定義+代碼生成。</p>
+<p>服務間調用的選型：內部高性能調用選gRPC/Dubbo；對外API選REST/GraphQL。根據場景選擇，不是所有地方都上RPC。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-134.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架構詳解</a><a href="article-tech-147.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite構建工具深度解析</a><a href="article-tech-136.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TCP_IP網絡基礎</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

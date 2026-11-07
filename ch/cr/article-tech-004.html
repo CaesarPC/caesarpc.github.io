@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="網絡協議HTTP與HTTPS完全指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="網絡協議HTTP與HTTPS完全指南, HTTPS">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-004.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-004.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-004.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-004.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網絡協議HTTP與HTTPS完全指南 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="網絡協議HTTP與HTTPS完全指南 - CaesarTools">
+<meta property="og:description" content="網絡協議HTTP與HTTPS完全指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-004.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"網絡協議HTTP與HTTPS完全指南","description":"網絡協議HTTP與HTTPS完全指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-004.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>網絡協議HTTP與HTTPS完全指南</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>網絡協議HTTP與HTTPS完全指南：從TCP三次握手到接口安全防護全鏈路解析</p>
+<p>網站的一切交互，本質上都是HTTP請求。瀏覽器加載頁面、前端調用後端接口、APP和服務器通信，都基於HTTP協議。但很多開發者天天寫接口，對HTTP協議的理解卻停留在"GET和POST的區別"這個層面。深入理解HTTP協議的工作原理，尤其是HTTPS的加密機制和常見的接口安全問題，才能寫出真正安全可靠的Web應用。</p>
+<p>HTTP協議是一種無狀態的應用層協議。所謂無狀態，就是服務器不會記錄兩次請求之間的任何關聯。這在早期Web（主要是靜態頁面）時代不是問題，但當Web應用需要登錄狀態、購物車等功能時，無狀態就成了障礙。Cookie機制的引入解決了這個問題：服務器在響應頭裡Set-Cookie，瀏覽器後續請求自動帶上Cookie，服務器就能識別用戶身份了。後來的Session、JWT等身份認證方案，本質上都是在無狀態的HTTP協議之上，構建有狀態的會話管理。</p>
+<p>HTTP方法和狀態碼是協議的基礎。GET用於獲取資源，POST用於創建資源，PUT用於更新資源，DELETE用於刪除資源。RESTful API的設計規範就是基於這些標準方法。狀態碼同樣重要：2xx表示成功，3xx表示重定向，4xx表示客戶端錯誤，5xx表示服務器錯誤。401未認證、403無權限、404資源不存在、500服務器內部錯誤、502網關錯誤、503服務不可用，這些常見狀態碼的含義和使用場景，每個開發者都必須爛熟於心。</p>
+<p>HTTP/1.1的性能瓶頸催生了HTTP/2。HTTP/1.1同一個連接同時只能處理一個請求，後面的請求必須排隊等待，這就是隊頭阻塞。一個網頁往往要加載幾十個資源，串行加載嚴重拖慢速度。HTTP/2引入了多路複用：一個連接上可以同時交錯發送多個請求和響應，二進制分幀層讓不同請求的幀可以混在一起而不混亂。頭部壓縮（HPACK）也減少了重複數據傳輸。服務器推送（Server Push）讓服務器可以主動向客戶端推送資源，不用等客戶端請求。這些改進讓HTTP/2的性能比HTTP/1.1提升數倍。</p>
+<p>HTTPS是HTTP的安全版本，也是現在所有網站的標配。HTTP是明文傳輸，數據在網絡上傳輸時，任何中間節點都可以竊聽甚至篡改。HTTPS在HTTP和TCP之間加了一層TLS加密層。TLS握手過程比較複雜，但核心要理解幾個關鍵點：非對稱加密用於安全交換密鑰，對稱加密用於後續的數據傳輸。服務器有公鑰和私鑰，客戶端用公鑰加密預主密鑰，只有服務器的私鑰能解開。雙方基於預主密鑰生成本次會話的對稱密鑰，之後所有通信都用這個對稱密鑰加密傳輸。數字證書則解決了公鑰的身份認證問題：由受信任的CA機構簽發證書，證明這個公鑰確實屬於這個域名，防止中間人攻擊。</p>
+<p>混合內容是HTTPS網站常見的問題。HTTPS頁面裡如果引用了HTTP的資源（圖片、腳本、樣式），瀏覽器會攔截或警告。因為HTTP資源不加密，存在被篡改的風險。網站從HTTP遷移到HTTPS時，必須把所有內部資源鏈接改成相對路徑或HTTPS路徑，否則就會出現樣式丟失、腳本不加載等問題。</p>
+<p>接口安全是後端開發的重中之重。最常見的攻擊方式是SQL注入：用戶輸入的惡意SQL語句被拼接到查詢中，執行非預期的操作。防禦方法很簡單：永遠不要拼接SQL字符串，使用參數化查詢（預編譯語句），數據庫驅動會自動轉義特殊字符。XSS跨站腳本攻擊則是在頁面中注入惡意JavaScript腳本，竊取用戶Cookie或執行未授權操作。防禦方法是對所有用戶輸入做轉義，輸出到HTML時轉義特殊字符，設置HttpOnly Cookie讓JavaScript無法讀取。</p>
+<p>CSRF跨站請求僞造是另一種常見攻擊。攻擊者誘導已登錄用戶訪問惡意頁面，惡意頁面自動向目標網站發起請求，利用用戶的登錄狀態執行操作。防禦方法包括：驗證Referer頭、使用CSRF Token（表單裡帶一個隨機令牌，服務器驗證）、設置SameSite Cookie屬性。SameSite=Lax或Strict讓Cookie不會在跨站請求中發送，從根源上解決了大部分CSRF問題。</p>
+<p>接口限流和防刷是生產環境必須做的防護。惡意用戶可以寫腳本批量調用接口，刷取數據、消耗服務器資源、甚至進行暴力破解。限流方案包括：基於IP的限流（每個IP單位時間最多N次請求）、基於用戶ID的限流、基於接口維度的限流。漏桶算法和令牌桶算法是兩種經典的限流算法。超出限流閾值的請求直接返回429狀態碼。配合黑名單機制，對異常IP直接封禁。</p>
+<p>身份認證的最佳實踐也在不斷演進。早期的Session-Cookie方案適合傳統Web應用，但在跨端、跨域場景下不夠靈活。JWT（JSON Web Token）將用戶身份信息編碼在Token裡，服務器不需要存儲Session狀態，驗證簽名即可。但JWT也有缺點：Token一旦簽發，在過期前無法撤銷，泄露了風險很大。Access Token + Refresh Token的組合方案是目前的主流：短期有效的Access Token用於接口認證，長期的Refresh Token用於刷新Access Token，平衡了安全性和用戶體驗。</p>
+<p>理解HTTP協議的每一個細節，不是為了應試，而是為了在出問題的時候能定位根因。接口超時了，是網絡層問題還是應用層問題？返回的數據不對，是請求沒發出去還是服務器處理錯了？抓包工具（Charles、Wireshark）配合對協議的理解，才能高效排查問題。網絡協議是Web開發的底層基石，基礎越紮實，遇到複雜問題時越從容。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-97.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-tech-014.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS_BFC塊級格式化上下文</a><a href="article-tech-006.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息隊列與分佈式異步架構實踐</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

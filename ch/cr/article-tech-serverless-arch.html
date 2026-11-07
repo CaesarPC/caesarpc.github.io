@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Serverless架構詳解 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Serverless架構詳解">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-serverless-arch.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-serverless-arch.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-serverless-arch.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-serverless-arch.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serverless架構詳解（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Serverless架構詳解 - CaesarTools">
+<meta property="og:description" content="Serverless架構詳解 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-serverless-arch.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Serverless架構詳解（2）","description":"Serverless架構詳解 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-serverless-arch.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>Serverless架構詳解（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>Serverless架構詳解：不用管理服務器的雲計算新範式</h2>
+<p>傳統的部署模式：買服務器、裝環境、部署應用、運維監控、按需擴容。Serverless把這些都省了：你只寫函數代碼，雲廠商自動分配資源、自動擴縮容、按實際執行時間計費。沒有請求時不佔用資源、不花錢。</p>
+<p>FaaS（Function as a Service，函數即服務）是Serverless的核心。你寫一個函數（處理HTTP請求、處理文件上傳、處理消息隊列消息），上傳到雲平臺。請求到來時平臺自動啟動函數實例執行，執行完釋放。你不需要關心服務器、不需要關心併發——平臺自動處理。</p>
+<p>典型場景：API後端（寫個函數處理HTTP請求）、文件處理（上傳圖片後自動生成縮略圖，函數觸發）、定時任務（每天凌晨跑數據報表）、消息處理（消息隊列有消息觸發函數消費）。</p>
+<p>Serverless的優勢：零運維（不用管服務器）、自動彈性（瞬時一千請求自動起一千個實例，不用手動擴容）、按用量付費（不執行不花錢，適合流量波動大的場景）、上線快（代碼上傳就生效）。</p>
+<p>侷限：冷啟動（實例長時間不用被回收，下次請求要重新啟動，有幾百毫秒延遲，對延遲敏感的場景要處理）；執行時長限制（函數最長執行時間通常幾分鐘，不適合長任務）；本地調試困難（要模擬雲環境）；廠商鎖定（用了AWS Lambda就很難遷到阿里雲）。</p>
+<p>BaaS（Backend as a Service）是Serverless的另一部分：數據庫（Firebase、Supabase）、認證（Auth0）、存儲（對象存儲）、推送，都用雲服務，不用自己寫後端。配合FaaS，可以用很少的代碼搭出完整應用。</p>
+<p>適用判斷：流量波動大、事件驅動、開發節奏快的項目適合Serverless。持續高負載的業務（每秒恆定幾百請求）用Serverless可能比常駐服務器貴，因為要一直保活。</p>
+<p>Serverless不是"沒有服務器"，而是"服務器管理由雲廠商代勞"。開發者專注業務代碼，基礎設施交給雲。這是雲計算的演進方向：從買虛擬機到租函數，粒度越來越細，運維越來越省心。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-typescript.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript類型系統進階</a><a href="article-tech-pwa.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ PWA漸進式Web應用</a><a href="article-tech-stress-test-capacity.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 壓力測試與容量規劃</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

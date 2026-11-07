@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="監控告警系統建設 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="監控告警系統建設">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-115.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-115.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-115.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-115.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>監控告警系統建設 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="監控告警系統建設 - CaesarTools">
+<meta property="og:description" content="監控告警系統建設 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-115.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"監控告警系統建設","description":"監控告警系統建設 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-115.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>監控告警系統建設</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>監控告警系統建設：讓系統出問題時你比用戶先知道</p>
+<p>系統上線只是開始，穩定運行才是挑戰。服務器突然CPU打滿、數據庫連接耗盡、某個接口報錯率飆升、磁盤快滿了——這些問題如果等用戶反饋才知道，損失已經造成。監控告警系統的目標，是在出問題的第一時間發現、通知到人、快速定位。</p>
+<p>監控分為三個層次：基礎設施監控、應用性能監控、業務監控。</p>
+<p>基礎設施監控看的是服務器和運行環境：CPU使用率、內存佔用、磁盤空間、網絡流量、磁盤IO。Prometheus + Grafana是最經典的開源方案。Prometheus採集各項指標，Grafana做可視化大盤。這些指標異常意味着底層資源出問題：CPU高了可能是有死循環、磁盤滿了寫不進數據、內存高了可能有泄漏。</p>
+<p>應用性能監控（APM）看的是應用本身：接口響應時間、錯誤率、吞吐量、慢查詢、外部依賴調用耗時。每個接口P99響應時間多少、哪個接口報錯率最高、數據庫查詢慢在哪一步，這些都要監控。OpenTelemetry是現在的標準，自動埋點採集請求鏈路數據。Jaeger/Zipkin做分佈式鏈路追蹤：一個請求經過多個服務，鏈路追蹤能看到每一步花了多少時間，哪一步慢了一目瞭然。</p>
+<p>日誌是排錯的依據。結構化日誌（JSON格式，帶時間、級別、traceId）集中收集到Elasticsearch或Loki，通過Web界面查詢。錯誤日誌、慢請求日誌、關鍵業務事件日誌，都要記錄。出問題時，通過traceId串聯一次請求經過的所有日誌，快速定位。</p>
+<p>告警規則是監控系統的大腦。採集了數據但不告警，等於白監控。告警要分級：P0級（服務完全不可用）立刻電話通知；P1級（部分功能異常）發企業微信/釘釘；P2級（潛在風險）記錄但不打擾人。告警閾值要合理：太敏感會導致"告警疲勞"（天天響狼來了，真出問題沒人理）；太遲鈍又會漏掉問題。</p>
+<p>告警要有降噪機制：同類告警合併、重複告警抑制、告警收斂。一個數據庫掛了可能引發幾十個相關告警（所有依賴數據庫的服務都報錯），要聚合處理，不要轟炸人。</p>
+<p>業務監控經常被技術團隊忽視但非常重要。技術指標正常不代表業務正常：接口響應200ms很快，但下單成功率掉了一半；頁面訪問量正常，但支付轉化率突然跌了。業務指標監控（訂單量、支付成功率、活躍用戶數）才能反映真實業務健康度。</p>
+<p>值班和On-Call制度配合告警系統：誰在值班，告警就通知誰。值班人員負責響應P0/P1告警，緊急處理。事故復盤是事後改進：出了什麼問題、為什麼沒早發現、怎麼避免再發生。監控系統的完善，是一次次事故堆出來的。</p>
+<p>好的監控系統讓你對系統狀態瞭如指掌：大盤看整體、下鑽看細節、告警及時通知。沒有監控的系統是盲人騎瞎馬，出問題全靠猜。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-123.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF層設計與實踐</a><a href="article-tech-118.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript高級類型編程實戰</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

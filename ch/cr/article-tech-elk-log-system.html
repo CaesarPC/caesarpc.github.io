@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="日誌收集體系ELK">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-elk-log-system.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-elk-log-system.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-elk-log-system.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-elk-log-system.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日誌收集體系ELK（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="日誌收集體系ELK - CaesarTools">
+<meta property="og:description" content="日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-elk-log-system.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"日誌收集體系ELK（2）","description":"日誌收集體系ELK - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-elk-log-system.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>日誌收集體系ELK（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>日誌收集體系ELK：從分散日誌到集中檢索的工程實踐</h2>
+<p>一臺服務器的日誌看 tail 就行，但幾十臺上百臺服務器，日誌分散在各個機器上，出問題要登錄每臺機器翻日誌，效率極低。日誌集中收集體系就是把所有服務的日誌匯聚到一個地方，統一存儲、統一檢索、統一分析。</p>
+<p>ELK是經典方案的縮寫：Elasticsearch（存儲和檢索日誌）、Logstash（日誌收集和處理）、Kibana（日誌可視化查詢界面）。後來Beats（輕量級日誌採集器）替代了重的Logstash做採集，演進為EFLK棧。</p>
+<p>工作流程：每臺服務器上的Filebeat採集日誌文件，發送到Logstash做解析和過濾（提取時間、級別、traceId，過濾無用信息），然後存入Elasticsearch。開發者在Kibana界面搜索日誌：按traceId查一次請求的完整鏈路、按錯誤級別篩錯誤日誌、按時間範圍查。</p>
+<p>結構化日誌是前提。日誌不能是自由文本"用戶登錄成功了"，要是結構化的JSON：{"time":"2026-10-06","level":"INFO","traceId":"abc123","userId":"456","message":"用戶登錄成功"}。這樣才能按字段篩選和聚合。日誌裡帶上traceId，是串聯一次請求經過所有服務日誌的關鍵。</p>
+<p>日誌分級：ERROR（需要立刻處理的錯誤）、WARN（警告，暫時不影響但要關注）、INFO（關鍵業務事件）、DEBUG（調試信息，生產關閉）。合理分級，ERROR日誌才是告警關注的對象。</p>
+<p>日誌保留策略要規劃。日誌量很大（一箇中大型服務每天幾十GB），不能無限存。熱數據（最近7天）存在高性能集群快速查詢；冷數據（超過7天）歸檔到低成本存儲或刪除。設置生命週期自動管理。</p>
+<p>日誌告警是進階能力。ERROR日誌數量突增（比平時多幾倍）自動告警；特定關鍵詞（"OutOfMemory"、"連接拒絕"）出現立刻通知。日誌不只是事後排查工具，也要做實時監控。</p>
+<p>雲廠商也有日誌服務（阿里雲SLS、AWS CloudWatch Logs），不用自己搭ELK，直接把日誌發到雲服務，開箱即用。中小團隊推薦這種託管方案。</p>
+<p>日誌系統是可觀測性三大支柱之一（日誌、指標、鏈路追蹤）。沒有集中日誌，出問題就是盲人摸象；有了日誌體系，排錯效率提升一個量級。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-distributed-lock.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式鎖實現方案</a><a href="article-tech-form-best-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 表單處理最佳實踐</a><a href="article-tech-frontend-authz.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端權限設計</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

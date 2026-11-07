@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端錯誤監控, 前端">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-222.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-222.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-222.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-222.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端錯誤監控 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端錯誤監控 - CaesarTools">
+<meta property="og:description" content="前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-222.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端錯誤監控","description":"前端錯誤監控 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-222.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端錯誤監控</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端錯誤監控：讓線上BUG無所遁形</p>
+<p>你本地測試一切正常，用戶那邊卻報白屏、按鈕點了沒反應。你沒有用戶的操作錄像，不知道他們用的什麼瀏覽器、點了什麼按鈕、報了什麼錯。這種"在我電腦上是好的"困境，靠手動測試永遠解決不了。前端錯誤監控就是把線上真實的錯誤信息收集回來，讓你知道用戶遇到了什麼問題。</p>
+<p>## 一、監控什麼</p>
+<p>前端錯誤監控主要收集三類信息：</p>
+<p>JS運行時錯誤：未捕獲的異常、類型錯誤、空指針。通過window.onerror或者unhandledrejection事件捕獲。</p>
+<p>資源加載錯誤：JS/CSS/圖片加載失敗。通過error事件捕獲（注意資源加載錯誤不冒泡，要用捕獲階段）。</p>
+<p>接口請求錯誤：fetch或XHR請求返回4xx/5xx。封裝請求庫時攔截錯誤上報。</p>
+<p>每條錯誤記錄：錯誤信息、錯誤堆棧、用戶瀏覽器版本、操作系統、發生時間、用戶當前頁面URL。有了這些，你才能復現和定位問題。</p>
+<p>## 二、怎麼上報</p>
+<p>捕獲到錯誤後，把信息發送到後端收集服務器。用navigator.sendBeacon發送——它是異步的、不阻塞頁面卸載的，特別適合在頁面關閉時發數據。不要用fetch同步發，可能頁面已經關了請求還沒發出去。</p>
+<p>上報接口本身也要容錯——上報失敗了不要影響用戶體驗，靜默失敗就行。</p>
+<p>## 三、Source Map：壓縮後的代碼怎麼調試</p>
+<p>線上代碼經過壓縮混淆，變量名變成了a、b、c，錯誤堆棧裡的行號列號對應的是壓縮後的代碼，根本沒法讀。解決辦法是Source Map——構建工具生成一個映射文件，記錄壓縮後的位置對應原始代碼的位置。把Source Map上傳到錯誤監控平臺，它會自動把壓縮後的錯誤堆棧還原成原始代碼的位置。</p>
+<p>注意：Source Map不要部署到公網——它等於把源代碼公開了。上傳到監控平臺的私有存儲就行。</p>
+<p>## 四、Sentry：最流行的錯誤監控平臺</p>
+<p>Sentry是開源的錯誤監控工具，前後端都支持。你在前端集成Sentry SDK，它自動捕獲錯誤、記錄堆棧、還原Source Map、聚合相似錯誤、通知你。界面上能看到每條錯誤影響了多少用戶、發生頻率、用戶環境分佈。</p>
+<p>對於個人項目，Sentry免費版夠用。企業可以自建Sentry服務。</p>
+<p>## 五、性能監控</p>
+<p>除了錯誤，還能監控性能指標：頁面加載時間、首屏渲染時間、接口響應時間。這些數據匯聚起來，你就知道哪些頁面慢、哪些接口慢，有針對性地優化。</p>
+<p>## 六、總結</p>
+<p>前端錯誤監控不是可選項——只要你的產品有真實用戶，就需要它。本地測試覆蓋不了所有瀏覽器和場景，用戶的真實錯誤信息是最寶貴的反饋。集成Sentry這樣的工具，半小時搞定，以後線上出問題你能第一時間知道，而不是等用戶來罵。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-212.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Nginx反向代理與負載均衡</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 圖片優化</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-414.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-414.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-414.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-414.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端錯誤監控實戰（29） - CaesarTools</title>
+<meta name="description" content="前端錯誤監控實戰 - CaesarBase 免費技術文章">
+<meta name="keywords" content="前端錯誤監控實戰, 前端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端錯誤監控實戰 - CaesarTools">
+<meta property="og:description" content="前端錯誤監控實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-414.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端錯誤監控實戰（29）","description":"前端錯誤監控實戰 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-414.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端錯誤監控實戰（29）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、前端為什麼要監控</h2>
+<p>你不知道用戶那邊出了什麼錯。用戶說"網頁點不了"，你看自己電腦好好的。前端錯誤監控把線上錯誤收集起來，帶堆棧、用戶操作、瀏覽器信息。</p>
+<h2>二、採集哪些錯誤</h2>
+<p>JS運行時錯誤：window.onerror</p>
+<p>未處理Promise：unhandledrejection</p>
+<p>資源加載錯誤：error事件</p>
+<p>接口錯誤：攔截fetch</p>
+<h2>三、上報到後端</h2>
+<p>window.onerror = (msg, url, line, col, error) => {</p>
+<p>fetch('/log', {</p>
+<p>method: 'POST',</p>
+<p>body: JSON.stringify({ msg, url, line, stack: error?.stack })</p>
+<p>});</p>
+<p>};</p>
+<h2>四、Source Map</h2>
+<p>壓縮後代碼變量名變了，堆棧看不懂。Source Map映射回源碼。生產要上傳Source Map到監控平臺。</p>
+<h2>五、常見監控服務</h2>
+<p>Sentry開源免費。阿里雲ARMS。騰訊前端監控。</p>
+<h2>六、常見坑</h2>
+<p>上報本身失敗不要影響業務。採樣上報，不用全量。Source Map不要公開暴露。</p>
+<h2>七、總結</h2>
+<p>前端錯誤監控把線上問題帶回開發電腦。Sentry開箱即用。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-413.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-405.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-417.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a></div>
+</body>
+</html>

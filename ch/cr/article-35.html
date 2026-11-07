@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-35.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-35.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-35.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-35.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TypeScript從入門到實戰 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 TypeScript從入門到實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="TypeScript從入門到實戰">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="TypeScript從入門到實戰 - CaesarTools">
+<meta property="og:description" content="TypeScript從入門到實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-35.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"TypeScript從入門到實戰","description":"← 返回文章列表 TypeScript從入門到實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-35.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>TypeScript從入門到實戰</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼要用TypeScript</h2>
+<p>JavaScript是動態類型語言，沒有編譯期檢查。你寫了一個函數，傳參時傳錯類型，代碼跑到一半才報undefined is not a function。而且編輯器沒有類型提示，打一半不知道對象有哪些屬性，全靠記憶和文檔。</p>
+<p>TypeScript在JS之上加了一層靜態類型系統。寫代碼時編輯器實時告訴你這裡應該傳什麼類型，編譯時把所有類型錯誤抓出來，最後編譯成普通JS跑在瀏覽器和Node上。2024年React和Vue官方新項目默認用TS，大型公司招前端JD上基本都要求TS。學它不是選擇題，是必做題。</p>
+<h2>二、基本類型註解</h2>
+<p>let name: string = "小明";</p>
+<p>let age: number = 12;</p>
+<p>let isActive: boolean = true;</p>
+<p>let hobbies: string[] = ["投球", "笛子"];</p>
+<p>let nothing: null = null;</p>
+<p>聯合類型表示一個值可以是幾種類型之一：</p>
+<p>let id: string | number;</p>
+<p>id = "abc";</p>
+<p>id = 123;</p>
+<p>類型別名：</p>
+<p>type ID = string | number;</p>
+<p>let uid: ID;</p>
+<h2>三、接口和類型</h2>
+<p>interface User {</p>
+<p>id: number;</p>
+<p>name: string;</p>
+<p>email?: string; // 可選屬性</p>
+<p>readonly createdAt: Date; // 只讀</p>
+<p>}</p>
+<p>function createUser(name: string): User {</p>
+<p>return {</p>
+<p>id: 1,</p>
+<p>name,</p>
+<p>createdAt: new Date()</p>
+<p>};</p>
+<p>}</p>
+<p>interface可以擴展：</p>
+<p>interface Admin extends User {</p>
+<p>permissions: string[];</p>
+<p>}</p>
+<p>type和interface區別：type能定義聯合類型和交叉類型，interface能繼承和聲明合併。實際項目大部分場景兩個都行。</p>
+<h2>四、函數類型</h2>
+<p>函數參數和返回值都要標類型：</p>
+<p>function add(a: number, b: number): number {</p>
+<p>return a + b;</p>
+<p>}</p>
+<p>函數類型本身：</p>
+<p>type AddFn = (a: number, b: number) => number;</p>
+<p>回調函數：</p>
+<p>function fetchUser(id: number, callback: (user: User) => void): void {</p>
+<p>// ...</p>
+<p>}</p>
+<h2>五、泛型</h2>
+<p>泛型讓函數可以處理多種類型同時保持類型安全：</p>
+<p>function first<T>(arr: T[]): T | undefined {</p>
+<p>return arr[0];</p>
+<p>}</p>
+<p>const n = first<number>([1, 2, 3]); // n是number</p>
+<p>泛型在React的useState、API響應數據裡到處用：</p>
+<p>const [user, setUser] = useState<User | null>(null);</p>
+<h2>六、從JS遷移到TS</h2>
+<p>老項目遷移不要一步到位。分步驟：先tsc --init開strict，把新寫的模塊用TS，老JS文件保留。用// @ts-check在JS文件裡獲得類型提示漸進遷移。不要一上來就寫any，any等於沒寫類型。</p>
+<h2>七、常見坑</h2>
+<p>坑1：濫用any。一時爽，類型檢查形同虛設。用unknown代替，它是類型安全的any。</p>
+<p>坑2：類型斷言as。先判斷再斷言，不要直接as User。</p>
+<p>坑3：開了strictNullChecks，所有可能為null的值要寫判空。</p>
+<p>坑4：第三方庫沒類型聲明，裝@types/xxx，或者自己寫d.ts。</p>
+<h2>八、工具類型</h2>
+<p>Partial<User>所有屬性變可選。</p>
+<p>Required<User>所有屬性必填。</p>
+<p>Pick<User, "id" | "name">選幾個屬性。</p>
+<p>Omit<User, "email">排除某個屬性。</p>
+<h2>九、總結</h2>
+<p>TS是JS的超集，加了靜態類型。從基本類型、接口、函數、泛型開始學，開strict模式，漸進遷移老項目。它會讓你寫代碼慢一點，但bug少一半，長期省時間。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-358.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-359.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-340.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a></div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="DDD領域驅動設計入門">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-ddd-intro.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-ddd-intro.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-ddd-intro.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-ddd-intro.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DDD領域驅動設計入門（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="DDD領域驅動設計入門 - CaesarTools">
+<meta property="og:description" content="DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-ddd-intro.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"DDD領域驅動設計入門（2）","description":"DDD領域驅動設計入門 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-ddd-intro.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>DDD領域驅動設計入門（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>DDD領域驅動設計入門：讓代碼結構匹配業務複雜度</h2>
+<p>業務複雜的系統，代碼寫成一團：一個Service幾千行，什麼業務邏輯都往裡塞，改一個功能怕動到其他地方。DDD（Domain-Driven Design，領域驅動設計）是一套應對複雜業務的方法論：讓代碼結構反映業務領域，業務邏輯集中在"領域層"，和技術細節分離。</p>
+<p>DDD的核心概念是領域。電商系統的領域是"訂單、商品、庫存、支付"；醫院系統的領域是"患者、掛號、診斷、處方"。每個領域有自己的模型和業務規則。</p>
+<p>實體（Entity）是有唯一標識的領域對象。訂單有訂單ID，訂單ID不變就是同一個訂單，哪怕內容改了。值對象（Value Object）沒有標識，靠屬性值判斷相等。地址、金額都是值對象——兩個地址屬性完全一樣就是同一個地址，不需要單獨標識。</p>
+<p>聚合（Aggregate）是一組相關對象的集合，作為一致性邊界。訂單聚合包括訂單、訂單項，它們一起保證業務規則（訂單總金額=訂單項之和）。外部只操作聚合根（訂單），不直接操作內部對象。</p>
+<p>領域服務處理不屬於單個實體的業務邏輯。比如"轉賬"涉及兩個賬戶，放在哪個實體裡都不合適，就用領域服務。</p>
+<p>領域層是核心：包含所有業務規則，不依賴數據庫、不依賴API，純業務邏輯。基礎設施層（數據庫、外部API）在外面，通過接口被領域層依賴。這樣業務邏輯獨立，測試容易，技術換了業務邏輯不用改。</p>
+<p>限界上下文（Bounded Context）劃分領域邊界。"商品"在營銷上下文裡是"促銷品"，在庫存上下文裡是"SKU"，在物流上下文裡是"包裹"。同一個詞在不同上下文有不同含義，分開建模，不要強行統一。</p>
+<p>DDD不是萬能的。簡單CRUD系統用DDD是殺雞用牛刀，過度設計。它適合業務邏輯複雜、領域知識豐富的中大型系統。判斷標準：業務規則是不是很多很複雜？代碼是不是已經難維護？是就考慮DDD。</p>
+<p>DDD是思維方式，不是具體框架。它幫助團隊建立統一的業務語言（和產品經理用同樣的詞），讓代碼結構和業務對齊。這是應對複雜業務的重要方法論。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-file-upload-chunk.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a><a href="article-tech-db-sharding.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫分庫分表</a><a href="article-tech-code-standard.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 團隊代碼規範與工程協作</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

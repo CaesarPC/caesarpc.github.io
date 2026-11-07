@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-67.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-67.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-67.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-67.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>數據庫事務：ACID和隔離級別 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 數據庫事務：ACID和隔離級別 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="數據庫事務, ACID和隔離級別, 數據庫">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="數據庫事務：ACID和隔離級別 - CaesarTools">
+<meta property="og:description" content="數據庫事務：ACID和隔離級別 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-67.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"數據庫事務：ACID和隔離級別","description":"← 返回文章列表 數據庫事務：ACID和隔離級別 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-67.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>數據庫事務：ACID和隔離級別</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、事務是什麼</h2>
+<p>一組操作要麼全成功，要麼全失敗。轉賬：A扣100，B加100。中間斷電，錢不能少。</p>
+<p>BEGIN;</p>
+<p>UPDATE accounts SET balance=balance-100 WHERE id=1;</p>
+<p>UPDATE accounts SET balance=balance+100 WHERE id=2;</p>
+<p>COMMIT;</p>
+<p>任何一步錯了ROLLBACK，數據回滾。</p>
+<h2>二、ACID</h2>
+<p>原子性Atomicity：事務不可分割，全成功或全失敗。</p>
+<p>一致性Consistency：事務前後數據一致。</p>
+<p>隔離性Isolation：併發事務互不干擾。</p>
+<p>持久性Durability：提交後永久保存。</p>
+<h2>三、併發問題</h2>
+<p>髒讀：讀到別的事務未提交的數據。</p>
+<p>不可重複讀：同一事務內兩次讀同一行，結果不同（別的事務改了）。</p>
+<p>幻讀：同一查詢兩次，結果集行數不同（別的事務插入了）。</p>
+<h2>四、隔離級別</h2>
+<p>讀未提交Read Uncommitted：啥都不防。</p>
+<p>讀已提交Read Committed：防髒讀。PostgreSQL默認。</p>
+<p>可重複讀Repeatable Read：防髒讀+不可重複讀。MySQL默認。</p>
+<p>串行化Serializable：全防，但最慢。</p>
+<h2>五、生產怎麼選</h2>
+<p>大多數場景用數據庫默認級別。金融級別用串行化。不要自己設，知道默認行為就行。</p>
+<h2>六、長事務問題</h2>
+<p>事務開着不commit，鎖不釋放，其他查詢卡住。事務要短，不要在事務裡發HTTP請求、讀文件。</p>
+<h2>七、死鎖</h2>
+<p>兩個事務互相等對方的鎖。要按固定順序訪問表，避免死鎖。</p>
+<h2>八、事務和業務</h2>
+<p>訂單創建+扣庫存+發通知，這三步要事務嗎？通知發MQ異步，不在事務裡。事務只包含數據庫操作。</p>
+<h2>九、總結</h2>
+<p>事務保證數據一致性。ACID是四大特性，隔離級別控制併發問題。事務要短，按順序訪問避免死鎖。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-674.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a><a href="article-666.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-670.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a></div>
+</body>
+</html>

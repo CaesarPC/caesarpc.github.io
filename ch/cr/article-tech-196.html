@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="TypeScript類型系統進階 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="TypeScript類型系統進階">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-196.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-196.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-196.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-196.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TypeScript類型系統進階 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="TypeScript類型系統進階 - CaesarTools">
+<meta property="og:description" content="TypeScript類型系統進階 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-196.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"TypeScript類型系統進階","description":"TypeScript類型系統進階 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-196.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>TypeScript類型系統進階</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># TypeScript類型系統：從any到類型體操的進階之路</p>
+<p>JavaScript是一門動態類型語言——變量可以隨便賦值，今天是數字明天變成字符串，運行時才會發現類型不匹配。這種靈活性讓JS寫起來很快，但項目一大就痛苦了：改了一個字段名，調用處全崩，IDE也不會提前告訴你。TypeScript通過在JS外面加一層靜態類型系統，在開發階段就幫你抓住類型錯誤。很多人剛開始寫TS覺得麻煩——到處寫類型註解，比JS囉嗦多了。但一旦項目超過幾千行，你就會體會到類型系統帶來的安全感：重構的時候編譯器幫你兜底，IDE補全精準到字段，讀代碼的時候類型本身就是最好的文檔。</p>
+<p>## 一、基礎類型：從標註開始</p>
+<p>TypeScript最基礎的用法就是給變量、函數參數、返回值加類型註解。let count: number = 1; function add(a: number, b: number): number { return a + b; }。這樣你要是不小心傳了字符串進去，編輯器立刻標紅告訴你類型不對，不用等到運行時才報錯。</p>
+<p>基礎類型包括number、string、boolean、array、object這些。數組的類型寫法是number[]或者Array<number>。對象類型可以用接口（interface）或者類型別名（type）來定義：interface User { id: number; name: string; }。</p>
+<p>剛開始寫TS，最容易犯的錯就是到處用any。any相當於關閉了類型檢查，跟寫JS沒區別。很多人圖省事，接口返回的數據直接標any，那TS的好處就完全沒享受到。要養成習慣：哪怕類型寫得麻煩一點，也不要隨便用any。</p>
+<p>## 二、接口與類型別名：定義你的數據結構</p>
+<p>interface和type都可以用來定義對象的形狀，大部分場景下可以互換。但它們有幾個關鍵區別。</p>
+<p>interface支持聲明合併——同名的interface會自動合併成一個。這在擴展第三方庫類型的時候特別有用。type不支持合併，定義了就是定義了。</p>
+<p>interface更適合描述對象和類的結構。type更靈活，可以定義聯合類型、交叉類型、基本類型別名、元組等。實際項目中，描述API返回的數據結構、組件的Props，用interface居多；做類型運算和靈活組合的時候用type。</p>
+<p>一個好習慣是：把所有API接口的請求和響應類型都定義好，放在單獨的types文件裡。這樣前端調用接口的時候，返回值的類型是完整的，IDE能自動補全字段，不用翻文檔。後端改了字段名，前端編譯階段就會報錯。</p>
+<p>## 三、聯合類型與窄化：讓類型更精確</p>
+<p>聯合類型表示一個值可以是幾種類型之一。function printId(id: number | string) { ... }。這個函數接受數字或者字符串都行。但函數內部如果直接調用id.toUpperCase()就會報錯——因為number沒有toUpperCase方法。</p>
+<p>這時候就需要類型窄化（Narrowing）：通過if判斷把聯合類型收窄成具體類型。if (typeof id === 'string') { id.toUpperCase() }，在這個分支裡TS知道id是string類型，可以安全地調用字符串方法。這種自動窄化是TS類型系統的精妙之處——你寫普通的JS判斷代碼，TS自動幫你推斷出類型收窄後的結果。</p>
+<p>字面量類型也是聯合類型的一種應用。type Status = 'pending' | 'success' | 'error'。狀態只能是這三個值之一，寫錯了字符串TS會立刻報錯。比用字符串常量安全得多。</p>
+<p>## 四、泛型：類型層面的函數</p>
+<p>泛型是TS進階的核心概念。想象你要寫一個identity函數：function identity<T>(arg: T): T { return arg; }。這個函數接收一個參數，返回和參數同樣類型的值。T是一個類型參數，調用的時候根據傳入的值自動推斷T是什麼類型。</p>
+<p>泛型的價值在於：寫一段通用邏輯，同時保持類型安全。比如一個API請求函數：function fetchData<T>(url: string): Promise<T> { ... }。調用的時候指定T是User類型，返回的Promise就是Promise<User>，自動獲得User的類型補全。</p>
+<p>在實際項目中，泛型最常見的用途是封裝通用組件和工具函數。比如一個通用的列表組件，不同頁面傳不同的數據類型進來，組件內部照樣能正確提示每個item的字段。沒有泛型的話，你只能用any或者為每種數據類型寫一個組件。</p>
+<p>## 五、工具類型：類型體操的基礎</p>
+<p>TS內置了一堆工具類型，幫你快速地從已有類型派生新類型。</p>
+<p>Partial<T>把T的所有屬性變成可選。Required<T>反過來，全部變成必填。Pick<T, K>從T中挑幾個屬性組成新類型。Omit<T, K>從T中排除幾個屬性。Record<K, V>構造一個鍵為K、值為V的對象類型。</p>
+<p>舉個實際例子：你已經定義了完整的User類型。現在要寫一個更新用戶信息的接口，請求體裡不需要傳id（因為已經在URL裡了），其他字段都是可選的。你可以這樣寫：type UpdateUserRequest = Partial<Omit<User, 'id'>>。一行代碼就派生出了新類型，不用重新寫一遍所有字段。</p>
+<p>這些工具類型組合起來非常強大。熟練使用它們，可以避免重複定義類型，讓類型定義保持DRY（Don't Repeat Yourself）。</p>
+<p>## 六、類型守衛與自定義類型保護</p>
+<p>有時候你需要判斷一個值是不是某種類型，TS自帶的typeof和instanceof不夠用。這時候可以寫自定義類型守衛函數：function isUser(obj: any): obj is User { return obj && obj.id !== undefined && obj.name !== undefined; }。</p>
+<p>調用這個函數做判斷之後，TS會自動把obj的類型收窄成User。這種模式在處理API返回數據、解析JSON的時候特別有用——你不知道拿到的對象是不是符合預期的結構，寫一個類型守衛驗證一下，後續代碼就可以安全地訪問字段了。</p>
+<p>## 七、unknown vs any：更安全的選擇</p>
+<p>很多人用any，但TS提供了一個更安全的選擇：unknown。unknown表示"我現在不知道它是什麼類型"。和any的區別是：你不能直接對unknown類型的值做任何操作——不能調用方法、不能訪問屬性，必須先做類型收窄。</p>
+<p>這在處理外部輸入的時候特別有用。比如JSON.parse返回的是any，你不知道解析出來的是什麼。更安全的做法是標註成unknown，然後寫類型守衛驗證結構。這樣就不會因為直接假設數據結構而出錯。</p>
+<p>## 八、總結</p>
+<p>TypeScript的類型系統不是一天就能精通的。初學者先掌握基本類型、接口、聯合類型，能寫出類型安全的業務代碼就夠了。隨着項目複雜度提升，再慢慢學習泛型、工具類型、類型體操這些高級特性。</p>
+<p>學習TS最大的誤區是把它當成"帶類型的JavaScript"，只是在JS代碼上到處加類型註解。真正用好TS，是把類型系統當成設計工具——先想清楚數據長什麼樣、函數接收什麼返回什麼，用類型把這些約束表達出來。好的類型定義本身就是文檔，它告訴你這個函數能處理什麼、不能處理什麼。編譯器成了你的結對編程夥伴，幫你抓住低級錯誤，讓重構變得大膽。類型系統不是負擔，是你代碼質量的保險。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-194.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 寫在最後</a><a href="article-tech-187.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端框架演進史</a><a href="article-tech-188.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 測試驅動開發與代碼質量</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

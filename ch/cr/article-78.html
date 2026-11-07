@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-78.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-78.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-78.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-78.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端安全：XSS、CSRF和點擊劫持（2） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 前端安全：XSS、CSRF和點擊劫持 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="前端安全, XSS, CSRF和點擊劫持, 前端, 安全">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端安全：XSS、CSRF和點擊劫持 - CaesarTools">
+<meta property="og:description" content="前端安全：XSS、CSRF和點擊劫持 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-78.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端安全：XSS、CSRF和點擊劫持（2）","description":"← 返回文章列表 前端安全：XSS、CSRF和點擊劫持 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-78.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端安全：XSS、CSRF和點擊劫持（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、XSS跨站腳本</h2>
+<p>用戶評論裡寫<script>偷cookie</script>，其他用戶訪問時腳本執行。</p>
+<p>防禦：輸出到HTML時轉義特殊字符。React默認轉義。v-html要小心。CSP頭限制腳本來源。</p>
+<h2>二、CSRF跨站請求僞造</h2>
+<p>用戶登錄你的網站，同時訪問惡意網站，惡意網站偷偷發請求到你的後端，帶着用戶Cookie。</p>
+<p>防禦：SameSite Cookie、CSRF Token、驗證Referer。</p>
+<h2>三、點擊劫持</h2>
+<p>惡意網站iframe嵌套你的頁面，用戶點按鈕其實點到你的頁面。</p>
+<p>防禦：X-Frame-Options: DENY。CSP frame-ancestors。</p>
+<h2>四、SQL注入</h2>
+<p>用戶輸入拼SQL："SELECT * FROM users WHERE id=" + req.query.id。傳id=1;DROP TABLE。</p>
+<p>防禦：參數化查詢，不拼接字符串。ORM默認安全。</p>
+<h2>五、敏感數據</h2>
+<p>密碼bcrypt哈希，不明文存。JWT密鑰用長隨機串。數據庫密碼不放代碼裡，用環境變量。</p>
+<h2>六、依賴安全</h2>
+<p>npm audit掃已知漏洞。重要項目鎖版本。GitHub Dependabot自動修。</p>
+<h2>七、常見漏項</h2>
+<p>後台地址不做IP白名單被爆破。</p>
+<p>上傳接口不校驗文件類型，傳webshell。</p>
+<p>錯誤信息返回堆棧，泄露數據庫結構。</p>
+<p>日誌打印密碼。</p>
+<h2>八、登錄防護</h2>
+<p>登錄接口失敗5次鎖賬號10分鐘。加驗證碼防爆破。日誌記錄異常IP。JWT有效期短15分鐘，泄露影響小。</p>
+<h2>九、總結</h2>
+<p>前端安全不是一次配置。XSS轉義、CSRF Token、CSP頭、SQL參數化、密碼哈希。安全是持續工程。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-738.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket實時通信實戰</a><a href="article-734.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis緩存實戰</a><a href="article-81.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a></div>
+</body>
+</html>

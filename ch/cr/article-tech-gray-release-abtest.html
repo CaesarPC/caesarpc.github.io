@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="灰度發佈與AB測試">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-gray-release-abtest.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-gray-release-abtest.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-gray-release-abtest.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-gray-release-abtest.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灰度發佈與AB測試（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="灰度發佈與AB測試 - CaesarTools">
+<meta property="og:description" content="灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-gray-release-abtest.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"灰度發佈與AB測試（2）","description":"灰度發佈與AB測試 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-gray-release-abtest.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>灰度發佈與AB測試（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>灰度發佈與A/B測試：安全上線和數據驅動決策</h2>
+<p>新版本直接全量上線，萬一有Bug，所有用戶都受影響。灰度發佈（金絲雀發佈）讓新版本先給一小部分用戶用，沒問題再逐步擴大。A/B測試則是同時給兩組用戶看不同版本，用數據判斷哪個版本更好。</p>
+<p>灰度發佈的流程：新版本部署，先切1%流量到新版本；觀察監控（錯誤率、性能、業務指標）沒問題；逐步擴大到10%、50%、100%。任何階段發現問題，立刻切回舊版本，影響範圍小。</p>
+<p>實現方式：Nginx/網關按比例分流；按用戶ID哈希分流（同一用戶總是看到同一版本，不會混亂）；按地域分流（先在一個城市試）。K8s的滾動更新、Istio的流量管理都支持灰度。</p>
+<p>灰度發佈是工程實踐，目的是安全上線。A/B測試是產品實驗，目的是用數據做決策。</p>
+<p>A/B測試：把用戶隨機分成兩組，A組看舊版本，B組看新版本（新按鈕顏色、新文案、新推薦算法）。一段時間後比較兩組的指標（點擊率、轉化率、留存），統計顯著的差異說明新版本更好。</p>
+<p>A/B測試的關鍵：隨機分組（保證兩組用戶特徵一致）、足夠樣本量（太少數據不顯著）、單一變量（一次只測一個改動，不然不知道是什麼導致差異）、跑足夠長時間（覆蓋一週週期）。</p>
+<p>灰度和A/B經常結合：先灰度發佈新版本觀察穩定性，同時在灰度流量裡做A/B測試驗證效果。</p>
+<p>特性開關（Feature Flag）是灰度的技術基礎。新功能代碼部署了，但默認關閉，通過開關控制哪些用戶能看到。這樣部署和發佈解耦：代碼隨時部署，功能按需開啟。出問題關開關就行，不用回滾代碼。</p>
+<p>灰度發佈和A/B測試是成熟團隊的標誌。它們讓上線不再是"賭一把"，而是可控、可回退、數據驅動的過程。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-ml-training.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 機器學習模型訓練全流程</a><a href="article-tech-monorepo.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Monorepo多包管理</a><a href="article-tech-file-upload-chunk.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Elasticsearch搜索引擎實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Elasticsearch搜索引擎實戰">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-128.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-128.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-128.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-128.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elasticsearch搜索引擎實戰 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Elasticsearch搜索引擎實戰 - CaesarTools">
+<meta property="og:description" content="Elasticsearch搜索引擎實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-128.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Elasticsearch搜索引擎實戰","description":"Elasticsearch搜索引擎實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-128.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>Elasticsearch搜索引擎實戰</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>Elasticsearch搜索引擎實戰：從模糊查詢到全文檢索的技術升級</p>
+<p>數據庫的LIKE '%關鍵詞%'查詢性能差、功能弱（不支持分詞、相關性排序、中文分詞麻煩）。當需要做搜索功能（商品搜索、文章搜索、日誌查詢），就該上專門的搜索引擎。Elasticsearch是最流行的開源搜索引擎。</p>
+<p>Elasticsearch的核心是倒排索引。傳統索引是"文檔→詞"，倒排索引是"詞→哪些文檔包含這個詞"。搜索時根據關鍵詞直接找到包含它的文檔，速度極快。這和數據庫的B+樹索引不同，ES是為全文搜索設計的。</p>
+<p>基本概念：Index（索引，相當於數據庫）、Type（已廢棄）、Document（文檔，相當於行）、Field（字段）。數據以JSON文檔形式存入ES。寫入文檔時，ES自動分詞建立倒排索引。</p>
+<p>中文分詞是關鍵。英文按空格分詞，中文要專門的分詞器。IK分詞器支持中文細粒度和粗粒度分詞，是中文搜索的標配。配置好分詞器，"南京市長江大橋"才能正確分成"南京市/長江大橋"而不是"南京市長/江大橋"。</p>
+<p>搜索能力：全文檢索（關鍵詞匹配）、多字段搜索（同時搜標題和內容）、過濾（分類、價格範圍）、排序（按相關度、時間）、聚合統計（按類別分組統計數量）。這些組合起來，能實現電商網站那種複雜搜索：按關鍵詞搜、按價格篩選、按分類過濾、按銷量排序。</p>
+<p>數據同步是ES和數據庫配合的核心問題。數據存在MySQL，搜索用ES，兩邊數據要保持同步。方案：雙寫（業務代碼同時寫MySQL和ES，但不一致風險高）；_binlog同步（Canal監聽MySQL binlog，自動同步到ES，推薦方案）；消息隊列異步同步（數據庫變更發MQ，消費者更新ES）。</p>
+<p>ES不適合做事務查詢和精準統計（它是最終一致，不適合強事務）。它的定位是搜索引擎，不是主數據庫。主數據在MySQL，ES做索引副本，查詢從ES走。</p>
+<p>實際應用場景：電商商品搜索、站內文章搜索、日誌檢索（ELK棧的L就是Logstash收集日誌到ES，Kibana查詢）、企業內部搜索。</p>
+<p>性能注意：ES是內存密集型，JVM堆內存要合理配置；分片數規劃好（太多小分片浪費，太少大分片難遷移）；不用的索引定期刪除或歸檔。</p>
+<p>搜索引擎是網站從"能看"到"好用"的關鍵組件。好的搜索體驗讓用戶快速找到想要的內容，ES是實現這一點的標準工具。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-127.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 讀寫分離與數據庫高可用</a><a href="article-tech-122.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服務端渲染SSR與同構應用</a><a href="article-tech-135.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CDN原理與優化</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

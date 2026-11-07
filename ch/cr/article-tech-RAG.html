@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="大語言模型微調與RAG檢索增強實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="大語言模型微調與RAG檢索增強實戰">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-RAG.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-RAG.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-RAG.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-RAG.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大語言模型微調與RAG檢索增強實戰（2） - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:26px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15.5px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+/* 模块小标题：左侧绿色竖杠 */
+.section{margin:32px 0 16px 0;padding:12px 0 12px 16px;border-left:4px solid #50fa7b}
+.section h2{font-size:18px;color:#50fa7b;margin:0 0 4px 0;font-weight:600;line-height:1.4}
+.section p{font-size:13px;color:#6272a4;margin:0;text-indent:0;line-height:1.5}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="大語言模型微調與RAG檢索增強實戰 - CaesarTools">
+<meta property="og:description" content="大語言模型微調與RAG檢索增強實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-RAG.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"大語言模型微調與RAG檢索增強實戰（2）","description":"大語言模型微調與RAG檢索增強實戰 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-RAG.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>大語言模型微調與RAG檢索增強實戰（2）</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>大語言模型微調與RAG檢索增強實戰：讓通用大模型適配垂直業務的技術路徑</p>
+<p>通用大模型如GPT、Claude、通義千問等，知識廣博、能力全面，但它們不是為你的業務量身定製的。企業內部的產品文檔、客服話術、業務規則，大模型訓練時根本沒見過。直接問大模型"我們公司的退款政策是什麼"，它只會一本正經地編造答案。要讓大模型真正落地到垂直業務場景，有兩條核心技術路徑：微調（Fine-tuning）和檢索增強生成（RAG）。理解兩者的原理、適用場景和優缺點，是構建企業級AI應用的關鍵。</p>
+<p>先來說RAG，這是目前企業落地大模型最主流的方案。RAG的思路非常直觀：既然大模型不知道我們的內部知識，那我們就在提問的時候，先從內部知識庫中檢索相關資料，把資料和問題一起餵給大模型，讓它基於資料回答。這樣大模型就不需要重新訓練，只需要在推理時獲取最新的、特定的知識。</p>
+<p>RAG的完整流程分為幾個步驟。第一步是文檔加載與解析：把PDF、Word、網頁、數據庫裡的業務文檔提取成純文本。不同格式的文檔需要不同的解析器，PDF裡的表格和圖片尤其難處理。第二步是文本分塊（Chunking）：長文檔不能整段塞進模型，需要切成小塊。分塊大小和重疊度是關鍵參數：太大了檢索不精準，太小了上下文不完整。通常每塊200到500個token，塊之間留50到100個token的重疊，保證語義連貫。第三步是向量化（Embedding）：用Embedding模型把每個文本塊轉成一個高維向量，向量之間的距離代表語義相似度。第四步是存入向量數據庫：Milvus、Chroma、Pinecone等向量數據庫，專門存儲和檢索向量。第五步是檢索：用戶提問時，把問題也轉成向量，在向量數據庫中找到語義最相似的幾個文本塊。第六步是生成：把檢索到的文本塊作為上下文，連同用戶問題一起發給大模型，要求大模型基於上下文回答。</p>
+<p>RAG的優點非常突出：知識可以實時更新，新文檔上傳後立刻可被檢索，不需要重新訓練模型；數據安全，知識庫可以部署在企業內網，不需要把數據發給外部API；成本低，只需要Embedding和推理的費用，不需要訓練成本。但RAG也有侷限性：檢索質量決定了回答質量，如果相關文檔沒被檢索到，大模型再強也回答不對；複雜推理任務（多跳問題、需要綜合多個文檔才能回答的問題）效果不好；上下文窗口有限，能塞進去的資料數量有限。</p>
+<p>再來說微調。微調是在預訓練大模型的基礎上，用特定領域的數據繼續訓練，讓模型學會特定的風格、格式或知識。和RAG不同，微調是把知識"訓練進"模型參數裡。微調適用於哪些場景呢？第一種是風格遷移：你希望大模型用特定的語氣回答問題，比如模仿客服的話術風格、模仿某個作者的寫作風格。第二種是格式適配：你希望模型輸出固定格式的結果，比如JSON、特定模板的報告。第三種是任務專精：你有大量標註好的特定任務數據（比如醫療診斷問答、法律文書生成），微調後的模型在這個特定任務上比通用模型效果好很多。</p>
+<p>微調的技術方案也在不斷演進。全量微調成本極高，需要更新模型的所有參數，只有大公司才玩得起。LoRA（Low-Rank Adaptation）技術讓微調成本大幅下降：凍結原始模型參數，只訓練少量新增的低秩矩陣參數，訓練參數量可以減少到原來的千分之一，顯存需求大幅降低。QLoRA更是結合了量化技術，在4bit量化的模型上做微調，單張消費級顯卡就能微調百億參數的大模型。這讓普通開發者也能玩得起模型微調。</p>
+<p>微調數據的質量決定了微調效果。"垃圾進，垃圾出"在微調領域體現得淋漓盡致。幾百條高質量的樣本，效果遠勝幾萬條低質量數據。數據準備需要精心設計：輸入輸出對要清晰、示例要多樣化、要覆蓋各種邊緣情況。指令微調（Instruction Tuning）的格式通常是"指令+輸入+輸出"的三元組，讓模型學會按照指令完成任務。</p>
+<p>RAG和微調不是二選一的關係，而是可以組合使用。實際的企業級AI應用，通常是RAG為主、微調為輔的組合：用RAG提供實時的業務知識，用微調讓模型學會企業特定的回答風格和格式。比如一個智能客服機器人：RAG負責從產品知識庫檢索相關FAQ，微調讓模型學會用客服的標準話術、按照固定格式回覆。</p>
+<p>評估是大模型應用中容易被忽視的環節。怎麼知道RAG檢索到了正確的文檔？怎麼知道微調後的模型效果提升了？沒有評估體系，優化就是盲目的。RAG的評估指標包括：檢索準確率（召回率、精確率）、回答忠實度（有沒有基於檢索內容回答，有沒有編造）、回答相關性。微調的評估需要構建測試集，對比微調前後在測試集上的表現。自動化評估（用大模型評估大模型）是目前的主流方法，但人工抽檢永遠是必要的。</p>
+<p>無論是RAG還是微調，最終目標都是讓大模型成為真正懂業務的智能助手。RAG解決知識時效性和準確性的問題，微調解決風格和任務適配的問題。掌握這兩項核心技術，就能把通用大模型改造成適配任何垂直業務的專屬AI系統，這也是當前AI應用落地最核心的技術競爭力。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-CI-CD.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 自動化測試與CI_CD流水線建設</a><a href="article-tech-Web.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Web安全攻防實戰指南</a><a href="article-tech-362.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深淺拷貝</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="網絡爬蟲基礎與反爬對抗技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="網絡爬蟲基礎與反爬對抗技術解析">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-104.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-104.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-104.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-104.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>網絡爬蟲基礎與反爬對抗技術解析 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="網絡爬蟲基礎與反爬對抗技術解析 - CaesarTools">
+<meta property="og:description" content="網絡爬蟲基礎與反爬對抗技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-104.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"網絡爬蟲基礎與反爬對抗技術解析","description":"網絡爬蟲基礎與反爬對抗技術解析 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-104.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>網絡爬蟲基礎與反爬對抗技術解析</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>網絡爬蟲基礎與反爬對抗技術解析：數據採集的技術攻防</p>
+<p>互聯網上的數據是巨大的金礦。價格監控、競品分析、輿情監測、學術研究，都需要從網站上採集數據。網絡爬蟲就是自動獲取網頁數據的程序。但網站方不想被隨便爬（消耗服務器資源、數據被競爭對手拿走），於是就有了反爬。爬蟲和反爬的攻防，是一場持續的技術博弈。</p>
+<p>爬蟲的基本原理很簡單：發送HTTP請求獲取HTML，解析提取需要的數據。Python的requests庫發請求，BeautifulSoup或lxml解析HTML，這是最基礎的爬蟲三件套。靜態頁面（服務端直接渲染好HTML）用這個方法就夠了。</p>
+<p>但現代網站大量使用前端渲染（SPA），初始HTML裡沒有數據，數據是JavaScript異步加載的。這時候直接請求HTML拿不到內容，需要用瀏覽器自動化工具：Selenium或Playwright啟動真實瀏覽器，等頁面渲染完再提取數據。Playwright是現在更推薦的選擇，速度快、API現代、自動等待元素出現。</p>
+<p>反爬的第一道防線是User-Agent檢測。服務器檢查請求頭裡的User-Agent，如果是Python-Requests之類的爬蟲特徵，直接拒絕。解決方法是僞裝成正常瀏覽器的User-Agent。但這只是最基礎的，現代網站的反爬遠不止於此。</p>
+<p>第二道防線是頻率限制。同一個IP短時間請求太多次，服務器會發現異常，封IP或者返回驗證碼。應對方法：使用代理IP池，每個請求換一個IP；控制請求間隔，模擬人類瀏覽速度；分佈式爬取，從不同IP同時採。</p>
+<p>第三道防線是登錄態驗證。很多數據需要登錄後才能看，爬蟲要帶Cookie。手動登錄拿Cookie，或者用Playwright模擬登錄流程。Cookie有有效期，過期要重新登錄。</p>
+<p>第四道防線是JavaScript逆向工程。有些網站把數據加密後放在HTML裡，需要執行特定的JS算法解密；或者請求參數是動態生成的簽名（比如每次請求都要算一個token），不執行JS就發不出合法請求。這時候需要分析網站的JS代碼，找到加密邏輯，用Python復現，或者直接用瀏覽器環境執行JS。這是反爬中最高級的對抗，需要紮實的前端和JS基礎。</p>
+<p>第五道防線是驗證碼。圖形驗證碼、滑塊驗證、點選驗證碼、行為驗證碼（分析鼠標軌跡判斷是不是真人）。驗證碼的破解越來越難，簡單的圖形驗證碼可以用OCR識別；滑塊驗證需要模擬人類滑動軌跡；現在很多用第三方驗證服務（reCAPTCHA、極驗），識別成本很高。實戰中通常用打碼平臺（人工或AI識別）來處理。</p>
+<p>第六道防線是字體反爬。網站把數字和文字用自定義字體渲染，HTML裡的文字是亂碼，需要解析字體文件映射出真實字符。這是比較小衆但精妙的反爬手段。</p>
+<p>合規是爬蟲必須重視的問題。爬取公開數據做研究一般沒問題，但爬取用戶隱私數據、繞過付費牆、高頻爬取導致對方服務器故障，都可能涉及法律風險。遵守robots.txt、控制爬取頻率、不要用於惡意用途，是基本底線。</p>
+<p>爬蟲技術本質是模擬人類訪問網站的行為。技術越高超的爬蟲，越像一個真實用戶。而反爬技術就是要把不像人類的流量擋在外面。這場攻防會一直持續下去。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-061.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Web安全攻防實戰指南</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a><a href="article-tech-050.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端可視化與Three.js三維網頁開發入門</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

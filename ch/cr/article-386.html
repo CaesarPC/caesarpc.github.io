@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-386.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-386.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-386.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-386.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP緩存策略：讓網站第二次訪問快如閃電 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 HTTP緩存策略：讓網站第二次訪問快如閃電 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="HTTP緩存策略, 讓網站第二次訪問快如閃電, 緩存">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="HTTP緩存策略：讓網站第二次訪問快如閃電 - CaesarTools">
+<meta property="og:description" content="HTTP緩存策略：讓網站第二次訪問快如閃電 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-386.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"HTTP緩存策略：讓網站第二次訪問快如閃電","description":"← 返回文章列表 HTTP緩存策略：讓網站第二次訪問快如閃電 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-386.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>HTTP緩存策略：讓網站第二次訪問快如閃電</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼需要緩存</h2>
+<p>用戶第一次訪問下載2MB資源。第二次還下載2MB？太浪費。瀏覽器把文件存本地，第二次直接用，不請求服務器。</p>
+<h2>二、強緩存</h2>
+<p>Cache-Control: max-age=31536000。一年內不請求，直接用本地。</p>
+<p>問題：更新了JS文件，用戶還用舊的。解法：文件名帶hash。app.abc123.js。內容變hash變，文件名變瀏覽器重新下載。Vite自動做這個。</p>
+<h2>三、協商緩存</h2>
+<p>強緩存過期後，瀏覽器問服務器："這個版本還新嗎？"</p>
+<p>ETag: "abc123"</p>
+<p>瀏覽器帶If-None-Match: "abc123"</p>
+<p>沒變返回304，不傳文件。</p>
+<h2>四、HTML怎麼緩存</h2>
+<p>HTML不能強緩存——更新了要立刻拿到新版。HTML設no-cache每次走協商。</p>
+<p>JS/CSS帶hash強緩存一年。HTML每次驗證。這是標準搭配。</p>
+<h2>五、CDN</h2>
+<p>靜態文件放CDN，用戶訪問最近節點。CDN也緩存，源站壓力驟降。</p>
+<h2>六、常見坑</h2>
+<p>所有文件都no-cache等於沒緩存。</p>
+<p>JS文件名不帶hash，更新了用戶還用舊版。</p>
+<p>HTML強緩存，發新版用戶看不到。</p>
+<h2>七、Service Worker</h2>
+<p>PWA用Service Worker離線緩存。Workbox簡化配置。</p>
+<h2>八、緩存刷新</h2>
+<p>發版後想立刻讓用戶拿到新文件？CDN控制檯手動刷新。或者文件名hash帶版本號強制更新。</p>
+<h2>九、總結</h2>
+<p>緩存是性能優化最有效手段。JS/CSS帶hash強緩存，HTML協商緩存，CDN加速。配好了第二次訪問秒開。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-389.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a><a href="article-380.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-391.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a></div>
+</body>
+</html>

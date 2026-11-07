@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-709.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-709.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-709.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-709.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端性能優化全鏈路 - CaesarTools</title>
+<meta name="description" content="前端性能優化全鏈路 - CaesarBase 免費技術文章">
+<meta name="keywords" content="前端性能優化全鏈路, 前端, 性能優化">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端性能優化全鏈路 - CaesarTools">
+<meta property="og:description" content="前端性能優化全鏈路 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-709.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端性能優化全鏈路","description":"前端性能優化全鏈路 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-709.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端性能優化全鏈路</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼性能是網站的生命線</h2>
+<p>Google的Web Vital統計數據顯示，頁面加載每慢1秒，移動端轉化率下降約7%。LCP（最大內容繪製）超過2.5秒的網站，跳出率平均上升24%。這不是技術圈自嗨的指標，它直接關係到網站上每一個訪客會不會變成客戶。</p>
+<p>很多團隊把性能優化理解成"加個CDN就完了"，但實際上它是一條從網絡請求、資源加載、渲染管線到交互響應的完整鏈路。</p>
+<h2>二、首屏加載：把"等"變成"不等"</h2>
+<h3>2.1 資源體積是第一戰場</h3>
+<p>首屏慢，90%的情況是資源太大。</p>
+<p>圖片是體積大戶。一張未經壓縮的手機照片可能5MB，而WebP格式在同等畫質下體積只有JPEG的30%。用Squoosh或sharp批量壓縮，一張首頁Banner從2MB壓到200KB，LCP能直接快1.5秒。同時用srcset提供多尺寸，手機用戶只下480px寬的圖，不下2400px的桌面圖。</p>
+<p>字體文件動輒幾百KB。woff2格式比TTF小30%，再用fonttools子集化，只保留網站用到的那幾百個漢字，中文字體能從3MB砍到200KB以內。</p>
+<p>JavaScript包體積是另一頭大象。Vite打包後跑一次rollup-plugin-visualizer，你會發現自己引了一整個lodash只為了用一個debounce。改成import { debounce } from 'lodash-es'，tree-shaking能去掉大半。</p>
+<h3>2.2 加載順序決定體驗</h3>
+<p>關鍵資源（首屏CSS、核心JS、首屏圖）必須最先加載，用link rel="preload"顯式聲明。次關鍵資源用preload配合未來路由預取。非關鍵資源（頁面底部的客服頭像、統計腳本）用defer或者動態import。</p>
+<p>一個常被忽略的點：CSS是渲染阻塞資源。把首屏用到的CSS內聯到HTML裡（通常15KB以內），剩下的CSS異步加載，瀏覽器可以立刻開始渲染。</p>
+<h2>三、渲染管線：瀏覽器到底在幹什麼</h2>
+<p>瀏覽器渲染一個頁面分五步：下載HTML、解析成DOM樹、下載CSS、合成渲染樹、Layout佈局、Paint繪製、Composite合成層。</p>
+<p>優化的核心原則：只觸發必要的重排和重繪。JS裡讀offsetTop再寫style，會強制同步佈局，瀏覽器被迫重新算一遍。正確做法是先批量讀，再批量寫。</p>
+<h2>四、運行時性能：交互才是體驗的下半場</h2>
+<p>首屏快了，點一下按鈕卡半天，用戶照樣罵。長任務是罪魁禍首。主線程上任何超過50ms的任務都會block交互。</p>
+<p>解法：把大計算拆成小片，用scheduler.postTask或者requestIdleCallback在瀏覽器空閒時跑。渲染1000條列表，不要一次性React render完，分5次每次200條。</p>
+<p>內存泄漏會讓頁面越用越慢。SPA頁面用久了卡頓，九成是內存泄漏。常見三種：沒清的定時器、沒移除的事件監聽、閉包意外持有大對象。</p>
+<h2>五、監測：不測量就無法優化</h2>
+<p>把Web Vital三個核心指標埋點上報：LCP、INP、CLS。每週看一次真實用戶數據，而不是隻看自己本機的速度。開發機是M系列Mac，用戶是4G網絡下的千元安卓機——差着十萬八千里。</p>
+<h2>六、總結</h2>
+<p>性能優化不是一次性項目，是持續的工程習慣。記住優先級：先壓體積（圖片、字體、JS），再排加載順序，再減少渲染開銷，最後盯着真實用戶數據迭代。做到LCP小於2.5秒、INP小於200ms，網站已經超過90%的同行。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-700.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-717.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS響應式設計實戰</a><a href="article-714.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 微服務和單體架構怎麼選</a></div>
+</body>
+</html>

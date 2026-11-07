@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="日誌最佳實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="日誌最佳實踐">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-246.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-246.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-246.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-246.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日誌最佳實踐 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="日誌最佳實踐 - CaesarTools">
+<meta property="og:description" content="日誌最佳實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-246.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"日誌最佳實踐","description":"日誌最佳實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-246.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>日誌最佳實踐</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 日誌最佳實踐：線上排錯的眼睛</p>
+<p>程序在本地跑，有斷點可以調試。程序在線上跑，出了問題怎麼辦？靠日誌。日誌是線上系統唯一的窗口——沒有日誌，線上BUG就是瞎子摸象。但很多團隊的日誌要麼太少（出了問題什麼都查不到），要麼太多（刷了幾萬行找不到關鍵信息）。好的日誌實踐是一門平衡的藝術。</p>
+<p>## 一、日誌級別</p>
+<p>DEBUG：開發調試信息，生產關閉。
+INFO：正常流程記錄——"訂單創建成功，訂單號xxx"。
+WARN：異常但不影響主流程——"庫存不足，使用了降級策略"。
+ERROR：出錯了，需要關注——"支付接口調用失敗"。</p>
+<p>合理使用級別：不要所有日誌都打INFO，也不要錯誤也打WARN。出了ERROR告警通知你，WARN定期彙總，INFO記錄關鍵流程。</p>
+<p>## 二、結構化日誌</p>
+<p>不要打一坨自由文本：console.log("用戶" + userId + "下單成功")。
+結構化日誌是JSON：{"level":"info","event":"order_created","userId":123,"orderId":456,"cost":29.9}。</p>
+<p>好處：可以按字段搜索和過濾——查某個用戶的所有日誌、統計某種事件的頻率。ELK、Loki這些日誌系統都是為結構化日誌設計的。</p>
+<p>## 三、記錄什麼</p>
+<p>關鍵節點要記：請求進來（接口名、參數摘要）、業務關鍵操作（訂單創建、支付成功）、異常（完整錯誤堆棧）。</p>
+<p>不要記什麼：敏感信息（密碼、身份證號、完整手機號）——日誌系統本身可能不安全。大對象全量dump——記關鍵字段就行。</p>
+<p>## 四、日誌要可追溯</p>
+<p>一條請求經過多個服務，每個服務都打日誌。怎麼把同一條請求的日誌串起來？用requestId（請求ID）。請求進來時生成一個唯一ID，通過HTTP頭傳給下游服務，所有日誌都帶上這個ID。排查時按requestId一查，整條鏈路的日誌全出來。</p>
+<p>## 五、總結</p>
+<p>日誌是線上排錯的生命線。合理分級、結構化輸出、帶requestId、不記敏感信息。花時間把日誌做好，線上出問題時你會感謝自己。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-255.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ NoSQL數據庫</a><a href="article-tech-254.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful簡明指南</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

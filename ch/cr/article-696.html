@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-696.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-696.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-696.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-696.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Node.js進程管理PM2（56） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 Node.js進程管理PM2 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="Node.js進程管理PM2, Node.js">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Node.js進程管理PM2 - CaesarTools">
+<meta property="og:description" content="Node.js進程管理PM2 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-696.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Node.js進程管理PM2（56）","description":"← 返回文章列表 Node.js進程管理PM2 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-696.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Node.js進程管理PM2（56）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼要PM2</h2>
+<p>node app.js，關終端進程就死了。PM2讓進程後台運行，崩潰自動重啟，開機自啟。</p>
+<h2>二、基本用法</h2>
+<p>pm2 start app.js</p>
+<p>pm2 list看進程。</p>
+<p>pm2 logs app看日誌。</p>
+<p>pm2 restart app重啟。</p>
+<p>pm2 stop app停止。</p>
+<h2>三、集群模式</h2>
+<p>pm2 start app.js -i max</p>
+<p>利用多核CPU，自動負載均衡。</p>
+<h2>四、開機自啟</h2>
+<p>pm2 startup生成命令，執行後開機自動啟動進程。</p>
+<h2>五、日誌管理</h2>
+<p>pm2 logs --lines 100看最近100行。</p>
+<p>日誌自動輪轉，不會越積越大。</p>
+<h2>六、常見坑</h2>
+<p>改代碼後要pm2 restart。</p>
+<p>環境變量要配ecosystem.config.js。</p>
+<h2>七、總結</h2>
+<p>PM2是Node生產必備。後台運行、崩潰重啟、開機自啟、集群模式。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-690.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引實戰</a><a href="article-692.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a><a href="article-702.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a></div>
+</body>
+</html>

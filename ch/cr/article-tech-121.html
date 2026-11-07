@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="微前端架構實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="微前端架構實踐, 前端, 架構">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-121.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-121.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-121.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-121.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>微前端架構實踐 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="微前端架構實踐 - CaesarTools">
+<meta property="og:description" content="微前端架構實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-121.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"微前端架構實踐","description":"微前端架構實踐 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-121.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>微前端架構實踐</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>微前端架構實踐：把大型應用拆分成獨立開發的子應用</p>
+<p>一個公司的業務越來越多，前端應用從一個變成十個。每個團隊維護自己的應用，但用戶體驗是割裂的：跳不同子系統要重新登錄、頁面風格不統一、跳轉體驗不一致。把所有功能塞回一個大倉庫的巨石應用，又會導致任何小改動都要全團隊協調、發佈週期長。微前端就是解決這個矛盾的架構：把大型應用拆成多個獨立開發、獨立部署的小型前端應用，組合成一個完整的產品。</p>
+<p>微前端的核心思想是微服務在前端的映射。每個子應用由獨立團隊開發，有自己的倉庫、自己的技術棧、自己的發佈節奏。主應用（殼應用）負責整合這些子應用：根據路由加載對應子應用、統一導航、統一登錄態、統一樣式規範。</p>
+<p>技術實現有幾種方案。路由分發式：主應用根據URL路由，動態加載對應子應用的JS和CSS，掛載到頁面容器裡。single-spa是這種方案的代表。Module Federation（Webpack5的特性）讓不同構建的應用互相共享模塊，是新的微前端方式。還有iframe方案（最簡單但體驗差）、Web Components方案。</p>
+<p>獨立部署是微前端的關鍵價值。子應用A改了代碼，自己部署上線，不需要等子應用B、C。主應用只需要知道子應用的地址，子應用部署到哪裡都能加載。這樣團隊完全自治，發佈互不影響。</p>
+<p>技術棧無關是另一個優勢：子應用A用React、子應用B用Vue、子應用C用Angular，都能在主應用裡共存。不需要全公司統一技術棧，每個團隊選最適合自己的。</p>
+<p>但微前端帶來的挑戰也不少。樣式隔離：子應用A的樣式影響了子應用B，互相污染。解決方案：CSS命名規範（BEM）、CSS Modules、Shadow DOM、運行時樣式隔離。JS隔離：全局變量污染、事件監聽器衝突。沙箱機制（運行時劫持window）可以隔離子應用的JS環境。</p>
+<p>通信問題：子應用之間怎麼傳數據？共享登錄態、用戶信息、全局配置。方案：通過主應用做中介（子應用通過主應用提供的API通信）、共享狀態管理庫、通過URL參數傳遞。不要讓子應用直接互相調用，否則耦合又回去了。</p>
+<p>公共依賴處理：每個子應用都加載一份React，重複浪費。方案是主應用統一加載公共庫（React、Vue運行時），子應用不重複打包。但這要求子應用做對應的externals配置。</p>
+<p>微前端不是銀彈。中小型應用沒必要上微前端，徒增複雜度。它適合：業務線多、團隊多、每個業務相對獨立的大型平臺。創業公司從0到1階段，單倉多包（Monorepo）可能更合適。判斷標準：你的應用是否真的大到需要多團隊並行開發、獨立發佈？如果是，微前端才有價值。</p>
+<p>典型案例：阿里的中臺、字節的內部系統、大型企業的門戶，都是微前端的實踐場景。它解決的是組織規模帶來的技術管理問題，不只是技術問題。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-131.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式事務方案對比</a><a href="article-tech-112.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API網關架構設計</a><a href="article-tech-126.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分庫分表實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

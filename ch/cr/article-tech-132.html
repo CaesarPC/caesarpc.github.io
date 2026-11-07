@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="配置中心與服務發現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="配置中心與服務發現">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-132.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-132.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-132.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-132.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配置中心與服務發現 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="配置中心與服務發現 - CaesarTools">
+<meta property="og:description" content="配置中心與服務發現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-132.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"配置中心與服務發現","description":"配置中心與服務發現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-132.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>配置中心與服務發現</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>配置中心與服務發現：微服務基礎設施的核心組件</p>
+<p>微服務有幾十上百個實例，配置分散在各個服務裡，改一個配置要重新部署所有實例？服務實例地址變了，調用方怎麼知道對方在哪？配置中心和服務發現就是解決這兩個基礎設施問題的。</p>
+<p>配置中心集中管理所有服務的配置。數據庫地址、API密鑰、功能開關、限流參數，都存在配置中心。服務啟動時從配置中心拉取配置，運行中配置變更時動態推送，不需要重啟服務。Nacos、Apollo、Spring Cloud Config是主流方案。</p>
+<p>配置中心的關鍵能力：環境隔離（開發、測試、生產配置分開）、版本管理（配置變更有歷史記錄，能回滾）、灰度發佈（先讓一部分實例用新配置）、權限控制（誰能改什麼配置）、監聽通知（配置變了實時推送到服務）。</p>
+<p>配置不要全部放配置中心。只有需要動態變更的配置才放，啟動時固定的配置放配置文件就行。配置中心是為了"運行時可調"。</p>
+<p>服務發現解決"服務在哪"的問題。實例啟動時向註冊中心註冊自己的地址（IP+端口），服務下線時註銷。調用方從註冊中心查詢目標服務的實例列表，通過負載均衡選一個調用。Nacos、Eureka、Consul、etcd是註冊中心實現。</p>
+<p>服務發現的好處：實例地址動態變化（擴容、縮容、故障轉移）對調用方透明。調用方不寫死地址，每次從註冊中心拿最新列表。健康檢查：註冊中心定期探測實例，掛了的自動剔除。</p>
+<p>客戶端發現 vs 服務端發現：客戶端發現（調用方自己從註冊中心拿列表，自己做負載均衡，如Ribbon）；服務端發現（請求先到負載均衡器，負載均衡器從註冊中心拿列表轉發，如Nginx+註冊中心）。</p>
+<p>配置中心和註冊中心經常是同一個產品（Nacos同時提供兩個能力）。它們是微服務架構的基礎設施，沒有它們，手動管理幾十個實例的地址和配置是不可想象的。</p>
+<p>K8s環境下，服務發現和配置有了原生方案：Service做服務發現、ConfigMap做配置。但在傳統虛擬機部署或混合環境，Nacos這類組件仍然是主力。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-140.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整潔架構與六邊形架構</a><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驅動架構</a><a href="article-tech-123.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ BFF層設計與實踐</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-39.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-39.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-39.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-39.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PostgreSQL實戰指南 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 PostgreSQL實戰指南 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="PostgreSQL實戰指南, SQL">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="PostgreSQL實戰指南 - CaesarTools">
+<meta property="og:description" content="PostgreSQL實戰指南 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-39.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"PostgreSQL實戰指南","description":"← 返回文章列表 PostgreSQL實戰指南 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-39.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>PostgreSQL實戰指南</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼選PostgreSQL</h2>
+<p>MySQL市佔率高，PostgreSQL功能強。2024年新項目多選PostgreSQL：JSONB、全文搜索、PostGIS、pgvector，一個頂好幾個。</p>
+<h2>二、建表規範</h2>
+<p>CREATE TABLE users (</p>
+<p>id BIGSERIAL PRIMARY KEY,</p>
+<p>email VARCHAR(255) UNIQUE NOT NULL,</p>
+<p>name VARCHAR(100) NOT NULL,</p>
+<p>created_at TIMESTAMPTZ DEFAULT NOW()</p>
+<p>);</p>
+<p>主鍵BIGSERIAL。時間TIMESTAMPTZ帶時區。該加UNIQUE加UNIQUE。</p>
+<h2>三、索引</h2>
+<p>CREATE INDEX idx_users_email ON users(email);</p>
+<p>WHERE、JOIN、ORDER BY加索引。小表不加。LIKE '%xx'用不到。</p>
+<h2>四、JSONB</h2>
+<p>CREATE TABLE posts (data JSONB);</p>
+<p>SELECT * FROM posts WHERE data->>'title' = '第一篇';</p>
+<p>GIN索引加速。</p>
+<h2>五、事務</h2>
+<p>BEGIN;</p>
+<p>UPDATE accounts SET balance=balance-100 WHERE id=1;</p>
+<p>UPDATE accounts SET balance=balance+100 WHERE id=2;</p>
+<p>COMMIT;</p>
+<h2>六、連接池</h2>
+<p>const pool = new Pool({ max: 20 });</p>
+<p>不要每次請求new Client。</p>
+<h2>七、備份</h2>
+<p>pg_dump dbname > backup.sql。每天定時。主從複製高可用。</p>
+<h2>八、慢查詢</h2>
+<p>EXPLAIN ANALYZE看執行計劃。加索引、SELECT只拿需要列、大表分頁用WHERE id > last_id。</p>
+<h2>九、常見坑</h2>
+<p>SELECT *只查需要字段。</p>
+<p>N+1查詢用JOIN。</p>
+<p>忘了WHERE就UPDATE。</p>
+<h2>十、PostgreSQL擴展</h2>
+<p>PostGIS地理空間查詢。pgvector向量檢索做AI語義搜索。pg_trgm模糊搜索。一個數據庫覆蓋多種場景。</p>
+<h2>十一、總結</h2>
+<p>PostgreSQL是通用數據庫最優解。建表規範加索引、用好事務、連接池、定期備份。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-394.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-380.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-384.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a></div>
+</body>
+</html>

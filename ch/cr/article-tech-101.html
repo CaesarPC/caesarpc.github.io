@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="單頁應用路由原理與前端狀態管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="單頁應用路由原理與前端狀態管理, 前端">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-101.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-101.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-101.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-101.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>單頁應用路由原理與前端狀態管理 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="單頁應用路由原理與前端狀態管理 - CaesarTools">
+<meta property="og:description" content="單頁應用路由原理與前端狀態管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-101.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"單頁應用路由原理與前端狀態管理","description":"單頁應用路由原理與前端狀態管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-101.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>單頁應用路由原理與前端狀態管理</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>單頁應用路由原理與前端狀態管理深入：SPA架構的核心機制</p>
+<p>單頁應用（SPA）是現代Web應用的主流架構。整個應用只有一個HTML頁面，所有頁面切換都在前端完成，不刷新整頁。這種體驗接近原生APP：切換流暢、無白屏、狀態保留。但SPA背後有兩個核心技術問題需要解決：路由管理（URL變化時顯示對應頁面）和狀態管理（跨組件共享數據）。</p>
+<p>前端路由的原理是監聽URL變化，渲染對應的組件。有兩種實現方式：Hash模式和History模式。Hash模式用URL的#部分（如example.com/#/about），#後面的變化不會觸發瀏覽器刷新，監聽hashchange事件切換組件。優點是兼容性好、不需要服務器配置。缺點是URL有個#，不美觀。History模式用HTML5的pushState和replaceState API，可以修改URL而不刷新頁面，URL乾淨正常。但缺點是：用戶刷新頁面時，瀏覽器會向服務器請求這個URL，服務器必須配置把所有路由都返回同一個HTML文件（否則404）。這就是為什麼部署SPA時要配置"全部路徑都指向index.html"。</p>
+<p>路由的進階用法包括：動態路由（/user/:id匹配不同用戶頁）、嵌套路由（頁面裡還有子頁面）、路由守衛（未登錄用戶訪問需要登錄的頁面時跳轉登錄頁）、路由懶加載（不同路由的組件按需加載，首屏只加載首頁代碼）。這些都是Vue Router和React Router提供的標準能力。</p>
+<p>狀態管理是SPA的另一個核心問題。組件之間共享數據，最簡單的方式是父組件通過props傳給子組件。但組件嵌套很深時，props要一層層傳下去，非常繁瑣（Props Drilling）。而且跨層級、跨兄弟組件共享數據更麻煩。狀態管理庫（Pinia、Redux、Zustand）把共享數據抽到一個全局Store裡，任何組件都可以直接讀寫，解決了這個問題。</p>
+<p>Store的設計原則是單一數據源：整個應用的全局狀態只存一份，所有組件從同一份數據讀取。狀態修改通過明確的action方法，不允許組件直接修改Store裡的數據。這樣數據流是單向的：組件觸發action → action修改state → state變化通知組件重新渲染。可預測的數據流讓調試變得容易：任何狀態變化都能追蹤到是哪個action觸發的。</p>
+<p>服務端狀態和客戶端狀態要區分開。服務端狀態是從服務器獲取的數據（用戶信息、商品列表），這類數據用React Query、SWR這類庫管理更好：自動緩存、自動重新獲取、加載狀態管理、錯誤處理。客戶端狀態是UI狀態（側邊欄展開收起、當前選中的tab），這類用Pinia/Redux管理。不要把所有東西都塞到全局Store裡，不需要全局共享的狀態就放組件本地。</p>
+<p>狀態持久化是常見需求：用戶刷新頁面後，登錄狀態、主題設置不要丟失。把Store裡的關鍵數據同步到localStorage，初始化時從localStorage恢復，就能實現簡單的持久化。但敏感數據（Token）不要存在localStorage裡，有XSS風險，應該用HttpOnly Cookie。</p>
+<p>SPA的性能挑戰在於首屏。因為所有代碼都在一個頁面裡，首屏要加載整個應用的JS，可能很大。代碼分割（Code Splitting）是主要優化手段：按路由分割，首屏只加載首頁的代碼，訪問其他路由時再加載對應代碼。配合路由懶加載，首屏體積可以大幅減小。骨架屏（加載時顯示佔位UI）讓用戶感知加載過程，不會覺得頁面卡死。</p>
+<p>理解路由和狀態管理的原理，不只是會用框架API，而是理解SPA這種架構為什麼這樣設計、有什麼優缺點。在簡單項目裡，過度使用狀態管理庫反而增加複雜度；在複雜項目裡，沒有狀態管理庫則會陷入混亂。根據項目規模選擇合適的複雜度，是工程判斷的體現。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-104.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 網絡爬蟲基礎與反爬對抗技術解析</a><a href="article-tech-094.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Redis緩存設計與穿透擊穿雪崩防護</a><a href="article-tech-017.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣計算與Cloudflare無服務器開發</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

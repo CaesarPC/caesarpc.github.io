@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="API版本管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="API版本管理, API">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-243.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-243.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-243.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-243.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API版本管理 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="API版本管理 - CaesarTools">
+<meta property="og:description" content="API版本管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-243.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"API版本管理","description":"API版本管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-243.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>API版本管理</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># API版本管理：接口迭代不破壞老用戶</p>
+<p>你的API已經上線，有很多前端和App在調用。現在要改接口——加字段、改參數、調邏輯。直接改？老用戶的App就崩了。這就是API版本管理要解決的問題。</p>
+<p>## 一、為什麼需要版本管理</p>
+<p>App發佈後，用戶不一定立刻升級。你的舊版本App還在線上跑着，調用的是舊版接口。如果後端直接改了接口格式，舊App就掛了。</p>
+<p>API版本管理就是：保留舊版接口繼續可用，新版接口用新的版本號。老用戶用舊版，新用戶用新版。等所有用戶都升級了，再下線舊版。</p>
+<p>## 二、版本號放哪裡</p>
+<p>最常見的做法是放在URL裡：/api/v1/users、/api/v2/users。一目瞭然，調試方便。</p>
+<p>也可以放在Header裡：Accept: application/vnd.myapp.v2+json。URL更乾淨，但調試不直觀。</p>
+<p>## 三、什麼時候需要新版本</p>
+<p>只有不兼容的改動才需要新版本。什麼叫不兼容？
+- 刪除了字段
+- 修改了字段含義或類型
+- 必填參數變成可選（或反過來）
+- 改了URL路徑</p>
+<p>向後兼容的改動不需要新版本：
+- 加了新的可選字段
+- 加了新的可選參數
+- 加了新的接口</p>
+<p>## 四、版本生命週期</p>
+<p>舊版本接口不要永遠保留。定一個日落計劃：宣佈v1將在三個月後下線，給調用方遷移時間。到期後v1返回410 Gone。不要無限維護舊版本——維護成本很高。</p>
+<p>## 五、總結</p>
+<p>API版本管理的核心原則：不兼容改動才升級版本號，向後兼容改動直接加。URL裡放版本號最直觀。舊版本要有下線計劃，不要永久維護。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-252.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CORS與Cookie</a><a href="article-tech-240.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 防抖與節流</a><a href="article-tech-244.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端組件設計</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

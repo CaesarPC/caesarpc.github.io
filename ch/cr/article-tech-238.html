@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="前端模塊化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端模塊化, 前端">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-238.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-238.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-238.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-238.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端模塊化 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端模塊化 - CaesarTools">
+<meta property="og:description" content="前端模塊化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-238.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端模塊化","description":"前端模塊化 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-238.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>前端模塊化</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 前端模塊化：從script標籤到ES Module</p>
+<p>早期JS沒有模塊系統，所有變量都掛在全局作用域。兩個文件聲明瞭同名變量，後加載的覆蓋先加載的——各種衝突。文件多了之後，加載順序也成了問題——A依賴B，B必須在A之前加載。模塊化就是為了解決這些問題。</p>
+<p>## 一、IIFE與命名空間</p>
+<p>最早的方案：用立即執行函數（IIFE）把代碼包起來，變量不外泄。(function() { var secret = '...'; window.myApp = { ... }; })();。把需要暴露的掛到全局對象上，內部變量私有。jQuery就是這麼做的。</p>
+<p>但這只是權宜之計——文件加載順序還是要手動管，依賴關係不清晰。</p>
+<p>## 二、CommonJS與AMD</p>
+<p>Node.js用CommonJS：require引入模塊，module.exports導出。同步加載，適合服務端。</p>
+<p>瀏覽器早期用AMD（RequireJS）：異步加載模塊，定義時聲明依賴。但語法繁瑣，現在基本沒人用了。</p>
+<p>## 三、ES Module</p>
+<p>ES6（2015）正式在語言層面加入了模塊系統：import和export。</p>
+<p>// math.js
+export function add(a, b) { return a + b; }
+export const PI = 3.14;</p>
+<p>// main.js
+import { add, PI } from './math.js';</p>
+<p>或者默認導出：
+export default function() { ... }
+import myFunc from './myFunc.js';</p>
+<p>ES Module是靜態的——import語句必須在頂層，不能寫在if裡。這讓打包工具可以靜態分析依賴樹，做Tree Shaking（刪除沒用到的導出）。現代瀏覽器和Node.js都原生支持ES Module。</p>
+<p>## 四、打包工具</p>
+<p>瀏覽器原生ES Module需要服務器支持，而且大量小文件請求慢。Vite/Webpack把所有模塊打包成少數幾個文件，配合Tree Shaking和代碼分割，既享受模塊化開發又有加載性能。</p>
+<p>## 五、總結</p>
+<p>模塊化的核心是：每個文件是獨立作用域，顯式導出需要暴露的，顯式導入需要依賴的。ES Module是現代標準，import/export語法簡潔。理解模塊化，前端工程化才有意義。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-243.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ API版本管理</a><a href="article-tech-239.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件委託</a><a href="article-tech-242.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 環境變量與配置管理</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

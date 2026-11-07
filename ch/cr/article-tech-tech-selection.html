@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="技術選型決策方法">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-tech-selection.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-tech-selection.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-tech-selection.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-tech-selection.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技術選型決策方法（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="技術選型決策方法 - CaesarTools">
+<meta property="og:description" content="技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-tech-selection.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技術選型決策方法（2）","description":"技術選型決策方法 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-tech-selection.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>技術選型決策方法（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>技術選型決策方法：在衆多方案中做對選擇</h2>
+<p>做一個新功能、新項目，技術棧選什麼？數據庫用MySQL還是PostgreSQL？前端用React還是Vue？消息隊列用Kafka還是RabbitMQ？技術選型沒有標準答案，但有方法論。</p>
+<p>第一步是明確需求和約束。這個項目要解決什麼問題？團隊熟悉什麼技術？預算多少？什麼時候要上線？需求和約束不清晰，選型就是瞎選。比如一個內部工具，沒必要上微服務；一個高併發交易系統，不能用不熟悉的新技術。</p>
+<p>第二步是列出候選方案。不要只知道一個方案就選它。調研兩三個主流選項，瞭解各自的優劣。</p>
+<p>第三步是評估維度。常見維度：團隊熟悉度（學習成本）、社區生態（文檔、插件、人才）、性能（夠不夠用）、成熟度（踩坑多不多）、運維成本、長期維護性。按項目權重打分。</p>
+<p>第四步是做POC驗證。關鍵技術選型不要只看文檔，寫個原型實際跑一跑。性能壓測一下、關鍵功能試一下，文檔說的和實際用的可能有差距。</p>
+<p>常見的選型誤區：追新（用最新但不成熟的技術，踩坑）；盲目跟風（別人用什麼我用什麼，不考慮適不適合）；過度設計（小項目上大架構）；個人偏好（因為我喜歡這個語言就選它）。</p>
+<p>好的選型原則：成熟優先（新項目用經過驗證的技術，別當小白鼠）；熟悉優先（團隊會的技術比"更好"的技術重要）；簡單優先（能滿足需求的最簡單方案）；可逆優先（選了以後容易換的方案，不要鎖死在某家）。</p>
+<p>技術選型不是一勞永逸。架構和技術會演進，定期復盤：當初選的方案現在還合適嗎？有沒有更好的選擇？但不要頻繁換技術棧，那是巨大的浪費。</p>
+<p>技術選型是架構師的核心工作之一。它不是選"最好的技術"，而是選"最適合當前場景的技術"。理解權衡，比知道技術本身更重要。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-serverless-arch.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Serverless架構詳解</a><a href="article-tech-ssr-isomorphic.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服務端渲染SSR與同構應用</a><a href="article-tech-refactor-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 重構實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="容災備份與多活架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="容災備份與多活架構">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-dr-multi-active.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-dr-multi-active.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-dr-multi-active.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-dr-multi-active.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>容災備份與多活架構（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="容災備份與多活架構 - CaesarTools">
+<meta property="og:description" content="容災備份與多活架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-dr-multi-active.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"容災備份與多活架構（2）","description":"容災備份與多活架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-dr-multi-active.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>容災備份與多活架構（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>容災備份與多活架構：保證系統永不宕機</h2>
+<p>服務器宕機、機房斷電、雲廠商故障——這些意外總會發生。區別在於成熟的系統早就準備好了預案，出問題自動切換，用戶幾乎無感知。容災就是為此設計的。</p>
+<p>數據備份是基礎。數據庫定期全量備份+增量備份，備份文件存到不同地方（異地、對象存儲）。定期演練恢復——備份了但恢復不出來等於沒備份。RTO（恢復時間目標）和RPO（數據丟失量）是兩個關鍵指標：多快恢復、能容忍丟多少數據。</p>
+<p>主從切換是高可用的基本。數據庫主庫掛了，自動提升從庫為主庫（前面講過）。應用服務器多實例部署，前面掛負載均衡，一臺掛了流量自動切到其他臺。</p>
+<p>同城雙活：兩個機房都在同一城市，同時提供服務，數據實時同步。一個機房掛了，另一個立刻接管。延遲低（同城網絡快），但遭遇城市級災難（地震、火災）兩個機房都受影響。</p>
+<p>異地多活：在不同城市部署多個機房，都對外提供服務，數據跨地域同步。一個城市的機房整體掛了，其他城市照常服務。這是最高可用級別，但實現複雜：數據同步延遲、跨地域事務、一致性問題。成本也最高。</p>
+<p>並不是所有系統都需要異地多活。要看業務對可用性的要求。一個內部管理系統，宕機幾小時問題不大；一個支付系統，一秒宕機都是巨大損失。根據業務重要性選擇容災級別，不要過度建設。</p>
+<p>混沌工程是驗證容災能力的方法：主動在生產環境注入故障（殺一個實例、斷網絡、延遲注入），看系統是否真的能自動恢復。Netflix的Chaos Monkey是代表。平時演練，真出問題才不慌。</p>
+<p>容災是花錢買保險。平時看不到價值，出問題時挽回的損失遠超過投入。但要按業務需求分級投入，不是每個系統都要做到五九個九。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-design-patterns.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 設計模式實戰</a><a href="article-tech-file-upload-chunk.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a><a href="article-tech-elasticsearch-search.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Elasticsearch搜索引擎實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

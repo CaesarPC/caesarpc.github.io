@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="暗色模式實現">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-dark-mode.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-dark-mode.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-dark-mode.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-dark-mode.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>暗色模式實現（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="暗色模式實現 - CaesarTools">
+<meta property="og:description" content="暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-dark-mode.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"暗色模式實現（2）","description":"暗色模式實現 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-dark-mode.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>暗色模式實現（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>暗色模式實現：讓網站支持白天黑夜兩種主題</h2>
+<p>暗色模式（Dark Mode）現在是標配功能。用戶晚上看網頁不想被白底晃眼。實現暗色模式不是做兩套樣式，而是用CSS變量做主題切換。</p>
+<p>核心思路：所有顏色定義為CSS變量。:root裡定義亮色主題的變量值，[data-theme="dark"]裡定義暗色變量值。組件裡用var(--color-bg)而不是寫死顏色。切換主題就是切換data-theme屬性，所有變量值自動切換。</p>
+<p>CSS變量的好處：改一處全局生效。不用給每個元素寫兩套樣式。</p>
+<p>顏色設計要注意：暗色模式不是簡單反色。背景不是純黑（#000太刺眼），而是深灰；文字不是純白，而是淺灰；對比度要滿足可讀性標準。直接取反色效果通常很差。</p>
+<p>用戶偏好檢測：prefers-color-scheme媒體查詢可以知道用戶系統是否設置了暗色模式，默認跟隨系統。同時提供手動切換按鈕，用戶可以強制選亮色或暗色。</p>
+<p>持久化：用戶選擇存localStorage，下次訪問記住。切換時要避免閃爍（頁面加載前就根據存儲的偏好設置好主題）。</p>
+<p>暗色模式是細節體驗，但做好了顯示產品用心。CSS變量是現代主題切換的標準做法。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-code-standard.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 團隊代碼規範與工程協作</a><a href="article-tech-clean-arch-hexagonal.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 整潔架構與六邊形架構</a><a href="article-tech-db-sharding.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫分庫分表</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="技術債管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="技術債管理">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-146.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-146.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-146.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-146.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技術債管理 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="技術債管理 - CaesarTools">
+<meta property="og:description" content="技術債管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-146.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"技術債管理","description":"技術債管理 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-146.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>技術債管理</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p>技術債管理：像還債一樣管理代碼質量問題</p>
+<p>每個項目都有技術債：為了趕進度寫的臨時方案、沒寫的測試、重複的代碼、過時的依賴。短期看加快了進度，長期看拖慢了開發速度——改代碼要繞彎路、出Bug要花時間查。技術債和金融債務一樣：不還，利息越滾越大。</p>
+<p>技術債的來源：趕進度用快速但不優雅的方案；需求變更倉促改代碼沒重構；不熟悉技術棧寫出低效代碼；業務迭代快，沒時間優化。</p>
+<p>識別技術債：Code Review時記錄、架構評審時標記、定期盤點。把技術債記在Backlog裡，和業務需求一起排優先級。</p>
+<p>償還策略：不要專門停業務開發去還債（業務不答應）。小步持續還：每次新功能開發順帶還相關的債；安排一定比例的時間（比如20%）專門處理技術債；高利息的債（經常導致Bug的模塊）優先還。</p>
+<p>預防新技術債：代碼規範、Code Review、自動化測試、CI流水線，從源頭減少債務。好的工程習慣就是最好的債務管理。</p>
+<p>判斷技術債要不要還：看這段代碼是否高頻修改。經常改的模塊，技術債要還（每次改都在付利息）；很少碰的代碼，放着就行（沒利息）。</p>
+<p>不是所有"不優雅"的代碼都是要還的債。完美主義會導致過度工程。技術債管理的核心是權衡：業務速度和代碼質量的平衡。完全不還債，系統最終會慢到無法開發；全部時間還債，業務停滯。找到中間點。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-138.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 事件驅動架構</a><a href="article-tech-142.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技術選型決策方法</a><a href="article-tech-154.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲方案對比</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

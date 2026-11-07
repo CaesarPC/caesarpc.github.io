@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Web安全攻防基礎 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Web安全攻防基礎">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-web-security-fundamental.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-web-security-fundamental.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-web-security-fundamental.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web安全攻防基礎（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Web安全攻防基礎 - CaesarTools">
+<meta property="og:description" content="Web安全攻防基礎 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-web-security-fundamental.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Web安全攻防基礎（2）","description":"Web安全攻防基礎 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-web-security-fundamental.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>Web安全攻防基礎（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2># Web安全攻防：開發者必須知道的常見漏洞與防禦</h2>
+<p>很多開發者寫代碼只關注功能能不能跑通，完全不考慮安全問題。在本地開發環境裡一切正常，一旦部署到公網，各種掃描器、爬蟲、黑客腳本立刻找上門來。XSS打你的用戶Cookie、SQL注入拖你的數據庫、CSRF僞造你的用戶請求、文件上傳拿到服務器權限——這些不是電影裡的情節，而是每天都在發生的真實攻擊。Web安全不是安全團隊的事，每個寫Web代碼的開發者都應該掌握最基本的安全常識。因為漏洞往往就藏在你寫的那一行拼接SQL、那個直接渲染用戶輸入的innerHTML裡。</p>
+<h2>## 一、XSS：把腳本注入到別人的瀏覽器裡</h2>
+<p>跨站腳本攻擊（XSS）是最常見的Web漏洞。原理很簡單：你把用戶輸入的內容未經處理直接顯示在頁面上，惡意用戶就可以在輸入裡塞一段JavaScript代碼，其他用戶瀏覽這個頁面時，這段腳本就在他們的瀏覽器裡執行了。</p>
+<p>XSS分兩種。存儲型XSS是惡意腳本被存到了數據庫裡——比如有人在評論區發了一段帶script標籤的評論，所有看評論的用戶都會中招。反射型XSS是惡意腳本放在URL參數裡，誘騙用戶點擊那個鏈接，服務器把腳本"反射"回頁面執行。</p>
+<p>XSS的危害很大：攻擊者可以竊取用戶的Cookie和登錄狀態、冒充用戶操作、篡改頁面內容、甚至挖礦。防禦XSS的核心原則很簡單：永遠不要信任用戶輸入。輸出到HTML頁面的時候，對特殊字符做轉義——把&lt;轉成&amp;lt;、&gt;轉成&amp;gt;、"轉成&amp;quot;。現代前端框架（Vue、React）默認就做了HTML轉義，這是為什麼用框架開發不容易出XSS。但如果你用v-html或者dangerouslySetInnerHTML直接渲染原始HTML，轉義就失效了。</p>
+<h2>## 二、SQL注入：最古老也最致命的漏洞</h2>
+<p>SQL注入是Web安全的經典漏洞，存在了二十多年，現在依然榜上有名。原理同樣簡單：你把用戶輸入直接拼接到SQL語句裡，攻擊者輸入一段特殊的SQL代碼，篡改了你原本要執行的查詢邏輯。</p>
+<p>比如登錄驗證的代碼是這樣寫的：String sql = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'"; 如果攻擊者在用戶名輸入框填 ' OR '1'='1 --，拼出來的SQL就變成了 SELECT * FROM users WHERE username = '' OR '1'='1 --' AND password = '...'。這個查詢永遠為真，攻擊者不需要密碼就能登錄任何賬號。</p>
+<p>防禦SQL注入的方案非常明確：永遠不要拼接SQL字符串。使用參數化查詢（預編譯語句），用戶輸入作為參數傳給數據庫，數據庫自動處理轉義。用ORM框架也能天然避免SQL注入——它生成的SQL都是參數化的。另外，最小權限原則：數據庫用戶不要給太高權限，哪怕被注入了，損失也有限。</p>
+<h2>## 三、CSRF：冒充用戶發請求</h2>
+<p>跨站請求僞造（CSRF）和XSS不一樣。XSS是往你的頁面裡塞腳本，CSRF是誘騙你的用戶在已登錄狀態下訪問惡意網站，惡意網站自動向你的站點發請求。因為瀏覽器會自動帶上Cookie，如果用戶剛登錄過你的銀行網站，又打開了一個惡意頁面，那個頁面就可以偷偷以用戶的身份發轉賬請求。</p>
+<p>防禦CSRF的核心思路是：給每個表單或者請求加一個隨機的Token，這個Token存在Session裡，同時渲染到頁面上。提交請求的時候必須帶上這個Token，服務器驗證Token是否匹配。惡意網站拿不到這個Token（跨域讀不到你的Cookie和頁面內容），所以構造的請求通不過驗證。</p>
+<p>現在的現代框架和瀏覽器都有一些自動防護措施（SameSite Cookie屬性），但關鍵操作（改密碼、轉賬、刪除）最好還是加二次確認或者二次驗證。</p>
+<h2>## 四、文件上傳漏洞：上傳個木馬就拿到服務器</h2>
+<p>很多網站都有文件上傳功能——用戶頭像、附件、圖片。如果上傳功能沒做校驗，攻擊者就可以上傳一個WebShell（比如PHP腳本），然後訪問那個文件，直接在服務器上執行任意命令。</p>
+<p>防禦文件上傳漏洞有幾個層面。第一，校驗文件類型：不要只看文件後綴名（攻擊者把shell.php改成shell.jpg也能繞過去），要檢查文件的MIME類型和文件頭的魔數。第二，上傳的文件存到獨立的域名或者對象存儲裡，不要和應用在同一個域名下——就算上傳了腳本，瀏覽器也不會把它當代碼執行。第三，重命名上傳的文件，用隨機文件名，不要保留用戶給的原始文件名。第四，限制上傳目錄的執行權限。</p>
+<h2>## 五、越權訪問：該看的不該看的都能看</h2>
+<p>水平越權和垂直越權是業務邏輯層面最常見的漏洞。</p>
+<p>水平越權：用戶A可以看到用戶B的數據。比如訂單查詢接口是 /api/order?id=123，用戶A登錄後把id改成124，就看到了用戶B的訂單。原因是後端只驗證了"你登錄了"，沒有驗證"這個訂單是不是你的"。</p>
+<p>垂直越權：普通用戶可以調用管理員接口。比如 /api/admin/deleteUser 這個接口，後端只寫了接口邏輯，沒檢查當前用戶是不是管理員，普通用戶登錄後直接調用就能刪除用戶。</p>
+<p>防禦越權的核心原則：每個請求都要做權限校驗，不能只靠前端隱藏按鈕。前端把管理員按鈕藏起來是給用戶體驗用的，真正的權限校驗必須在後端做。後端拿到請求後，不僅要驗證"你是誰"，還要驗證"你能不能做這件事"。</p>
+<h2>## 六、敏感信息泄露：密鑰不要寫在代碼裡</h2>
+<p>這不是什麼高明的攻擊，但出問題的概率極高。很多開發者把數據庫密碼、API密鑰、Secret Key直接寫在代碼裡，然後把代碼推到GitHub公開倉庫。各種爬蟲機器人會全天候掃描GitHub裡的密鑰，幾分鐘內你的密鑰就被濫用了。</p>
+<p>防禦很簡單：敏感配置全部放在環境變量或者配置文件裡，配置文件加入.gitignore不要提交。定期檢查代碼歷史裡有沒有不小心提交過的密鑰——如果有，立刻輪換（重置）那個密鑰，因為git歷史可以被恢復。</p>
+<h2>## 七、HTTPS：加密傳輸是基本要求</h2>
+<p>HTTP是明文傳輸的，網絡上任何人都可以竊聽甚至篡改傳輸內容。在公共WiFi下，你登錄網站的賬號密碼可能被中間人直接看到。HTTPS通過TLS加密，保證數據在傳輸過程中既不被竊聽也不被篡改。</p>
+<p>現在HTTPS已經是標配了，Let's Encrypt提供免費證書，配置也很簡單。所有線上站點都應該強制HTTPS，把HTTP請求自動跳轉到HTTPS。Cookie也要設置Secure標誌，只在HTTPS下傳輸。</p>
+<h2>## 八、安全是持續過程，不是一次性任務</h2>
+<p>安全不是上線前做一次掃描就完事的。新的漏洞不斷被發現，依賴庫的安全公告要持續關注，定期用工具掃描項目的依賴有沒有已知漏洞。最小權限原則貫穿始終：數據庫賬號只給需要的權限、API密鑰只給需要的範圍、服務器端口不要全部對外開放。</p>
+<p>對於普通開發者來說，不需要成為安全專家，但必須建立最基本的安全意識：用戶輸入永遠不可信、敏感數據永遠不硬編碼、權限校驗永遠在後端做、永遠用參數化查詢。把這些變成肌肉記憶，就能擋住90%以上的常見攻擊。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-vite-deep-dive.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Vite構建工具深度解析</a><a href="article-tech-system-design-method.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 系統設計方法論</a><a href="article-tech-typescript.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ TypeScript類型系統進階</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

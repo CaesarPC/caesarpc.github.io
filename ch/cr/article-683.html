@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-683.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-683.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-683.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-683.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Git團隊協作規範（2） - CaesarTools</title>
+<meta name="description" content="Git團隊協作規範 - CaesarBase 免費技術文章">
+<meta name="keywords" content="Git團隊協作規範, Git">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Git團隊協作規範 - CaesarTools">
+<meta property="og:description" content="Git團隊協作規範 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-683.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git團隊協作規範（2）","description":"Git團隊協作規範 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-683.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Git團隊協作規範（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Git為什麼是標配</h2>
+<p>多人協作沒有版本控制就是災難。你覆蓋我的改動，我刪你的文件，改壞了找不回。Git是分佈式版本控制系統，每臺電腦有完整歷史，離線也能提交。GitHub和GitLab是遠程倉庫託管平臺。</p>
+<h2>二、分支工作流</h2>
+<p>main分支永遠可部署。新功能開feature分支：git checkout -b feature/user-login。開發完發Pull Request，同事Review代碼後合併到main。不要直接在main上改。</p>
+<h2>三、提交信息規範</h2>
+<p>feat: 新功能</p>
+<p>fix: 修bug</p>
+<p>docs: 文檔</p>
+<p>refactor: 重構</p>
+<p>test: 測試</p>
+<p>寫清楚做了什麼，不要寫"更新"。半年後沒人知道改了啥。</p>
+<h2>四、衝突解決</h2>
+<p>兩個人改了同一行代碼，git merge衝突：</p>
+<p><<<<<<< HEAD</p>
+<p>你的改動</p>
+<p>=======</p>
+<p>別人的改動</p>
+<p>>>>>>>> branch-name</p>
+<p>手動保留正確的部分，刪掉標記，git add再commit。預防方法：小步提交、經常pull、分支別活太久。</p>
+<h2>五、撤銷操作</h2>
+<p>git checkout -- file 撤銷未暫存的修改</p>
+<p>git reset HEAD file 取消暫存</p>
+<p>git revert abc123 安全撤銷某個提交</p>
+<p>git reset --hard abc123 強制回退（危險，別在共享分支用）</p>
+<h2>六、暫存</h2>
+<p>git stash把未提交改動收起來，切分支幹別的，回來git stash pop恢復。</p>
+<h2>七、.gitignore</h2>
+<p>node_modules、.env、dist、.DS_Store不要提交。</p>
+<h2>八、大文件</h2>
+<p>視頻、模型權重不要直接git add，倉庫越搞越大，clone要半小時。用Git LFS或者對象存儲。</p>
+<h2>九、密鑰泄露</h2>
+<p>API Key提交到公開倉庫，立刻刪、換密鑰、改歷史。GitHub會自動掃到常見密鑰格式。</p>
+<h2>十、代碼Review</h2>
+<p>PR不是走形式。看邏輯對不對、有沒有測試、命名清不清楚。被Review不要覺得被針對，是互相提高。</p>
+<h2>十一、回滾生產</h2>
+<p>git revert上個壞提交，push，自動重新部署回滾。不要force push共享分支。</p>
+<h2>十二、變基vs合併</h2>
+<p>main更新了，feature分支同步：merge產生合併提交，歷史分叉。rebase把提交挪到main最新後，歷史直線。rebase歷史乾淨，但不要在共享分支用。</p>
+<h2>十三、GitHub Flow</h2>
+<p>小團隊推薦簡化流程：main永遠可部署，新功能開feature分支，開發完發PR，Review通過合併main，main自動部署。hotfix直接在main上修。大項目用Git Flow：develop開發分支、release預發佈分支、hotfix修復分支。</p>
+<h2>十四、總結</h2>
+<p>Git是工程師基本功。分支工作流、規範提交信息、衝突解決、.gitignore、PR Review。工具簡單，難的是養成規範習慣。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-680.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-68.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a><a href="article-685.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a></div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-713.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-713.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-713.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-713.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BFF層：前後端之間的中間層（2） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 BFF層：前後端之間的中間層 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="BFF層, 前後端之間的中間層, 後端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="BFF層：前後端之間的中間層 - CaesarTools">
+<meta property="og:description" content="BFF層：前後端之間的中間層 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-713.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"BFF層：前後端之間的中間層（2）","description":"← 返回文章列表 BFF層：前後端之間的中間層 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-713.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>BFF層：前後端之間的中間層（2）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼需要BFF</h2>
+<p>前端開發經常遇到這種情況：首頁要顯示用戶信息、最近訂單、購物車數量、推薦商品。這四個數據分別來自四個後端服務。前端要發四個請求，等最慢的那個返回，頁面才能渲染。</p>
+<p>BFF（Backend For Frontend）就是站在前端和後端服務之間的一層，專門給前端服務。前端只發一個請求到BFF，BFF去調用四個後端服務，聚合數據，組裝成前端需要的格式，一次返回。</p>
+<h2>二、BFF做什麼</h2>
+<p>聚合多個後端接口。前端發一次請求，BFF並行調用多個後端服務，一次返回全部數據。</p>
+<p>裁剪字段。後端返回用戶10個字段，前端只要3個，BFF把多餘字段去掉。</p>
+<p>協議轉換。後端用gRPC，前端用HTTP，BFF做轉換。</p>
+<p>做緩存。重複請求直接命中BFF緩存，不打後端。</p>
+<p>適配不同端。手機端字段少，桌面端字段多，BFF按設備返回不同數據。</p>
+<h2>三、怎麼實現</h2>
+<p>用Node.js寫一個服務：</p>
+<p>const express = require('express');</p>
+<p>const app = express();</p>
+<p>app.get('/api/home', async (req, res) => {</p>
+<p>const [user, orders, cart] = await Promise.all([</p>
+<p>userService.getUser(),</p>
+<p>orderService.getRecent(),</p>
+<p>cartService.getCount()</p>
+<p>]);</p>
+<p>res.json({ user, orders, cart });</p>
+<p>});</p>
+<p>app.listen(3001);</p>
+<p>前端請求http://api.example.com/api/home，一次拿到首頁全部數據。</p>
+<h2>四、BFF和GraphQL</h2>
+<p>GraphQL本質就是標準化的BFF查詢語言。前端聲明需要哪些字段，BFF（GraphQL Server）去後端取，只返回那些字段。</p>
+<h2>五、什麼時候不要BFF</h2>
+<p>簡單項目，一個後端服務就能搞定所有接口。不要為了用技術而用技術。BFF加了一層，也多了一個要維護的服務。</p>
+<h2>六、BFF的職責邊界</h2>
+<p>BFF只做數據聚合和裁剪，不要寫業務邏輯。業務邏輯在後端服務。BFF不要直接操作數據庫，它只是個轉發層。</p>
+<h2>七、常見坑</h2>
+<p>坑1：BFF寫了業務邏輯，和後端服務重複。</p>
+<p>坑2：BFF緩存沒失效，數據和後端不一致。</p>
+<p>坑3：BFF掛了，前端全站掛。要做高可用。</p>
+<h2>八、總結</h2>
+<p>BFF讓前端掌控數據組裝，減少請求次數，適配不同端。複雜項目值得加一層，簡單項目別過度設計。它是前後端協作的潤滑劑，不是銀彈。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-717.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS響應式設計實戰</a><a href="article-708.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript this指向完全指南</a><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲：Cookie、LocalStorage、IndexedDB怎麼選</a></div>
+</body>
+</html>

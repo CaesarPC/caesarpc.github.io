@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-45.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-45.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-45.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-45.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI推理服務部署：從模型加載到高併發API - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 AI推理服務部署：從模型加載到高併發API CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="AI推理服務部署, 從模型加載到高併發API, API">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="AI推理服務部署：從模型加載到高併發API - CaesarTools">
+<meta property="og:description" content="AI推理服務部署：從模型加載到高併發API - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-45.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI推理服務部署：從模型加載到高併發API","description":"← 返回文章列表 AI推理服務部署：從模型加載到高併發API CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-45.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>AI推理服務部署：從模型加載到高併發API</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、模型部署的挑戰</h2>
+<p>訓練好的模型是文件，用戶沒法直接用。部署就是把它包成API：發一張圖，返回識別結果；發一段文字，返回生成內容。和普通後端區別：推理喫GPU顯存，延遲敏感，流量忽高忽低。</p>
+<h2>二、基礎方案：FastAPI</h2>
+<p>from fastapi import FastAPI</p>
+<p>from transformers import pipeline</p>
+<p>app = FastAPI()</p>
+<p>classifier = pipeline("sentiment-analysis")</p>
+<p>@app.post("/predict")</p>
+<p>def predict(text: str):</p>
+<p>return classifier(text)[0]</p>
+<p>uvicorn main:app --port 8000</p>
+<p>簡單但併發低。一個請求推理時，其他請求排隊。</p>
+<h2>三、高併發：vLLM</h2>
+<p>7B以上模型，原生transformers每秒幾個請求。vLLM用PagedAttention，吞吐量提升10-20倍，顯存利用率從20%到90%。</p>
+<p>python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen2-7B</p>
+<p>直接暴露OpenAI兼容接口，前端改個base_url就能用。</p>
+<h2>四、量化</h2>
+<p>7B FP16要14GB顯存。INT4量化只要4GB，一張4090就能跑。</p>
+<p>BitsAndBytesConfig(load_in_4bit=True)。精度略降，多數場景無感。</p>
+<h2>五、GPU選擇</h2>
+<p>7B INT4：RTX 4090 24GB。</p>
+<p>7B FP16：A10G 24GB。</p>
+<p>70B INT4：A100 80GB。</p>
+<p>雲租：AutoDL、阿里雲、AWS。測試用4090，生產用A10。</p>
+<h2>六、常見坑</h2>
+<p>坑1：模型加載慢。第一次加載幾十億參數要1-2分鐘。啟動後預熱一個請求。</p>
+<p>坑2：顯存OOM。長文本+大batch爆。限制max_tokens，開vLLM連續批處理。</p>
+<p>坑3：併發低。原生transformers一次一個請求。用vLLM。</p>
+<p>坑4：同步阻塞。用FastAPI異步，不要Flask。</p>
+<h2>七、和業務後端配合</h2>
+<p>AI服務獨立部署在GPU機器，業務後端HTTP調AI服務。不要把模型塞進業務後端進程。</p>
+<h2>八、監控</h2>
+<p>GPU利用率、顯存、推理延遲P99、QPS。Prometheus+Grafana。GPU利用率長期低於30%就是浪費錢。</p>
+<h2>九、模型版本管理</h2>
+<p>訓練多個版本，用環境變量MODEL_VERSION切換權重文件。A/B測試同時跑兩個版本，按流量比例分流。</p>
+<h2>十、總結</h2>
+<p>AI部署：選vLLM高併發、量化壓顯存、獨立部署、監控GPU。個人一張4090跑7B，企業A100跑70B。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-458.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-446.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-442.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a></div>
+</body>
+</html>

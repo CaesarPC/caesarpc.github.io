@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="CORS跨域指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="CORS跨域指南">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-221.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-221.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-221.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-221.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CORS跨域指南 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CORS跨域指南 - CaesarTools">
+<meta property="og:description" content="CORS跨域指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-221.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CORS跨域指南","description":"CORS跨域指南 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-221.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>CORS跨域指南</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># CORS跨域完整指南：瀏覽器的安全策略與突破</p>
+<p>你寫了一個前端頁面調用後端接口，控制檯報錯：No 'Access-Control-Allow-Origin' header is present。這就是跨域問題——前端和後端不在同一個域名下，瀏覽器默認阻止了請求。很多人被這個問題折磨過，以為是後端接口寫錯了，其實是瀏覽器的同源安全策略在起作用。</p>
+<p>## 一、什麼是同源策略</p>
+<p>瀏覽器的同源策略規定：一個網頁的腳本不能和不同域名、不同端口、不同協議的資源交互。這是為了安全——防止惡意網站偷你的數據。如果沒有同源策略，你打開一個惡意網站，它的JS就能讀你銀行網站裡的Cookie和頁面內容。</p>
+<p>同源 = 協議 + 域名 + 端口 三者完全一致。http://a.com 和 https://a.com 不同（協議不同），http://a.com 和 http://b.com 不同（域名不同），http://a.com 和 http://a.com:8080 不同（端口不同）。</p>
+<p>## 二、簡單請求與預檢請求</p>
+<p>不是所有跨域請求都被阻止。瀏覽器把跨域請求分兩種。</p>
+<p>簡單請求：GET/POST/HEAD方法，Content-Type是application/x-www-form-urlencoded、multipart/form-data或text/plain，沒有自定義頭。這種請求瀏覽器直接發出去，但在響應裡檢查有沒有Access-Control-Allow-Origin頭——沒有的話JS拿不到響應。</p>
+<p>非簡單請求（比如PUT/DELETE、Content-Type是application/json、帶Authorization頭）：瀏覽器在真正發請求之前，先發一個OPTIONS預檢請求，問服務器"我這個跨域請求允許嗎？"服務器返回允許的方法和頭，瀏覽器確認OK了才發真正的請求。</p>
+<p>## 三、後端怎麼解決CORS</p>
+<p>後端在響應里加幾個頭就行：
+Access-Control-Allow-Origin: https://你的前端域名
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Allow-Credentials: true（如果要帶Cookie）</p>
+<p>加了這些頭，瀏覽器就允許跨域訪問了。幾乎所有後端框架都有現成的CORS中間件，幾行配置搞定。</p>
+<p>## 四、Cookie跨域</p>
+<p>跨域請求默認不帶Cookie。要帶Cookie，前端fetch要設credentials: 'include'，後端要設Access-Control-Allow-Credentials: true，而且Allow-Origin不能是*，必須指定具體域名。</p>
+<p>## 五、開發環境的代理</p>
+<p>前端開發時，前端跑在localhost:5173，後端跑在localhost:3000，這也是跨域。不想改後端配置的話，可以用Vite/Webpack的開發代理——前端請求/api，開發服務器把/api轉發到localhost:3000。對瀏覽器來說請求都是同源的，代理在服務器端轉發就不存在跨域問題。</p>
+<p>## 六、總結</p>
+<p>跨域不是後端接口的問題，是瀏覽器的安全策略。理解同源策略、預檢請求、響應頭配置，遇到CORS報錯就知道該改哪裡了。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-228.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能優化清單</a><a href="article-tech-225.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 冪等性設計</a><a href="article-tech-214.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 排序算法效率對比</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

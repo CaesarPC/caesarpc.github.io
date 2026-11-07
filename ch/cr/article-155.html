@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-155.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-155.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-155.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-155.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CI/CD自動化部署：從手動到一鍵上線 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 CI/CD自動化部署：從手動到一鍵上線 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="CI/CD自動化部署, 從手動到一鍵上線">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CI/CD自動化部署：從手動到一鍵上線 - CaesarTools">
+<meta property="og:description" content="CI/CD自動化部署：從手動到一鍵上線 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-155.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CI/CD自動化部署：從手動到一鍵上線","description":"← 返回文章列表 CI/CD自動化部署：從手動到一鍵上線 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-155.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>CI/CD自動化部署：從手動到一鍵上線</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、手動發佈的痛</h2>
+<p>git pull→npm install→build→scp上傳→ssh重啟。15分鐘，容易出錯，半夜出問題爬起來。</p>
+<p>CI/CD全自動：push代碼→自動測試→構建→部署。</p>
+<h2>二、GitHub Actions</h2>
+<p>.github/workflows/deploy.yml：</p>
+<p>on:</p>
+<p>push:</p>
+<p>branches: [main]</p>
+<p>jobs:</p>
+<p>deploy:</p>
+<p>runs-on: ubuntu-latest</p>
+<p>steps:</p>
+<p>- uses: actions/checkout@v4</p>
+<p>- run: npm ci</p>
+<p>- run: npm test</p>
+<p>- run: npm run build</p>
+<p>- run: scp -r dist user@server:/var/www</p>
+<h2>三、Secrets</h2>
+<p>SSH密鑰、數據庫密碼存GitHub Secrets，用${{ secrets.XXX }}引用。不寫代碼裡。</p>
+<h2>四、測試是關鍵</h2>
+<p>CI不跑測試等於沒CI。測試掛了阻止部署。壞代碼上不了生產。</p>
+<h2>五、回滾</h2>
+<p>git revert上個壞提交，push，自動重新部署。</p>
+<h2>六、常見坑</h2>
+<p>坑1：CI環境和生產不一致。用Docker。</p>
+<p>坑2：secrets硬編碼。立刻換。</p>
+<p>坑3：直接部署生產。先預發佈驗證。</p>
+<h2>七、藍綠和灰度</h2>
+<p>零停機發布：跑兩個版本，Nginx切流量到新版本，有問題切回。</p>
+<p>灰度：先給1%用戶看新版本，觀察沒問題再全量。</p>
+<h2>八、總結</h2>
+<p>CI/CD是工程成熟度標誌。GitHub Actions半小時搭好，從此告別手動發佈。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-152.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-150.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-159.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS變量與主題切換</a></div>
+</body>
+</html>

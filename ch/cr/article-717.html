@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-717.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-717.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-717.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-717.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSS響應式設計實戰（2） - CaesarTools</title>
+<meta name="description" content="CSS響應式設計實戰 - CaesarBase 免費技術文章">
+<meta name="keywords" content="CSS響應式設計實戰, CSS">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="CSS響應式設計實戰 - CaesarTools">
+<meta property="og:description" content="CSS響應式設計實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-717.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"CSS響應式設計實戰（2）","description":"CSS響應式設計實戰 - CaesarBase 免費技術文章","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-717.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>CSS響應式設計實戰（2）</h1>
+
+<div class="breadcrumb" style="font-size:13px;color:#6272a4;margin-bottom:16px">
+  <a href="index.html" style="color:#50fa7b">首頁</a> / 
+  <a href="articles.html" style="color:#50fa7b">文章教程</a> / 
+  <span>CSS響應式設計實戰</span>
+</div>
+
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼要響應式</h2>
+<p>你的網站在Mac上好好的，在手機上擠成一團。用戶從手機來的佔一半，不做響應式等於丟掉一半用戶。</p>
+<h2>二、移動優先</h2>
+<p>先寫手機樣式，再用min-width媒體查詢加桌面樣式。手機樣式是基礎，桌面是增強。</p>
+<h2>三、媒體查詢</h2>
+<p>@media (min-width: 768px) {</p>
+<p>.container { grid-template-columns: repeat(2, 1fr); }</p>
+<p>}</p>
+<p>@media (min-width: 1200px) {</p>
+<p>.container { grid-template-columns: repeat(4, 1fr); }</p>
+<p>}</p>
+<h2>四、相對單位</h2>
+<p>用rem和%，不用px。字體1rem=16px（默認）。容器寬度用%或vw。</p>
+<h2>五、Grid自適應</h2>
+<p>grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));</p>
+<p>容器多寬就自動排幾列，不用寫媒體查詢。</p>
+<h2>六、圖片響應式</h2>
+<p><img src="small.jpg" srcset="small.jpg 480w, large.jpg 1080w" sizes="(max-width: 600px) 480px, 1080px"></p>
+<p>手機下小圖，桌面下大圖。</p>
+<h2>七、常見斷點</h2>
+<p>手機<768px。平板768-1024px。桌面>1024px。大屏>1440px。</p>
+<h2>八、常見坑</h2>
+<p>媒體查詢寫反方向，從大到小要改寫法。</p>
+<p>固定px寬度，小屏溢出。</p>
+<p>字體用px，用戶改瀏覽器字體無效。</p>
+<h2>九、總結</h2>
+<p>響應式設計讓網站在手機、平板、桌面都好看。移動優先、相對單位、Grid自適應、圖片響應式。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-724.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ AI模型部署實戰：從模型文件到高併發API</a><a href="article-718.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket實時通信實戰</a><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲：Cookie、LocalStorage、IndexedDB怎麼選</a></div>
+</body>
+</html>

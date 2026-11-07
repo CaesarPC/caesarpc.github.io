@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-672.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-672.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-672.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-672.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI模型部署實戰：從模型文件到高併發API - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 AI模型部署實戰：從模型文件到高併發API CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="AI模型部署實戰, 從模型文件到高併發API, API">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="AI模型部署實戰：從模型文件到高併發API - CaesarTools">
+<meta property="og:description" content="AI模型部署實戰：從模型文件到高併發API - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-672.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI模型部署實戰：從模型文件到高併發API","description":"← 返回文章列表 AI模型部署實戰：從模型文件到高併發API CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-672.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>AI模型部署實戰：從模型文件到高併發API</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、模型部署到底在做什麼</h2>
+<p>數據科學家在Jupyter裡把模型訓練好，得到一個model.pth文件。但這只是文件，用戶沒法直接用。部署就是把這個文件包裝成一個API服務：發一張圖片過來，模型返回識別結果；發一段文字，模型返回生成內容。和普通後端服務的區別是：推理要喫GPU顯存，延遲敏感，流量忽高忽低。</p>
+<h2>二、基礎方案：FastAPI加Transformers</h2>
+<p>from fastapi import FastAPI</p>
+<p>from pydantic import BaseModel</p>
+<p>import torch</p>
+<p>from transformers import AutoModelForCausalLM, AutoTokenizer</p>
+<p>app = FastAPI()</p>
+<p>model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2-1.5B")</p>
+<p>tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2-1.5B")</p>
+<p>class Prompt(BaseModel):</p>
+<p>text: str</p>
+<p>@app.post("/generate")</p>
+<p>def generate(prompt: Prompt):</p>
+<p>inputs = tokenizer(prompt.text, return_tensors="pt")</p>
+<p>outputs = model.generate(**inputs, max_new_tokens=100)</p>
+<p>return {"result": tokenizer.decode(outputs[0])}</p>
+<p>啟動：uvicorn main:app --port 8000。簡單但併發低，一個請求推理時其他請求排隊。</p>
+<h2>三、高併發方案：vLLM</h2>
+<p>7B以上模型，原生transformers每秒只能處理幾個請求。vLLM用PagedAttention技術，把顯存利用率從20%提到90%，吞吐量提升10到20倍。</p>
+<p>pip install vllm</p>
+<p>python -m vllm.entrypoints.openai.api_server --model Qwen/Qwen2-7B</p>
+<p>直接暴露OpenAI兼容接口，前端代碼改個base_url就能用，不用改業務代碼。</p>
+<h2>四、量化：讓模型在消費級GPU跑起來</h2>
+<p>7B模型FP16要14GB顯存。量化到INT4只要4GB，一張RTX 4090就能跑。</p>
+<p>from transformers import BitsAndBytesConfig</p>
+<p>quant_config = BitsAndBytesConfig(load_in_4bit=True)</p>
+<p>model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2-7B", quantization_config=quant_config)</p>
+<p>代價是精度略降，但對大多數場景無感。</p>
+<h2>五、GPU選擇參考</h2>
+<p>7B INT4：RTX 4090 24GB夠。</p>
+<p>7B FP16：A10G 24GB。</p>
+<p>70B INT4：A100 80GB。</p>
+<p>70B FP16：多卡A100。</p>
+<p>雲廠商按小時租：AutoDL、阿里雲、AWS。測試用4090，生產用A10。</p>
+<h2>六、常見坑</h2>
+<p>模型加載慢，第一次加載幾十億參數要1到2分鐘，啟動後預熱一個請求。顯存OOM，長文本加大batch直接爆，限制max_tokens開vLLM連續批處理。併發低，原生transformers一次一個請求，用vLLM。同步阻塞，用FastAPI異步不要Flask。</p>
+<h2>七、和業務後端怎麼配合</h2>
+<p>AI服務獨立部署在GPU機器，業務後端通過HTTP調AI服務。不要把AI模型塞進業務後端進程，搶CPU還不好擴容。</p>
+<h2>八、監控</h2>
+<p>GPU利用率、顯存佔用、推理延遲P99、QPS。用Prometheus加Grafana。GPU利用率長期低於30%就是浪費錢，高於90%就要加卡。</p>
+<h2>九、模型版本管理</h2>
+<p>訓練好幾個版本模型，用環境變量MODEL_VERSION切換權重文件。A/B測試同時跑兩個版本，按流量比例分流。</p>
+<h2>十、總結</h2>
+<p>模型部署不是把模型跑起來就完了。選對框架vLLM、做量化壓顯存、控制併發和延遲、GPU監控成本，這一整套才是生產級AI部署。個人開發者一張4090就能跑7B模型，企業級用A100集群跑70B。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-667.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端錯誤監控實戰</a><a href="article-674.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a><a href="article-679.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引實戰</a></div>
+</body>
+</html>

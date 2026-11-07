@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="前端權限設計 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="前端權限設計">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-frontend-authz.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-frontend-authz.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-frontend-authz.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-frontend-authz.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>前端權限設計（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端權限設計 - CaesarTools">
+<meta property="og:description" content="前端權限設計 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-frontend-authz.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端權限設計（2）","description":"前端權限設計 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-frontend-authz.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>前端權限設計（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>前端權限設計：從路由到按鈕的三級權限控制</h2>
+<p>後台管理系統有多角色：管理員看所有功能、編輯只能編輯內容、訪客只能查看。前端權限控制要做到：沒權限的路由不顯示、沒權限的菜單不渲染、沒權限的按鈕禁用或隱藏。</p>
+<p>前端權限分三層：路由級（能不能進這個頁面）、菜單級（側邊欄顯示哪些菜單）、按鈕級（頁面內哪些操作按鈕可見/可點）。</p>
+<p>實現方式：登錄後後端返回用戶權限列表（角色、可訪問路由、權限點）。前端根據權限列表動態生成路由（沒權限的路由不註冊）；菜單根據權限過濾渲染；按鈕根據權限點判斷是否顯示。</p>
+<p>路由守衛做第一道防線：用戶直接輸入URL訪問沒權限的頁面，路由守衛攔截跳轉403。</p>
+<p>前端權限只是體驗優化，不是安全措施。真正的權限校驗在後端——前端隱藏按鈕不阻止用戶直接調API。後端接口必須驗證權限，前端配合做體驗。</p>
+<p>常見的權限模型：RBAC（基於角色的訪問控制）——用戶關聯角色，角色關聯權限，最簡單常用。更復雜的ABAC（基於屬性）按用戶屬性、資源屬性動態判斷，一般系統用不到。</p>
+<p>好的權限設計讓不同角色看到不同的界面，既安全又友好。這是中後台系統的標配功能。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-file-upload-chunk.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 文件上傳與大文件分片</a><a href="article-tech-elk-log-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 日誌收集體系ELK</a><a href="article-tech-distributed-tx.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式事務方案對比</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

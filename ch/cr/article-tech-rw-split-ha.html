@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="讀寫分離與數據庫高可用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="讀寫分離與數據庫高可用">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-rw-split-ha.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-rw-split-ha.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-rw-split-ha.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>讀寫分離與數據庫高可用（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="讀寫分離與數據庫高可用 - CaesarTools">
+<meta property="og:description" content="讀寫分離與數據庫高可用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-rw-split-ha.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"讀寫分離與數據庫高可用（2）","description":"讀寫分離與數據庫高可用 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-rw-split-ha.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>讀寫分離與數據庫高可用（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>讀寫分離與數據庫高可用：讓數據庫不再單點故障</h2>
+<p>數據庫是系統中最難擴展的有狀態組件。讀請求遠多於寫請求（典型比例10:1甚至100:1），一臺主庫既要處理寫又要處理讀，很快就扛不住。讀寫分離是最自然的優化：主庫負責寫，從庫負責讀，把讀壓力分散到多臺機器。</p>
+<p>MySQL的主從複製是基礎：主庫寫入binlog，從庫拉取binlog重放，保持數據同步。一個主庫可以掛多個從庫。應用配置兩個數據源：寫操作走主庫，讀操作走從庫。數據庫連接池或中間件（ShardingSphere、MyCat）自動路由。</p>
+<p>讀寫分離要解決的問題：主從延遲。主庫寫完，從庫同步需要時間（毫秒到秒級）。如果剛寫完就讀，讀到從庫可能還是舊數據。解決方案：關鍵操作（寫後立刻讀）走主庫；普通讀走從庫；或者接受短暫延遲。</p>
+<p>高可用是讀寫分離的進階。主庫掛了怎麼辦？要自動故障轉移：監控主庫狀態，掛了自動提升一個從庫為新主庫。MHA、Orchestrator、雲廠商的RDS都提供這種自動主從切換能力。不需要人工干預，幾秒內完成切換，業務影響最小。</p>
+<p>多從庫讀擴展：一臺主庫掛5個從庫，讀能力擴展5倍。從庫可以分佈在不同機房，就近服務不同地區的用戶。</p>
+<p>緩存+讀寫分離是高併發讀場景的標準組合：熱點數據放Redis，未命中走從庫。數據庫壓力大降。</p>
+<p>分庫分表（前面講的）是讀寫分離之後的下一步：當單主庫的寫壓力也到瓶頸了，就要做分片。但大多數系統，讀寫分離加緩存就夠了，不需要走到分庫分表那一步。</p>
+<p>雲數據庫（RDS）把這些都託管了：主從複製、自動備份、故障切換、擴容，都是雲廠商做。你只需要連接數據庫。中小團隊用雲數據庫，不用自己折騰主從複製和高可用。</p>
+<p>數據庫高可用的核心思路是：不依賴單機，任何一臺掛了系統照常運行。數據多副本、自動故障轉移、讀寫分離擴展讀能力。這套架構讓數據庫從單點變成高可用集群。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-ssr-isomorphic.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 服務端渲染SSR與同構應用</a><a href="article-tech-monitoring-system.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 監控告警系統建設</a><a href="article-tech-tech-debt.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 技術債管理</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

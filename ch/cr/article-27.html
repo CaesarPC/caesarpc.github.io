@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-27.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-27.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-27.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-27.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript事件循環詳解：搞懂異步執行順序 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 JavaScript事件循環詳解：搞懂異步執行順序 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript事件循環詳解, 搞懂異步執行順序, JavaScript, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript事件循環詳解：搞懂異步執行順序 - CaesarTools">
+<meta property="og:description" content="JavaScript事件循環詳解：搞懂異步執行順序 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-27.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript事件循環詳解：搞懂異步執行順序","description":"← 返回文章列表 JavaScript事件循環詳解：搞懂異步執行順序 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-27.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript事件循環詳解：搞懂異步執行順序</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼需要事件循環</h2>
+<p>JS是單線程語言——同一時間只能幹一件事。如果JS要等一個網絡請求返回，後面所有代碼都卡住，頁面就凍死了。</p>
+<p>事件循環就是JS處理異步任務的機制：同步代碼立刻執行，異步任務掛起，等同步代碼跑完再回來處理。理解事件循環，你才能搞懂為什麼setTimeout有時候不準、Promise.then先於setTimeout執行。</p>
+<h2>二、事件循環基本流程</h2>
+<p>一個循環：</p>
+<h3>1. 執行棧裡的同步代碼</h3>
+<h3>2. 清空微任務隊列</h3>
+<h3>3. 渲染（如果需要）</h3>
+<h3>4. 取一個宏任務執行</h3>
+<h3>5. 回到第2步</h3>
+<p>關鍵：每執行完一個宏任務，都要清空所有微任務。微任務優先級高於宏任務。</p>
+<h2>三、微任務和宏任務</h2>
+<p>微任務：Promise.then、queueMicrotask、MutationObserver、process.nextTick(Node)。</p>
+<p>宏任務：setTimeout、setInterval、setImmediate(Node)、I/O、UI事件。</p>
+<p>微任務在當前宏任務結束後立刻執行，比下個宏任務早。</p>
+<h2>四、經典面試題</h2>
+<p>console.log(1);</p>
+<p>setTimeout(() => console.log(2), 0);</p>
+<p>Promise.resolve().then(() => console.log(3));</p>
+<p>console.log(4);</p>
+<p>輸出：1 4 3 2</p>
+<p>分析：</p>
+<p>- 同步代碼先跑：打印1、4</p>
+<p>- 微任務Promise.then：打印3</p>
+<p>- 宏任務setTimeout：打印2</p>
+<h2>五、為什麼setTimeout不準</h2>
+<p>setTimeout(fn, 0)不是0毫秒後執行。它是0毫秒後把fn放進宏任務隊列。如果隊列前面還有別的任務，fn要等。</p>
+<p>Node官方規定setTimeout最低1毫秒。瀏覽器裡如果主線程忙，延遲幾十毫秒很正常。</p>
+<h2>六、async/await和事件循環</h2>
+<p>async function a() {</p>
+<p>console.log(1);</p>
+<p>await b();</p>
+<p>console.log(2);</p>
+<p>}</p>
+<p>async function b() { console.log(3); }</p>
+<p>console.log(4);</p>
+<p>a();</p>
+<p>console.log(5);</p>
+<p>輸出：4 1 3 5 2</p>
+<p>await後面的代碼相當於Promise.then，進微任務隊列。</p>
+<h2>七、長任務卡頓</h2>
+<p>主線程上一個任務超過50毫秒，用戶點擊就沒反應。這就是長任務。</p>
+<p>解法：</p>
+<p>- 大計算拆成小片，用scheduler.postTask</p>
+<p>- 數據處理放Web Worker</p>
+<p>- 虛擬滾動渲染長列表</p>
+<h2>八、Node和瀏覽器的區別</h2>
+<p>Node事件循環分階段：timers→pending callbacks→poll→check→close。setTimeout在timers階段，setImmediate在check階段。</p>
+<p>瀏覽器沒有這些階段，就是宏任務+微任務簡單循環。</p>
+<h2>九、調試技巧</h2>
+<p>Chrome DevTools Performance面板錄一次操作，看火焰圖。黃色是腳本執行，紫色是渲染，綠色是Layout。紅色長條就是長任務。</p>
+<h2>十、生產中的事件循環問題</h2>
+<p>接口返回大量數據，前端遍歷處理10000條，主線程卡住200毫秒。用戶點按鈕沒反應。解法：把數據處理放Web Worker，主線程只負責渲染。</p>
+<p>頁面滾動時觸發scroll事件，每次都計算位置。高頻事件用節流，減少主線程壓力。</p>
+<h2>十一、總結</h2>
+<p>事件循環：同步→微任務→渲染→宏任務，循環往復。微任務比宏任務先執行。懂了這個，JS異步順序就不會再亂。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-262.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-273.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Linux服務器入門</a><a href="article-264.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a></div>
+</body>
+</html>

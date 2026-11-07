@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="緩存三大問題複習 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="緩存三大問題複習, 緩存">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-245.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-245.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-245.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-245.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>緩存三大問題複習 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="緩存三大問題複習 - CaesarTools">
+<meta property="og:description" content="緩存三大問題複習 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-245.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"緩存三大問題複習","description":"緩存三大問題複習 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-245.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>緩存三大問題複習</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 緩存穿透、擊穿、雪崩複習：分佈式緩存三大問題</p>
+<p>前面講Redis緩存時詳細聊過這三個問題，這裡做一個濃縮總結，方便快速複習。</p>
+<p>## 一、穿透：查不存在的數據</p>
+<p>大量請求查一個數據庫里根本不存在的key，每次都穿透到數據庫。
+解決：緩存空值（查不到也存一個空標記，短TTL）；布隆過濾器（請求前先過一層，不存在直接拒絕）。</p>
+<p>## 二、擊穿：熱點Key過期瞬間</p>
+<p>一個超熱點key過期，瞬間幾千併發全打到數據庫。
+解決：互斥鎖（第一個請求去查庫重建緩存，其他等待）；熱點key永不過期（後台異步更新）。</p>
+<p>## 三、雪崩：大面積同時過期</p>
+<p>大量key同一時間集中過期，或Redis節點宕機，請求全湧向數據庫。
+解決：過期時間加隨機偏移（不要同時過期）；Redis集群高可用；數據庫限流兜底。</p>
+<p>## 四、一致性</p>
+<p>緩存和數據庫的雙寫不一致：更新數據庫後刪緩存的間隙，有請求讀了舊值寫入緩存。
+解決：延遲雙刪（更新DB後刪一次緩存，延遲一會再刪一次）；短TTL兜底。</p>
+<p>## 五、一句話總結</p>
+<p>穿透是查不存在的，擊穿是熱點過期，雪崩是大面積掛。記住這三個詞的區別和對應方案，面試和實戰都夠用。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-247.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ DockerCompose</a><a href="article-tech-238.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端模塊化</a><a href="article-tech-241.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Git分支策略</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="邊緣渲染與下一代Web架構">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-edge-rendering.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-edge-rendering.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-edge-rendering.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-edge-rendering.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邊緣渲染與下一代Web架構（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="邊緣渲染與下一代Web架構 - CaesarTools">
+<meta property="og:description" content="邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-edge-rendering.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"邊緣渲染與下一代Web架構（2）","description":"邊緣渲染與下一代Web架構 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-edge-rendering.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>邊緣渲染與下一代Web架構（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>邊緣渲染與下一代Web架構：從集中式到分佈式的演進</h2>
+<p>Web架構正在從集中式向分佈式演進。傳統模式：代碼部署在一個機房，全球用戶訪問。新模式：計算推到邊緣節點，離用戶最近的地方處理。前面講過Cloudflare Workers，這是邊緣計算。邊緣渲染是它的進階：在邊緣節點做SSR，而不是隻做靜態託管。</p>
+<p>傳統SSR：服務器在一個地方，美國用戶訪問要跨洋。邊緣SSR：在全球幾百個節點都渲染，用戶從最近節點拿渲染好的HTML，延遲極低。</p>
+<p>好處：全球用戶都快（不用跨洋）；源站壓力小（邊緣節點擋掉大部分請求）；天然抗DDoS（流量在邊緣被清洗）。</p>
+<p>實現：Cloudflare Pages Functions、Vercel Edge Functions、Netlify Edge Functions。在邊緣寫SSR邏輯，部署後自動在全球節點運行。</p>
+<p>趨勢：Web架構從"一個服務器服務所有人"變成"全球節點協同服務"。邊緣計算、邊緣渲染、邊緣數據庫，整個技術棧都在下移到離用戶最近的地方。</p>
+<p>這是Web架構的大方向：更快、更近、更分佈式。理解這個趨勢，就理解了Cloudflare、Vercel這些公司為什麼崛起。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-gray-release-abtest.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 灰度發佈與AB測試</a><a href="article-tech-db-sharding-practice.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分庫分表實戰</a><a href="article-tech-frontend-monitoring.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端監控體系搭建</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="Git與版本控制工作流 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="Git與版本控制工作流, Git">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-190.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-190.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-190.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-190.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git與版本控制工作流 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Git與版本控制工作流 - CaesarTools">
+<meta property="og:description" content="Git與版本控制工作流 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-190.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Git與版本控制工作流","description":"Git與版本控制工作流 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-190.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>Git與版本控制工作流</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># Git與版本控制：從單人提交到團隊協作的完整工作流</p>
+<p>Git是每個開發者每天都在用的工具，但絕大多數人只掌握了最基礎的幾條命令——add、commit、push、pull。一旦遇到分支衝突、歷史回滾、多人協作、代碼審查這些稍微複雜的場景，就開始手忙腳亂，甚至用刪除倉庫重新克隆這種"核武器"級別的操作來解決問題。版本控制不是簡單的備份工具，它是一套完整的工程協作體系。理解Git的底層原理、掌握分支管理策略、熟悉團隊協作流程，能讓開發效率提升一個量級，也能避免因為誤操作導致幾天的代碼付諸東流。</p>
+<p>## 一、Git的本質：快照而非差異</p>
+<p>很多人以為Git是記錄文件每次修改了哪些行——類似Word裡的修訂模式。實際上Git的工作方式完全不同：它記錄的是每次提交時整個項目的快照。如果文件沒有變化，Git不會再存一份副本，而是指向之前已經存儲的那份。這種設計讓Git的提交極其輕量，創建分支幾乎是零成本的操作。</p>
+<p>理解這個底層設計，很多Git的特性就順理成章了。為什麼Git分支這麼快？因為分支本質上只是一個指向某次提交的指針，創建分支就是新增一個40字節的文件，寫一個哈希值進去而已。為什麼切換分支很快？因為Git只是把工作目錄的文件替換成目標分支快照的內容，沒有複雜的差異合併計算。</p>
+<p>每次commit在Git裡都是一個完整的快照對象，包含了指向父提交的指針、作者信息、時間戳、提交說明，以及指向項目根目錄樹的指針。這就是為什麼Git可以輕鬆回退到任何歷史版本——每個提交都是完整的項目快照，不需要從初始版本一步步計算差異。</p>
+<p>## 二、三種狀態：理解文件在Git中的旅程</p>
+<p>Git裡的文件有三種狀態：已修改（modified）、已暫存（staged）、已提交（committed）。這個三態模型是理解Git工作流的關鍵。</p>
+<p>你編輯了一個文件，它處於modified狀態——Git知道它和上次提交不一樣了，但還沒有標記它要被包含在下一次提交裡。你運行git add，這個文件就進入staged狀態——你告訴Git"下次提交把這個改動包含進去"。然後你運行git commit，staged區域的改動被永久記錄到倉庫裡，文件變成committed狀態。</p>
+<p>很多新手困惑為什麼我改了文件、commit了，push上去卻沒有變化。大概率是忘了git add，直接commit了——這時候staged區域是空的，commit出來的是一個空提交，改動還停留在工作區。理解這三個狀態的流轉，就能避免這類低級錯誤。</p>
+<p>## 三、分支策略：GitFlow不如Trunk Based</p>
+<p>很多團隊一上來就照搬GitFlow那套複雜的分支模型：master主分支、develop開發分支、feature功能分支、release發佈分支、hotfix緊急修復分支，分支命名規則一大堆。小團隊用這套流程，光是管理分支就把開發效率拖沒了。</p>
+<p>現代主流的趨勢是Trunk Based Development（主幹開發）：所有人都往main分支提交，每個人的開發分支生命週期很短——一兩天就合併回主幹。需要發佈的時候，從main打一個tag或者建一個release分支做最後的修復。這種模式的核心是小步快跑、頻繁集成，避免大家在各自的feature分支上開發幾周後合併時地獄級衝突。</p>
+<p>feature分支還是要有的，但應該很小、很短。一個功能開一個分支，一兩天做完就合併。不要一個feature分支掛幾周不動，等到合併的時候代碼已經天翻地覆了。</p>
+<p>## 四、解決衝突：最不可怕的噩夢</p>
+<p>合併分支時出現衝突，是很多新手最害怕的時刻。打開文件看到<<<<<<< HEAD、=======、>>>>>>> feature這樣的標記，完全不知道該怎麼辦。</p>
+<p>其實衝突並不可怕。衝突的意思很簡單：同一個文件的同一行，你改了一版，別人改了另一版，Git不知道該保留哪個。你需要手動打開文件，看看兩邊分別改了什麼，然後決定保留什麼——有時候全留、有時候只留一邊、有時候需要融合兩邊的改動。改完之後刪掉那些衝突標記，git add，再git commit就好了。</p>
+<p>解決衝突的關鍵原則是：不要盲目選擇" ours"或"theirs"。要真正讀懂兩邊的代碼在做什麼，理解為什麼會衝突，然後做出正確的合併決定。很多衝突其實是兩個人改了同一段代碼做了不同的事，需要坐下來聊一下到底要哪個邏輯。</p>
+<p>## 五、Rebase vs Merge：線性歷史的美學</p>
+<p>合併分支有兩種方式：merge和rebase。merge會產生一個新的合併提交，把兩條分支歷史連在一起，歷史圖上會出現分叉和匯合的線條。rebase則是把你當前分支的提交"摘下來"，接到目標分支的最新提交後面，歷史變成一條直線。</p>
+<p>很多團隊規定"禁止rebase已推送的公共分支"，這是對的。因為rebase會改寫提交歷史——原來的commit哈希會變。如果你rebase了一個別人也在基於開發的公共分支，其他人拉代碼的時候就會出現混亂。</p>
+<p>但在你自己的feature分支上，rebase是非常好用的。在合併到主幹之前，先把main分支最新的改動rebase到你的feature分支上，解決衝突後再合併，主幹的歷史就乾淨利落，一條直線。不要把一大堆merge commit的噪音帶進主幹歷史。</p>
+<p>## 六、回滾：後悔藥的正確喫法</p>
+<p>代碼寫錯了想回退，新手的做法是git reset --hard到某個版本，然後發現——完了，剛才寫的代碼全沒了。</p>
+<p>回退要分情況。如果改動還沒提交、就在工作區，git checkout -- file可以丟棄單個文件的改動。如果已經commit了但還沒push，git reset --soft HEAD~1可以撤銷最近一次commit，但保留改動在暫存區，你可以重新整理後再提交。如果已經push到遠程了，不要強行reset後force push——別人可能已經基於那個提交開發了。正確的做法是用git revert創建一個新的"反向提交"，把那次提交的改動撤銷掉，歷史保持不變。</p>
+<p>git reflog是後悔藥中的後悔藥。哪怕你reset --hard把代碼丟了，只要reflog裡還記錄着之前的HEAD位置，你就能找回來。Git幾乎不會真正丟失你的提交，只要它曾經進入過Git的對象數據庫。</p>
+<p>## 七、Commit規範：寫好提交信息</p>
+<p>一個好的commit message應該說清楚"為什麼改"，而不是"改了什麼"。代碼本身已經說明了改了什麼，而為什麼要改這個代碼——是修了什麼BUG、加了什麼功能、為什麼這麼設計——這些信息才是未來看歷史的人最需要的。</p>
+<p>業界常用的約定式提交格式：type(scope): subject。type是feat/fix/docs/refactor/test/chore，說明這次提交的類型；scope是影響範圍；subject是一句話描述。比如feat(user): 增加手機號登錄方式，fix(order): 修復滿減計算精度問題。這種規範的好處是可以自動生成CHANGELOG，也讓你一眼就能從git log裡找到某次改動的目的。</p>
+<p>## 八、總結</p>
+<p>Git是一個設計非常優雅的工具，但它的學習曲線確實陡峭。大多數人卡在基礎操作上，是因為不理解底層的數據模型——快照、指針、三態。理解了這些，分支、合併、rebase這些概念就不再是黑盒。</p>
+<p>團隊協作中，好的Git工作流不是越複雜越好，而是越簡單越能堅持下去。小分支、頻繁合併、乾淨的提交歷史、規範的commit message，這些習慣看起來不起眼，但在項目生命週期裡會持續產生價值。代碼倉庫不只是代碼存儲的地方，它是團隊集體記憶的載體。善待你的Git歷史，就是善待三個月後回來維護代碼的自己。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-193.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 消息隊列與異步架構</a><a href="article-tech-200.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 數據庫分庫分表</a><a href="article-tech-198.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 設計模式實戰</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

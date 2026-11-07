@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-226.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-226.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-226.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-226.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript防抖與節流（12） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 JavaScript防抖與節流 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript防抖與節流, JavaScript, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript防抖與節流 - CaesarTools">
+<meta property="og:description" content="JavaScript防抖與節流 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-226.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript防抖與節流（12）","description":"← 返回文章列表 JavaScript防抖與節流 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-226.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript防抖與節流（12）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼需要防抖節流</h2>
+<p>輸入框每次按鍵都發請求，瘋狂打後端。滾動事件每幀觸發，主線程忙。防抖節流控制觸發頻率。</p>
+<h2>二、防抖debounce</h2>
+<p>等最後一次觸發後再執行。輸入框搜索用：</p>
+<p>function debounce(fn, delay) {</p>
+<p>let timer;</p>
+<p>return (...args) => {</p>
+<p>clearTimeout(timer);</p>
+<p>timer = setTimeout(() => fn(...args), delay);</p>
+<p>};</p>
+<p>}</p>
+<p>const onSearch = debounce(search, 300);</p>
+<h2>三、節流throttle</h2>
+<p>固定時間間隔執行一次。滾動用：</p>
+<p>function throttle(fn, interval) {</p>
+<p>let last = 0;</p>
+<p>return (...args) => {</p>
+<p>const now = Date.now();</p>
+<p>if (now - last >= interval) {</p>
+<p>last = now;</p>
+<p>fn(...args);</p>
+<p>}</p>
+<p>};</p>
+<p>}</p>
+<h2>四、對比</h2>
+<p>防抖：停止輸入後執行一次。</p>
+<p>節流：每300毫秒執行一次。</p>
+<h2>五、常見場景</h2>
+<p>輸入搜索：防抖。</p>
+<p>滾動加載：節流。</p>
+<p>窗口resize：防抖。</p>
+<h2>六、總結</h2>
+<p>防抖節流控制事件頻率。防抖等最後一次，節流固定間隔。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-220.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript深拷貝與淺拷貝</a><a href="article-222.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a><a href="article-230.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS證書申請實戰</a></div>
+</body>
+</html>

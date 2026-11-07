@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-723.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-723.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-723.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-723.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Docker容器化部署實戰（3） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 Docker容器化部署實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="Docker容器化部署實戰, Docker">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="Docker容器化部署實戰 - CaesarTools">
+<meta property="og:description" content="Docker容器化部署實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-723.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Docker容器化部署實戰（3）","description":"← 返回文章列表 Docker容器化部署實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-723.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>Docker容器化部署實戰（3）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、Docker解決了什麼問題</h2>
+<p>"在我電腦上能跑"是每個程序員都聽過的吐槽。開發機Mac，測試Windows，生產Linux，環境不一致導致bug修不完。Docker把應用和它的依賴（Node版本、系統庫、環境變量）一起打包成一個鏡像。這個鏡像在任何裝了Docker的機器上跑起來都一模一樣。</p>
+<h2>二、寫一個Dockerfile</h2>
+<p>FROM node:20-alpine</p>
+<p>WORKDIR /app</p>
+<p>COPY package*.json ./</p>
+<p>RUN npm ci --production</p>
+<p>COPY . .</p>
+<p>EXPOSE 3000</p>
+<p>CMD ["node", "app.js"]</p>
+<p>逐行解釋：FROM選基礎鏡像，alpine版體積小隻有100MB，比完整版node:20的1GB小10倍。WORKDIR設置工作目錄。先COPY package.json再npm ci，利用Docker層緩存——依賴沒變就不重新install。COPY . .把代碼拷進去。EXPOSE聲明端口。CMD容器啟動命令。</p>
+<h2>三、.dockerignore</h2>
+<p>node_modules、.git、.env、dist不要打進鏡像：</p>
+<p>node_modules</p>
+<p>.git</p>
+<p>.env</p>
+<p>dist</p>
+<p>減小鏡像體積，避免本地node_modules覆蓋容器內的。</p>
+<h2>四、多階段構建</h2>
+<p>前端項目構建產物不需要Node環境：</p>
+<p>FROM node:20-alpine AS builder</p>
+<p>WORKDIR /app</p>
+<p>COPY . .</p>
+<p>RUN npm ci && npm run build</p>
+<p>FROM nginx:alpine</p>
+<p>COPY --from=builder /app/dist /usr/share/nginx/html</p>
+<p>最終鏡像只有nginx加靜態文件，體積從1GB壓到50MB。</p>
+<h2>五、docker-compose多服務</h2>
+<p>一個項目要起Node API加PostgreSQL加Redis，手動docker run三個太麻煩。docker-compose.yml：</p>
+<p>services:</p>
+<p>api:</p>
+<p>build: .</p>
+<p>ports: ["3000:3000"]</p>
+<p>environment:</p>
+<p>DATABASE_URL: postgres://db:5432/myapp</p>
+<p>db:</p>
+<p>image: postgres:16</p>
+<p>volumes: [pgdata:/var/lib/postgresql/data]</p>
+<p>redis:</p>
+<p>image: redis:alpine</p>
+<p>docker-compose up -d一行命令起三個服務。volumes持久化數據庫數據，容器重建數據不丟。</p>
+<h2>六、生產部署要點</h2>
+<p>不要用root用戶跑容器，Dockerfile加USER node。鏡像要打版本標籤，不要用latest。日誌輸出到stdout/stderr讓Docker收集。健康檢查HEALTHCHECK。資源限制--memory、--cpus防止單個容器喫滿機器。</p>
+<h2>七、常見坑</h2>
+<p>容器裡進程監聽127.0.0.1，外部訪問不到。要監聽0.0.0.0。容器重建數據丟失，數據庫數據必須掛volume。鏡像體積大，用alpine基礎鏡像加頭階段構建。</p>
+<h2>八、CI/CD裡用Docker</h2>
+<p>代碼push到GitHub後，CI自動構建鏡像推到Registry，生產服務器pull新鏡像重啟。整個過程全自動，不用人登服務器。</p>
+<h2>九、Docker網絡</h2>
+<p>容器間通信用Docker Compose服務名當域名。db容器名連接postgres://db:5432。不需要寫IP，Docker內部DNS自動解析。</p>
+<h2>十、總結</h2>
+<p>Docker是現代部署標配。寫好Dockerfile、用好層緩存、多階段構建壓縮體積、docker-compose管理多服務，一套標準流程把應用穩定部署到任何雲服務器。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-722.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器存儲：Cookie、LocalStorage、IndexedDB怎麼選</a><a href="article-72.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a><a href="article-729.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端性能優化全鏈路</a></div>
+</body>
+</html>

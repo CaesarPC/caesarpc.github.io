@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-714.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-714.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-714.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-714.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微服務和單體架構怎麼選（3） - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 微服務和單體架構怎麼選 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="微服務和單體架構怎麼選, 架構, 微服務">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="微服務和單體架構怎麼選 - CaesarTools">
+<meta property="og:description" content="微服務和單體架構怎麼選 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-714.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"微服務和單體架構怎麼選（3）","description":"← 返回文章列表 微服務和單體架構怎麼選 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-714.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>微服務和單體架構怎麼選（3）</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、兩種架構的本質區別</h2>
+<p>單體架構：所有業務模塊打包在一個進程裡，一個代碼倉庫，一個數據庫，一個部署包。改一個模塊要重新部署整個應用。</p>
+<p>微服務架構：按業務邊界把系統拆成多個獨立服務。每個服務自己管代碼、數據庫、部署。服務之間用HTTP或gRPC通信。一個服務掛了不影響其他服務。</p>
+<h2>二、單體架構的優點</h2>
+<p>開發簡單：一個IDE打開整個項目，調試跑一個進程。</p>
+<p>部署簡單：一個Docker鏡像，一個進程。</p>
+<p>事務簡單：所有操作在一個數據庫裡，ACID天然支持。</p>
+<p>溝通成本低：一個團隊負責一個應用。</p>
+<h2>三、單體架構的缺點</h2>
+<p>代碼膨脹：幾十個人寫五年，倉庫幾十萬行，新人入職一個月才敢改代碼。</p>
+<p>部署耦合：改一個小功能要全量部署，全量部署出問題全站掛。</p>
+<p>技術棧鎖定：所有模塊用同一種語言，不能局部換技術棧。</p>
+<p>擴展受限：要擴容只能整個應用擴容，不能只擴熱點模塊。</p>
+<h2>四、微服務架構的優點</h2>
+<p>獨立部署：訂單服務改了只部署訂單服務，不影響用戶服務。</p>
+<p>技術棧自由：訂單用Go高併發，AI推薦用Python，數據統計用Java。</p>
+<p>故障隔離：一個服務掛了，其他服務還能跑。</p>
+<p>按業務邊界擴展：熱點服務獨立擴容。</p>
+<h2>五、微服務的代價</h2>
+<p>分佈式複雜度：一個下單操作要調用戶服務、庫存服務、支付服務，網絡請求串行，延遲高。</p>
+<p>分佈式事務：跨服務數據一致性很難搞。本地事務在A服務成功，B服務失敗怎麼辦？</p>
+<p>運維成本爆炸：10個服務要監控10個，日誌要聚合，鏈路追蹤要花錢搭。</p>
+<p>調試難：一個請求跨5個服務，出問題要翻5個日誌。</p>
+<h2>六、什麼時候用單體</h2>
+<p>初創團隊3到5人，業務方向還在摸索。單體最快。</p>
+<p>業務還沒驗證，先跑通再說。</p>
+<p>項目週期短，幾個月就要上線。</p>
+<h2>七、什麼時候拆微服務</h2>
+<p>團隊大了，一個倉庫多個團隊互相等。</p>
+<p>不同模塊發展速度不一樣，熱點模塊要獨立擴容。</p>
+<p>有強隔離需求，一個模塊掛了不能全站掛。</p>
+<p>不同模塊技術棧差異大。</p>
+<h2>八、正確演進路徑</h2>
+<p>從單體開始。業務跑通，團隊大了，先拆出最獨立的模塊。不要一開始就上微服務。Netflix那種每秒幾萬QPS才需要微服務。一個月一萬訪問量的網站用單體綽綽有餘。</p>
+<h2>九、常見誤區</h2>
+<p>誤區1：聽說微服務高級就拆。拆完發現事務都搞不定。</p>
+<p>誤區2：拆太細。10個服務幹5個服務的事，通信開銷比業務邏輯還多。</p>
+<p>誤區3：每個服務一個數據庫。數據冗餘，同步成本高。</p>
+<h2>十、總結</h2>
+<p>架構沒有好壞，只有合不合適。小團隊單體，大團隊微服務。能不拆就不拆，拆了就要扛住分佈式複雜度。從單體開始，按需拆分。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-710.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ RESTful API設計規範實戰</a><a href="article-718.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ WebSocket實時通信實戰</a><a href="article-720.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTTPS與網站安全實戰</a></div>
+</body>
+</html>

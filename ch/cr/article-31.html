@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-31.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-31.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-31.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-31.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端測試入門：單元測試、集成測試和E2E測試 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 前端測試入門：單元測試、集成測試和E2E測試 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="前端測試入門, 單元測試, 集成測試和E2E測試, 前端">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="前端測試入門：單元測試、集成測試和E2E測試 - CaesarTools">
+<meta property="og:description" content="前端測試入門：單元測試、集成測試和E2E測試 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-31.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"前端測試入門：單元測試、集成測試和E2E測試","description":"← 返回文章列表 前端測試入門：單元測試、集成測試和E2E測試 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-31.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>前端測試入門：單元測試、集成測試和E2E測試</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼要寫測試</h2>
+<p>沒有測試的代碼，改一處不敢碰另一處。重構等於賭博。上線出bug只能靠用戶反饋。測試是給代碼上保險——改完跑一遍測試，知道沒破壞舊功能。</p>
+<h2>二、測試金字塔</h2>
+<p>底層：單元測試，多而快，測單個函數。</p>
+<p>中層：集成測試，少而穩，測模塊間配合。</p>
+<p>頂層：E2E測試，最少最慢，模擬用戶操作。</p>
+<p>越往上越慢越貴。大部分測試應該是單元測試。</p>
+<h2>三、單元測試</h2>
+<p>測單個函數，不依賴外部。用Vitest（Vite原生）或Jest。</p>
+<p>function add(a, b) { return a + b; }</p>
+<p>test('1+1=2', () => {</p>
+<p>expect(add(1,1)).toBe(2);</p>
+<p>});</p>
+<p>覆蓋正常情況、邊界情況、異常情況。</p>
+<h2>四、組件測試</h2>
+<p>React組件用Testing Library渲染組件，模擬點擊，斷言輸出。</p>
+<p>import { render, screen, fireEvent } from '@testing-library/react';</p>
+<p>test('點擊按鈕計數加一', () => {</p>
+<p>render(<Counter />);</p>
+<p>fireEvent.click(screen.getByText('+1'));</p>
+<p>expect(screen.getByText('1')).toBeInTheDocument();</p>
+<p>});</p>
+<h2>五、集成測試</h2>
+<p>測多個模塊配合。比如登錄流程：輸入賬號密碼→調API→跳首頁。API用MSW mock掉。</p>
+<h2>六、E2E測試</h2>
+<p>用Playwright或Cypress，真實瀏覽器模擬用戶操作。打開網站、點擊、輸入、斷言。慢但最接近真實。</p>
+<h2>七、覆蓋率</h2>
+<p>覆蓋率多少合適？80%是個參考線。不要為了覆蓋率寫無意義的測試。關鍵業務邏輯必須測。</p>
+<h2>八、CI裡跑測試</h2>
+<p>push代碼後GitHub Actions自動跑測試。掛了阻止合併。壞代碼上不了main。</p>
+<h2>九、常見誤區</h2>
+<p>坑1：不寫測試。遲早還債。</p>
+<p>坑2：測試實現細節不測行為。重構測試就掛。</p>
+<p>坑3：E2E測試寫太多。慢，維護成本高。</p>
+<p>坑4：mock過度。什麼都mock等於沒測。</p>
+<h2>十、TDD測試驅動開發</h2>
+<p>先寫測試再寫代碼。測試定義行為，代碼讓測試通過。好處是代碼天然可測，設計更清晰。缺點是初期慢。</p>
+<h2>十一、總結</h2>
+<p>測試是工程成熟度標誌。單元測試主力，組件測試補充，E2E測關鍵流程。CI裡自動跑。寫測試不優雅，但省未來無數次救火。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-310.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 前端SEO優化實戰</a><a href="article-311.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a><a href="article-314.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ JavaScript防抖與節流</a></div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="分佈式事務方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="分佈式事務方案對比">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-distributed-tx.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-distributed-tx.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-distributed-tx.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-distributed-tx.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分佈式事務方案對比（2） - CaesarTools</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Microsoft YaHei",sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9}
+.container{max-width:760px;margin:0 auto;padding:30px 20px}
+.hd{background:rgba(40,42,54,.9);backdrop-filter:blur(10px);padding:14px 20px;border-bottom:1px solid #44475a;position:sticky;top:0}
+.hd a{color:#50fa7b;text-decoration:none;font-size:14px}
+h1{font-size:26px;color:#50fa7b;line-height:1.4;margin:20px 0 10px}
+.meta{font-size:13px;color:#6272a4;margin-bottom:30px}
+p{margin:16px 0;font-size:15px;color:#cdd6f4;text-align:justify}
+h2{font-size:20px;color:#8be9fd;margin:35px 0 12px;border-left:3px solid #8be9fd;padding-left:12px}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="分佈式事務方案對比 - CaesarTools">
+<meta property="og:description" content="分佈式事務方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-distributed-tx.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"分佈式事務方案對比（2）","description":"分佈式事務方案對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-distributed-tx.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="hd"><a href="articles.html">← 文章列表</a></div>
+<div class="container">
+<h1>分佈式事務方案對比（2）</h1>
+<div class="meta">CaesarTools · 約2000字 · 閱讀約8分鐘</div>
+<h2>分佈式事務方案對比：跨服務數據一致性的解決之路</h2>
+<p>本地事務很簡單：數據庫的ACID，一個事務裡多個操作要麼都成功要麼都回滾。但微服務架構下，一個業務操作涉及多個服務、多個數據庫：下單要扣庫存服務、扣餘額服務、創建訂單服務，這三個操作在三個數據庫裡，本地事務管不了。分佈式事務就是解決跨服務的數據一致性問題。</p>
+<p>2PC（兩階段提交）是經典的強一致性方案。協調者先問所有參與者"能提交嗎"（Prepare階段），全部回答能再通知大家提交（Commit階段）；任何一個回答不能就全部回滾。理論完美，但實際很少用：同步阻塞（所有參與者鎖定資源等協調者）、協調者單點故障、性能差。</p>
+<p>3PC做了改進但更復雜，實際也很少用。</p>
+<p>本地消息表方案是實戰中常用的最終一致性方案。業務數據庫裡建一張消息表，業務操作和寫消息放在同一個本地事務裡——要麼都成功。後台任務掃描消息表，把消息發到消息隊列，消費者處理完刪除消息。這樣保證了"業務成功則消息一定發出"。消費者處理失敗就重試，最終一致。</p>
+<p>事務消息是RocketMQ提供的方案：半消息機制。先發半消息（消費者不可見），執行本地事務，成功就提交消息讓消費者可見，失敗就回滾消息。保證本地事務和消息發送的一致性。</p>
+<p>TCC（Try-Confirm-Cancel）是業務層面的兩階段：Try階段預留資源（凍結庫存）、Confirm確認執行（扣減庫存）、Cancel取消（釋放凍結）。需要業務代碼實現三個接口，侵入性強但控制力強。適合對一致性要求高的資金類業務。</p>
+<p>Saga模式是長事務的拆分：把大事務拆成一系列本地事務，每個本地事務有對應的補償操作。正向執行一步步走，某步失敗就反向執行已完成步驟的補償。適合流程長、涉及步驟多的業務（如訂票：訂機票→訂酒店→租車，失敗了依次取消）。</p>
+<p>實際選型：大多數互聯網業務用最終一致性就夠了（本地消息表+MQ重試），幾秒內一致用戶可接受。資金類、強一致要求的用TCC。不要一開始就上強一致性方案，性能代價太大。</p>
+<p>分佈式事務沒有銀彈。理解每種方案的代價和適用場景，根據業務對一致性的要求做權衡，才是成熟的做法。</p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-edge-rendering.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 邊緣渲染與下一代Web架構</a><a href="article-tech-distributed-lock.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 分佈式鎖實現方案</a><a href="article-tech-css-animation-perf.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ CSS動畫與性能優化</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-166.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-166.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-166.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-166.html">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JavaScript數組方法速查與實戰 - CaesarTools</title>
+<meta name="description" content="← 返回文章列表 JavaScript數組方法速查與實戰 CaesarTools 技術文章 · 2026-10-15">
+<meta name="keywords" content="JavaScript數組方法速查與實戰, JavaScript, Java">
+
+<link rel="icon" href="../icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.8}
+.wrap{max-width:800px;margin:0 auto;padding:40px 20px}
+.back{display:inline-block;color:#8be9fd;font-size:14px;text-decoration:none;margin-bottom:20px}
+h1{font-size:26px;color:#50fa7b;margin-bottom:8px;line-height:1.4}
+.meta{color:#6272a4;font-size:13px;margin-bottom:30px;padding-bottom:15px;border-bottom:1px solid #44475a}
+.content{font-size:15px;color:#cdd6f4;line-height:2}
+.content p{margin-bottom:16px}
+.content h2{color:#8be9fd;font-size:19px;margin:28px 0 12px}
+.content h3{color:#f9e2af;font-size:16px;margin:20px 0 8px}
+.content strong{color:#50fa7b}
+.foot{text-align:center;color:#6272a4;font-size:12px;margin-top:50px;padding-top:20px;border-top:1px solid #44475a}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="JavaScript數組方法速查與實戰 - CaesarTools">
+<meta property="og:description" content="JavaScript數組方法速查與實戰 - CaesarBase 免費技術文章">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-166.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JavaScript數組方法速查與實戰","description":"← 返回文章列表 JavaScript數組方法速查與實戰 CaesarTools 技術文章 · 2026-10-15","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-166.html"}</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/cr/articles.html">← 返回文章列表</a>
+<h1>JavaScript數組方法速查與實戰</h1>
+<div class="meta">CaesarTools 技術文章 · 2026-10-15</div>
+<div class="content">
+<h2>一、為什麼數組方法重要</h2>
+<p>數組是JS裡最常用的數據結構。寫業務就是處理數據：列表渲染、篩選、排序、統計。掌握數組方法，代碼從for循環變成聲明式，可讀性翻倍。</p>
+<h2>二、遍歷方法</h2>
+<h3>2.1 map</h3>
+<p>map遍歷返回新數組，每個元素加工一次。</p>
+<p>const doubled = [1,2,3].map(x => x*2); // [2,4,6]</p>
+<p>渲染列表：list.map(item => <div>{item.name}</div>)。</p>
+<h3>2.2 forEach</h3>
+<p>遍歷但不返回新數組。副作用操作用：</p>
+<p>arr.forEach(item => console.log(item));</p>
+<p>要返回值用map，不要用forEach硬湊。</p>
+<h2>三、篩選和查找</h2>
+<h3>3.1 filter</h3>
+<p>過濾出符合條件的元素：</p>
+<p>const adults = users.filter(u => u.age >= 18);</p>
+<h3>3.2 find</h3>
+<p>找第一個符合的元素，找不到返回undefined。</p>
+<p>const user = users.find(u => u.id === 1);</p>
+<h3>3.3 some和every</h3>
+<p>some：有一個符合就true。</p>
+<p>every：全部符合才true。</p>
+<p>const hasAdmin = users.some(u => u.role === 'admin');</p>
+<h2>四、歸約</h2>
+<p>reduce把數組歸約成一個值：</p>
+<p>const sum = [1,2,3].reduce((acc, x) => acc + x, 0); // 6</p>
+<p>統計、分組、扁平化都能寫。</p>
+<h2>五、判斷和包含</h2>
+<p>includes：arr.includes(3)。</p>
+<p>indexOf：找不到返回-1。</p>
+<p>findIndex：找索引。</p>
+<h2>六、排序和反轉</h2>
+<p>sort默認按字符串排數字要小心：</p>
+<p>[1,10,2].sort((a,b) => a-b); // [1,2,10]</p>
+<p>reverse反轉。</p>
+<h2>七、變形</h2>
+<p>flat展平嵌套數組：[1,[2,[3]]].flat(2); // [1,2,3]</p>
+<p>flatMap map後flat一層。</p>
+<h2>八、常見坑</h2>
+<p>坑1：map裡寫if不return，得到undefined。</p>
+<p>坑2：sort沒傳比較函數，數字排序錯。</p>
+<p>坑3：for循環裡異步，順序亂。用for await。</p>
+<h2>九、鏈式調用</h2>
+<p>數組方法都返回新數組，可以鏈式：</p>
+<p>const result = users</p>
+<p>.filter(u => u.age >= 18)</p>
+<p>.map(u => u.name)</p>
+<p>.sort();</p>
+<p>一行一行讀，從左到右數據流。</p>
+<h2>十、總結</h2>
+<p>map加工、filter篩選、find查找、reduce歸約、some/every判斷。掌握這幾個，數組業務代碼90%搞定。</p>
+
+</div>
+<div class="foot">CaesarTools · 免費技術站</div>
+</div>
+<script src="/cr/clip.js"></script>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-157.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ Node.js進程管理PM2</a><a href="article-173.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ MySQL索引實戰</a><a href="article-158.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ HTML語義化標籤實戰</a></div>
+</body>
+</html>

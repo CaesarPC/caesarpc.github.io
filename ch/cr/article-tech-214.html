@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta charset="UTF-8">
+<meta name="description" content="排序算法效率對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta name="keywords" content="排序算法效率對比">
+
+<link rel="canonical" href="https://caesarpc.github.io/ch/cr/article-tech-214.html"><link rel="alternate" hreflang="zh-Hans" href="https://caesarpc.github.io/cr/article-tech-214.html"><link rel="alternate" hreflang="zh-Hant" href="https://caesarpc.github.io/ch/cr/article-tech-214.html"><link rel="alternate" hreflang="x-default" href="https://caesarpc.github.io/cr/article-tech-214.html"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>排序算法效率對比 - CaesarTools</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#1e1e2e;color:#e6e6e6;line-height:1.9;padding:20px;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto}
+.back{display:inline-block;color:#50fa7b;text-decoration:none;font-size:14px;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+h1{font-size:24px;color:#50fa7b;line-height:1.3;margin-bottom:12px;font-weight:700}
+.meta{font-size:13px;color:#6272a4;margin-bottom:32px}
+p{margin-bottom:16px;text-indent:2em;font-size:15px;color:#c8ccd4;line-height:1.9}
+a{color:#50fa7b;text-decoration:none}
+a:hover{text-decoration:underline}
+
+@media(max-width:600px){
+  .wrap{padding:16px 10px !important}
+  .article-box{padding:16px !important}
+  h1{font-size:22px !important}
+  .meta{font-size:12px !important}
+  .breadcrumb{font-size:12px !important}
+  pre{font-size:12px !important;padding:10px !important;overflow-x:auto}
+  code{font-size:12px !important}
+  table{font-size:12px !important;display:block;overflow-x:auto}
+}
+</style>
+<meta name="theme-color" content="#1e1e2e">
+<meta property="og:title" content="排序算法效率對比 - CaesarTools">
+<meta property="og:description" content="排序算法效率對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。">
+<meta property="og:url" content="https://caesarpc.github.io/ch/cr/article-tech-214.html">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"排序算法效率對比","description":"排序算法效率對比 - CaesarTools - CaesarBase 免費技術站，提供在線工具、編碼轉換、技術文章和安全研究。","datePublished":"2026-10-06","dateModified":"2026-10-15","author":{"@type":"Organization","name":"CaesarBase"},"publisher":{"@type":"Organization","name":"CaesarBase"},"mainEntityOfPage":"https://caesarpc.github.io/ch/cr/article-tech-214.html"}</script>
+<link rel="icon" href="/icon-192.png">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SM262RX152"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SM262RX152');</script>
+</head>
+<body>
+<div class="wrap">
+<a href="articles.html" class="back">← 返回文章列表</a>
+<h1>排序算法效率對比</h1>
+<h2>概述</h2>
+<div class="meta">CaesarTools · 技術教程</div>
+<p># 排序算法：從冒泡到快速排序的效率演進</p>
+<p>排序是計算機科學中最基礎的操作之一。你每天都在用排序——商品按價格排序、消息按時間排序、搜索結果按相關度排序。看似簡單的"把一列數字從小到大排好"，背後有好幾種不同的算法，效率天差地別。理解常見排序算法的原理和適用場景，是數據結構基本功。</p>
+<p>## 一、冒泡排序：最直觀但最慢</p>
+<p>冒泡排序的思路：重複遍歷數組，比較相鄰兩個元素，如果前面的比後面的大就交換。每一輪遍歷，最大的元素像氣泡一樣"浮"到最後。</p>
+<p>實現簡單，邏輯直觀，但效率極低——時間複雜度O(n²)。n=1000要比較50萬次。n=100萬就完全跑不動了。實際工程中幾乎不用冒泡排序，它只出現在教科書和面試入門題裡。</p>
+<p>## 二、選擇排序與插入排序</p>
+<p>選擇排序：每次遍歷找到最小的元素，放到已排序部分的末尾。也是O(n²)，比冒泡稍微好一點點，但本質一樣慢。</p>
+<p>插入排序：像打撲克牌整理手牌——拿到一張新牌，從右往左找到它應該在的位置插進去。對於基本有序的小數組，插入排序非常快——因為大部分元素已經在正確位置了。很多高級排序算法在小數組時會切換到插入排序，利用它在小規模數據上的優勢。</p>
+<p>## 三、歸併排序：分治的力量</p>
+<p>歸併排序用分治思想：把數組從中間分成兩半，遞歸地排好左半邊和右半邊，然後把兩個有序數組合併成一個。</p>
+<p>合併兩個有序數組很簡單：兩個指針分別指向兩個數組頭部，每次取較小的那個放進結果數組。</p>
+<p>歸併排序時間複雜度O(n log n)，穩定且可預測——最好最壞都是O(n log n)。缺點是需要額外的O(n)空間來存放合併後的數組。在鏈表排序中歸併排序特別有用，因為鏈表不需要額外空間。</p>
+<p>## 四、快速排序：工程界的標杆</p>
+<p>快速排序也是分治，但策略不同。選一個基準元素（pivot），把數組分成兩部分：比pivot小的放左邊，比pivot大的放右邊。然後遞歸地對左右兩部分再排序。</p>
+<p>快速排序平均時間複雜度O(n log n)，常數因子很小——實際跑起來比歸併排序還快，因為數據都在內存裡操作，緩存友好。它是絕大多數編程語言標準庫排序函數的底層實現（C的qsort、Java的Arrays.sort）。</p>
+<p>最壞情況（每次選的pivot都是最大或最小元素）是O(n²)，但通過隨機選pivot可以幾乎避免這種情況。</p>
+<p>## 五、堆排序：利用堆數據結構</p>
+<p>堆是一種特殊的完全二叉樹——大頂堆每個父節點都比子節點大。先把數組建成大頂堆，堆頂就是最大元素。把堆頂和最後一個元素交換，然後重新調整堆。重複n次，數組就排好了。</p>
+<p>堆排序也是O(n log n)，原地排序不需要額外空間。但實際性能比快速排序差——因為堆排序的內存訪問模式不連續，緩存不友好。</p>
+<p>## 六、實際開發中用什麼</p>
+<p>你不需要手寫排序算法——編程語言標準庫已經實現了高效的排序函數。JS的Array.sort()、Python的sorted()、Java的Collections.sort()，底層都是優化過的快速排序或歸併排序。你需要知道的是：排序是O(n log n)的操作，不要自己寫O(n²)的排序。</p>
+<p>選擇排序算法的關鍵不是記住每種算法怎麼寫，而是理解為什麼O(n log n)比O(n²)快得多，以及分治思想如何把一個O(n²)的問題優化到O(n log n)。</p>
+<p>## 七、總結</p>
+<p>從冒泡的O(n²)到快排的O(n log n)，排序算法的演進就是效率不斷提升的過程。實際開發中用庫函數就行，但理解底層原理，能幫你在需要自定義排序邏輯時做出正確的性能判斷。</p>
+<p><a href="articles.html">← 返回文章列表</a></p>
+</div>
+<div class="related-articles" style="margin-top:40px;padding:20px;background:#1e1e2e;border-radius:12px;border:1px solid #44475a"><h3 style="color:#50fa7b;font-size:16px;margin:0 0 12px">📖 相關閱讀</h3><a href="article-tech-208.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 遞歸與動態規劃</a><a href="article-tech-217.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 瀏覽器事件循環</a><a href="article-tech-224.html" style="display:block;padding:8px 0;color:#8be9fd;text-decoration:none;border-bottom:1px solid #282a36;font-size:14px">→ 圖片優化</a></div>
+<script src="/cr/clip.js"></script>
+</body>
+</html>
