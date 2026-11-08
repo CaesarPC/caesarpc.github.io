@@ -406,5 +406,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (iPad; CPU OS 17_7_11 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 doubao_15.6.0 JsSdk/2.0 NetType/MOBILE Channel/App Store Rifle_15.6.0 WKWebView/1 Bullet/1 doubao/15.6.0 BulletTag/357C8F4B-4D3E-4250-B563-70C7189AF706 FalconTag/E09E40B7-DC25-4308-8DD1-3007E380AB",
   "ref": ""
+ },
+ {
+  "id": 1794098780061,
+  "ts": 1794098780061,
+  "time": "2026-11-08 08:46",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36",
+  "ref": "https://www.google.com/"
  }
 ]
