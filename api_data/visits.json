@@ -446,5 +446,13 @@
   "page": "admin.html",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Mobile/15E148 Safari/604.1",
   "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1794558589201,
+  "ts": 1794558589201,
+  "time": "2026-11-13 08:29",
+  "page": "index.html",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.80 Safari/537.36",
+  "ref": ""
  }
 ]
