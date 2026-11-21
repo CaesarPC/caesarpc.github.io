@@ -598,5 +598,13 @@
   "page": "index.html",
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.14 Safari/605.1.15",
   "ref": "https://caesarpc.github.io/cr/index.html"
+ },
+ {
+  "id": 1795231119220,
+  "ts": 1795231119220,
+  "time": "2026-11-21 11:18",
+  "page": "CaesarBase主站",
+  "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Mobile Safari/537.36",
+  "ref": "https://www.google.com/"
  }
 ]
