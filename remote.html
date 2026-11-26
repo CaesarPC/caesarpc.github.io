@@ -10,84 +10,45 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 .spin{width:40px;height:40px;border:3px solid #333;border-top-color:#0a84ff;border-radius:50%;margin:0 auto 20px;animation:r 1s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 .err{color:#ff453a}
-.go{display:block;width:100%;box-sizing:border-box;margin:10px 0;padding:18px 20px;border:none;border-radius:14px;font-size:19px;font-weight:600;color:#fff;background:#0a84ff;cursor:pointer;text-align:center;font-family:inherit}
-.go small{display:block;font-weight:400;font-size:13px;opacity:.85;margin-top:6px}
-.go.alt{background:#3a3a3c}
-.tip{color:#8e8e93;font-size:13px;line-height:1.6;margin-top:14px}
-.card{display:none}
-.card.show{display:block}
+.go{display:block;width:100%;box-sizing:border-box;margin:18px 0;padding:16px 20px;border:none;border-radius:14px;font-size:18px;font-weight:600;color:#fff;background:#0a84ff;cursor:pointer;text-align:center;font-family:inherit}
+.tip{color:#8e8e93;font-size:13px;line-height:1.7;margin-top:16px}
 </style>
-<link rel="stylesheet" href="/fonts/lxgw-wenkai-lite/lxgw-wenkai-lite.css">
 </head>
 <body>
 <div class="box">
   <div id="spin" class="spin"></div>
-  <div id="msg">正在获取远程地址…</div>
-  <div id="card" class="card">
-    <button id="btnDirect" class="go">直连（IPv6 · 最快）<small id="dTip"></small></button>
-    <button id="btnTunnel" class="go alt">隧道（兼容 · 较慢）<small>iPad 没有 IPv6 时用这个</small></button>
-    <div class="tip">直连走你家宽带，画质和帧率都高很多。<br>点直连若打不开（提示找不到服务器），回上一页点隧道即可。</div>
-  </div>
+  <div id="msg">正在连接电脑…</div>
+  <div class="tip" id="tip">连上之后如果 IPv6 可用会自动切到直连，不用你选。</div>
 </div>
 <script>
 (function(){
   var msg=document.getElementById('msg');
   var spin=document.getElementById('spin');
-  var card=document.getElementById('card');
-  var btnD=document.getElementById('btnDirect');
-  var btnT=document.getElementById('btnTunnel');
-  var dTip=document.getElementById('dTip');
-  var turl=null, dlist=[];
+  var tip=document.getElementById('tip');
+  var t0=Date.now();
 
   function fail(t){
-    spin.style.display='none'; card.classList.remove('show');
-    msg.innerHTML='<span class="err">'+t+'</span><br><br>'+
-      '<button class="go alt" onclick="location.reload()" style="max-width:220px;margin:0 auto">重试</button>';
-  }
-
-  function ready(){
-    if(!turl && !dlist.length){ fail('电脑未在线'); return; }
-    if(!dlist.length){
-      // 没有 IPv6：老行为，直接跳隧道
-      msg.textContent='正在连接电脑（隧道）…';
-      window.location.replace(turl);
-      return;
-    }
     spin.style.display='none';
-    msg.textContent='';
-    if(!turl){ btnT.style.display='none'; }
-    card.classList.add('show');
+    msg.innerHTML='<span class="err">'+t+'</span>';
+    tip.innerHTML='<button class="go" onclick="location.reload()">重试</button>';
   }
 
-  btnD.onclick=function(){
-    try{localStorage.setItem('rc_pref','direct')}catch(e){}
-    msg.textContent='正在直连…';
-    window.location.replace(dlist[0]);
-  };
-  btnT.onclick=function(){
-    try{localStorage.setItem('rc_pref','tunnel')}catch(e){}
-    msg.textContent='正在连接隧道…';
-    window.location.replace(turl);
-  };
+  function go(u){
+    msg.textContent='正在连接电脑（隧道）…';
+    window.location.replace(u);
+  }
 
-  // 上次选过直连就默认高亮；两条都可用时把直连放前面
-  try{
-    if(localStorage.getItem('rc_pref')==='tunnel'){ card.insertBefore(btnT,btnD); }
-  }catch(e){}
-
-  var done=0;
-  function finish(){ if(++done<2) return; ready(); }
-
-  fetch('remote/url.json?ts='+Date.now()).then(function(r){return r.json()})
-    .then(function(d){ turl=d.url||null; }).catch(function(){}).then(finish);
-
-  fetch('remote/direct.json?ts='+Date.now()).then(function(r){return r.json()})
+  fetch('remote/url.json?ts='+Date.now(),{cache:'no-store'})
+    .then(function(r){return r.json()})
     .then(function(d){
-      dlist=(d.direct||[]).slice(0,3);
-      dTip.textContent = dlist.length ? ('本机 IPv6 已就绪') : '';
-    }).catch(function(){}).then(finish);
+      if(d&&d.url){go(d.url);}
+      else{fail('电脑没在线（隧道地址为空）');}
+    })
+    .catch(function(){fail('取不到隧道地址，检查电脑是否开机');});
 
-  setTimeout(function(){ if(!card.classList.contains('show') && !turl && !dlist.length) fail('获取地址超时'); },8000);
+  setTimeout(function(){
+    if(Date.now()-t0>9000&&document.body.contains(spin)){fail('连接超时');}
+  },9500);
 })();
 </script>
 </body>
