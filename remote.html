@@ -3,52 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>远程控制入口</title>
+<title>远程控制</title>
 <style>
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-family:"LXGW WenKai Lite","LXGW WenKai","Kaiti SC",-apple-system,sans-serif}
-.box{text-align:center;padding:24px;max-width:520px;width:100%}
-.spin{width:40px;height:40px;border:3px solid #333;border-top-color:#0a84ff;border-radius:50%;margin:0 auto 20px;animation:r 1s linear infinite}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font-family:-apple-system,sans-serif}
+.box{text-align:center}
+.spin{width:40px;height:40px;border:3px solid #333;border-top-color:#0a84ff;border-radius:50%;margin:0 auto 18px;animation:r 1s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 .err{color:#ff453a}
-.go{display:block;width:100%;box-sizing:border-box;margin:18px 0;padding:16px 20px;border:none;border-radius:14px;font-size:18px;font-weight:600;color:#fff;background:#0a84ff;cursor:pointer;text-align:center;font-family:inherit}
-.tip{color:#8e8e93;font-size:13px;line-height:1.7;margin-top:16px}
+.go{display:block;margin:22px auto 0;padding:14px 34px;border:none;border-radius:12px;font-size:17px;font-weight:600;color:#fff;background:#0a84ff;font-family:inherit}
 </style>
 </head>
 <body>
 <div class="box">
   <div id="spin" class="spin"></div>
-  <div id="msg">正在连接电脑…</div>
-  <div class="tip" id="tip">连上之后如果 IPv6 可用会自动切到直连，不用你选。</div>
+  <div id="msg">正在连接…</div>
 </div>
 <script>
 (function(){
   var msg=document.getElementById('msg');
   var spin=document.getElementById('spin');
-  var tip=document.getElementById('tip');
-  var t0=Date.now();
-
   function fail(t){
     spin.style.display='none';
-    msg.innerHTML='<span class="err">'+t+'</span>';
-    tip.innerHTML='<button class="go" onclick="location.reload()">重试</button>';
+    msg.innerHTML='<span class="err">'+t+'</span><button class="go" onclick="location.reload()">重试</button>';
   }
-
-  function go(u){
-    msg.textContent='正在连接电脑（隧道）…';
-    window.location.replace(u);
-  }
-
   fetch('remote/url.json?ts='+Date.now(),{cache:'no-store'})
     .then(function(r){return r.json()})
     .then(function(d){
-      if(d&&d.url){go(d.url);}
-      else{fail('电脑没在线（隧道地址为空）');}
+      if(d&&d.url){window.location.replace(d.url);}
+      else{fail('电脑未在线');}
     })
-    .catch(function(){fail('取不到隧道地址，检查电脑是否开机');});
-
-  setTimeout(function(){
-    if(Date.now()-t0>9000&&document.body.contains(spin)){fail('连接超时');}
-  },9500);
+    .catch(function(){fail('连接失败');});
 })();
 </script>
 </body>
