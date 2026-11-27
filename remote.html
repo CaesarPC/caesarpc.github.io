@@ -26,11 +26,37 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
     spin.style.display='none';
     msg.innerHTML='<span class="err">'+t+'</span><button class="go" onclick="location.reload()">重试</button>';
   }
+
+  function probe(url){
+    return new Promise(function(resolve){
+      var t0=performance.now();
+      fetch(url+'/?ts='+Date.now(),{cache:'no-store'})
+        .then(function(r){
+          resolve({url:url,ms:performance.now()-t0,ok:r.status<500,status:r.status});
+        })
+        .catch(function(){resolve({url:url,ms:Infinity,ok:false});});
+    });
+  }
+
   fetch('remote/url.json?ts='+Date.now(),{cache:'no-store'})
     .then(function(r){return r.json()})
     .then(function(d){
-      if(d&&d.url){window.location.replace(d.url);}
-      else{fail('电脑未在线');}
+      var list=[];
+      if(d&&Array.isArray(d.urls)&&d.urls.length){
+        d.urls.forEach(function(x){if(x&&x.url&&list.indexOf(x.url)<0)list.push(x.url);});
+      }
+      if(d&&d.url&&list.indexOf(d.url)<0){list.push(d.url);}
+      if(!list.length){fail('电脑未在线');return;}
+      msg.textContent='正在选择最快线路…';
+      Promise.all(list.map(probe)).then(function(res){
+        var ok=res.filter(function(x){return x.ok;});
+        ok.sort(function(a,b){return a.ms-b.ms;});
+        if(ok.length){
+          location.replace(ok[0].url);
+        }else{
+          fail('线路暂不可用');
+        }
+      });
     })
     .catch(function(){fail('连接失败');});
 })();
